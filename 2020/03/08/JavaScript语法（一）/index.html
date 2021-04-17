@@ -1,0 +1,540 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0"><meta name="description" content="JavaScript语法（一） [ Hexo ] "><meta name="theme-color" content="#ebc65a"><title>JavaScript语法（一） [ Hexo ] </title><style>@font-face {
+  font-family: 'Abril Fatface';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Abril Fatface'), local('AbrilFatface-Regular'), url(data:font/woff2;base64,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) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Abril Fatface';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Abril Fatface'), local('AbrilFatface-Regular'), url(data:font/woff2;base64,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BL3+M1K+NfPvjlJEHZTOrkYvtdprqx0Hka+W/IhsQoUJE0jsPVOhV2itgp3Wame8dsB73DeCOfp+FMSxp2At3aozP1zVQ/tmEpXdveum7kat3CaLXRcmTZHmOveMiqxSteCZOrGKmscOa9WycTUXtRFabrtts1Nb3e5qHtqWPMWtuEkMSdydcarhKoTcVXtBgujKwULbPFJvqywIzBjboUacECG6ajlIews5dBUMkJ/LYHa12gpRLEsBDAAA6raxOaTnbx4GG5J6hdn4twxT1DRvEQZvD6banOa3BbstVh48efHmw5cffwECBQkWIvK/LTbhIkSKEi1GrDjxEiRKkixFqjTpMmTKki1Hrjz5ChQqUqxEqTLlKlSqUq2e+hpoqJHGmmiqmeZhWGKoYfaZ7qXhxhtjnlWWxsBotw0xxWdfjDPDSEfc98l8q33z1XeLrXPKCeu10NJErZzR2kmnXXDWOee90sYVF12yQVsfTXLdVde088Y7o3TQXkedddLFQnb/qVGrq24cuuvhtZ5666WPfvraaZEB+htokLfe2+1GBDbalARuuueWzbbYboejttrmmBHW2O+AvUmRDMb6EEUsHHQoDskRjxRIiVRILev2qn1oaGpomZOB2z/jmn/eUk6tvaZda/5znbhPCguQ7wsEvd1strBI3OYR8ye01+ZO0jbH36oqKm37w90hl2v/wO5o3vIjtpoZx20H) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+</style><link rel="shortcut icon" href="/favicon.ico"><link rel="stylesheet" href="/css/index.css"><script src="https://cdn.bootcss.com/highlight.js/9.6.0/highlight.min.js" defer></script><script src="/js/paper.js" defer></script><script src="https://www.googletagmanager.com/gtag/js?id=xx-xxxxxxx-xx" async></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'xx-xxxxxxx-xx');</script><link rel="stylesheet" href="/css/tocbot.css"><script src="/js/tocbot.js" defer></script><script>window.addEventListener('DOMContentLoaded', () => {
+  tocbot.init({
+    // Where to render the table of contents.
+    tocSelector: '.toc__content',
+    // Where to grab the headings to build the table of contents.
+    contentSelector: '.article__content',
+    // Which headings to grab inside of the contentSelector element.
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    // For headings inside relative or absolute positioned containers within content.
+    hasInnerContainers: true,
+    orderedList: false,
+    collapseDepth: 2,
+  });
+})</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 5.4.0"></head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">Hexo</a></h1><p></p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">JavaScript语法（一）</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">JavaScript语法（一）</a></h2><span class="post__date">2020-03-08</span><a href="/tags/javaScript/"><span class="post__tags">#javaScript</span></a></div></div><div class="article__content"><h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><h2 id="JavaScript实现"><a href="#JavaScript实现" class="headerlink" title="JavaScript实现"></a>JavaScript实现</h2><p>由三个部分组成：</p>
+<blockquote>
+<p>核心（ECMAScript）<br>文档对象模型（DOM）<br>浏览器对象模型（BOM）</p>
+</blockquote>
+<h2 id="二、基本概念"><a href="#二、基本概念" class="headerlink" title="二、基本概念"></a>二、基本概念</h2><h2 id="变量：ECMAScript的变量是松散类型的，所谓松散类型就是可以用来保存任何类型的数据。"><a href="#变量：ECMAScript的变量是松散类型的，所谓松散类型就是可以用来保存任何类型的数据。" class="headerlink" title="变量：ECMAScript的变量是松散类型的，所谓松散类型就是可以用来保存任何类型的数据。"></a>变量：ECMAScript的变量是松散类型的，所谓松散类型就是可以用来保存任何类型的数据。</h2><p>在函数中不实用var来定义变量时，该变量会自定提升为全局变量</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function">function <span class="hljs-title">test</span><span class="hljs-params">()</span> </span>&#123;<br>	a = <span class="hljs-number">1</span>;<br>&#125;<br>test();<br>console.log(a); <span class="hljs-comment">// 1</span><br></code></pre></td></tr></table></figure>
+<p>但是并不推荐该写法。</p>
+<h2 id="数据类型："><a href="#数据类型：" class="headerlink" title="数据类型："></a>数据类型：</h2><blockquote>
+<p>Undefined<br>Null<br>Boolean<br>Number<br>String<br>Object</p>
+</blockquote>
+<h2 id="typeof操作符"><a href="#typeof操作符" class="headerlink" title="typeof操作符"></a>typeof操作符</h2><p>用于检测给定变量的数据类型。</p>
+<blockquote>
+<p>“undefined”：如果这个值未定义<br>“boolean”：如果这个值是布尔值<br>“string”：如果这个值是字符串<br>“number”：如果这个值是数值<br>“object”：如果这个值是对象或null&gt; “function”：如果这个值是函数</p>
+</blockquote>
+<p>从技术角度讲，函数在ECMAScript中是对象。但是由于函数的特殊性，因此在不同浏览器中对函数的返回也不一样。</p>
+<h2 id="由于undefined值是派生自null值，因此规定对他们的相等判断返回true。"><a href="#由于undefined值是派生自null值，因此规定对他们的相等判断返回true。" class="headerlink" title="由于undefined值是派生自null值，因此规定对他们的相等判断返回true。"></a>由于undefined值是派生自null值，因此规定对他们的相等判断返回true。</h2><h2 id="正负无穷大"><a href="#正负无穷大" class="headerlink" title="正负无穷大"></a>正负无穷大</h2><blockquote>
+<p>+Infinity<br>-Infinity<br>isFinite() 用于检测</p>
+</blockquote>
+<h2 id="NaN"><a href="#NaN" class="headerlink" title="NaN"></a>NaN</h2><p>这是一个特殊的数值，用于返回无法返回的特殊情况的替代数据。（如任何数除以非数值会返回NaN，而不会报错）</p>
+<blockquote>
+<p>设计NaN的计算都会返回NaN。<br>NaN与任何值都不相等，包括自己。<br>isNaN()函数完成测试工作。该函数的参数如果是对象，则返回的数值则是对象的valueOf、toString。</p>
+</blockquote>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>String类型是由0个或多个16位Unicode字符组成。</p>
+<h2 id="Object类型"><a href="#Object类型" class="headerlink" title="Object类型"></a>Object类型</h2><p>对象中存在的基础属性和方法</p>
+<blockquote>
+<p>constructor：构造函数<br>hasOwnProperty(propertyName)：用于检查给定的属性在当前对象实例中（而不是实例的原型中）是否存在。<br>isPrototypeOf(object)：用于检查传入的对象是否是当前对象的原型。<br>propertyIsEnumerable(propertyName)：用于检查给定的属性是否能够使用for-in语法来进行枚举。<br>toLocaleString：返回对象的字符串表示。与执行环境的地区对应。<br>toString：返回对象的字符串表示。<br>valueOf：返回对象的字符串、数值或布尔值表示。通常与toString返回相同。</p>
+</blockquote>
+<h2 id="二进制补码"><a href="#二进制补码" class="headerlink" title="二进制补码"></a>二进制补码</h2><p>用于表示二进制的负数形式。<br>步骤：</p>
+<blockquote>
+<p>1.求这个数值绝对值的二进制码<br>2.求二进制反码。<br>3.得到的二进制反码+1</p>
+</blockquote>
+<h2 id="逻辑与-逻辑或"><a href="#逻辑与-逻辑或" class="headerlink" title="逻辑与 逻辑或"></a>逻辑与 逻辑或</h2><p>在进行非布尔值计算时，返回的值不一定是布尔值。<br>作为短路逻辑与和短路逻辑或，在比较值不是布尔值时：</p>
+<blockquote>
+<p>逻辑与会确定第一个值是true的前提下，返回第二个操作数<br>逻辑或会确定第一个值是对象则返回第一个值，如果是false，则返回第二个值</p>
+</blockquote>
+<h2 id="with"><a href="#with" class="headerlink" title="with"></a>with</h2><p>将代码的作用域设置到一个特定的对象中。目的是为了简化多次编写同一个对象的工作。<br>下面代码描述了with的大致效果：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">var</span> qs = location.search.substring(<span class="hljs-number">1</span>); <br><span class="hljs-keyword">var</span> hostName = location.hostname;<br><span class="hljs-keyword">var</span> url = location.href;<br><br>with(location)&#123;<br><span class="hljs-keyword">var</span> qs = search.substring(<span class="hljs-number">1</span>); <br><span class="hljs-keyword">var</span> hostName = hostname;<br><span class="hljs-keyword">var</span> url = href;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><em><strong>严格模式下不允许使用with语句</strong></em></p>
+<h2 id="函数参数"><a href="#函数参数" class="headerlink" title="函数参数"></a>函数参数</h2><p>ECMAScript 中的参数在内部是用一个数组来表示的。函数接收到的始终都是这个数组，而不关心数组中包含哪些参数(如果有参数的话)。，在函数体内可以通过 arguments 对象来 访问这个参数数组，从而获取传递给函数的每一个参数。<br><em><strong>这个arguments并不是数组，而是与数组类似(因为他可以使用方括号语法访问它的每一个元素，使用 length 属性来确定传递进来多少个参数。)</strong></em><br>ECMAScript 中的所有参数传递的都是值，不可能通过引用传递参数。</p>
+<p>由于JS的函数使用类似数组来接受参数，而不会单独给参数指定参数签名，因此无法使用重载技术来设立相同名称不同参数类型和个数的函数。</p>
+<h2 id="三、变量、作用域和内存"><a href="#三、变量、作用域和内存" class="headerlink" title="三、变量、作用域和内存"></a>三、变量、作用域和内存</h2><h2 id="instanceof操作符"><a href="#instanceof操作符" class="headerlink" title="instanceof操作符"></a>instanceof操作符</h2><p>typeof在比对基本数据类型时非常有用，但是在比对引用类型时需要instanceof操作符。</p>
+<h2 id="执行环境"><a href="#执行环境" class="headerlink" title="执行环境"></a>执行环境</h2><blockquote>
+<p>在 Web 浏览器中，全局执行环境被认为是 window 对象<br>在移动端中，全局执行环境被认为是 global 对象</p>
+</blockquote>
+<p>使用try-catch和with语句可以完成延长作用域链功能。</p>
+<h2 id="JavaScript没有块级作用域"><a href="#JavaScript没有块级作用域" class="headerlink" title="JavaScript没有块级作用域"></a>JavaScript没有块级作用域</h2><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (a == <span class="hljs-number">1</span>) &#123;<br>	<span class="hljs-keyword">var</span> color = <span class="hljs-string">&#x27;0x0f0&#x27;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>注意，这里并不会像C一样创建一个作用域。在 JavaScript 中，if 语句中的变量声明会将变量添加到当前的执行环境(在这里是 全局环境)中。这里尤其要注意for语句中。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i=<span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++)&#123; doSomething(i);<br>&#125;<br>alert(i);      <span class="hljs-comment">//10</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="垃圾收集"><a href="#垃圾收集" class="headerlink" title="垃圾收集"></a>垃圾收集</h2><p>JavaScript 具有自动垃圾收集机制，执行环境会负责管理代码执行过程中使用的内存。</p>
+<blockquote>
+<p>标记清除：当变量进入环境(例如，在函数中声明一个变量)时，就将这个变量标记为“进入环境”。而当变量离开环境时，则将其 标记为“离开环境”。而在此之后再被加上标记 的变量将被视为准备删除的变量，原因是环境中的变量已经无法访问到这些变量了。<br>引用计数：引用计数的含义是跟踪记录每 个值被引用的次数。当这个值的引用次数变成 0 时，则说明没有办法再访问这 个值了，因而就可以将其占用的内存空间回收回来。但是由于循环引用导致的漏洞，后面不实用该方式清空垃圾。</p>
+</blockquote>
+<h2 id="四、引用类型"><a href="#四、引用类型" class="headerlink" title="四、引用类型"></a>四、引用类型</h2><p>在JavaScript 也可以使用方括号表示法来访问对象的属性。在使用方括号语法时，应该将要访问的属性 以字符串的形式放在方括号中，从功能上看，这两种访问对象属性的方法没有任何区别。但方括号语法的主要优点是可以通过变量 来访问属性。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">alert(person[<span class="hljs-string">&quot;name&quot;</span>]); <span class="hljs-comment">//&quot;Nicholas&quot;</span><br>alert(person.name); <span class="hljs-comment">//&quot;Nicholas&quot;</span><br><br><span class="hljs-keyword">var</span> propertyName = <span class="hljs-string">&quot;name&quot;</span>;<br>alert(person[propertyName]); <span class="hljs-comment">//&quot;Nicholas&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="数组Array"><a href="#数组Array" class="headerlink" title="数组Array"></a>数组Array</h2><p>依旧建议使用<code>Array</code>来创建数组，而不是用字面量方式创建：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">var</span> arrays = Array();<br><span class="hljs-keyword">var</span> arrays = <span class="hljs-keyword">new</span> Array();<br><br><span class="hljs-keyword">var</span> arrays = [];<br></code></pre></td></tr></table></figure>
+<p>由于部分浏览器不同原因，可能会导致空跳过的字面量数组数据无法控制。</p>
+<h2 id="数组中length为可写参数，因此可以通过修改length来改变数组长度。"><a href="#数组中length为可写参数，因此可以通过修改length来改变数组长度。" class="headerlink" title="数组中length为可写参数，因此可以通过修改length来改变数组长度。"></a>数组中<code>length</code>为可写参数，因此可以通过修改<code>length</code>来改变数组长度。</h2><h2 id="数组最多可以包含-4-294-967-295-个项，这几乎已经能够满足任何编程需求了。"><a href="#数组最多可以包含-4-294-967-295-个项，这几乎已经能够满足任何编程需求了。" class="headerlink" title="数组最多可以包含 4 294 967 295 个项，这几乎已经能够满足任何编程需求了。"></a>数组最多可以包含 4 294 967 295 个项，这几乎已经能够满足任何编程需求了。</h2><h2 id="在判断数据是否是数组格式时，不使用instanceof操作符，因为这会牵扯多个不同的全局执行环境导致不同版本Array。为了解决这个问题Array-isArray-方法来解决。"><a href="#在判断数据是否是数组格式时，不使用instanceof操作符，因为这会牵扯多个不同的全局执行环境导致不同版本Array。为了解决这个问题Array-isArray-方法来解决。" class="headerlink" title="在判断数据是否是数组格式时，不使用instanceof操作符，因为这会牵扯多个不同的全局执行环境导致不同版本Array。为了解决这个问题Array.isArray()方法来解决。"></a>在判断数据是否是数组格式时，不使用<code>instanceof</code>操作符，因为这会牵扯多个不同的全局执行环境导致不同版本Array。为了解决这个问题<code>Array.isArray()</code>方法来解决。</h2><p><strong>支持该函数的浏览器： IE9+、Firefox 4+、Safari 5+、Opera 10.5+和 Chrome</strong>，要在尚未实现这个方法中的浏览器中准确检测数组。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">Object.prototype.toString.call(value) == <span class="hljs-string">&quot;[object Array]&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<h2 id="数组在调用toString-、valueOf-和toLocaleString-来输出时，会调用数组内每一项的对应toString-、valueOf-和toLocaleString-，并使用逗号分割。"><a href="#数组在调用toString-、valueOf-和toLocaleString-来输出时，会调用数组内每一项的对应toString-、valueOf-和toLocaleString-，并使用逗号分割。" class="headerlink" title="数组在调用toString()、valueOf()和toLocaleString()来输出时，会调用数组内每一项的对应toString()、valueOf()和toLocaleString()，并使用逗号分割。"></a>数组在调用<code>toString()</code>、<code>valueOf()</code>和<code>toLocaleString()</code>来输出时，会调用数组内每一项的对应<code>toString()</code>、<code>valueOf()</code>和<code>toLocaleString()</code>，并使用逗号分割。</h2><p>而<code>join()</code>函数可以修改分割方式。</p>
+<h2 id="栈模式"><a href="#栈模式" class="headerlink" title="栈模式"></a>栈模式</h2><p>数组也提供了一种让数组的行为类似于其他数据结构的方法。数组可以表 现得就像栈一样，LIFO(Last-In-First-Out， 后进先出)的数据结构。</p>
+<blockquote>
+<p> push()：将添加项添加至数组的末尾<br> pop()：弹出数组最后一项数据<br><img src="/img/JavaScript/0.png" alt="github"></p>
+</blockquote>
+<h2 id="队列模式"><a href="#队列模式" class="headerlink" title="队列模式"></a>队列模式</h2><p>队列数据结构的访问规则是 FIFO(First-In-First-Out， 先进先出)。队列在列表的末端添加项，从列表的前端移除项。</p>
+<blockquote>
+<p>push()：将添加像添加至数组的末尾<br>shift()：从数组前段获取一项数据<br><img src="/img/JavaScript/1.png" alt="github"></p>
+</blockquote>
+<h2 id="重排序方法"><a href="#重排序方法" class="headerlink" title="重排序方法"></a>重排序方法</h2><blockquote>
+<p>sort：升序排列数组项<br>reverse：降序排列数组项</p>
+</blockquote>
+<p>排序函数可添加一个函数为参数，该函数用来完成排序方式。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function">function <span class="hljs-title">compare</span><span class="hljs-params">(value1, value2)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (value1 &lt; value2) &#123;<br>			<span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<br>		&#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (value1 &gt; value2) &#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; <br>		&#125;<br>&#125;<br>values.sort(compare);<br></code></pre></td></tr></table></figure>
+
+<h2 id="concat-函数会基于当前数组创建新的数组。"><a href="#concat-函数会基于当前数组创建新的数组。" class="headerlink" title="concat() 函数会基于当前数组创建新的数组。"></a>concat() 函数会基于当前数组创建新的数组。</h2><p>这个方法首先创建当前数组的一个副本，然后将接受到的参数添加至这个副本的末尾，返回一个新构建的数组(在没有参数时只会复制当前数组并返回副本)。</p>
+<h2 id="slice"><a href="#slice" class="headerlink" title="slice()"></a>slice()</h2><p>能够基于当前数组中的一或多个项创建一个新数组。接受一或两个参数，即要返回项的起始和结束位置(左闭又开)。<br><em><strong>如果 slice()方法的参数中有一个负数，则用数组长度加上该数来确定相应的位置。</strong></em></p>
+<h2 id="splice-函数的功能异常强大，切有多种用法。"><a href="#splice-函数的功能异常强大，切有多种用法。" class="headerlink" title="splice() 函数的功能异常强大，切有多种用法。"></a>splice() 函数的功能异常强大，切有多种用法。</h2><p>主要用途是向数组的中部插入项。有如下3中方式：</p>
+<blockquote>
+<p>删除：可以删除任意数量的项，只需指定 2 个参数(要删除的第一项的位置和要删除的项，左闭又开)。<br>插入：可以向指定位置插入任意数量的项，只需提供 3 个参数(起始位置、要删除的项数和要插入的项插入的项可以配置多个)。<br>替换：可以向指定位置插入任意数量的项，且同时删除任意数量的项，只需指定 3 个参数(起始位置、要删除的项数和要插入的任意数量的项)</p>
+</blockquote>
+<p>splice()方法始终都会返回一个数组，该数组中包含从原始数组中删除的项或空数组。</p>
+<h2 id="位置方法"><a href="#位置方法" class="headerlink" title="位置方法"></a>位置方法</h2><blockquote>
+<p>indexOf()：从头部搜索<br>lastIndexOf()：从尾部搜索</p>
+</blockquote>
+<p>两个方法都接收 两个参数:要查找的项和(可选的)表示查找起点位置的索引。</p>
+<h2 id="迭代方法"><a href="#迭代方法" class="headerlink" title="迭代方法"></a>迭代方法</h2><p>为数组定义了 5 个迭代方法。每个方法都接收两个参数</p>
+<blockquote>
+<p>要在每一项上运行的函数<br>运行该函数的作用域对象(可选)，函数传递的三个参数</p>
+<blockquote>
+<p>数组项的值<br>该项在数组中的位置<br>数组对象本身</p>
+</blockquote>
+</blockquote>
+<p>函数如下：</p>
+<ul>
+<li>event()：对数组中的每一项运行给定函数，如果该函数对每一项都返回 true，则返回 true。</li>
+<li>some()：对数组中的每一项运行给定函数，如果该函数对任一项返回 true，则返回 true。</li>
+<li>filter()：对数组中的每一项运行给定函数，返回该函数会返回 true 的项组成的数组。</li>
+<li>forEach()：对数组中的每一项运行给定函数。这个方法没有返回值。</li>
+<li>map()：对数组中的每一项运行给定函数，返回每次函数调用的结果组成的数组。</li>
+</ul>
+<p><code>event</code>与<code>some</code>类似逻辑与和逻辑或，他们都用于检测数组项是否满足条件后的结果判定。<br><code>filter</code>类似数组过滤器，返回新的数组。<code>map</code>则是将所有数组项进行自定义处理，并生成新数组。<br>最后的<code>forEach</code>如名称，类似for循环数组，没有返回项。</p>
+<h2 id="归并方法"><a href="#归并方法" class="headerlink" title="归并方法"></a>归并方法</h2><p>这两个方法都会迭 12 代数组的所有项，然后构建一个最终返回的值。</p>
+<blockquote>
+<p>reduce()：从数组的第一项开始，逐个遍历到最后<br>reduceRight()：从数组的最后一项开始，向前遍历到第一项。</p>
+</blockquote>
+<p>这两个方法都接收两个参数:一个在每一项上调用的函数和(可选的)作为归并基础的初始值。这个函数接收 4 个参数:前一个值、当前值、项的索引和数组对象。这个函数返回的任何值都会作为第一个参数自动传给下一项。</p>
+<h2 id="Date类型"><a href="#Date类型" class="headerlink" title="Date类型"></a>Date类型</h2><p>Date 类型使用自 UTC(Coordinated Universal Time，国际协调时间)1970 年 1 月 1 日午夜(零时)开始经过 的毫秒数来保存日期。<br>ECMAScript 提供了两个方法:<code>Date.parse()</code> 和 <code>Date.UTC()</code>。</p>
+<blockquote>
+<p>Date.parse()：如果传入方法的字符串不能表示日期，那么它会返回 NaN。<br>Date.UTC()：返回表示日期的毫秒数，但它与 Date.parse()在构建值时使用不同的信息。参数分别是年份、基于 0 的月份(一月是 0，二月是 1，以此类推)、月中的哪一天 (1 到 31)、小时数(0 到 23)、分钟、秒以及毫秒数。</p>
+</blockquote>
+<p>Date的构造函数会分别模仿上面的参数构造进行模仿。</p>
+<blockquote>
+<p>Date.now()：返回表示调用这个方法时的日期和时间的毫秒数。</p>
+</blockquote>
+<h4 id="其他函数"><a href="#其他函数" class="headerlink" title="其他函数"></a>其他函数</h4><ul>
+<li>toLocaleString()：按照与浏览器设置的地区相适应的格式返回日期和时间。</li>
+<li>toString()：返回带有时区信息的日期和 时间，其中时间一般以军用时间(即小时的范围是 0 到 23)表示</li>
+<li>valueOf()：不返回字符串，而是返回日期的毫秒表示。</li>
+</ul>
+<h4 id="日期格式化方法"><a href="#日期格式化方法" class="headerlink" title="日期格式化方法"></a>日期格式化方法</h4><blockquote>
+<p>toDateString()——以特定于实现的格式显示星期几、月、日和年;<br>toTimeString()——以特定于实现的格式显示时、分、秒和时区;<br>toLocaleDateString()——以特定于地区的格式显示星期几、月、日和年;<br>toLocaleTimeString()——以特定于实现的格式显示时、分、秒;<br>toUTCString()——以特定于实现的格式完整的 UTC 日期。</p>
+</blockquote>
+<h4 id="日期-时间组件方法"><a href="#日期-时间组件方法" class="headerlink" title="日期/时间组件方法"></a>日期/时间组件方法</h4><p>以上都是对整个日期处理的方法，下面则是对时间中的特定值处理的方法。<br><strong>UTC 日期指的是在没有时区偏差的情况下(将日期转换为 GMT 时间) 的日期值。</strong></p>
+<blockquote>
+<p>getTime()：返回表示日期的毫秒数;与valueOf()方法返回的值相同<br>setTime(毫秒)：以毫秒数设置日期，会改变整个日期<br>getFullYear()：取得4位数的年份(如2007而非仅07)<br>getUTCFullYear()：返回UTC日期的4位数年份<br>setFullYear(年)：设置日期的年份。传入的年份值必须是4位数字(如2007而非仅07)<br>setUTCFullYear(年)：设置UTC日期的年份。传入的年份值必须是4位数字(如2007而非仅07)<br>getMonth()：返回日期中的月份，其中0表示一月，11表示十二月<br>getUTCMonth()：返回UTC日期中的月份，其中0表示一月，11表示十二月<br>setMonth(月)：设置日期的月份。传入的月份值必须大于0，超过11则增加年份<br>setUTCMonth(月)：设置UTC日期的月份。传入的月份值必须大于0，超过11则增加年份<br>getDate()：返回日期月份中的天数(1到31)<br>getUTCDate()：返回UTC日期月份中的天数(1到31)<br>setDate(日)：设置日期月份中的天数。如果传入的值超过了该月中应有的天数，则增加月份<br>setUTCDate(日)：设置UTC日期月份中的天数。如果传入的值超过了该月中应有的天数，则增加月份<br>getDay()返回日期中星期的星期几(其中0表示星期日，6表示星期六)<br>getUTCDay()：返回UTC日期中星期的星期几(其中0表示星期日，6表示星期六)<br>getHours()：返回日期中的小时数(0到23)<br>getUTCHours()：返回UTC日期中的小时数(0到23)<br>setHours(时)：设置日期中的小时数。传入的值超过了23则增加月份中的天数<br>setUTCHours(时)：设置UTC日期中的小时数。传入的值超过了23则增加月份中的天数<br>getMinutes()：返回日期中的分钟数(0到59)<br>getUTCMinutes()：返回UTC日期中的分钟数(0到59)<br>setMinutes(分)：设置日期中的分钟数。传入的值超过59则增加小时数<br>setUTCMinutes(分)：设置UTC日期中的分钟数。传入的值超过59则增加小时数<br>getSeconds()：返回日期中的秒数(0到59)<br>getUTCSeconds()：返回UTC日期中的秒数(0到59)<br>setSeconds(秒)：设置日期中的秒数。传入的值超过了59会增加分钟数<br>setUTCSeconds(秒)：设置UTC日期中的秒数。传入的值超过了59会增加分钟数<br>getMilliseconds()：返回日期中的毫秒数<br>getUTCMilliseconds()：返回UTC日期中的毫秒数<br>setMilliseconds(毫秒)：设置日期中的毫秒数<br>setUTCMilliseconds(毫秒)：设置UTC日期中的毫秒数<br>getTimezoneOffset()：返回本地时间与UTC时间相差的分钟数。例如，美国东部标准时间返回300。在某地进入夏令时的情况下，这个值会有所变化</p>
+</blockquote>
+<h2 id="RegExp类型"><a href="#RegExp类型" class="headerlink" title="RegExp类型"></a>RegExp类型</h2><p>通过 RegExp 类型来支持正则表达式。使用Perl语法，可以创建一个正则表达式。<br><code>var expression = / pattern / flags ;</code></p>
+<ul>
+<li>pattern：可以是任何简单或复杂的正则表达式，可以包含字符类、限定符、分组、 向前查找以及反向引用。<br>模式中使用的所有元字符都必须转义。正则表达式中的元字符包括: 11 ( [ { \ ^ $ | ) ? * + .] } ] )</li>
+</ul>
+<ul>
+<li>flags：可带有一或多个标志，正则表达式的匹配模式支持下列 3 个标志。v&gt; g:表示全局(global)模式，即模式将被应用于所有字符串，而非在发现第一个匹配项时立即停止;<blockquote>
+<p>i:表示不区分大小写(case-insensitive)模式，即在确定匹配项时忽略模式与字符串的大小写;<br>m:表示多行(multiline)模式，即在到达一行文本末尾时还会继续查找下一行中是否存在与模式匹配的项。</p>
+</blockquote>
+</li>
+</ul>
+<p>一个正则表达式就是一个模式 &amp; 3个标志的组合体。</p>
+<p>有两种写法:<br>`<br>// 写法一<br>var pattern1 = /[bc]at/i;</p>
+<p>// 写法2=二<br>var pattern2 = new RegExp(“[bc]at”, “i”);<br>`<br>由于 RegExp 构造 函数的模式参数是字符串，所以在某些情况下要对字符进行双重转义。所有元字符都必须双重转义，那 些已经转义过的字符也是如此，例如\n(字符\在字符串中通常被转义为\，而在正则表达式字符串中就 会变成\\)。</p>
+<h4 id="ECMAScript3中的问题"><a href="#ECMAScript3中的问题" class="headerlink" title="ECMAScript3中的问题"></a>ECMAScript3中的问题</h4><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">var</span> re = <span class="hljs-keyword">null</span>, i;<br><span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++)&#123; <br>	re = /cat/g;<br>	re.test(<span class="hljs-string">&quot;catastrophe&quot;</span>); &#125;<br><span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++)&#123;<br>	re = <span class="hljs-keyword">new</span> RegExp(<span class="hljs-string">&quot;cat&quot;</span>, <span class="hljs-string">&quot;g&quot;</span>); <br>	re.test(<span class="hljs-string">&quot;catastrophe&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>第一个循环中，只会创建一个RegExp实例，并且实例属性不会重置，因此在循环中再次调用<code>test()</code>函数会失败。因为第二次调用是从索引为3的字符开始。<br>第二个循环中，使用RegExp构造函数每次调用都会创建正则表达式。因此每次迭代都是在一个新的RegExp实例。因此都会返回true。</p>
+<p>这个问题在ECMAScript5中，规定正则表达式的字面量必须像直接调用RegExp构造函数用于，每次都创建新的RegExp实例。</p>
+<h4 id="RegExp实例属性"><a href="#RegExp实例属性" class="headerlink" title="RegExp实例属性"></a>RegExp实例属性</h4><p>通过这些属性可以得到一个正则表达式的各方面信息。</p>
+<blockquote>
+<p>global：布尔值，表示是否设置了 g 标志。<br>ignoreCase：布尔值，表示是否设置了 i 标志。<br>lastIndex：整数，表示开始搜索下一个匹配项的字符位置，从 0 算起。<br>multiline：布尔值，表示是否设置了 m 标志。<br>source：正则表达式的字符串表示，按照字面量形式而非传入构造函数中的字符串模式返回。</p>
+</blockquote>
+<h4 id="RegExp实例方法"><a href="#RegExp实例方法" class="headerlink" title="RegExp实例方法"></a>RegExp实例方法</h4><ul>
+<li>exec()：专门为捕获组而设计的。<br>接受一个参数，即 要应用模式的字符串，然后返回包含第一个匹配项信息的数组;或者在没有匹配项的情况下返回 null。<br>返回类型数组中包含两个属性：index 和 input。<blockquote>
+<p>index：表示匹配项在字符串中的位置。<br>input：表示应用正则表达式的字符串。<br>在数组中：第一项是与整个模式匹配 的字符串，其他项是与模式中的捕获组匹配的字符串(如果模式中没有捕获组，则该数组只包含一项)。</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">var</span> text = <span class="hljs-string">&quot;mom and dad and baby&quot;</span>;<br><span class="hljs-keyword">var</span> pattern = /mom( <span class="hljs-function">and <span class="hljs-title">dad</span><span class="hljs-params">( and baby)</span>?)?/gi</span>;<br><span class="hljs-keyword">var</span> matches = pattern.exec(text);<br>alert(matches.index); <span class="hljs-comment">//0</span><br>alert(matches.input); <span class="hljs-comment">// &quot;mom and dad and baby&quot;</span><br>alert(matches[<span class="hljs-number">0</span>]);    <span class="hljs-comment">// &quot;mom and dad and baby&quot;</span><br>alert(matches[<span class="hljs-number">1</span>]);    <span class="hljs-comment">// &quot; and dad and baby&quot;</span><br>alert(matches[<span class="hljs-number">2</span>]);    <span class="hljs-comment">// &quot; and baby&quot;</span><br></code></pre></td></tr></table></figure>
+<p>在没有使用全局标志时，每次调用<code>exec()</code>时都只会返回第一个匹配项；而使用了全局标志时，则每次调用都只会返回一个匹配项，但是调用后都会继续从字符串中查找新的匹配项。</p>
+<ul>
+<li>test()：知道目标字符串与某个模式是否匹配<br>它接受一个字符串参数。在模式与该参数匹配的情况下返回 true;否则，返回 false。<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">var</span> text = <span class="hljs-string">&quot;000-00-0000&quot;</span>;<br><span class="hljs-keyword">var</span> pattern = /\d&#123;<span class="hljs-number">3</span>&#125;-\d&#123;<span class="hljs-number">2</span>&#125;-\d&#123;<span class="hljs-number">4</span>&#125;/;<br><span class="hljs-keyword">if</span> (pattern.test(text))&#123;<br>	alert(<span class="hljs-string">&quot;The pattern was matched.&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+egExp 实例继承的 toLocaleString()和 toString()方法都会返回正则表达式的字面量，与创 建正则表达式的方式无关。<br>正则表达式的 valueOf()方法返回正则表达式本身。</li>
+</ul>
+<h4 id="RegExp构造函数属性"><a href="#RegExp构造函数属性" class="headerlink" title="RegExp构造函数属性"></a>RegExp构造函数属性</h4><p>这些属性适用于作用域中的所有正则表达式，并且基于所执行的最近一次正则表达式操作而变化。这些属性分别有一个长属性名和一个短属性名 (Opera 是例外，它不支持短属性名)。</p>
+<blockquote>
+<p>input($_)：最近一次要匹配的字符串。Opera未实现此属性<br>lastMatch($&amp;)：最近一次的匹配项。Opera未实现此属性<br>lastParen($+)：最近一次匹配的捕获组。Opera未实现此属性<br>leftContext($`)：input字符串中lastMatch之前的文本<br>multiline($*)：布尔值，表示是否所有表达式都使用多行模式。IE和Opera未实现此属性<br>rightContext($’)：Input字符串中lastMatch之后的文本<br>9 个用于存储捕获组的构造函数属性：访问这些属性的语法是 RegExp.$1、RegExp.$2…RegExp.$9，分别用于存储第一、第二……第九个匹配的捕获组。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">var</span> text = <span class="hljs-string">&quot;this has been a short summer&quot;</span>;<br><span class="hljs-keyword">var</span> pattern = /(.)hort/g;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment"> * 注意:Opera 不支持 input、lastMatch、lastParen 和 multiline 属性 * Internet Explorer 不支持 multiline 属性</span><br><span class="hljs-comment"> */</span><br> <span class="hljs-keyword">if</span> (pattern.test(text))&#123; <br>	alert(RegExp.input);         <span class="hljs-comment">// this has been a short summer</span><br>	alert(RegExp.leftContext);   <span class="hljs-comment">// this has been a</span><br>	alert(RegExp.rightContext);  <span class="hljs-comment">// summer</span><br>	alert(RegExp.lastMatch);     <span class="hljs-comment">// short</span><br>	alert(RegExp.lastParen);     <span class="hljs-comment">// s</span><br>	alert(RegExp.multiline);     <span class="hljs-comment">// false</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="Function类型"><a href="#Function类型" class="headerlink" title="Function类型"></a>Function类型</h2><h4 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h4><p><code>var sum = new Function(&quot;num1&quot;, &quot;num2&quot;, &quot;return num1 + num2&quot;); // 不推荐</code></p>
+<h4 id="函数声明与函数表达式"><a href="#函数声明与函数表达式" class="headerlink" title="函数声明与函数表达式"></a>函数声明与函数表达式</h4><p>解析器会率先读取函数声明，并使其在执行 9 任何代码之前可用(可以访问);至于函数表达式，则必须等到解析器执行到它所在的代码行，才会真 正被解释执行。</p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><code class="hljs ada">alert(sum(<span class="hljs-number">10</span>,<span class="hljs-number">10</span>));<br><span class="hljs-keyword">function</span> <span class="hljs-title">sum</span>(num1, num2)&#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-type">num1</span> + num2;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>以上代码完全可以正常运行。因为在代码开始执行之前，解析器就已经通过一个名为函数声明提升 (function declaration hoisting)的过程，读取并将函数声明添加到执行环境中。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">alert(sum(<span class="hljs-number">10</span>,<span class="hljs-number">10</span>));<br><span class="hljs-keyword">var</span> sum = function(num1, num2)&#123;<br>    <span class="hljs-keyword">return</span> num1 + num2;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>上面的代码在运行期间产生错误。</p>
+<blockquote>
+<p>也可以同时使用函数声明和函数表达式，例如 var sum = function sum(){}。 不过，这种语法在 Safari 中会导致错误。</p>
+</blockquote>
+<h4 id="函数内部属性"><a href="#函数内部属性" class="headerlink" title="函数内部属性"></a>函数内部属性</h4><ul>
+<li><p>this<br>this 引用的是函数据以执行的环境对象。</p>
+</li>
+<li><p>arguments<br>其中arguments内部有一个属性<code>callee</code>，该属性指向拥有<code>arguments</code>对象的函数。<br>因此递归的时候可以直接在函数内部使用<code>this.arguments.callee()</code>调用函数本身。</p>
+</li>
+</ul>
+<blockquote>
+<p>当函数在严格模式下运行时，访问 arguments.callee 会导致错误。</p>
+</blockquote>
+<ul>
+<li>caller<br>这是ECMAScript 5规范化了另一个函数对象的属性。这个属性中保存着调用当前函数的函数的引用， 如果是在全局作用域中调用当前函数，它的值为 null。<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function">function <span class="hljs-title">outer</span><span class="hljs-params">()</span></span>&#123;<br>	inner();<br>&#125;<br><span class="hljs-function">function <span class="hljs-title">inner</span><span class="hljs-params">()</span></span>&#123;<br>	alert(arguments.callee.caller);<br>&#125; <br>outer();<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>严格模式还有一个限制:不能为函数的 caller 属性赋值，否则会导致错误。</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="函数属性和方法"><a href="#函数属性和方法" class="headerlink" title="函数属性和方法"></a>函数属性和方法</h4><ul>
+<li><p>属性</p>
+<blockquote>
+<p>length：表示函数希望接收的命名参数的个数。<br>prototype：prototype 是保存它们所有实例方法的真正所在。toString()和 valueOf()等方法实际上都保存在 prototype 名下，只不过是通过各自对象的实例访问。prototype 属性是不可枚举的，因此使用 for-in 无法发现。</p>
+</blockquote>
+</li>
+<li><p>方法</p>
+<blockquote>
+<p>apply/call/bind：都是可以在特定的作用域中调用函数，类似可以修改函数内的this的指向。前者需要两个参数，分别是运行函数作用域和运行函数的参数数组或者arguments对象；而 call 则在传递的函数参数是逐一列举而不是数组或类数组对象。最后该方法会创建一个函数的实例，将this值绑定到指定的函数内部。<br>valueOf：同样也返回函数的代码<br>toLocalString/toString：始终返回函数的代码，结果因浏览器而异。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 运行函数</span><br><span class="hljs-function">function <span class="hljs-title">sum</span><span class="hljs-params">(n1, n2)</span> </span>&#123;<br>	<span class="hljs-keyword">return</span> n1+n2;<br>&#125;<br><br><span class="hljs-comment">// apply</span><br><span class="hljs-function">function <span class="hljs-title">applyTest</span><span class="hljs-params">(n1, n2)</span> </span>&#123;<br>	<span class="hljs-keyword">return</span> sum.apply(<span class="hljs-keyword">this</span>, [n1, n2]);<br>&#125;<br><br><span class="hljs-comment">// call</span><br><span class="hljs-function">function <span class="hljs-title">callTest</span><span class="hljs-params">(n1, n2)</span> </span>&#123;<br>	<span class="hljs-keyword">return</span> sum.call(<span class="hljs-keyword">this</span>, n1, n2);<br>&#125;```<br><br>上面看似多次依据，但并非真正的使用方式。而是能够扩充函数赖以运行的作用域：<br>```java<br>window.color = <span class="hljs-string">&#x27;red&#x27;</span>;<br><span class="hljs-keyword">var</span> o = &#123; color: <span class="hljs-string">&#x27;blue&#x27;</span> &#125;;<br><br><span class="hljs-function">function <span class="hljs-title">getColor</span><span class="hljs-params">()</span> </span>&#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.color;<br>&#125;<br><br><span class="hljs-comment">// 运行</span><br><span class="hljs-keyword">var</span> color = getColor.call(<span class="hljs-keyword">this</span>);   <span class="hljs-comment">// red</span><br><span class="hljs-keyword">var</span> color = getColor.call(window); <span class="hljs-comment">// red</span><br><span class="hljs-keyword">var</span> color = getColor.call(o)       <span class="hljs-comment">// blue</span><br></code></pre></td></tr></table></figure>
+<p>经过修改的函数会根据作用域的数据而影响，数据不会和函数存在耦合现象。</p>
+</li>
+</ul>
+<h2 id="String-类型"><a href="#String-类型" class="headerlink" title="String 类型"></a>String 类型</h2><h4 id="字符方法"><a href="#字符方法" class="headerlink" title="字符方法"></a>字符方法</h4><p>用于访问字符串特定字符函数：两个方法都接收一个基于0的字符位置</p>
+<ul>
+<li>charAt()<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">var</span> s = <span class="hljs-string">&#x27;abcdefg&#x27;</span>;<br>s.charAt(<span class="hljs-number">2</span>); <span class="hljs-comment">// c</span><br></code></pre></td></tr></table></figure></li>
+<li>charCodeAt()<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">var</span> s = <span class="hljs-string">&#x27;abcdefg&#x27;</span>;<br>s.charCodeAt(<span class="hljs-number">4</span>); <span class="hljs-comment">// &#x27;101&#x27;</span><br></code></pre></td></tr></table></figure>
+这里返回的是字符编码。</li>
+</ul>
+<h4 id="字符串操作方法"><a href="#字符串操作方法" class="headerlink" title="字符串操作方法"></a>字符串操作方法</h4><ul>
+<li><p>concat<br>用于将1个或多个字符串拼接起来</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">var</span> a = <span class="hljs-string">&#x27;aa&#x27;</span>;<br><span class="hljs-keyword">var</span> b = <span class="hljs-string">&#x27;bb&#x27;</span>;<br><span class="hljs-keyword">var</span> c = <span class="hljs-string">&#x27;cc&#x27;</span>;<br><br><span class="hljs-keyword">var</span> str = a.concat(b, c); <span class="hljs-comment">// aabbcc</span><br></code></pre></td></tr></table></figure></li>
+<li><p>slice</p>
+</li>
+<li><p>substr</p>
+</li>
+<li><p>substring<br>上面三个函数都具有分割字符串的效果，都接收一至两个参数。第一个参数是截取字符串的第一个字符位置，第二个是可选参数，slice 和 substring 是截取字符串的停止下标，记住是左闭右开；而 substr 则是表示截取字段的长度。</p>
+</li>
+</ul>
+<h4 id="字符串位置方法"><a href="#字符串位置方法" class="headerlink" title="字符串位置方法"></a>字符串位置方法</h4><ul>
+<li>indexOf</li>
+<li>lastIndexOf<br>接收第一个参数为查询字符串，第二个可选参数为开始查找的起始位置。 在没有找到字符串位置返回 -1。</li>
+</ul>
+<h4 id="trim-方法"><a href="#trim-方法" class="headerlink" title="trim 方法"></a>trim 方法</h4><p>删除前缀和后缀的空格。</p>
+<h4 id="字符串大小写转换方法"><a href="#字符串大小写转换方法" class="headerlink" title="字符串大小写转换方法"></a>字符串大小写转换方法</h4><ul>
+<li>toUpperCase：转为大写。</li>
+<li>toLowerCase：转为小写。</li>
+<li>toLocaleUpperCase：转为大写，针对特殊地区。</li>
+<li>toLocaleLowerCase：转为小写，针对特殊地区。</li>
+</ul>
+<h4 id="字符串模式匹配"><a href="#字符串模式匹配" class="headerlink" title="字符串模式匹配"></a>字符串模式匹配</h4><h6 id="match：接收正则表达式或者-RegExp-对象。返回一个匹配项目数组。"><a href="#match：接收正则表达式或者-RegExp-对象。返回一个匹配项目数组。" class="headerlink" title="match：接收正则表达式或者 RegExp 对象。返回一个匹配项目数组。"></a>match：接收正则表达式或者 RegExp 对象。返回一个匹配项目数组。</h6><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">var</span> text = <span class="hljs-string">&#x27;cat, bat, sat, fat&#x27;</span>;<br><span class="hljs-keyword">var</span> pattern = /.at/<br><br><span class="hljs-keyword">var</span> matches = text.match(pattern); <span class="hljs-comment">// pattern.exec(text);</span><br>matches.index; <span class="hljs-comment">// 0</span><br>matches[<span class="hljs-number">0</span>];    <span class="hljs-comment">// cat</span><br></code></pre></td></tr></table></figure>
+
+<h6 id="search：同行，但是返回的是第一个匹配项的索引。否则返回-1。"><a href="#search：同行，但是返回的是第一个匹配项的索引。否则返回-1。" class="headerlink" title="search：同行，但是返回的是第一个匹配项的索引。否则返回-1。"></a>search：同行，但是返回的是第一个匹配项的索引。否则返回-1。</h6><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">var</span> text = <span class="hljs-string">&#x27;cat, bat, sat, fat&#x27;</span>;<br>text.search(/at/); <span class="hljs-comment">// 1</span><br></code></pre></td></tr></table></figure>
+<h6 id="replace：接收两个参数，第一个同上，但是字符串模式并不会转换为正则；第二个可以是字符串或函数。第一个如果是字符串，只会替换第一个字符串，如果需要替换所有则需要正则对象并且指定全局-g；"><a href="#replace：接收两个参数，第一个同上，但是字符串模式并不会转换为正则；第二个可以是字符串或函数。第一个如果是字符串，只会替换第一个字符串，如果需要替换所有则需要正则对象并且指定全局-g；" class="headerlink" title="replace：接收两个参数，第一个同上，但是字符串模式并不会转换为正则；第二个可以是字符串或函数。第一个如果是字符串，只会替换第一个字符串，如果需要替换所有则需要正则对象并且指定全局 g；"></a>replace：接收两个参数，第一个同上，但是字符串模式并不会转换为正则；第二个可以是字符串或函数。第一个如果是字符串，只会替换第一个字符串，如果需要替换所有则需要正则对象并且指定全局 g；</h6><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">var</span> text = <span class="hljs-string">&#x27;cat, bat, sat, fat&#x27;</span>;<br>text.replace(<span class="hljs-string">&#x27;at&#x27;</span>, <span class="hljs-string">&#x27;k&#x27;</span>);   <span class="hljs-comment">// ck, bat, sat, fat</span><br>text.replace(<span class="hljs-string">&#x27;/at/g&#x27;</span>, <span class="hljs-string">&#x27;k&#x27;</span>) <span class="hljs-comment">// ck, bk, sk, fk</span><br></code></pre></td></tr></table></figure>
+<ul>
+<li>如果第二个字符是字符串还可以有如下使用：<table>
+<thead>
+<tr>
+<th align="center">字符序列</th>
+<th align="center">替换文本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$$</td>
+<td align="center">$</td>
+</tr>
+<tr>
+<td align="center">$&amp;</td>
+<td align="center">匹配整个模式的字符串</td>
+</tr>
+<tr>
+<td align="center">$&#39;</td>
+<td align="center">匹配子字符串之前的字符串</td>
+</tr>
+<tr>
+<td align="center">$`</td>
+<td align="center">匹配子字符串之后的字符串</td>
+</tr>
+<tr>
+<td align="center">$n</td>
+<td align="center">匹配第n个捕获组的子字符串，n为0～9。$1表示第一个捕获组的子字符串。</td>
+</tr>
+<tr>
+<td align="center">$nn</td>
+<td align="center">匹配第nn个捕获组的子字符串。nn为01～99。用法同上。</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">var</span> text = <span class="hljs-string">&#x27;cat, bat, sat, fat&#x27;</span>;<br>text.replace(/(.at)/g, <span class="hljs-string">&#x27;word($1)&#x27;</span>);<span class="hljs-comment">// word(cat), word(bat), word(sat), word(fat)</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>如果第二个字符是函数<br>这个函数共有三个参数：模式的匹配项、模式匹配项在字符串的位置和原始字符串。</li>
+</ul>
+<h6 id="split"><a href="#split" class="headerlink" title="split"></a>split</h6><p>可以根据指定的分隔符来分割字符串为子字符串数组，也可以是 RegExp 对象参数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">var</span> text = <span class="hljs-string">&#x27;red, blue, green, yellow&#x27;</span>;<br>text.split(<span class="hljs-string">&#x27;,&#x27;</span>);      <span class="hljs-comment">// [&#x27;red&#x27;, &#x27;blue&#x27;, &#x27;green&#x27;, &#x27;yellow&#x27;]</span><br>text.split(<span class="hljs-string">&#x27;,&#x27;</span>, <span class="hljs-number">2</span>);   <span class="hljs-comment">// [&#x27;red&#x27;, &#x27;blue&#x27;]</span><br>text.split(/[^\,]+/); <span class="hljs-comment">// [&#x27;&#x27;, &#x27;,&#x27;, &#x27;,&#x27;, &#x27;,&#x27;, &#x27;&#x27;]</span><br></code></pre></td></tr></table></figure>
+<h4 id="localCompare-方法"><a href="#localCompare-方法" class="headerlink" title="localCompare 方法"></a>localCompare 方法</h4><p>比较两个字符串并返回下面其中一个：</p>
+<ul>
+<li>如果字符串在字母表中应该排在字符串参数之前，则返回一个负数。</li>
+<li>如果字符串等于字符串参数，则返回0。</li>
+<li>如果字符串在字母表中应该排在字符串参数之后，则返回一个正数。</li>
+</ul>
+<h4 id="fromCharCode-方法"><a href="#fromCharCode-方法" class="headerlink" title="fromCharCode 方法"></a>fromCharCode 方法</h4><p><strong>静态方法</strong>，接收字符编码，拼接成字符串。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">String.fromCharCode(<span class="hljs-number">104</span>, <span class="hljs-number">101</span>, <span class="hljs-number">108</span>, <span class="hljs-number">108</span>, <span class="hljs-number">111</span>); <span class="hljs-comment">// hello</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="HTML-方法"><a href="#HTML-方法" class="headerlink" title="HTML 方法"></a>HTML 方法</h4><p>简单的 HTML 格式化任务的方法。但是尽量不要使用。<br>| 方法             |<br>|:—————-:|<br>| anthor(name)     |<br>| big()            |<br>| bold()           |<br>| fixed()          |<br>| fontcolor(color) |<br>| fontsize(size)   |<br>| italics()        |<br>| link(url)        |<br>| small()          |<br>| strike()         |<br>| sub()            |<br>| sup()            |</p>
+<h2 id="单体内置对象"><a href="#单体内置对象" class="headerlink" title="单体内置对象"></a>单体内置对象</h2><hr>
+<p>这个对象并不依赖于宿主环境，而是 ECMAScript 。</p>
+<h4 id="Global"><a href="#Global" class="headerlink" title="Global"></a>Global</h4><p>不属于任何对象的属性和方法。所有在全局作用域中定义的函数和对象，都是 Global 对象的属性。</p>
+<ul>
+<li><p>encodeURI() / encodeURI()</p>
+</li>
+<li><p>encodeURIComponent() / decodeURIComponent()<br>他们可以对URI进行编码，以便发送给浏览器。</p>
+</li>
+<li><p>eval()<br>他像是 ECMAScript 的解析器。只接受一个参数，即要执行的 ECMAScript 字符串。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">eval(<span class="hljs-string">&#x27;alert(&#x27;</span>hi<span class="hljs-string">&#x27;)&#x27;</span>);<br>alera(<span class="hljs-string">&#x27;hi&#x27;</span>);<br></code></pre></td></tr></table></figure>
+<p>上面的代码就等价于下面的代码。他会将传入的参数当作实际的 ECMAScript 语句来解析，然后把执行结果插入到原位置。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">var</span> msg = <span class="hljs-string">&#x27;hello&#x27;</span>;<br>eval(<span class="hljs-string">&#x27;alert(msg)&#x27;</span>); <span class="hljs-comment">// hello</span><br></code></pre></td></tr></table></figure></li>
+<li><p>包含的属性</p>
+<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">undefined</td>
+</tr>
+<tr>
+<td align="center">NaN</td>
+</tr>
+<tr>
+<td align="center">infinity</td>
+</tr>
+<tr>
+<td align="center">Object</td>
+</tr>
+<tr>
+<td align="center">Array</td>
+</tr>
+<tr>
+<td align="center">Function</td>
+</tr>
+<tr>
+<td align="center">Boolean</td>
+</tr>
+<tr>
+<td align="center">String</td>
+</tr>
+<tr>
+<td align="center">Number</td>
+</tr>
+<tr>
+<td align="center">Date</td>
+</tr>
+<tr>
+<td align="center">RegExp</td>
+</tr>
+<tr>
+<td align="center">Error</td>
+</tr>
+<tr>
+<td align="center">EvalError</td>
+</tr>
+<tr>
+<td align="center">RangeError</td>
+</tr>
+<tr>
+<td align="center">ReferenceError</td>
+</tr>
+<tr>
+<td align="center">SyntaxError</td>
+</tr>
+<tr>
+<td align="center">TypeError</td>
+</tr>
+<tr>
+<td align="center">URIError</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>window对象<br>一般情况下没有指出如何访问 Global，因此Web浏览器将这个全局对象作为 window 的一部分。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">var</span> color = <span class="hljs-string">&#x27;red&#x27;</span>;<br><span class="hljs-function">function <span class="hljs-title">sayColor</span><span class="hljs-params">()</span> </span>&#123;<br>	alert(window.color);<br>&#125;<br>window.sayColor();  <span class="hljs-comment">//red</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="Math"><a href="#Math" class="headerlink" title="Math"></a>Math</h4><ul>
+<li><p>属性</p>
+<table>
+<thead>
+<tr>
+<th align="center">属性</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Math.E</td>
+<td align="center">e</td>
+</tr>
+<tr>
+<td align="center">Math.LN10</td>
+<td align="center">10的自然对数</td>
+</tr>
+<tr>
+<td align="center">Math.LN2</td>
+<td align="center">2的自然对数</td>
+</tr>
+<tr>
+<td align="center">Math.LOG2E</td>
+<td align="center">2为底e的对数</td>
+</tr>
+<tr>
+<td align="center">Math.LOG10E</td>
+<td align="center">10为底e的对数</td>
+</tr>
+<tr>
+<td align="center">Math.PI</td>
+<td align="center">pi的值</td>
+</tr>
+<tr>
+<td align="center">Math.SQRT1_2</td>
+<td align="center">1/2的平方根</td>
+</tr>
+<tr>
+<td align="center">Math.SQRT2</td>
+<td align="center">2的平方根</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>min 和 max<br>获取一组数据的最大值和最小值。 </p>
+</li>
+<li><p>舍入方法</p>
+<blockquote>
+<p>Math.ceil()：向上舍入<br>Math.floor()：向下舍入<br>Math.round()：标准舍入</p>
+</blockquote>
+</li>
+<li><p>random<br>返回介于0和1之间一个随机数，记住是开区间，即不包括0和1.</p>
+</li>
+</ul>
+<h2 id="五、对象"><a href="#五、对象" class="headerlink" title="五、对象"></a>五、对象</h2><p>创建包括 Object 或者字面量 {}。</p>
+<h2 id="属性类型"><a href="#属性类型" class="headerlink" title="属性类型"></a>属性类型</h2><p>第五版定义了只有内部才能用的特性(attribute)，买哦书了属性的各种特性。一般情况下不能直接访问。表示如下：<br><code>[[Enumerable]]</code></p>
+<h4 id="数据属性"><a href="#数据属性" class="headerlink" title="数据属性"></a>数据属性</h4><p>有以下4个</p>
+<ul>
+<li>[[Configurable]]：表示是否通过 delete 删除属性从而重新定义属性，能否修改属性的特性，或者能否把属性修改为访问器属性。默认为true。</li>
+<li>[[Enumerable]]：表示能否通过 for-in 循环返回属性。默认为true。</li>
+<li>[[Writable]]：表示能否修改属性的值。默认true。</li>
+<li>[[Value]]：包含这个属性的数据值。读取属性值的时候，从这个位置读；写入属性值的时候，把新值保存在这个位置。默认undefined。</li>
+</ul>
+<p><em><strong>例子：</strong></em></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">var</span> person = &#123;<br>	name: <span class="hljs-string">&#x27;Yang&#x27;</span><br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>上面的对象有一个属性name，值为’Yang’。即[[Value]]特性设置为’Yang’。</p>
+<p>修改属性，Object.defineProperty()方法。接收三个参数：</p>
+<blockquote>
+<p>属性的对象<br>属性名称<br>描述符对象</p>
+<blockquote>
+<p>configurable<br>enumerable<br>writable<br>value</p>
+</blockquote>
+</blockquote>
+<p><em><strong>例子</strong></em></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">var</span> person = &#123;&#125;;<br>Object.defineProperty(person, <span class="hljs-string">&quot;name&quot;</span>, &#123;<br>	writable: <span class="hljs-keyword">false</span>,<br>	value: <span class="hljs-string">&#x27;Yang&#x27;</span><br>&#125;);<br><br>alert(person.name); <span class="hljs-comment">// &#x27;Yang&#x27;</span><br>person.name = <span class="hljs-string">&#x27;Li&#x27;</span>;<br>alert(person.name); <span class="hljs-comment">// &#x27;Li&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>这里的数据是只读的，不可修改。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">var</span> person = &#123;&#125;;<br>Object.defineProperty(person, <span class="hljs-string">&quot;name&quot;</span>, &#123;<br>	configurable: <span class="hljs-keyword">false</span>,<br>	value: <span class="hljs-string">&#x27;Yang&#x27;</span><br>&#125;);<br><br>alert(person.name); <span class="hljs-comment">// &#x27;Yang&#x27;</span><br>delete person.name;<br>alert(person.name); <span class="hljs-comment">// &#x27;Li&#x27;</span><br></code></pre></td></tr></table></figure>
+<p>这里表示不能从对象中删除属性。一旦把属性定义为不可配置，就不能再把它变回可配置了。就会报错。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">var</span> person = &#123;&#125;;<br>Object.defineProperty(person, <span class="hljs-string">&quot;name&quot;</span>, &#123;<br>	configurable: <span class="hljs-keyword">false</span>,<br>	value: <span class="hljs-string">&#x27;Yang&#x27;</span><br>&#125;);<br><br>Object.defineProperty(person, <span class="hljs-string">&quot;name&quot;</span>, &#123;<br>	configurable: <span class="hljs-keyword">true</span>,<br>	value: <span class="hljs-string">&#x27;Yang&#x27;</span><br>&#125;);<br></code></pre></td></tr></table></figure>
+<p>上面的例子就是报错。</p>
+<h4 id="访问器属性"><a href="#访问器属性" class="headerlink" title="访问器属性"></a>访问器属性</h4><p>通过 getter 和 setter 函数设置读取访问器属性。访问器属性有以下四个特性：</p>
+<ul>
+<li>[[Configurable]]：表示是否通过 delete 删除属性从而重新定义属性，能否修改属性的特性，或者能否把属性修改为访问器属性。默认为true。</li>
+<li>[[Enumerable]]：表示能否通过 for-in 循环返回属性。默认为true。</li>
+<li>[[Get]]：读取属性时调用的函数，默认undefined。</li>
+<li>[[Set]]：写入属性时调用的函数，默认undefined。</li>
+</ul>
+<p><strong>访问器属性不能直接定义，必须使用Object.defineProperty()来定义。</strong></p>
+<p>例子：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">var</span> book = &#123;<br>	_year: <span class="hljs-number">2004</span>,<br>	edition: <span class="hljs-number">1</span><br>&#125;;<br>Object.defineProperty(book, <span class="hljs-string">&quot;year&quot;</span>, &#123;<br>	get: function() &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._year;<br>	&#125;,<br>	set: function(newValue) &#123;<br>		<span class="hljs-keyword">if</span> (newValue &gt; <span class="hljs-number">2004</span>) &#123;<br>			<span class="hljs-keyword">this</span>._year = newValue;<br>			<span class="hljs-keyword">this</span>.edition += newValue - <span class="hljs-number">2004</span>;<br>		&#125;<br>	&#125;<br>&#125;);<br>book.year = <span class="hljs-number">2005</span>; <span class="hljs-comment">// 2</span><br></code></pre></td></tr></table></figure>
+<p>_year的下划线用于表示只能通过对象方法访问的属性。这里添加的访问器属<strong>year</strong>就包含一个 getter 和一个 setter 函数。<br>要创建访问器属性，一般使用下面两个非标准函数:<strong>defineGetter</strong>() 和 ————defineSetter__()。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">var</span> book = &#123;<br>	_year: <span class="hljs-number">2004</span>,<br>	edition: <span class="hljs-number">1</span><br>&#125;;<br>book.__defineGetter__(<span class="hljs-string">&quot;year&quot;</span>, function() &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._year;<br>&#125;);<br>book.__defineSetter__(<span class="hljs-string">&quot;year&quot;</span>, function(newValue) &#123;<br>	<span class="hljs-keyword">if</span> (newValue &gt; <span class="hljs-number">2004</span>) &#123;<br>		<span class="hljs-keyword">this</span>._year = newValue;<br>		<span class="hljs-keyword">this</span>.edition += newValue - <span class="hljs-number">2004</span>;<br>	&#125;<br>&#125;);<br></code></pre></td></tr></table></figure>
+<p>上面代码例子与之前效果一样。</p>
+<p>*** 注意：在不支持Object.defineProperty()方法的浏览器中不能修改[[Configurable]]和[[Enumerable]]。***</p>
+<p>Object.defineProperties()支持多个属性设置。<br>Object.getOwnPropertyDescriptor()获取给定属性的描述符。</p>
+<h2 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h2><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function">funcion <span class="hljs-title">Person</span><span class="hljs-params">(name, age, job)</span> </span>&#123;<br>	<span class="hljs-keyword">this</span>.name = name;<br>	<span class="hljs-keyword">this</span>.age = age;<br>	<span class="hljs-keyword">this</span>.job = job;<br>	<span class="hljs-keyword">this</span>.sayName = function() &#123;<br>		...<br>	&#125;;<br>&#125;<br><span class="hljs-keyword">var</span> person1 = <span class="hljs-keyword">new</span> Person(<span class="hljs-string">&#x27;Yang&#x27;</span>, <span class="hljs-number">19</span>, <span class="hljs-string">&#x27;Coder&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>创建对象需要以下四个步骤：</p>
+<ul>
+<li>1.创建一个新对象；</li>
+<li>2.将构造函数的作用域赋值给新对象，即this；</li>
+<li>3.执行构造函数代码；</li>
+<li>4.返回新对象；</li>
+</ul>
+<p>并且，person1保存着Person的一个不同的实例，constructor。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">person1.constructor == Person <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
+<p>该属性最初用来标识对象类型，但是使用 instanceof 更优。并且这种方式创建的构造函数是定义在 Global 对象汇总。</p>
+<h2 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h2><p>创建的每个函数都有一个 prototype 原型属性，是一个指针指向一个对象。这个对象的用途是包含可以由特定类型的所有实例共享的属性和方法。</p>
+<h4 id="理解原型对象"><a href="#理解原型对象" class="headerlink" title="理解原型对象"></a>理解原型对象</h4><ul>
+<li>无论什么时候，只要创建一个新函数，就会根据一组特定的规则为该函数创建一个prototype属性，这个属性指向函数的原型对象。</li>
+<li>所有原型对象都会自动获得一个constructor构造函数属性，这个属性包含一个指向prototype属性所在函数的指针。</li>
+<li>当调用构造函数创建一个新实例后，该实例的内部将包含一个指针（内部属性），指向原型对象，即[[Prototype]]，但是由于这里不是标准，因此其他实现中不一样。但是她们的链接存在于实例与构造函数的原型对象之间。</li>
+</ul>
+<p><img src="/img/JavaScript/2.png" alt="github"><br>上图包括了文字中描述的内容。<br>可以通过 isPrototypeOf() 方法确定对象之间是否存在原型关系。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">Person.prototype.isPrototypeOf(person1); <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
+<p>通过 getPrototypeOf() 方法来返回[[Prototype]]的值。<br> <figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">Object.getPrototypeOf(person1) == Person.prototype; <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure><br>通过 hasOwnProperty() 方法可以检测一个属性是否存在与实例中(true)，还是在原型(false)。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">person1.hasOwnProperty(<span class="hljs-string">&#x27;name&#x27;</span>); <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="原型与-in-操作符"><a href="#原型与-in-操作符" class="headerlink" title="原型与 in 操作符"></a>原型与 in 操作符</h4><p>in 有两种使用：单独使用和在for-in中使用。单独使用时，in操作符会在通过对象能够访问属性时返回true，无论是在原型还是实例中。<br>为了区别是否在原型中的属性，使用 hasOwnProperty() 方法判断。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function">function <span class="hljs-title">hasPrototypeProperty</span><span class="hljs-params">(object, name)</span> </span>&#123;<br>	<span class="hljs-keyword">return</span> !object.hasOwnProperty(name) &amp;&amp; (name in object);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>for-in 循环时，返回的都是可枚举循环（Emunerated）的属性值。<br>Object.keys(obj) 可以返回当前实例中所有的可枚举属性的 key 的字符串数组。注意这里的key是键值。这个函数的功能与 getOwnPropertyNames() 相反，他会获取对象中所有的属性。</p>
+<h4 id="原型的问题"><a href="#原型的问题" class="headerlink" title="原型的问题"></a>原型的问题</h4><h6 id="重写原型对象后混乱"><a href="#重写原型对象后混乱" class="headerlink" title="重写原型对象后混乱"></a>重写原型对象后混乱</h6><p>下面的例子：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function">function <span class="hljs-title">Person</span><span class="hljs-params">()</span> </span>&#123;&#125;<br><span class="hljs-keyword">var</span> person1 = <span class="hljs-keyword">new</span> Person();<br>Person.prototype = &#123;<br>	constructor: Person,<br>	name: <span class="hljs-string">&#x27;Yang&#x27;</span>,<br>	age: <span class="hljs-number">18</span><br>&#125;;<br>person1.age <br></code></pre></td></tr></table></figure>
+<p><img src="/img/JavaScript/3.png" alt="github"><br>注意在重写原型对象后会切断现有原型与任何之前实例的关系。如上图。</p>
+<h6 id="引用类型属性"><a href="#引用类型属性" class="headerlink" title="引用类型属性"></a>引用类型属性</h6><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function">function <span class="hljs-title">Person</span><span class="hljs-params">()</span> </span>&#123;&#125;;<br>Person.prototype = &#123;<br>	constructor: Person,<br>	name: <span class="hljs-string">&#x27;Yang&#x27;</span>,<br>	age: <span class="hljs-number">18</span>,<br>	friends: [<span class="hljs-string">&#x27;Li&#x27;</span>, <span class="hljs-string">&#x27;Wu&#x27;</span>]<br>&#125;;<br>val person1 = <span class="hljs-keyword">new</span> Person();<br>val person2 = <span class="hljs-keyword">new</span> Person();<br><br>person1.friends.push(<span class="hljs-string">&#x27;Xia&#x27;</span>);<br>person1.friends === person2.friends; <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
+<p>由于共享原型导致引用类型完全共享。</p>
+<h2 id="构造函数与原型模式"><a href="#构造函数与原型模式" class="headerlink" title="构造函数与原型模式"></a>构造函数与原型模式</h2><p>下面这种模式是ECMAScript中认可度最好的构造类型的方法。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function">function <span class="hljs-title">Person</span><span class="hljs-params">(name, age)</span> </span>&#123;<br>	<span class="hljs-keyword">this</span>.name = name;<br>	<span class="hljs-keyword">this</span>.age = age;<br>	<span class="hljs-keyword">this</span>.friends = [<span class="hljs-string">&#x27;Li&#x27;</span>, <span class="hljs-string">&#x27;Xia&#x27;</span>];<br>&#125;;<br>Person.prototype = &#123;<br>	constructor: Person,<br>	sayName: function() &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.name;<br>	&#125;<br>&#125;;<br><br><span class="hljs-keyword">var</span> person1 = <span class="hljs-keyword">new</span> Person(<span class="hljs-string">&#x27;Yang&#x27;</span>, <span class="hljs-number">17</span>);<br><span class="hljs-keyword">var</span> person2 = <span class="hljs-keyword">new</span> Person(<span class="hljs-string">&#x27;Wu&#x27;</span>, <span class="hljs-number">20</span>);<br><br>person1.friends.push(<span class="hljs-string">&#x27;Mi&#x27;</span>);<br>person1.friends === person2.friends; <span class="hljs-comment">// false;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="动态原型模式"><a href="#动态原型模式" class="headerlink" title="动态原型模式"></a>动态原型模式</h2><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function">function <span class="hljs-title">Person</span><span class="hljs-params">(name, age)</span> </span>&#123;<br>	<span class="hljs-keyword">this</span>.name = name;<br>	<span class="hljs-keyword">this</span>.age = age;<br>	<span class="hljs-keyword">this</span>.friends = [<span class="hljs-string">&#x27;Li&#x27;</span>, <span class="hljs-string">&#x27;Xia&#x27;</span>];<br>	<span class="hljs-keyword">if</span> (typeof Person.prototype.sayName != <span class="hljs-string">&#x27;Function&#x27;</span>) &#123;<br>		Person.prototype.sayName = function() &#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.name;<br>		&#125;;<br>	&#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>在不存在原型函数的情况下自动添加原型函数，这样就只需要对构造函数进行封装。</p>
+<h2 id="寄生构造函数模式"><a href="#寄生构造函数模式" class="headerlink" title="寄生构造函数模式"></a>寄生构造函数模式</h2><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function">function <span class="hljs-title">Person</span><span class="hljs-params">(name, age)</span> </span>&#123;<br>	<span class="hljs-keyword">var</span> o = <span class="hljs-keyword">new</span> Object();<br>	o.name = name;<br>	o.age = age;<br>	o.sayName = function() &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.name;<br>	&#125;;<br>	<span class="hljs-keyword">return</span> o;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>整个过程类似工厂模式。</p>
+<h2 id="稳妥构造函数模式"><a href="#稳妥构造函数模式" class="headerlink" title="稳妥构造函数模式"></a>稳妥构造函数模式</h2><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function">function <span class="hljs-title">Person</span><span class="hljs-params">(name, age)</span> </span>&#123;<br>	<span class="hljs-keyword">var</span> o = <span class="hljs-keyword">new</span> Object();<br>	o.name = name;<br>	o.age = age;<br>	o.sayName = function() &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.name;<br>	&#125;;<br>	<span class="hljs-keyword">return</span> o;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="继承问题"><a href="#继承问题" class="headerlink" title="继承问题"></a>继承问题</h2><p>ECMAScript通过原型链来作为实现继承的主要方法。<br>原型：每个构造函数都有一个原型对象，原型对象都包括一个指向构造函数的指针；实例则有一个指针指向原型对象。<br>原型链：原型对象包含一个指针指向另一个原型，层层递进形成了实例与原型的链条。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function">function <span class="hljs-title">SuperType</span><span class="hljs-params">()</span> </span>&#123;<br>	<span class="hljs-keyword">this</span>.property = <span class="hljs-keyword">true</span>;<br>&#125;<br>SuperType.prototype.getSuperValue = function() &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.property;<br>&#125;<br><span class="hljs-function">function <span class="hljs-title">SubType</span><span class="hljs-params">()</span> </span>&#123;<br>	<span class="hljs-keyword">this</span>.subproperty = <span class="hljs-keyword">false</span>;<br>&#125;<br><span class="hljs-comment">// 继承SubType</span><br>SubType.prototype = <span class="hljs-keyword">new</span> SuperType();<br><br>SubType.prototype.getSubValue = function() &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.subproperty;<br>&#125;<br><br><span class="hljs-keyword">var</span> instance = <span class="hljs-keyword">new</span> SubType();<br>instance.getSuperValue():  <span class="hljs-comment">//true</span><br></code></pre></td></tr></table></figure>
+<p>完成代码后看一下类图：<br><img src="/img/JavaScript/4.png" alt="github"><br>给 SubType 换了一个新原型；就是 SuperType 的实例。新原型不仅具有作为一个 SuperType 的实例所拥有的全部属性和方法，而且内部的指针指向了 SuperType的原型。<br>注意：这里的SubType的原型 constructor 属性不是被重写，而是他的原型指向了另一个对象，SuperType的原型，而他的原型的 constructor 属性指向的是 SuperType。</p>
+<h4 id="原型链的问题"><a href="#原型链的问题" class="headerlink" title="原型链的问题"></a>原型链的问题</h4><p>虽然强大，但是在实现继承上依旧存在问题。最主要的就是来自包含引用类型值的原型。即所有对象都共享原型链上的所有对象数据；第二个是在创建子类型时，无法初始化父类的构造函数。</p>
+<h2 id="借用构造函数"><a href="#借用构造函数" class="headerlink" title="借用构造函数"></a>借用构造函数</h2><p>也叫做伪造对象。即在子类型构造函数的内部调用超类型构造函数。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function">function <span class="hljs-title">SuperType</span><span class="hljs-params">()</span> </span>&#123;<br>	<span class="hljs-keyword">this</span>.colors = [<span class="hljs-string">&#x27;red&#x27;</span>, <span class="hljs-string">&#x27;blue&#x27;</span>, <span class="hljs-string">&#x27;green&#x27;</span>];<br>&#125;<br><span class="hljs-function">function <span class="hljs-title">SubType</span><span class="hljs-params">()</span> </span>&#123;<br>	<span class="hljs-comment">// 继承了 SuperType</span><br>	SuperType.call(<span class="hljs-keyword">this</span>);<br>&#125;<br><span class="hljs-keyword">var</span> instance1 = <span class="hljs-keyword">new</span> SubType();<br>instance1.colors.push(<span class="hljs-string">&#x27;black&#x27;</span>);<br>instance1.colors;  <span class="hljs-comment">// red blue green black</span><br><span class="hljs-keyword">var</span> instance2 = <span class="hljs-keyword">new</span> SubType();<br>instance2.colors;  <span class="hljs-comment">// red blue green</span><br></code></pre></td></tr></table></figure>
+<p>通过调用call()方法，创建SubType的环境下调用了SuperType的构造函数。这样就初始化了父类构造函数。</p>
+<h2 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h2><h2 id="原型式继承"><a href="#原型式继承" class="headerlink" title="原型式继承"></a>原型式继承</h2><h2 id="寄生试继承"><a href="#寄生试继承" class="headerlink" title="寄生试继承"></a>寄生试继承</h2><h2 id="寄生组合式继承"><a href="#寄生组合式继承" class="headerlink" title="寄生组合式继承"></a>寄生组合式继承</h2></div></article><div class="post-view__sidebar"><div class="sidebar"><div class="tocbot"><h2>Toc</h2><div class="toc__content"></div></div><h2>Links</h2><div class="sidebar__link"><ul><li><a target="_blank" rel="noopener" href="https://github.com/yours">Github</a></li><li><a target="_blank" rel="noopener" href="https://codepen.io/yours">Codepen</a></li><li><a target="_blank" rel="noopener" href="https://dribbble.com/yours">Dribbble</a></li><li><a target="_blank" rel="noopener" href="https://twitter.com/yours">Twitter</a></li><li><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/yours">知乎</a></li><li><a target="_blank" rel="noopener" href="https://juejin.im/user/yours">掘金</a></li><li><a href="mailto:xxx@yourmail.xxxx">Mail</a></li></ul></div><h2>Archives</h2><div class="sidebar__archives"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/">2017</a></li></ul></div><h2>Categories</h2><div class="sidebar__categories"><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/">Android</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/Android/%E7%83%AD%E6%9B%B4%E6%96%B0/">热更新</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/C-C/">C/C++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Gradle/">Gradle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaWeb/">JavaWeb</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ReactNative/">ReactNative</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/RxJava/">RxJava</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SSR/">SSR</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/UML/">UML</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/npm/">npm</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/srs/">srs</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ssr/">ssr</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%90%8E%E5%8F%B0/">后台</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/">算法分析</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%BC%96%E8%AF%91%E7%9A%84%E5%BA%93/">编译的库</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF/">贝塞尔曲线</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%B7%A8%E5%9F%9F/">跨域</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9F%B3%E8%A7%86%E9%A2%91/">音视频</a></li></ul></div><h2>Tags</h2><div class="sidebar__tags"><ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/" rel="tag">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cpp/" rel="tag">Cpp</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/GIT/" rel="tag">GIT</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Gradle/" rel="tag">Gradle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NDK/" rel="tag">NDK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RTMP/" rel="tag">RTMP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React/" rel="tag">React</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ReactNative/" rel="tag">ReactNative</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RxJava/" rel="tag">RxJava</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/" rel="tag">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UML/" rel="tag">UML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/" rel="tag">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/camera/" rel="tag">camera</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ffmpeg/" rel="tag">ffmpeg</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/" rel="tag">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javaScript/" rel="tag">javaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/libfaac/" rel="tag">libfaac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/libjpeg-turbo/" rel="tag">libjpeg-turbo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/libx264/" rel="tag">libx264</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/libyuv/" rel="tag">libyuv</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/" rel="tag">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/springboot/" rel="tag">springboot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ssr/" rel="tag">ssr</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%90%8E%E5%8F%B0/" rel="tag">后台</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F/" rel="tag">图片格式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%A7%E5%88%B6%E7%89%88%E6%9C%AC/" rel="tag">控制版本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/" rel="tag">数据结构与算法分析</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" rel="tag">机器学习</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/" rel="tag">构建工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" rel="tag">正则表达式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B1%87%E7%BC%96/" rel="tag">汇编</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%83%AD%E6%9B%B4%E6%96%B0/" rel="tag">热更新</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%9B%B4%E6%92%AD/" rel="tag">直播</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%86%E9%A2%91%E6%A0%BC%E5%BC%8F/" rel="tag">视频格式</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9F%B3%E9%A2%91/" rel="tag">音频</a></li></ul></div></div></div></div><div class="horizontal-line" style="height: 1px"></div><div class="main__bottom"><div class="pre-next"><a class="pre-button" href="/2020/03/29/%E4%BA%86%E8%A7%A3%E8%B7%A8%E5%9F%9F/">了解跨域</a><a class="next-button" href="/2020/03/06/React-native-%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE/">React-native 高德地图</a></div></div></div></div><div class="footer"><span>©️2019-2021 Designed By&nbsp;<strong><a target="_blank" rel="noopener" href="https://github.com/random-yang">RandomYang</a></strong> Powered By&nbsp;</span><strong><a target="_blank" rel="noopener" href="https://hexo.io">hexo</a></strong></div><div class="darkmode-mask" id="darkmode-mask"></div><div class="sidebar__button"></div></body></html>
