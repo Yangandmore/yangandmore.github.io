@@ -1,0 +1,114 @@
+
+	+--------+                    +--------+
+	| Client |   TCP/IP Network   | Server |
+	+--------+         |          +--------+
+	     |             |               |
+	     |             |               |
+	     |    C0+C1    |               |
+	     |------------>|     C0+C1     |
+	     |             |-------------->|
+	     |             |               |
+	     |             |   S0+S1+S2    |
+	     |  S0+S1+S2   |<--------------|
+	     |<------------|               |
+	     |             |               |
+	     |      C2     |               |
+	     |------------>|      C2       |
+	     |             |-------------->|
+	     |             |               |
+	     |             |               |
+	     |             |               |
+	     |             |               |
+	     |             |               |
+	     |             |               |
+	     |             |               |
+
+
+
+
+
+
+	+--------+          	 	         +--------+
+	| Client |          	  	         | Server |
+	+--------+               	         +--------+
+	     |---------Command Message(connect)------>|
+	     |		    		      	      |
+	     |<-------Window Acknowledgement Size-----|
+	     |		    		      	      |
+	     |<-----------Set Peer Bandwidth----------|
+	     |		    		      	      |
+	     |--------Window Acknowledgement Size---->|
+	     |		    		      	      |
+	     |<----User Control Message(StreamBegin)--|
+	     |		    		      	      |
+	     |<------------Command Message------------|
+	     |	     (_result- connect response)      |
+	     |		    		      	      |
+	     |		    		      	      |
+	     |		    		      	      |
+	     |		    		      	      |
+	     |		    		      	      |
+	     |		    		      	      |
+
+
+
+
+
+
+	+--------+          	 	         +--------+
+	| Client |          	  	         | Server |
+	+--------+               	         +--------+
+	     |		    		      	      |
+	     |------Command Message(createStream)---->|
+	     |		    		      	      |
+	     |<------------Command Message------------|
+	     |	   (_result- createStream response)   |
+	     |		    		      	      |
+	     |		    		      	      |
+
+
+
+
+	+--------+          	 	         +--------+
+	| Client |          	  	         | Server |
+	+--------+               	         +--------+
+	     |---------Command Message(play)--------->|
+	     |		    		      	      |
+	     |<--------------SetChunkSize-------------|
+	     |		    		      	      |
+	     |<--------UserControl(StreamBegin)-------|
+	     |		    		      	      |
+	     |<-Command Message(onStatus-play reset)--|
+	     |		    		      	      |
+	     |<-Command Message(onStatus-play reset)--|
+	     |		    		      	      |
+	     |<--------------Audio Message------------|
+	     |		    		      	      |
+	     |<--------------Video Message------------|
+	     |		    		      	      |
+	     |		    		      	      |
+	     |		    		      	      |
+	     |		    		      	      |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
