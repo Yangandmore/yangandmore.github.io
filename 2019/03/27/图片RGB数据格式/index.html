@@ -38,10 +38,20 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
     orderedList: false,
     collapseDepth: 2,
   });
-})</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
-</head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">杨小杨的博客</a></h1><p>保佑代码无bug🙏</p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">图片RGB数据格式</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">图片RGB数据格式</a></h2><span class="post__date">2019-03-27</span><a href="/tags/%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F/"><span class="post__tags">#图片格式</span></a></div></div><div class="article__content"><p>相关博客:<br>[YUV图片原理]<a target="_blank" rel="noopener" href="https://yangandmore.github.io/2019/03/14/%E5%9B%BE%E7%89%87YUV%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/">https://yangandmore.github.io/2019/03/14/%E5%9B%BE%E7%89%87YUV%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/</a><br>[RGB图片原理]<a target="_blank" rel="noopener" href="https://yangandmore.github.io/2019/03/27/%E5%9B%BE%E7%89%87RGB%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/">https://yangandmore.github.io/2019/03/27/%E5%9B%BE%E7%89%87RGB%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/</a><br>[libyuv for android库编译和简单使用]<a target="_blank" rel="noopener" href="https://yangandmore.github.io/2019/03/07/libYUV%E7%BC%96%E8%AF%91/">https://yangandmore.github.io/2019/03/07/libYUV%E7%BC%96%E8%AF%91/</a><br>[libturbojpeg for android库编译和简单使用]<a target="_blank" rel="noopener" href="https://yangandmore.github.io/2019/03/08/libjpeg-turbo%E7%BC%96%E8%AF%91/">https://yangandmore.github.io/2019/03/08/libjpeg-turbo%E7%BC%96%E8%AF%91/</a><br>[yuv-tool for android库的项目]<a target="_blank" rel="noopener" href="https://yangandmore.github.io/2020/07/13/yuv-tool%E5%B7%A5%E5%85%B7%E7%B1%BB/">https://yangandmore.github.io/2020/07/13/yuv-tool%E5%B7%A5%E5%85%B7%E7%B1%BB/</a><br>[turbo-jpeg-tool for android库的项目]&lt;&gt;</p>
-<span id="more"></span>
-
+})</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script><script type="text/javascript">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
+</head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">杨小杨的博客</a></h1><p>保佑代码无bug🙏</p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">图片RGB数据格式</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">图片RGB数据格式</a></h2><span class="post__date">2019-03-27</span><a href="/tags/%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F/"><span class="post__tags">#图片格式</span></a></div></div><div class="article__content"><p>相关博客:<br>[YUV图片原理]<a target="_blank" rel="noopener" href="https://yangandmore.github.io/2019/03/14/%E5%9B%BE%E7%89%87YUV%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/">https://yangandmore.github.io/2019/03/14/%E5%9B%BE%E7%89%87YUV%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/</a><br>[RGB图片原理]<a target="_blank" rel="noopener" href="https://yangandmore.github.io/2019/03/27/%E5%9B%BE%E7%89%87RGB%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/">https://yangandmore.github.io/2019/03/27/%E5%9B%BE%E7%89%87RGB%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/</a><br>[libyuv for android库编译和简单使用]<a target="_blank" rel="noopener" href="https://yangandmore.github.io/2019/03/07/libYUV%E7%BC%96%E8%AF%91/">https://yangandmore.github.io/2019/03/07/libYUV%E7%BC%96%E8%AF%91/</a><br>[libturbojpeg for android库编译和简单使用]<a target="_blank" rel="noopener" href="https://yangandmore.github.io/2019/03/08/libjpeg-turbo%E7%BC%96%E8%AF%91/">https://yangandmore.github.io/2019/03/08/libjpeg-turbo%E7%BC%96%E8%AF%91/</a><br>[yuv-tool for android库的项目]<a target="_blank" rel="noopener" href="https://yangandmore.github.io/2020/07/13/yuv-tool%E5%B7%A5%E5%85%B7%E7%B1%BB/">https://yangandmore.github.io/2020/07/13/yuv-tool%E5%B7%A5%E5%85%B7%E7%B1%BB/</a><br>[turbo-jpeg-tool for android库的项目]&lt;&gt;<br><span id="more"></span></p>
 <h2 id="一、RGB简介"><a href="#一、RGB简介" class="headerlink" title="一、RGB简介"></a>一、RGB简介</h2><p>三原色：Red、Green、Blue。每一种颜色值的范围是0~255。</p>
 <h2 id="二、格式"><a href="#二、格式" class="headerlink" title="二、格式"></a>二、格式</h2><p>RGB在主要分为两大类，一种是索引形式，一种是像素形式</p>
 <h1 id="索引形式"><a href="#索引形式" class="headerlink" title="索引形式"></a>索引形式</h1><p>如RGB1, RGB4,RGB8。分别表示每个像素用1个bit, 4个bit, 8个bit来表示，那么，这些bit存储的并非是实际的R、G、B值，而是对应点的像素在调色板中的索引。<br>这些格式是比较老的格式，比较节省空间，在计算机发展的初期存储的成本还是很高的，但是表现的色彩很有限。<br>关于调色板，可以简单理解为通过编号映射到颜色的一张二维表。如01索引，表示红色。采用索引格式的RGB，红色的像素对应存储的值便是索引01.<br><img src="/img/RGB/0.png" alt="github"></p>
@@ -72,30 +82,13 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <li>辅助位： 第一个字节的第5位是0（大写）=关键，1（小写）=辅助。一个解码器遇到一个不能识别的块时，如果发现辅助位为1则可以放心地忽略该块，并继续显示图像。</li>
 <li>私人位：第二个字节的第5位是0（大写）=公用，1（小写）=私人。应用程序也可以定义私有（未注册）块来达到自己的目的。需要注意的是解码器并不需要理会块的私人位——因为它没有功能上的意义，它只是一个管理上的便利，以确保公共块和私人块名称不会冲突。</li>
 <li>保留位：第三个字节的第5位必须为0（大写）。该位的意义是为将来可能的扩展保留。</li>
-<li>安全拷贝位：第4个字节的第5位是0（大写）=复制不安全，1（小写）=复制安全。</li>
-<li><ul>
-<li>该位为0（大写），表示该块的内容随图像数据的更新而更新，如果修改了任何关键数据块（包括增添、修改、删除以及关键块的重新排序），就不要把不能识别且“复制不安全”的块输出到新的png文件中。（如果png编辑器可以识别该块，那么当然可以选择输出适当修改后的版本）</li>
+<li>安全拷贝位：第4个字节的第5位是0（大写）=复制不安全，1（小写）=复制安全。<br><strong> 该位为0（大写），表示该块的内容随图像数据的更新而更新，如果修改了任何关键数据块（包括增添、修改、删除以及关键块的重新排序），就不要把不能识别且“复制不安全”的块输出到新的png文件中。（如果png编辑器可以识别该块，那么当然可以选择输出适当修改后的版本）
+</strong> 该位为1（小写），表示不论png编辑器是否可以识别该块，也不管png文件被多大程度地修改，该块都可以被拷贝到修改后的png文件中。<br><strong> 如果只有辅助块的增添、删除、修改或辅助块的重新排序，png编辑器将总是被允许将不能识别的辅助块拷贝到修改后的png文件中，这就要求：不论”安全拷贝位“如何设置，一个辅助块都不能仅随其它辅助块的更新而更新。
+</strong> 如果png编辑器遇到一个不能识别的关键块，因为没有办法确定修改包含这种块的文件后png文件还是否有效，所以png编辑器应立刻停止修改这个png文件。<br>** 复制安全/不安全的机制是为辅助块设计的。对于关键块，”安全拷贝位“应该总是为0。</li>
 </ul>
-</li>
-<li><ul>
-<li>该位为1（小写），表示不论png编辑器是否可以识别该块，也不管png文件被多大程度地修改，该块都可以被拷贝到修改后的png文件中。</li>
-</ul>
-</li>
-<li><ul>
-<li>如果只有辅助块的增添、删除、修改或辅助块的重新排序，png编辑器将总是被允许将不能识别的辅助块拷贝到修改后的png文件中，这就要求：不论”安全拷贝位“如何设置，一个辅助块都不能仅随其它辅助块的更新而更新。</li>
-</ul>
-</li>
-<li><ul>
-<li>如果png编辑器遇到一个不能识别的关键块，因为没有办法确定修改包含这种块的文件后png文件还是否有效，所以png编辑器应立刻停止修改这个png文件。</li>
-</ul>
-</li>
-<li><ul>
-<li>复制安全/不安全的机制是为辅助块设计的。对于关键块，”安全拷贝位“应该总是为0。</li>
-</ul>
-</li>
-</ul>
-<h3 id="数据块结构"><a href="#数据块结构" class="headerlink" title="数据块结构"></a>数据块结构</h3><p>PNG定义了两种类型的数据块，一种是称为关键数据块，这是必需的数据块，另一种叫做辅助数据块，这是可选的数据块。关键数据块定义了4个标准数据块，每个PNG文件都必须包含它们，PNG读写软件也都必须要支持这些数据块。<br>| 名称                          | 字节数   | 说明                                       |<br>| —————————– | ——– | —————————————— |<br>| Length(长度)                  | 4字节    | 指定数据块中数据的长度，不超过2^31 - 1字节 |<br>| Chunk Type Code(数据块类型码) | 4字节    | 数据块类型码有ASCⅡ组成                     |<br>| Chunk Data(数据块数据)        | 可变长度 | 存储Chunk Type Code指定的数据              |<br>| CRC                           | 4字节    | 存储用来检测是否错误的循环冗余码           |</p>
+<h3 id="数据块结构"><a href="#数据块结构" class="headerlink" title="数据块结构"></a>数据块结构</h3><p>PNG定义了两种类型的数据块，一种是称为关键数据块，这是必需的数据块，另一种叫做辅助数据块，这是可选的数据块。关键数据块定义了4个标准数据块，每个PNG文件都必须包含它们，PNG读写软件也都必须要支持这些数据块。<br>| 名称                          | 字节数   | 说明                                       |<br>| ——————————————- | ———— | ————————————————————— |<br>| Length(长度)                  | 4字节    | 指定数据块中数据的长度，不超过2^31 - 1字节 |<br>| Chunk Type Code(数据块类型码) | 4字节    | 数据块类型码有ASCⅡ组成                     |<br>| Chunk Data(数据块数据)        | 可变长度 | 存储Chunk Type Code指定的数据              |<br>| CRC                           | 4字节    | 存储用来检测是否错误的循环冗余码           |</p>
 <h4 id="关键数据块"><a href="#关键数据块" class="headerlink" title="关键数据块"></a>关键数据块</h4><p>关键数据块的组成如下：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -106,7 +99,8 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <th>位置限制</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>IHDR</td>
 <td>文件头数据块</td>
 <td>否</td>
@@ -134,14 +128,17 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <td>否</td>
 <td>最后一个数据块</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <ul>
 <li>IHDR：文件头数据块IHDR(header chunk)：它包含有PNG文件中存储的图像数据的基本信息，并要作为第一个数据块出现在PNG数据流中，而且一个PNG数据流中只能有一个文件头数据块。</li>
 <li>PLTE：调色板数据块PLTE(palette chunk)包含有与索引彩色图像(indexed-color image)相关的彩色变换数据，它仅与索引彩色图像有关，而且要放在图像数据块(image data chunk)之前。PLTE数据块是定义图像的调色板信息，PLTE可以包含1~256个调色板信息，每一个调色板信息由3个字节组成。</li>
 <li>IDAT：图像数据块IDAT(image data chunk)：它存储实际的数据，在数据流中可包含多个连续顺序的图像数据块。IDAT存放着图像真正的数据信息，因此，如果能够了解IDAT的结构，我们就可以很方便的生成PNG图像。</li>
 <li>IEND：图像结束数据IEND(image trailer chunk)：它用来标记PNG文件或者数据流已经结束，并且必须要放在文件的尾部。如果我们仔细观察PNG文件，我们会发现，文件的结尾12个字符看起来总应该是这样的：<br>0000000049454E44AE426082，不难明白，由于数据块结构的定义，IEND数据块的长度总是0（00 00 00 00，除非人为加入信息），数据标识总是IEND（49 45 4E 44），因此，CRC码也总是AE 42 60 82。</li>
 </ul>
-<h4 id="辅助数据块"><a href="#辅助数据块" class="headerlink" title="辅助数据块"></a>辅助数据块</h4><table>
+<h4 id="辅助数据块"><a href="#辅助数据块" class="headerlink" title="辅助数据块"></a>辅助数据块</h4><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>数据块符号</th>
@@ -151,7 +148,8 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <th>位置限制</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>cHRM</td>
 <td>基色和白色点数据块</td>
 <td>否</td>
@@ -263,26 +261,14 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <td>是</td>
 <td>同上</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h1 id="JPEG"><a href="#JPEG" class="headerlink" title="JPEG"></a>JPEG</h1><p>JPEG的全称是JointPhotographicExpertsGroup。它是一种常用的图像存储格式， jpg/jpeg是24位的图像文件格式，也是一种高效率的压缩格式。<br>JPEG格式可以分为标准JPEG、渐进式JPEG和JPEG2000三种格式。</p>
 <ul>
-<li>标准JPEG：只有图片完全被加载和读取完毕之后，才能看到图片的全貌。压缩比在10:1到40:1之间，压缩比越大，品质就越差，压缩比越小，品质就越好PEG由于可以提供有损压缩，因此压缩比可以达到其他传统压缩算法无法比拟的程度。其压缩模式有以下几种：顺序式编码（SequentialEncoding），递增式编码（ProgressiveEncoding），无失真编码（LosslessEncoding）和阶梯式编码（HierarchicalEncoding）。</li>
-<li><ul>
-<li>颜色转换：由于JPEG只支持YUV颜色模式，而不支持RGB颜色模式，所以在将彩色图像进行压缩之前，必须先对颜色模式进据转换。</li>
-</ul>
-</li>
-<li><ul>
-<li>DCT变换：是将图像信号在频率域上进行变换，分离出高频和低频信息的处理过程。然后再对图像的高频部分（即图像细节）进行压缩，以达到压缩图像数据的目的。对每一个矩阵作DCT变换。变换后得到一个频率系数矩阵，其中的频率系数都是浮点数。</li>
-</ul>
-</li>
-<li><ul>
-<li>量化：由于在后面编码过程中使用的码本都是整数，因此需要对变换后的频率系数进行量化，将之转换为整数。由于进行数据量化后，矩阵中的数据都是近似值，和原始图像数据之间有了差异，这一差异是造成图像压缩后失真的主要原因。</li>
-</ul>
-</li>
-<li><ul>
-<li>编码：编码采用两种机制:1.是0值的行程长度编码;2.熵编码。</li>
-</ul>
-</li>
+<li>标准JPEG：只有图片完全被加载和读取完毕之后，才能看到图片的全貌。压缩比在10:1到40:1之间，压缩比越大，品质就越差，压缩比越小，品质就越好PEG由于可以提供有损压缩，因此压缩比可以达到其他传统压缩算法无法比拟的程度。其压缩模式有以下几种：顺序式编码（SequentialEncoding），递增式编码（ProgressiveEncoding），无失真编码（LosslessEncoding）和阶梯式编码（HierarchicalEncoding）。<br><strong> 颜色转换：由于JPEG只支持YUV颜色模式，而不支持RGB颜色模式，所以在将彩色图像进行压缩之前，必须先对颜色模式进据转换。
+</strong> DCT变换：是将图像信号在频率域上进行变换，分离出高频和低频信息的处理过程。然后再对图像的高频部分（即图像细节）进行压缩，以达到压缩图像数据的目的。对每一个矩阵作DCT变换。变换后得到一个频率系数矩阵，其中的频率系数都是浮点数。<br><strong> 量化：由于在后面编码过程中使用的码本都是整数，因此需要对变换后的频率系数进行量化，将之转换为整数。由于进行数据量化后，矩阵中的数据都是近似值，和原始图像数据之间有了差异，这一差异是造成图像压缩后失真的主要原因。
+</strong> 编码：编码采用两种机制:1.是0值的行程长度编码;2.熵编码。</li>
 <li>渐进式JPEG：该类型的图片是对标准JPEG格式的改进，当在网页上下载渐进式JPEG图片时，首先呈现图片的大概外貌，然后再逐渐呈现具体的细节部分，因而被称之为渐进式JPEG。</li>
 <li>JPEG2002：在具有标准JPEG格式和渐进式的基础上，提高压缩率，同时支持有损压缩和无损压缩。</li>
 </ul>
@@ -292,6 +278,7 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <li>段标识：一个字节：0xFF</li>
 <li>段类型：一个字节，共有30种，这里只列除必须被所有程序识别的10种。</li>
 </ul>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -300,7 +287,8 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <th>说明</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>SOI</td>
 <td>D8</td>
 <td>文件头</td>
@@ -350,12 +338,15 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <td>FE</td>
 <td>注释</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <ul>
 <li>段长度：除去段标识和段类型后剩余的字段长度</li>
 </ul>
 <h3 id="SOI文件头"><a href="#SOI文件头" class="headerlink" title="SOI文件头"></a>SOI文件头</h3><p>作为JPEG文件的起始2个字节为SOI文件头：<br><code>FF D8</code></p>
-<h3 id="APP0图像识别信息"><a href="#APP0图像识别信息" class="headerlink" title="APP0图像识别信息"></a>APP0图像识别信息</h3><table>
+<h3 id="APP0图像识别信息"><a href="#APP0图像识别信息" class="headerlink" title="APP0图像识别信息"></a>APP0图像识别信息</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>名称</th>
@@ -364,7 +355,8 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <th>说明</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>段标识</td>
 <td>1</td>
 <td>FF</td>
@@ -434,13 +426,15 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <td>RGB缩略图</td>
 <td>3*n</td>
 <td></td>
-<td></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <blockquote>
 <p>JFIF是文件交换格式的一种</p>
 </blockquote>
-<h3 id="DQT定义量化表"><a href="#DQT定义量化表" class="headerlink" title="DQT定义量化表"></a>DQT定义量化表</h3><table>
+<h3 id="DQT定义量化表"><a href="#DQT定义量化表" class="headerlink" title="DQT定义量化表"></a>DQT定义量化表</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>名称</th>
@@ -449,7 +443,8 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <th>说明</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>段标识</td>
 <td>1</td>
 <td>FF</td>
@@ -479,9 +474,12 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <td></td>
 <td>n＝64×QT精度的字节数</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>JPEG文件一般有2个DQT段，为Y值定义一个，为C值定义一个。</p>
-<h3 id="SOF0图像基本信息"><a href="#SOF0图像基本信息" class="headerlink" title="SOF0图像基本信息"></a>SOF0图像基本信息</h3><table>
+<h3 id="SOF0图像基本信息"><a href="#SOF0图像基本信息" class="headerlink" title="SOF0图像基本信息"></a>SOF0图像基本信息</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>名称</th>
@@ -490,7 +488,8 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <th>说明</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>段标识</td>
 <td>1</td>
 <td>FF</td>
@@ -548,11 +547,13 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <td>量化表号</td>
 <td>1</td>
 <td></td>
-<td></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>由于JPEG大都采用YUV，因此一般组件数量都是3个。</p>
-<h3 id="DHT定义huffman表"><a href="#DHT定义huffman表" class="headerlink" title="DHT定义huffman表"></a>DHT定义huffman表</h3><table>
+<h3 id="DHT定义huffman表"><a href="#DHT定义huffman表" class="headerlink" title="DHT定义huffman表"></a>DHT定义huffman表</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>名称</th>
@@ -561,7 +562,8 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <th>说明</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>段标识</td>
 <td>1</td>
 <td>FF</td>
@@ -597,9 +599,12 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <td></td>
 <td>表头16个数的和</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>JPEG文件里有２类Haffman 表：一类用于DC（直流量），一类用于AC（交流量）。一般有４个表：亮度的DC和AC，色度的DC和AC。最多可有６个。</p>
-<h3 id="SOS扫描行开始"><a href="#SOS扫描行开始" class="headerlink" title="SOS扫描行开始"></a>SOS扫描行开始</h3><table>
+<h3 id="SOS扫描行开始"><a href="#SOS扫描行开始" class="headerlink" title="SOS扫描行开始"></a>SOS扫描行开始</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>名称</th>
@@ -608,7 +613,8 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <th>说明</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>段标识</td>
 <td>1</td>
 <td>FF</td>
@@ -648,12 +654,14 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <td>最后3个字节</td>
 <td>3</td>
 <td></td>
-<td></td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>每个组件2个字节，分别是组件ID和Huffman表号。</p>
 <h3 id="EOI文件尾"><a href="#EOI文件尾" class="headerlink" title="EOI文件尾"></a>EOI文件尾</h3><p>文件尾为：<br><code>FF D9</code></p>
-<h3 id="其他段"><a href="#其他段" class="headerlink" title="其他段"></a>其他段</h3><h4 id="注释段"><a href="#注释段" class="headerlink" title="注释段"></a>注释段</h4><table>
+<h3 id="其他段"><a href="#其他段" class="headerlink" title="其他段"></a>其他段</h3><h4 id="注释段"><a href="#注释段" class="headerlink" title="注释段"></a>注释段</h4><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>名称</th>
@@ -662,7 +670,8 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <th>说明</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>段标识</td>
 <td>1</td>
 <td>FF</td>
@@ -686,8 +695,10 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <td></td>
 <td>注释字符</td>
 </tr>
-</tbody></table>
-<h4 id="DRI"><a href="#DRI" class="headerlink" title="DRI"></a>DRI</h4><p>定义重新开始间隔<br>| 名称     | 字节数 | 值 | 说明               |<br>| ——– | —— | – | —————— |<br>| 段标识   | 1      | FF |                    |<br>| 段类型   | 1      | DD |                    |<br>| 段长度   | 2      | 4  |                    |<br>| 开始间隔 | 2      | n  | 复位标记的间隔距离 |</p>
+</tbody>
+</table>
+</div>
+<h4 id="DRI"><a href="#DRI" class="headerlink" title="DRI"></a>DRI</h4><p>定义重新开始间隔<br>| 名称     | 字节数 | 值 | 说明               |<br>| ———— | ——— | — | ————————— |<br>| 段标识   | 1      | FF |                    |<br>| 段类型   | 1      | DD |                    |<br>| 段长度   | 2      | 4  |                    |<br>| 开始间隔 | 2      | n  | 复位标记的间隔距离 |</p>
 <p>开始间隔表示在压缩数据流中，每隔ｎ个MCU 块就有一个RST标记，RST标记将Huffman 的解码数据流复位，DC也重新从０开始，因此，RST标记是一种复位标记。<br>RST 标记是一种特殊的段，它只具有段标识和段类型（长度＝２字节），但它不是独立的段。<br>RST标记共有８个（RST0－RST7），从RST0起开始使用，然后是RST1….直至RST7，再从RST0重复。<br>RST标记的标识码是 FFD0－FFD7，对应 RST0－RST7</p>
 <h1 id="BMP"><a href="#BMP" class="headerlink" title="BMP"></a>BMP</h1><p>BMP(Bitmap-File）图形文件是Windows采用的图形文件格式，在Windows环境下运行的所有图象处理软件都支持BMP图象文件格式。</p>
 <h2 id="格式-1"><a href="#格式-1" class="headerlink" title="格式"></a>格式</h2><p>BMP图片的组成部分：BMP文件头(14 bytes) + 位图信息头(40 bytes) + 调色板(由颜色索引决定) + 位图数据(由图像尺寸决定)</p>
@@ -697,23 +708,23 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 </blockquote>
 </li>
 <li>第3-6位字节位该位图文件的大小。(位图文件大小是指整个文件的大小、包含信息头等)<blockquote>
-<p>例：36 08 07 00 -&gt; 00 07 08 36 -&gt; 460854 = 451kb</p>
+<p>例：36 08 07 00 -> 00 07 08 36 -> 460854 = 451kb</p>
 </blockquote>
 </li>
 <li>第7-10位字节位保留位，共4个字节，必须设置位0</li>
 <li>最后4个字节是文件头开始到实际图像数据之间的字节偏移量<blockquote>
-<p>例：36 00 00 00 -&gt; 00 00 00 36 -&gt; 54个字节</p>
+<p>例：36 00 00 00 -> 00 00 00 36 -> 54个字节</p>
 </blockquote>
 </li>
 </ul>
 <h3 id="位图信息头"><a href="#位图信息头" class="headerlink" title="位图信息头"></a>位图信息头</h3><p>共40 bytes</p>
 <ul>
 <li>第1-4位字节表示位图信息头需要的字节数<blockquote>
-<p>例：28 00 00 00 -&gt; 00 00 00 28 -&gt; 40个字节</p>
+<p>例：28 00 00 00 -> 00 00 00 28 -> 40个字节</p>
 </blockquote>
 </li>
 <li>第5-8位字节表示图像宽度，以像素为单位<blockquote>
-<p>例：40 01 00 00 -&gt; 00 00 01 40 -&gt; 320</p>
+<p>例：40 01 00 00 -> 00 00 01 40 -> 320</p>
 </blockquote>
 </li>
 <li>第9-12位字节表示图片高度，以像素位单位。需要注意这个数值是有符号数据，正数表示倒向位图，负数则是正向位图，大多BMP图片都是倒向位图(倒向位图：图片数据从左下角到右上角排列)</li>

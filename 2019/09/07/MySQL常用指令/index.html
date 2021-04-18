@@ -38,8 +38,20 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
     orderedList: false,
     collapseDepth: 2,
   });
-})</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
-</head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">杨小杨的博客</a></h1><p>保佑代码无bug🙏</p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">MySQL常用指令</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">MySQL常用指令</a></h2><span class="post__date">2019-09-07</span><a href="/tags/SQL/"><span class="post__tags">#SQL</span></a></div></div><div class="article__content"><h2 id="一、MySQL"><a href="#一、MySQL" class="headerlink" title="一、MySQL"></a>一、MySQL</h2><h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><h3 id="services-start-mysqlXXXX"><a href="#services-start-mysqlXXXX" class="headerlink" title="services start mysqlXXXX"></a>services start mysqlXXXX</h3><p>启动MySQL<br>XXX -&gt; 版本号(如：@5.7)</p>
+})</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script><script type="text/javascript">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
+</head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">杨小杨的博客</a></h1><p>保佑代码无bug🙏</p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">MySQL常用指令</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">MySQL常用指令</a></h2><span class="post__date">2019-09-07</span><a href="/tags/SQL/"><span class="post__tags">#SQL</span></a></div></div><div class="article__content"><h2 id="一、MySQL"><a href="#一、MySQL" class="headerlink" title="一、MySQL"></a>一、MySQL</h2><h1 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h1><h3 id="services-start-mysqlXXXX"><a href="#services-start-mysqlXXXX" class="headerlink" title="services start mysqlXXXX"></a>services start mysqlXXXX</h3><p>启动MySQL<br>XXX -> 版本号(如：@5.7)</p>
 <h3 id="services-stop-mysqlXXXX"><a href="#services-stop-mysqlXXXX" class="headerlink" title="services stop mysqlXXXX"></a>services stop mysqlXXXX</h3><p>停止MySQL<br>XXX同上</p>
 <h3 id="mysql-u-root-默认用户名-p"><a href="#mysql-u-root-默认用户名-p" class="headerlink" title="mysql -u root(默认用户名) -p"></a>mysql -u root(默认用户名) -p</h3><p>登陆MySQL</p>
 <h3 id="mysql-h-主机名-u-root-p"><a href="#mysql-h-主机名-u-root-p" class="headerlink" title="mysql -h 主机名 -u root -p"></a>mysql -h 主机名 -u root -p</h3><h3 id="exit"><a href="#exit" class="headerlink" title="exit"></a>exit</h3><p>退出MySQL用户</p>
@@ -57,12 +69,10 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 </ul>
 <p>CRUD：<br>create(创建),retrieve(查询),update(修改),delete(删除)</p>
 <h3 id="DDL-操作数据库和表"><a href="#DDL-操作数据库和表" class="headerlink" title="DDL 操作数据库和表"></a>DDL 操作数据库和表</h3><h5 id="操作数据库"><a href="#操作数据库" class="headerlink" title="操作数据库"></a>操作数据库</h5><pre><code>* 创建数据库
-</code></pre>
-<ul>
+</code></pre><ul>
 <li><p>create</p>
 <pre><code>  * create database 数据库名称;
-</code></pre>
-<ul>
+</code></pre><ul>
 <li>创建数据库，判断在不在<ul>
 <li>create database if not exists 数据库名称;</li>
 </ul>
@@ -189,7 +199,7 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <h5 id="删除数据"><a href="#删除数据" class="headerlink" title="删除数据"></a>删除数据</h5><ul>
 <li>语法<ul>
 <li>delete from 表名 [ where 条件 ];</li>
-<li>truncate table 表名; – 删除名，然后在创建一个一模一样的空表</li>
+<li>truncate table 表名; — 删除名，然后在创建一个一模一样的空表</li>
 </ul>
 </li>
 </ul>
@@ -216,8 +226,7 @@ select
   limit
       分页条件;
       `
-</code></pre>
-</li>
+</code></pre></li>
 </ul>
 <h5 id="查询语句"><a href="#查询语句" class="headerlink" title="查询语句"></a>查询语句</h5><ul>
 <li><p>查询条件</p>
@@ -266,8 +275,10 @@ select
 <li>max：计算最大值</li>
 <li>min：计算最小值</li>
 <li>sum：计算和</li>
-<li>avg：计算平均值</li>
-<li>注意，聚合函数的计算会排除null<ul>
+<li><p>avg：计算平均值</p>
+</li>
+<li><p>注意，聚合函数的计算会排除null</p>
+<ul>
 <li>选择非空列</li>
 <li>ifnull函数</li>
 <li>* 但并不推荐</li>
@@ -288,8 +299,7 @@ select
 </li>
 </ul>
 </li>
-<li><p>分页查询</p>
-<ul>
+<li>分页查询<ul>
 <li>语法：limit 开始的下表，查询的数量</li>
 <li>公式：开始的索引 = (当前的页码 - 1) * 每页查询的条数;</li>
 </ul>
@@ -407,10 +417,10 @@ select
 </ul>
 </li>
 <li>第二范式：在1NF基础上，非码属性必须完全依赖于候选码(消除非主属性对主码的部分函数依赖)<ul>
-<li>函数依赖：A–&gt;B，如果通过A属性(属性组)的值，可以确定唯一B属性的值。则称为B依赖于A。如学号–&gt;姓名，(学号，课程名称)–&gt;分数</li>
-<li>完全函数依赖：A–&gt;B，如果A是一个属性组，则B属性值的确定需要依赖于A属性组中的所有属性值。如(学号，课程名称)–&gt;分数</li>
-<li>部分函数依赖：A–&gt;B，如果A是一个属性组，则B属性值的确定只需要A属性组中某一些值即可。如(学号，课程名称)–&gt;姓名</li>
-<li>传递函数依赖：A–&gt;B，B–&gt;C，如果通过A属性(属性组)的值，可以确定唯一B属性的值；再通过B属性(属性组)的值可以确定唯一C属性的值，则称C传递函数依赖与A。如学号–&gt;系名，系名–&gt;系主任</li>
+<li>函数依赖：A—&gt;B，如果通过A属性(属性组)的值，可以确定唯一B属性的值。则称为B依赖于A。如学号—&gt;姓名，(学号，课程名称)—&gt;分数</li>
+<li>完全函数依赖：A—&gt;B，如果A是一个属性组，则B属性值的确定需要依赖于A属性组中的所有属性值。如(学号，课程名称)—&gt;分数</li>
+<li>部分函数依赖：A—&gt;B，如果A是一个属性组，则B属性值的确定只需要A属性组中某一些值即可。如(学号，课程名称)—&gt;姓名</li>
+<li>传递函数依赖：A—&gt;B，B—&gt;C，如果通过A属性(属性组)的值，可以确定唯一B属性的值；再通过B属性(属性组)的值可以确定唯一C属性的值，则称C传递函数依赖与A。如学号—&gt;系名，系名—&gt;系主任</li>
 <li>码：如果在一张表中，一个属性或属性组，被其他所有属性所完全依赖，则称这个属性(属性组)为该表的码。如(学号，课程名称)<ul>
 <li>主属性：码属性组中的所有属性</li>
 <li>非主属性：除过码属性组的属性</li>
@@ -504,8 +514,8 @@ select
 </ul>
 </li>
 <li>修改事务的默认提交方式<ul>
-<li>查看事务的默认提交方式：select @@autocommit; – 1代表自动提交，0代表手动提交</li>
-<li>修改默认提交方式：set @@autocommit=0; – 修改后如果不commit，语句不会生效</li>
+<li>查看事务的默认提交方式：select @@autocommit; — 1代表自动提交，0代表手动提交</li>
+<li>修改默认提交方式：set @@autocommit=0; — 修改后如果不commit，语句不会生效</li>
 </ul>
 </li>
 </ul>
@@ -522,10 +532,9 @@ select
 <ul>
 <li>脏读：一个事务，读取到另一个事务中没有提交的数据，</li>
 <li>不可重复读(虚读)：在同一个事务中，两次读取到的数据不一样</li>
-<li>幻读：一个事务操作(DML)数据表中所有数据，另一个事务添加了一条数据，则第一个事务查询不到自己的修改</li>
-</ul>
-<p>  隔离级别</p>
-<ul>
+<li><p>幻读：一个事务操作(DML)数据表中所有数据，另一个事务添加了一条数据，则第一个事务查询不到自己的修改</p>
+<p>隔离级别</p>
+</li>
 <li>read uncommitted：读未提交<ul>
 <li>产生的问题：脏读、不可重复读、幻读</li>
 </ul>
@@ -538,12 +547,15 @@ select
 <li>产生的问题：幻读</li>
 </ul>
 </li>
-<li>serializable：串行化<ul>
+<li><p>serializable：串行化</p>
+<ul>
 <li>可以解决所有的问题</li>
 </ul>
 </li>
-<li>注意：隔离级别从上到下，安全越来越高，效率越来越低</li>
-<li>查询隔离级别<ul>
+<li><p>注意：隔离级别从上到下，安全越来越高，效率越来越低</p>
+</li>
+<li><p>查询隔离级别</p>
+<ul>
 <li>select @@tx_isolation</li>
 </ul>
 </li>
@@ -558,19 +570,19 @@ select
 <li><p>管理用户</p>
 <ul>
 <li>添加用户：<ul>
-<li>create user ‘用户名‘@’主机名’ identified by ‘密码’;</li>
+<li>create user ‘用户名’@’主机名’ identified by ‘密码’;</li>
 </ul>
 </li>
 <li>删除用户：<ul>
-<li>drop user ‘用户名‘@’主机名’;</li>
+<li>drop user ‘用户名’@’主机名’;</li>
 </ul>
 </li>
 <li>修改用户：<ul>
 <li>update user set password = password(‘新密码’) where user = ‘用户名;</li>
-<li>set password for ‘用户名‘@’主机名’ = password(‘新密码’);</li>
+<li>set password for ‘用户名’@’主机名’ = password(‘新密码’);</li>
 <li>修改root密码<ul>
 <li>1.停止mysql服务</li>
-<li>2.mysqld –skip-grant-tables;– 使用无验证方式启动mysql服务</li>
+<li>2.mysqld —skip-grant-tables;— 使用无验证方式启动mysql服务</li>
 <li>3.mysql 直接登陆进入修改root密码</li>
 <li>4.手动接受这个mysql进程，后重启即可</li>
 </ul>
@@ -586,16 +598,16 @@ select
 <li><p>授权</p>
 <ul>
 <li>查询权限<ul>
-<li>show grants for ‘用户名‘@’主机名’;</li>
+<li>show grants for ‘用户名’@’主机名’;</li>
 </ul>
 </li>
 <li>授予权限<ul>
-<li>grant 权限列表 on 数据库.表名 to ‘用户名‘@’主机名’;</li>
-<li>grant all on *.* to ‘用户名‘@’主机名’;</li>
+<li>grant 权限列表 on 数据库.表名 to ‘用户名’@’主机名’;</li>
+<li>grant all on *.* to ‘用户名’@’主机名’;</li>
 </ul>
 </li>
 <li>撤销权限<ul>
-<li>revoke 权限列表 数据库.表名 from ‘用户名‘@’表名’;</li>
+<li>revoke 权限列表 数据库.表名 from ‘用户名’@’表名’;</li>
 </ul>
 </li>
 </ul>

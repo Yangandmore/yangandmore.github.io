@@ -38,12 +38,22 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
     orderedList: false,
     collapseDepth: 2,
   });
-})</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
+})</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script><script type="text/javascript">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
 </head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">杨小杨的博客</a></h1><p>保佑代码无bug🙏</p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">Android自定义控件（二）</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">Android自定义控件（二）</a></h2><span class="post__date">2019-06-18</span><a href="/tags/Android/"><span class="post__tags">#Android</span></a></div></div><div class="article__content"><h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p>在准备好自定义View后，就可以对其绘制了，需要我们在重写的<code>onDraw</code>函数中进行绘制。<br>此时我们就需要画布(Canvas)和画笔(Paint)。</p>
 <p>Canvas类包含“绘制”调用。要绘制一些东西，你需要4个基本组件：一个用于容纳像素的位图，一个用于托管绘图调用的Canvas（写入位图），一个绘图基元（例如Rect，Path，text，Bitmap）和一个paint（to描述绘图的颜色和样式）。<br>这是官网中对Canvas的解释，感觉更像是对绘制的解释。</p>
-<h2 id="二、Canvas"><a href="#二、Canvas" class="headerlink" title="二、Canvas"></a>二、Canvas</h2><h1 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h1><p>根据构造函数可知可以创建一个空的画布，或者具有要绘制的指定位图的画布。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">Canvas()<br>Canvas(Bitmap bitmap)<br></code></pre></td></tr></table></figure>
-
+<h2 id="二、Canvas"><a href="#二、Canvas" class="headerlink" title="二、Canvas"></a>二、Canvas</h2><h1 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h1><p>根据构造函数可知可以创建一个空的画布，或者具有要绘制的指定位图的画布。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">Canvas()<br>Canvas(Bitmap bitmap)<br></code></pre></td></tr></table></figure></p>
 <h1 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h1><p>如：</p>
 <ul>
 <li>drawPoint：画点</li>
@@ -59,26 +69,33 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <h3 id="drawRect"><a href="#drawRect" class="headerlink" title="drawRect"></a>drawRect</h3><p><code>drawRect(RectF rect, @NonNull Paint paint)</code><br>同上，需要的是一个<code>Rect/RectF</code>。两者的区别就是Rect的参数为int、而RectF的参数为float。</p>
 <h3 id="drawText"><a href="#drawText" class="headerlink" title="drawText"></a>drawText</h3><p><code>drawText(String text, float x, float y, Paint paint)</code><br>在画文字需要注意，我们使用的Paint一定要设置<code>setTextSize()</code>值。</p>
 <h2 id="画布的matrix操作"><a href="#画布的matrix操作" class="headerlink" title="画布的matrix操作"></a>画布的matrix操作</h2><h3 id="平移"><a href="#平移" class="headerlink" title="平移"></a>平移</h3><p><code>translate(float dx, float dy)</code><br>会将画布的坐标原点进行平移，建立新的坐标系。</p>
-<h3 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h3><p><code>rotate(float degrees) rotate (float degrees, float px, float py)</code><br>第一个构造函数直接输入旋转的度数，正数是顺时针旋转，负数指逆时针旋转，它的旋转中心点是原点（0，0）<br>第二个构造函数除了度数以外，还可以指定旋转的中心点坐标（px,py）</p>
-<h3 id="缩放"><a href="#缩放" class="headerlink" title="缩放"></a>缩放</h3><p><code>scale(float sx, float sy) scale (float sx, float sy, float px, float py)</code><br>第一个构造函数设置了水平缩放的比例，小数为缩小，为整数为放大</p>
+<h3 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h3><p><code>rotate(float degrees)
+rotate (float degrees, float px, float py)</code><br>第一个构造函数直接输入旋转的度数，正数是顺时针旋转，负数指逆时针旋转，它的旋转中心点是原点（0，0）<br>第二个构造函数除了度数以外，还可以指定旋转的中心点坐标（px,py）</p>
+<h3 id="缩放"><a href="#缩放" class="headerlink" title="缩放"></a>缩放</h3><p><code>scale(float sx, float sy)
+scale (float sx, float sy, float px, float py)</code><br>第一个构造函数设置了水平缩放的比例，小数为缩小，为整数为放大</p>
 <h3 id="三角函数"><a href="#三角函数" class="headerlink" title="三角函数"></a>三角函数</h3><p><code>void skew (float sx, float sy)</code><br>float sx:将画布在x方向上倾斜相应的角度，sx倾斜角度的tan值，<br>float sy:将画布在y轴方向上倾斜相应的角度，sy为倾斜角度的tan值，</p>
 <h3 id="裁剪"><a href="#裁剪" class="headerlink" title="裁剪"></a>裁剪</h3><p>`<br>boolean clipRect(Rect rect)<br>…</p>
-<p><code> 这里的裁剪函数特别多，都是以</code>clipXXX`形式。<br>裁剪这个区域为新的画布，并进行我们想要的处理</p>
-<h2 id="画布的保存与恢复"><a href="#画布的保存与恢复" class="headerlink" title="画布的保存与恢复"></a>画布的保存与恢复</h2><p><code>int save () void restore()</code><br>save:把当前的画布的状态进行保存，然后放入特定的栈中<br>restore:把栈中最顶层的画布状态取出来，并按照这个状态恢复当前的画布，并在这个画布上做画</p>
-<h3 id="saveLayer"><a href="#saveLayer" class="headerlink" title="saveLayer"></a>saveLayer</h3><p><code>int saveLayer(RectF bounds, Paint paint, int saveFlags) int saveLayer(float left, float top, float right, float bottom,Paint paint, int saveFlags)</code><br>调用saveLayer时，会生成了一个全新的bitmap，这个bitmap的大小就是我们指定的保存区域的大小，新生成的bitmap是全透明的，在调用saveLayer后所有的绘图操作都是在这个bitmap上进行的。在画图完成之后，会把saveLayer所生成的bitmap盖在原来的canvas上面。<br>RectF：要保存的矩形区域<br>saveFlags：<br>|  FLAG 名称  |  功能  |<br>| ———– | —— |<br>|ALL_SAVE_FLAG|保存全部内容|<br>|MATRIX_SAVE_FLAG|只保存matrix操作的画布(只会恢复画布的位置信息，有关画布的大小，是不会被恢复的。另外saveLayer使用需要配合Canvas.HAS_ALPHA_LAYER_SAVE_FLAG，不然新建画布所在区域原来的图像将被清空。)|<br>|CLIP_SAVE_FLAG|仅保存Canvas的裁剪信息，只恢复Canvas的大小(另外saveLayer使用需要配合Canvas.HAS_ALPHA_LAYER_SAVE_FLAG，不然新建画布所在区域原来的图像将被清空。)|<br>|HAS_ALPHA_LAYER_SAVE_FLAG|新建的bitmap画布在与上一个画布合成时，不会将上一层画布内容清空，直接盖在上一个画布内容上面(saveLayer专用)|<br>|FULL_COLOR_LAYER_SAVE_FLAG|则表示新建的bimap画布在与上一个画布合成时，先将上一层画布对应区域清空，然后再盖在上面(saveLayer专用)|<br>|CLIP_TO_LAYER_SAVE_FLAG|在保存图层前先把当前画布裁剪(与CLIP_SAVE_FLAG共用，则Canvas会恢复)|</p>
-<h3 id="saveLayerAlpha"><a href="#saveLayerAlpha" class="headerlink" title="saveLayerAlpha"></a>saveLayerAlpha</h3><p><code>int saveLayerAlpha(RectF bounds, int alpha, int saveFlags) int saveLayerAlpha(float left, float top, float right, float bottom,int alpha, int saveFlags)</code><br>多一个alpha参数，用以指定新建画布透明度,取值范围为0-255。</p>
+<p><code>这里的裁剪函数特别多，都是以</code>clipXXX`形式。<br>裁剪这个区域为新的画布，并进行我们想要的处理</p>
+<h2 id="画布的保存与恢复"><a href="#画布的保存与恢复" class="headerlink" title="画布的保存与恢复"></a>画布的保存与恢复</h2><p><code>int save ()
+void restore()</code><br>save:把当前的画布的状态进行保存，然后放入特定的栈中<br>restore:把栈中最顶层的画布状态取出来，并按照这个状态恢复当前的画布，并在这个画布上做画</p>
+<h3 id="saveLayer"><a href="#saveLayer" class="headerlink" title="saveLayer"></a>saveLayer</h3><p><code>int saveLayer(RectF bounds, Paint paint, int saveFlags)
+int saveLayer(float left, float top, float right, float bottom,Paint paint, int saveFlags)</code><br>调用saveLayer时，会生成了一个全新的bitmap，这个bitmap的大小就是我们指定的保存区域的大小，新生成的bitmap是全透明的，在调用saveLayer后所有的绘图操作都是在这个bitmap上进行的。在画图完成之后，会把saveLayer所生成的bitmap盖在原来的canvas上面。<br>RectF：要保存的矩形区域<br>saveFlags：<br>|  FLAG 名称  |  功能  |<br>| —————- | ——— |<br>|ALL_SAVE_FLAG|保存全部内容|<br>|MATRIX_SAVE_FLAG|只保存matrix操作的画布(只会恢复画布的位置信息，有关画布的大小，是不会被恢复的。另外saveLayer使用需要配合Canvas.HAS_ALPHA_LAYER_SAVE_FLAG，不然新建画布所在区域原来的图像将被清空。)|<br>|CLIP_SAVE_FLAG|仅保存Canvas的裁剪信息，只恢复Canvas的大小(另外saveLayer使用需要配合Canvas.HAS_ALPHA_LAYER_SAVE_FLAG，不然新建画布所在区域原来的图像将被清空。)|<br>|HAS_ALPHA_LAYER_SAVE_FLAG|新建的bitmap画布在与上一个画布合成时，不会将上一层画布内容清空，直接盖在上一个画布内容上面(saveLayer专用)|<br>|FULL_COLOR_LAYER_SAVE_FLAG|则表示新建的bimap画布在与上一个画布合成时，先将上一层画布对应区域清空，然后再盖在上面(saveLayer专用)|<br>|CLIP_TO_LAYER_SAVE_FLAG|在保存图层前先把当前画布裁剪(与CLIP_SAVE_FLAG共用，则Canvas会恢复)|</p>
+<h3 id="saveLayerAlpha"><a href="#saveLayerAlpha" class="headerlink" title="saveLayerAlpha"></a>saveLayerAlpha</h3><p><code>int saveLayerAlpha(RectF bounds, int alpha, int saveFlags)
+int saveLayerAlpha(float left, float top, float right, float bottom,int alpha, int saveFlags)</code><br>多一个alpha参数，用以指定新建画布透明度,取值范围为0-255。</p>
 <h3 id="restoreToCount"><a href="#restoreToCount" class="headerlink" title="restoreToCount"></a>restoreToCount</h3><p>在调用saveXXX函数是会回调一个int值的ID，因为save会将当前图片压入栈中，因此回调的ID则是当前所在的索引(从0开始)。<br>而restoreToCount可以指定ID退栈(从1开始)。因此当我们压入一个页面后，将ID返回给restoreToCount后，就会直接将该页面退栈。<br><img src="/img/AndroidView/6.png" alt="github"></p>
 <h2 id="三、Paint"><a href="#三、Paint" class="headerlink" title="三、Paint"></a>三、Paint</h2><p>Paint类包含有关如何绘制几何，文本和位图的样式和颜色信息。</p>
 <h1 id="构造函数-1"><a href="#构造函数-1" class="headerlink" title="构造函数"></a>构造函数</h1><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">Paint()<br>Paint(<span class="hljs-keyword">int</span> flags)<br>Paint(Paint paint)<br></code></pre></td></tr></table></figure>
-<p>这里只有第二个需要注意，flags参数可以在<code>setFlags</code>单独设置。而flags也有很多，如ANTI_ALIAS_FLAG是绘制时绘制抗锯齿的绘制标记。<br>| 名称  |  功能  |<br>| —– | —— |<br>|ANTI_ALIAS_FLAG|绘制时绘制抗锯齿的绘制标记|<br>|FILTER_BITMAP_FLAG|绘制标志，在缩放的位图上启用双线性采样|<br>|DITHER_FLAG|在绘制时启用抖动的绘制标记|<br>|UNDERLINE_TEXT_FLAG|绘制标志，将下划线装饰应用于绘制文本|<br>|STRIKE_THRU_TEXT_FLAG|绘制标记，将穿透装饰应用于绘制文本|<br>|FAKE_BOLD_TEXT_FLAG|绘制标志，将合成粗体效果应用于绘制文本|<br>|LINEAR_TEXT_FLAG|绘制标志，可以实现文本的平滑线性缩放|<br>|SUBPIXEL_TEXT_FLAG|绘制标志，用于启用子像素定位文本|<br>|DEV_KERN_TEXT_FLAG|Legacy Paint标志，不再使用|<br>|LCD_RENDER_TEXT_FLAG|<br>|EMBEDDED_BITMAP_TEXT_FLAG|绘制标记，用于在绘制文本时使用位图字体|</p>
-<h1 id="常用函数-1"><a href="#常用函数-1" class="headerlink" title="常用函数"></a>常用函数</h1><table>
+<p>这里只有第二个需要注意，flags参数可以在<code>setFlags</code>单独设置。而flags也有很多，如ANTI_ALIAS_FLAG是绘制时绘制抗锯齿的绘制标记。<br>| 名称  |  功能  |<br>| ——- | ——— |<br>|ANTI_ALIAS_FLAG|绘制时绘制抗锯齿的绘制标记|<br>|FILTER_BITMAP_FLAG|绘制标志，在缩放的位图上启用双线性采样|<br>|DITHER_FLAG|在绘制时启用抖动的绘制标记|<br>|UNDERLINE_TEXT_FLAG|绘制标志，将下划线装饰应用于绘制文本|<br>|STRIKE_THRU_TEXT_FLAG|绘制标记，将穿透装饰应用于绘制文本|<br>|FAKE_BOLD_TEXT_FLAG|绘制标志，将合成粗体效果应用于绘制文本|<br>|LINEAR_TEXT_FLAG|绘制标志，可以实现文本的平滑线性缩放|<br>|SUBPIXEL_TEXT_FLAG|绘制标志，用于启用子像素定位文本|<br>|DEV_KERN_TEXT_FLAG|Legacy Paint标志，不再使用|<br>|LCD_RENDER_TEXT_FLAG|<br>|EMBEDDED_BITMAP_TEXT_FLAG|绘制标记，用于在绘制文本时使用位图字体|</p>
+<h1 id="常用函数-1"><a href="#常用函数-1" class="headerlink" title="常用函数"></a>常用函数</h1><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>函数名</th>
 <th>功能</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>setColor(int color)</td>
 <td>设置画笔颜色颜色</td>
 </tr>
@@ -100,7 +117,6 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 </tr>
 <tr>
 <td>setFakeBoldText(boolean fakeBoldText)    是否粗体</td>
-<td></td>
 </tr>
 <tr>
 <td>setTextAlign(Paint.Align align)</td>
@@ -108,7 +124,6 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 </tr>
 <tr>
 <td>setUnderlineText(boolean underlineText)    设置下划线</td>
-<td></td>
 </tr>
 <tr>
 <td>setStyle(Style style)</td>
@@ -118,7 +133,10 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <td>setTypeface(Typeface typeface)</td>
 <td>设置字样对象，即字体风格，包括粗体，斜体以及衬线体，非衬线体等</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -126,7 +144,8 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <th>功能</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>setDither(boolean dither)</td>
 <td>设置抖动处理</td>
 </tr>
@@ -170,11 +189,13 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <td>reset()</td>
 <td>恢复默认设置</td>
 </tr>
-</tbody></table>
-<h1 id="设置字体"><a href="#设置字体" class="headerlink" title="设置字体"></a>设置字体</h1><p><code>setTypeface(Typeface typeface)</code>设置字体<br>系统字体给了五种：<br>| 常数名 | 格式 |<br>| —— | —- |<br>| DEFAULT|默认|<br>| DEFAULT_BOLD|加粗|<br>| SANS_SERIF|非西洋字体|<br>| SERIF|西洋字体|<br>| MONOSPACE|宽体|</p>
+</tbody>
+</table>
+</div>
+<h1 id="设置字体"><a href="#设置字体" class="headerlink" title="设置字体"></a>设置字体</h1><p><code>setTypeface(Typeface typeface)</code>设置字体<br>系统字体给了五种：<br>| 常数名 | 格式 |<br>| ——— | —— |<br>| DEFAULT|默认|<br>| DEFAULT_BOLD|加粗|<br>| SANS_SERIF|非西洋字体|<br>| SERIF|西洋字体|<br>| MONOSPACE|宽体|</p>
 <h2 id="加载自定义字体"><a href="#加载自定义字体" class="headerlink" title="加载自定义字体"></a>加载自定义字体</h2><p><code>Typeface createFromAsset(AssetManager mgr, String path)</code>指定assets资源加载字体<br><code>Typeface createFromFile(String path)</code>指定路径加载字体<br><code>Typeface createFromFile(File file)</code>指定文件加载字体</p>
-<h2 id="create"><a href="#create" class="headerlink" title="create()"></a>create()</h2><p>也可以通过<code>Typefacecreate(Typeface family, int style)</code>获取字体<br>这里的<strong>style</strong>常用常数如下：<br>| 常数名 | 格式 |<br>| —— | —- |<br>| NORMAL | 默认 |<br>| BOLD | 粗体 |<br>| ITALIC | 斜体 |<br>| BOLD_ITALIC | 粗斜体 |</p>
-<h1 id="笔样式"><a href="#笔样式" class="headerlink" title="笔样式"></a>笔样式</h1><p><code>setStyle()</code><br>样式如下：<br>| 常数名 | 功能 |<br>| —— | —- |<br>|Paint.Style.FILL | 实心 |<br>|Paint.Style.STROKE | 空心 |<br>|Paint.Style.FILL_AND_STROKE | 实心加描边 |</p>
+<h2 id="create"><a href="#create" class="headerlink" title="create()"></a>create()</h2><p>也可以通过<code>Typefacecreate(Typeface family, int style)</code>获取字体<br>这里的<strong>style</strong>常用常数如下：<br>| 常数名 | 格式 |<br>| ——— | —— |<br>| NORMAL | 默认 |<br>| BOLD | 粗体 |<br>| ITALIC | 斜体 |<br>| BOLD_ITALIC | 粗斜体 |</p>
+<h1 id="笔样式"><a href="#笔样式" class="headerlink" title="笔样式"></a>笔样式</h1><p><code>setStyle()</code><br>样式如下：<br>| 常数名 | 功能 |<br>| ——— | —— |<br>|Paint.Style.FILL | 实心 |<br>|Paint.Style.STROKE | 空心 |<br>|Paint.Style.FILL_AND_STROKE | 实心加描边 |</p>
 <h1 id="FontMetrics"><a href="#FontMetrics" class="headerlink" title="FontMetrics"></a>FontMetrics</h1><p>在<code>Paint.FontMetrics</code>中标注了Android font的字体排版。<br>在文字中首先会建立一个内部直角坐标系，同屏幕坐标一样，向下向右为正。x轴与BaseLine线重合。<br><img src="/img/AndroidView/7.png" alt="github"></p>
 <blockquote>
 <p>BaseLine：基准线BaseLine<br>Ascent：字符最高点到baseline的推荐距离<br>Descent：字符最低点到baseline的推荐距离<br>Top：字符最高点到baseline的最大距离<br>Botttom：字符最低点到baseline的最大距离<br>Leading：两行之间, 上一行的bottom和下一行的top的间距, 然而这个值总是0, 可以忽略</p>

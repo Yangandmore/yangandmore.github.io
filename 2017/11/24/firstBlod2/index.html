@@ -38,7 +38,19 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
     orderedList: false,
     collapseDepth: 2,
   });
-})</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
+})</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script><script type="text/javascript">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
 </head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">杨小杨的博客</a></h1><p>保佑代码无bug🙏</p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">Git详细讲解(远程)</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">Git详细讲解(远程)</a></h2><span class="post__date">2017-11-24</span><a href="/tags/%E6%8E%A7%E5%88%B6%E7%89%88%E6%9C%AC/"><span class="post__tags">#控制版本</span></a><a href="/tags/GIT/"><span class="post__tags">#GIT</span></a></div></div><div class="article__content"><h2 id="一、远程库操作"><a href="#一、远程库操作" class="headerlink" title="一、远程库操作"></a>一、远程库操作</h2><p>简单介绍远程时的操作</p>
 <h3 id="1-远程操作版本库"><a href="#1-远程操作版本库" class="headerlink" title="1.远程操作版本库"></a>1.远程操作版本库</h3><ul>
 <li><strong><font color=#6495ED>git clone &lt;repo&gt; &lt;dir&gt;</font></strong> 从repo路径上的Git仓库中拷贝项目到当前目录（不添加dir参数）或dir目录下</li>
@@ -54,7 +66,7 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 </li>
 </ul>
 <p>在我们<strong>clone</strong>项目后会发现这里并没有其他分支而是master。<br><img src="/img/git/33.png" alt="github"><br>这里可以看到我们现在的<strong>HEAD</strong>指向的是<strong>origin/master</strong>分支，而<strong>test1</strong>分支并没有。所以如果需要取到<strong>test1</strong>分支项目可以使用:<br><strong><font color=#6495ED>git checkout -b &lt;分支名&gt; &lt;远程分支名&gt;</font></strong><br>这里将显示的<strong>远程分支（remote/origin/test1）</strong>合并到新建分支<strong>test1</strong>中，并切换到该分支上。</p>
-<h4 id="remote"><a href="#remote" class="headerlink" title="remote"></a>remote</h4><p>该功能用于管理主机名。<br><strong><font color=#6495ED>git remote</font></strong> 还可以显示其远程仓库名，后接**-v**可以显示对应url<br><img src="/img/git/15.png" alt="github"></p>
+<h4 id="remote"><a href="#remote" class="headerlink" title="remote"></a>remote</h4><p>该功能用于管理主机名。<br><strong><font color=#6495ED>git remote</font></strong> 还可以显示其远程仓库名，后接<strong>-v</strong>可以显示对应url<br><img src="/img/git/15.png" alt="github"></p>
 <ul>
 <li><strong><font color=#6495ED>git remote show &lt;remotename&gt;</font></strong> 这个命令可以查看某一个远程仓库的更多信息。它同样会列出远程仓库的 URL 与跟踪分支的信息。这些信息非常有用，它告诉你正处于 master 分支，并且如果运行 git pull，就会抓取所有的远程引用，然后将远程 master 分支合并到本地 master 分支。它也会列出拉取到的所有远程引用。</li>
 <li><strong><font color=#6495ED>git remote add &lt;origin&gt; &lt;url&gt;</font></strong> 将本地仓库上传至远程仓库。前者是远程主机的名称，后者是其url。</li>

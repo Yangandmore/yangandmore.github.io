@@ -38,9 +38,21 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
     orderedList: false,
     collapseDepth: 2,
   });
-})</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
+})</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script><script type="text/javascript">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
 </head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">杨小杨的博客</a></h1><p>保佑代码无bug🙏</p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">React-native 高德地图</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">React-native 高德地图</a></h2><span class="post__date">2020-03-06</span><a href="/tags/ReactNative/"><span class="post__tags">#ReactNative</span></a></div></div><div class="article__content"><h2 id="一、地图"><a href="#一、地图" class="headerlink" title="一、地图"></a>一、地图</h2><p>这里使用的是<code>react-native-amap3d</code><a target="_blank" rel="noopener" href="https://github.com/qiuxiang/react-native-amap3d">https://github.com/qiuxiang/react-native-amap3d</a>，大佬的流程安装基本没问题，这里只记录自己安装的过程。<br>即高德地图的封装库。</p>
-<h2 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h2><p>`<br>npm install react-native-amap3d –save</p>
+<h2 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h2><p>`<br>npm install react-native-amap3d —save</p>
 <p>cd ios<br>pod install<br>`<br>由于使用最新版本RN，添加第三方库不需要<strong>link</strong>。</p>
 <h3 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h3><h5 id="1-获取高德Keyhttps-lbs-amap-com-dev-key-app"><a href="#1-获取高德Keyhttps-lbs-amap-com-dev-key-app" class="headerlink" title="1.获取高德Keyhttps://lbs.amap.com/dev/key/app"></a>1.获取高德Key<a target="_blank" rel="noopener" href="https://lbs.amap.com/dev/key/app">https://lbs.amap.com/dev/key/app</a></h5><p>这里就不用多说了，看图<br><img src="/img/ReactNativeMap/0.png" alt="github"><br>第一步问题不大，第二、三步需要注意最好不要使用同一个Android Key的SHA1码，在自己注册高德Key的时候高德也会有提醒。</p>
 <ul>
@@ -48,32 +60,18 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <li>PackageName 包名<br>直接着到<code>AndoridManifest.xml</code>中的<code>package</code>复制粘贴即可。</li>
 </ul>
 <p>点击提交后就可以看到自己注册的Android端Key。</p>
-<h5 id="2-添加高德Key至Android"><a href="#2-添加高德Key至Android" class="headerlink" title="2.添加高德Key至Android"></a>2.添加高德Key至Android</h5><p>找到代码中的<code>AndroidManifest.xml</code>文件添加如下代码。</p>
-<figure class="highlight"><table><tr><td class="code"><pre><code class="hljs java">&lt;manifest ...&gt;<br><br>    &lt;application<br>      &gt;<br>			&lt;!-- 添加的代码 --&gt;<br>      &lt;meta-data<br>        android:name=<span class="hljs-string">&quot;com.amap.api.v2.apikey&quot;</span><br>        android:value=<span class="hljs-string">&quot;高德的Key&quot;</span> /&gt;<br>      &lt;activity<br>      ... <br>    &lt;/application&gt;<br>&lt;/manifest&gt;<br></code></pre></td></tr></table></figure>
-<p>这里注意除了需要添加的高德key外，其他所有的<code>meta-data</code>标签内容全部不要变动。</p>
-<h5 id="addPackage"><a href="#addPackage" class="headerlink" title="addPackage"></a>addPackage</h5><p>最后好了就编译项目。完成后进入<code>MainApplication.java</code>文件中查看一下是否需要<strong>addPackage</strong>添加map包。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">List&lt;ReactPackage&gt; packages = <span class="hljs-keyword">new</span> PackageList(<span class="hljs-keyword">this</span>).getPackages();<br></code></pre></td></tr></table></figure>
-<p>这里进入<code>PackageList</code>查看是否有添加<code>AMap3DPackage()</code>。如果没有，则我们自己手动添加，而添加方式则在<code>MainApplication.java</code>中添加该包。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">List&lt;ReactPackage&gt; packages = <span class="hljs-keyword">new</span> PackageList(<span class="hljs-keyword">this</span>).getPackages();<br>packages.add(<span class="hljs-keyword">new</span> AMap3DPackage());<br></code></pre></td></tr></table></figure>
-
-<h5 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h5><p>完成上述工作后，测试一下代码。<br>在自己的RN页面中添加下面代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> &#123; MapView &#125; from <span class="hljs-string">&quot;react-native-amap3d&quot;</span>;<br><br><span class="hljs-keyword">const</span> App = () =&gt; &#123;<br>	<span class="hljs-keyword">return</span> (<br>		&lt;MapView<br>			style=&#123;&#123;flex: <span class="hljs-number">1</span>&#125;&#125;/&gt;<br>	);<br>&#125;;<br></code></pre></td></tr></table></figure>
-<p>没有大问题如Gradle，则会一路顺风完成过程。</p>
+<h5 id="2-添加高德Key至Android"><a href="#2-添加高德Key至Android" class="headerlink" title="2.添加高德Key至Android"></a>2.添加高德Key至Android</h5><p>找到代码中的<code>AndroidManifest.xml</code>文件添加如下代码。<br><figure class="highlight"><table><tr><td class="code"><pre><code class="hljs java">&lt;manifest ...&gt;<br><br>    &lt;application<br>      &gt;<br>			&lt;!-- 添加的代码 --&gt;<br>      &lt;meta-data<br>        android:name=<span class="hljs-string">&quot;com.amap.api.v2.apikey&quot;</span><br>        android:value=<span class="hljs-string">&quot;高德的Key&quot;</span> /&gt;<br>      &lt;activity<br>      ... <br>    &lt;/application&gt;<br>&lt;/manifest&gt;<br></code></pre></td></tr></table></figure><br>这里注意除了需要添加的高德key外，其他所有的<code>meta-data</code>标签内容全部不要变动。</p>
+<h5 id="addPackage"><a href="#addPackage" class="headerlink" title="addPackage"></a>addPackage</h5><p>最后好了就编译项目。完成后进入<code>MainApplication.java</code>文件中查看一下是否需要<strong>addPackage</strong>添加map包。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">List&lt;ReactPackage&gt; packages = <span class="hljs-keyword">new</span> PackageList(<span class="hljs-keyword">this</span>).getPackages();<br></code></pre></td></tr></table></figure><br>这里进入<code>PackageList</code>查看是否有添加<code>AMap3DPackage()</code>。如果没有，则我们自己手动添加，而添加方式则在<code>MainApplication.java</code>中添加该包。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">List&lt;ReactPackage&gt; packages = <span class="hljs-keyword">new</span> PackageList(<span class="hljs-keyword">this</span>).getPackages();<br>packages.add(<span class="hljs-keyword">new</span> AMap3DPackage());<br></code></pre></td></tr></table></figure></p>
+<h5 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h5><p>完成上述工作后，测试一下代码。<br>在自己的RN页面中添加下面代码：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> &#123; MapView &#125; from <span class="hljs-string">&quot;react-native-amap3d&quot;</span>;<br><br><span class="hljs-keyword">const</span> App = () =&gt; &#123;<br>	<span class="hljs-keyword">return</span> (<br>		&lt;MapView<br>			style=&#123;&#123;flex: <span class="hljs-number">1</span>&#125;&#125;/&gt;<br>	);<br>&#125;;<br></code></pre></td></tr></table></figure><br>没有大问题如Gradle，则会一路顺风完成过程。</p>
 <h3 id="Ios"><a href="#Ios" class="headerlink" title="Ios"></a>Ios</h3><h5 id="1-获取高德Keyhttps-lbs-amap-com-dev-key-app-1"><a href="#1-获取高德Keyhttps-lbs-amap-com-dev-key-app-1" class="headerlink" title="1.获取高德Keyhttps://lbs.amap.com/dev/key/app"></a>1.获取高德Key<a target="_blank" rel="noopener" href="https://lbs.amap.com/dev/key/app">https://lbs.amap.com/dev/key/app</a></h5><p><img src="/img/ReactNativeMap/2.png" alt="github"></p>
 <ul>
 <li>Bundle ID<br>ID如图：<br><img src="/img/ReactNativeMap/3.png" alt="github"><br>这就是<code>Bundle ID</code>。<br>添加后就可以创建高德Key了。</li>
 </ul>
-<h5 id="2-CocoaPods"><a href="#2-CocoaPods" class="headerlink" title="2.CocoaPods"></a>2.CocoaPods</h5><p>由于这里用的是新的ReactNative库，所以IOS中支持CocoaPods。这里只是描述在Pod中的问题。<br>调用</p>
-<figure class="highlight cmake"><table><tr><td class="code"><pre><code class="hljs cmake">pod <span class="hljs-keyword">install</span><br></code></pre></td></tr></table></figure>
-<p>添加第三方库，完成后进入<strong>node_modules</strong>库中找到<strong>react-Native-amap3d</strong>。找到ios文件中的<strong>readMe</strong>，这里需要好好看看文件该如何修改Pod。</p>
+<h5 id="2-CocoaPods"><a href="#2-CocoaPods" class="headerlink" title="2.CocoaPods"></a>2.CocoaPods</h5><p>由于这里用的是新的ReactNative库，所以IOS中支持CocoaPods。这里只是描述在Pod中的问题。<br>调用<br><figure class="highlight cmake"><table><tr><td class="code"><pre><code class="hljs cmake">pod <span class="hljs-keyword">install</span><br></code></pre></td></tr></table></figure><br>添加第三方库，完成后进入<strong>node_modules</strong>库中找到<strong>react-Native-amap3d</strong>。找到ios文件中的<strong>readMe</strong>，这里需要好好看看文件该如何修改Pod。</p>
 <p>大部分问题的出先都是由于需要手动添加<code>react-native-amap3d</code>至<code>Podfile</code>文件中。添加后继续调用<code>pod install</code>即可。</p>
 <p>上面过程就是将第三方库添加至CocoaPods，然后将这个库完成链接。<br><img src="/img/ReactNativeMap/4.png" alt="github"></p>
-<h5 id="3-添加高德Key"><a href="#3-添加高德Key" class="headerlink" title="3.添加高德Key"></a>3.添加高德Key</h5><p>添加高德Key，找到<strong>AppDelegate.m</strong>文件，添加如下代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">#import &lt;AMapFoundationKit/AMapFoundationKit.h&gt;<br><br>  [AMapServices sharedServices].apiKey = @<span class="hljs-string">&quot;自己注册的高德Key&quot;</span>;<br></code></pre></td></tr></table></figure>
-<p><em><strong>如果这里的库加载报错，表示过程2中完成有误，即库找不到或添加库异常，那么这一步可以完成检测第二步是否有误的辅助工作。</strong></em></p>
-<h5 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h5><p>完成上述工作后，测试一下代码。<br>在自己的RN页面中添加下面代码：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> &#123; MapView &#125; from <span class="hljs-string">&quot;react-native-amap3d&quot;</span>;<br><br><span class="hljs-keyword">const</span> App = () =&gt; &#123;<br>	<span class="hljs-keyword">return</span> (<br>		&lt;MapView<br>			style=&#123;&#123;flex: <span class="hljs-number">1</span>&#125;&#125;/&gt;<br>	);<br>&#125;;<br></code></pre></td></tr></table></figure>
-<p>没有大问题，则会一路顺风完成过程。</p>
+<h5 id="3-添加高德Key"><a href="#3-添加高德Key" class="headerlink" title="3.添加高德Key"></a>3.添加高德Key</h5><p>添加高德Key，找到<strong>AppDelegate.m</strong>文件，添加如下代码：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">#import &lt;AMapFoundationKit/AMapFoundationKit.h&gt;<br><br>  [AMapServices sharedServices].apiKey = @<span class="hljs-string">&quot;自己注册的高德Key&quot;</span>;<br></code></pre></td></tr></table></figure><br><strong><em>如果这里的库加载报错，表示过程2中完成有误，即库找不到或添加库异常，那么这一步可以完成检测第二步是否有误的辅助工作。</em></strong></p>
+<h5 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h5><p>完成上述工作后，测试一下代码。<br>在自己的RN页面中添加下面代码：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">import</span> &#123; MapView &#125; from <span class="hljs-string">&quot;react-native-amap3d&quot;</span>;<br><br><span class="hljs-keyword">const</span> App = () =&gt; &#123;<br>	<span class="hljs-keyword">return</span> (<br>		&lt;MapView<br>			style=&#123;&#123;flex: <span class="hljs-number">1</span>&#125;&#125;/&gt;<br>	);<br>&#125;;<br></code></pre></td></tr></table></figure><br>没有大问题，则会一路顺风完成过程。</p>
 <h2 id="三、API"><a href="#三、API" class="headerlink" title="三、API"></a>三、API</h2><p>使用API最好的方法还是进入代码中查看是否由相关功能。以下的api也仅供参考。</p>
 <h3 id="地图类型"><a href="#地图类型" class="headerlink" title="地图类型"></a>地图类型</h3><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">&lt;MapView style=&#123;&#123;flex: <span class="hljs-number">1</span>&#125;&#125; mapType=&#123;mapType&#125;/&gt;;<br></code></pre></td></tr></table></figure>
 <ul>
@@ -106,9 +104,7 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <h3 id="定位"><a href="#定位" class="headerlink" title="定位"></a>定位</h3><blockquote>
 <p>locationEnable：用于定位功能<br>coordinate（<code>latitude</code>纬度，<code>longitude</code>经度）<br>locationInterval：定位间隔时间(默认是2000ms)仅Android可以使用<br>distanceFilter：定位的最小更新距离，仅Ios可以使用</p>
 </blockquote>
-<p>这里需要注意Android6.0以上需要打开定位权限。可以使用<code>PermissionsAndroid</code>。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);<br></code></pre></td></tr></table></figure>
-
+<p>这里需要注意Android6.0以上需要打开定位权限。可以使用<code>PermissionsAndroid</code>。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);<br></code></pre></td></tr></table></figure></p>
 <p>准备好后，由于IOS没有定位按钮，因此我们需要手动开始定位，通过<code>onLocation</code>回调函数来获取定位经纬度，然后在进行设置<code>animateTo</code>当前位置。</p>
 <h3 id="手势交互"><a href="#手势交互" class="headerlink" title="手势交互"></a>手势交互</h3><p>以下这些手势用来控制地图的操作：</p>
 <ul>
@@ -117,9 +113,7 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <li>rotateEnabled：旋转</li>
 <li>tiltEnabled：倾斜角度</li>
 </ul>
-<h3 id="动画跳转"><a href="#动画跳转" class="headerlink" title="动画跳转"></a>动画跳转</h3><p>使用<code>animateTo</code>函数完成跳转定位动画效果</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">		<span class="hljs-keyword">this</span>.mapView.animateTo(<br>			&#123;<br>				tilt: <span class="hljs-number">0</span>,<br>				rotation: <span class="hljs-number">0</span>,<br>				zoomLevel: <span class="hljs-number">16</span>,<br>				coordinate: &#123;<br>					latitude: <span class="hljs-number">39.90864</span>,<br>					longitude: <span class="hljs-number">116.39745</span><br>				&#125;<br>			&#125;,<br>			<span class="hljs-number">1000</span><br>		);<br>		<br>...<br>		&lt;MapView ref=&#123;ref=&gt;(<span class="hljs-keyword">this</span>.mapView = ref)&#125;<br>...<br></code></pre></td></tr></table></figure>
-
+<h3 id="动画跳转"><a href="#动画跳转" class="headerlink" title="动画跳转"></a>动画跳转</h3><p>使用<code>animateTo</code>函数完成跳转定位动画效果<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">		<span class="hljs-keyword">this</span>.mapView.animateTo(<br>			&#123;<br>				tilt: <span class="hljs-number">0</span>,<br>				rotation: <span class="hljs-number">0</span>,<br>				zoomLevel: <span class="hljs-number">16</span>,<br>				coordinate: &#123;<br>					latitude: <span class="hljs-number">39.90864</span>,<br>					longitude: <span class="hljs-number">116.39745</span><br>				&#125;<br>			&#125;,<br>			<span class="hljs-number">1000</span><br>		);<br>		<br>...<br>		&lt;MapView ref=&#123;ref=&gt;(<span class="hljs-keyword">this</span>.mapView = ref)&#125;<br>...<br></code></pre></td></tr></table></figure></p>
 <h3 id="点击事件"><a href="#点击事件" class="headerlink" title="点击事件"></a>点击事件</h3><blockquote>
 <p>onPress：点击事件<br>onLongPress：长按事件<br>onLocation：定位事件<br>onStatusChange：地图状态变化事件，变化时会一直调用<br>onStatusChangeComplete：地图状态变化结束事件<br>onAnimateFinish：动画完成事件<br>onAnimateCancel：动画取消事件</p>
 </blockquote>

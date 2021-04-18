@@ -38,7 +38,19 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
     orderedList: false,
     collapseDepth: 2,
   });
-})</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
+})</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script><script type="text/javascript">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
 </head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">杨小杨的博客</a></h1><p>保佑代码无bug🙏</p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">JavaWeb</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">JavaWeb</a></h2><span class="post__date">2020-06-01</span><a href="/tags/java/"><span class="post__tags">#java</span></a></div></div><div class="article__content"><h2 id="一、相关概念"><a href="#一、相关概念" class="headerlink" title="一、相关概念"></a>一、相关概念</h2><h1 id="软件架构"><a href="#软件架构" class="headerlink" title="软件架构"></a>软件架构</h1><ul>
 <li>C/S：客户端/服务端</li>
 <li>B/S：浏览器/服务端</li>
@@ -85,9 +97,7 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <li>getServletInfo</li>
 <li>destroy</li>
 </ul>
-<h3 id="配置Servler，需要在web-xml文件中"><a href="#配置Servler，需要在web-xml文件中" class="headerlink" title="配置Servler，需要在web.xml文件中"></a>配置Servler，需要在web.xml文件中</h3><p>在web.xml文件中添加<code>&lt;servlet&gt;</code>和<code>&lt;servlet-mapping&gt;</code>标签：即servlet的类路径(反射)和url的资源路径来进行匹配。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">servlet</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">servlet-name</span>&gt;</span>demo1<span class="hljs-tag">&lt;/<span class="hljs-name">servlet-name</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">servlet-class</span>&gt;</span>cn.yang.web.servlet.Demo1<span class="hljs-tag">&lt;/<span class="hljs-name">servlet-class</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">servlet</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">servlet-mapping</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">servlet-name</span>&gt;</span>demo1<span class="hljs-tag">&lt;/<span class="hljs-name">servlet-name</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">url-pattern</span>&gt;</span>/demo1<span class="hljs-tag">&lt;/<span class="hljs-name">url-pattern</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">servlet-mapping</span>&gt;</span><br></code></pre></td></tr></table></figure>
-
+<h3 id="配置Servler，需要在web-xml文件中"><a href="#配置Servler，需要在web-xml文件中" class="headerlink" title="配置Servler，需要在web.xml文件中"></a>配置Servler，需要在web.xml文件中</h3><p>在web.xml文件中添加<code>&lt;servlet&gt;</code>和<code>&lt;servlet-mapping&gt;</code>标签：即servlet的类路径(反射)和url的资源路径来进行匹配。<br><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">servlet</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">servlet-name</span>&gt;</span>demo1<span class="hljs-tag">&lt;/<span class="hljs-name">servlet-name</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">servlet-class</span>&gt;</span>cn.yang.web.servlet.Demo1<span class="hljs-tag">&lt;/<span class="hljs-name">servlet-class</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">servlet</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">servlet-mapping</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">servlet-name</span>&gt;</span>demo1<span class="hljs-tag">&lt;/<span class="hljs-name">servlet-name</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">url-pattern</span>&gt;</span>/demo1<span class="hljs-tag">&lt;/<span class="hljs-name">url-pattern</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">servlet-mapping</span>&gt;</span><br></code></pre></td></tr></table></figure></p>
 <h3 id="执行原理"><a href="#执行原理" class="headerlink" title="执行原理"></a>执行原理</h3><ul>
 <li>1.当服务器接收到客户端浏览器的请求后，会解析请求URL路径，来获取访问的Servlet的资源路径</li>
 <li>2.查找web.xml文件，是否有对于的<code>&lt;url-pattern&gt;</code>标签内容</li>
@@ -108,13 +118,20 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <li>GenericServlet：将Servlet接口中其他方法做了默认空实现，只将servlet()方法作为抽象。</li>
 <li>HttpServlet：对http协议的一种封装，简化操作。</li>
 </ul>
-<h3 id="Servlet相关配置"><a href="#Servlet相关配置" class="headerlink" title="Servlet相关配置"></a>Servlet相关配置</h3><h5 id="1-urlpartten-Servlet访问路径"><a href="#1-urlpartten-Servlet访问路径" class="headerlink" title="1.urlpartten:Servlet访问路径"></a>1.urlpartten:Servlet访问路径</h5><p>一个Servlet可以定义多个访问路径</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">&#123;<span class="hljs-string">&quot;/路径1&quot;</span>,<span class="hljs-string">&quot;/路径2&quot;</span>,<span class="hljs-string">&quot;路径3&quot;</span>&#125;<br>/路径<span class="hljs-number">1</span><br>/路径<span class="hljs-number">1</span>/路径<span class="hljs-number">1.1</span><br>*.后缀名<br></code></pre></td></tr></table></figure>
-<h2 id="四、Http"><a href="#四、Http" class="headerlink" title="四、Http"></a>四、Http</h2><h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>Hyper Text Transfer Protocol 超文本传输协议<br>    * 传输协议：定义了客户端与服务端通信的数据格式<br>    * 特点<br>        * 基于TCP/IP协议<br>        * 默认端口号80<br>        * 基于请求/相应模型，一次请求响应一次响应<br>        * 无状态：每次请求之间相互独立<br>    * 历史版本<br>        * 1.0：每次响应都会建立新的连接<br>        * 1.1：复用响应</p>
-<h1 id="请求消息数据格式"><a href="#请求消息数据格式" class="headerlink" title="请求消息数据格式"></a>请求消息数据格式</h1><h3 id="请求行"><a href="#请求行" class="headerlink" title="请求行"></a>请求行</h3><pre><code>请求方式 请求url 请求协议/版本
+<h3 id="Servlet相关配置"><a href="#Servlet相关配置" class="headerlink" title="Servlet相关配置"></a>Servlet相关配置</h3><h5 id="1-urlpartten-Servlet访问路径"><a href="#1-urlpartten-Servlet访问路径" class="headerlink" title="1.urlpartten:Servlet访问路径"></a>1.urlpartten:Servlet访问路径</h5><p>一个Servlet可以定义多个访问路径<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">&#123;<span class="hljs-string">&quot;/路径1&quot;</span>,<span class="hljs-string">&quot;/路径2&quot;</span>,<span class="hljs-string">&quot;路径3&quot;</span>&#125;<br>/路径<span class="hljs-number">1</span><br>/路径<span class="hljs-number">1</span>/路径<span class="hljs-number">1.1</span><br>*.后缀名<br></code></pre></td></tr></table></figure></p>
+<h2 id="四、Http"><a href="#四、Http" class="headerlink" title="四、Http"></a>四、Http</h2><h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>Hyper Text Transfer Protocol 超文本传输协议</p>
+<pre><code>* 传输协议：定义了客户端与服务端通信的数据格式
+* 特点
+    * 基于TCP/IP协议
+    * 默认端口号80
+    * 基于请求/相应模型，一次请求响应一次响应
+    * 无状态：每次请求之间相互独立
+* 历史版本
+    * 1.0：每次响应都会建立新的连接
+    * 1.1：复用响应
+</code></pre><h1 id="请求消息数据格式"><a href="#请求消息数据格式" class="headerlink" title="请求消息数据格式"></a>请求消息数据格式</h1><h3 id="请求行"><a href="#请求行" class="headerlink" title="请求行"></a>请求行</h3><pre><code>请求方式 请求url 请求协议/版本
 Get  /login.html  HTTP/1.1
-</code></pre>
-<ul>
+</code></pre><ul>
 <li>请求方式(7中)<ul>
 <li>GET<br>  请求参数在url中<br>  url长度是有限制的<br>  不太安全</li>
 <li>POST<br>  请求参数在请求体中<br>  相对安全</li>
@@ -122,8 +139,7 @@ Get  /login.html  HTTP/1.1
 </li>
 </ul>
 <h3 id="请求头"><a href="#请求头" class="headerlink" title="请求头"></a>请求头</h3><pre><code>请求头名称: 请求头值(多个则用,分割)
-</code></pre>
-<h5 id="常见请求头"><a href="#常见请求头" class="headerlink" title="常见请求头"></a>常见请求头</h5><ul>
+</code></pre><h5 id="常见请求头"><a href="#常见请求头" class="headerlink" title="常见请求头"></a>常见请求头</h5><ul>
 <li>User-Agent：浏览器告诉服务器，使用的浏览器版本信息，这样服务器会根据这些信息完成兼容性</li>
 <li>Accept：能解析的格式</li>
 <li>Accept-Language：语言</li>
@@ -133,8 +149,7 @@ Get  /login.html  HTTP/1.1
 <li>Upgrade-Insecure-Requests：升级信息</li>
 </ul>
 <h3 id="请求空行"><a href="#请求空行" class="headerlink" title="请求空行"></a>请求空行</h3><pre><code>空行用于分割请求头与请求体
-</code></pre>
-<h3 id="请求体-请求正文"><a href="#请求体-请求正文" class="headerlink" title="请求体(请求正文)"></a>请求体(请求正文)</h3><h2 id="五、Request"><a href="#五、Request" class="headerlink" title="五、Request"></a>五、Request</h2><h1 id="request对象与response对象的原理"><a href="#request对象与response对象的原理" class="headerlink" title="request对象与response对象的原理"></a>request对象与response对象的原理</h1><ul>
+</code></pre><h3 id="请求体-请求正文"><a href="#请求体-请求正文" class="headerlink" title="请求体(请求正文)"></a>请求体(请求正文)</h3><h2 id="五、Request"><a href="#五、Request" class="headerlink" title="五、Request"></a>五、Request</h2><h1 id="request对象与response对象的原理"><a href="#request对象与response对象的原理" class="headerlink" title="request对象与response对象的原理"></a>request对象与response对象的原理</h1><ul>
 <li>1.tomcat服务器会根据请求url中的资源路径，创建对应的Servlet对象</li>
 <li>2.tomcat服务器，会创建request和response对象，request对象中封装请求消息数据</li>
 <li>3.tomcat将request和response对象传递给service方法，并调用该方法</li>
@@ -159,7 +174,7 @@ Get  /login.html  HTTP/1.1
 </li>
 <li><p>获取请求头数据</p>
 <ul>
-<li>通过请求头名称获取请求头值<br><code>    String getHeader(String name)</code></li>
+<li>通过请求头名称获取请求头值<br><code>String getHeader(String name)</code></li>
 <li>获取所有的请求头名称<br>  <code>Enumeration&lt;String&gt; getHeaderNames()</code></li>
 </ul>
 </li>
@@ -203,8 +218,7 @@ Get  /login.html  HTTP/1.1
 <li>响应行<br>  HTTP/1.1 200 OK<br>  1.组成：协议/版本 响应状态码 状态码描述<br>  2.响应状态码：服务器告诉客户端浏览器本次请求和响应的一个状态。分为五类：服务器接收客户端消息，但没有接收完成，等待一段时间后发送1XX、成功2XX、重定向3XX(30重定向，304访问资源)、客户端错误4XX(404请求路径没有对应资源，405请求方式没有对应的功能函数doXXX)、服务器端错误5XX。</li>
 <li>响应头<br>  头名称: 头值<br>  Content-Type：服务器告诉客户端本次响应体数据格式以及编码格式<br>  Content-disposition：服务器告诉客户端以什么格式打开响应数据<pre><code>  &gt; in-line：默认值，在当前页面内打开
   &gt; attachment;filenamt=xxx：以附件形式打开响应体。文件下载
-</code></pre>
-</li>
+</code></pre></li>
 <li>响应空行</li>
 <li>响应体：传输的数据</li>
 </ul>

@@ -38,19 +38,25 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
     orderedList: false,
     collapseDepth: 2,
   });
-})</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
+})</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script><script type="text/javascript">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
 </head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">杨小杨的博客</a></h1><p>保佑代码无bug🙏</p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">Android动画（三）</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">Android动画（三）</a></h2><span class="post__date">2019-06-25</span><a href="/tags/Android/"><span class="post__tags">#Android</span></a></div></div><div class="article__content"><h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p>布局动画视作特殊场景下的动画。在ViewGroup的布局发生变换时提供的过渡功能。</p>
 <h2 id="二、基于补间动画"><a href="#二、基于补间动画" class="headerlink" title="二、基于补间动画"></a>二、基于补间动画</h2><p>ViewGroup首次加载时完成布局的动画。由于使用的是补间动画，因此在设置后，控件位置依旧不变。并且只在ViewGroup第一次layout的时候播放。</p>
 <p>在使用补间动画会创建动画方式(移动，透明、缩放、旋转)并写好配置文件(xml或代码)，之后调用，start即可。</p>
 <h1 id="xml"><a href="#xml" class="headerlink" title="xml"></a>xml</h1><p>此处也很像，调用<code>android:layoutAnimation</code>来设置布局动画资源给我们的<strong>ViewGroup控件</strong>。而layoutAnimation则会调用原始的补间动画来进行二次封装。</p>
-<p>布局文件：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml">&lt;LinearLayout<br>      android:layout_width=&quot;match_parent&quot;<br>      android:layout_height=&quot;match_parent&quot;<br>      android:orientation=&quot;horizontal&quot;<br>      android:layoutAnimation=&quot;@anim/layout_anim&quot;&gt;<br></code></pre></td></tr></table></figure>
-<p>LayoutAnimation文件：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">layoutAnimation</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:animation</span>=<span class="hljs-string">&quot;@anim/tran&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">layoutAnimation</span>&gt;</span><br></code></pre></td></tr></table></figure>
-
-<p>补间动画文件：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">translate</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:fromXDelta</span>=<span class="hljs-string">&quot;0&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:toXDelta</span>=<span class="hljs-string">&quot;30&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:duration</span>=<span class="hljs-string">&quot;1000&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:fillAfter</span>=<span class="hljs-string">&quot;true&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">translate</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<p>熟悉补间动画对上述不难理解了。中间只是封装了一层，当然他还有一下属性：</p>
+<p>布局文件：<br><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml">&lt;LinearLayout<br>      android:layout_width=&quot;match_parent&quot;<br>      android:layout_height=&quot;match_parent&quot;<br>      android:orientation=&quot;horizontal&quot;<br>      android:layoutAnimation=&quot;@anim/layout_anim&quot;&gt;<br></code></pre></td></tr></table></figure><br>LayoutAnimation文件：<br><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">layoutAnimation</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:animation</span>=<span class="hljs-string">&quot;@anim/tran&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">layoutAnimation</span>&gt;</span><br></code></pre></td></tr></table></figure></p>
+<p>补间动画文件：<br><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">translate</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:fromXDelta</span>=<span class="hljs-string">&quot;0&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:toXDelta</span>=<span class="hljs-string">&quot;30&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:duration</span>=<span class="hljs-string">&quot;1000&quot;</span></span><br><span class="hljs-tag">    <span class="hljs-attr">android:fillAfter</span>=<span class="hljs-string">&quot;true&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">translate</span>&gt;</span><br></code></pre></td></tr></table></figure><br>熟悉补间动画对上述不难理解了。中间只是封装了一层，当然他还有一下属性：</p>
 <ul>
 <li>interpolator：插值器</li>
 <li>delay：延迟每个子View动画起点的比例值<br>如：delay = 1，则每个子View的动画延迟都是delay *duration</li>
@@ -59,36 +65,33 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p>以上xml方式也可以使用代码来实现。使用<code>LayoutAnimationController</code>类来完成。最后在<code>View.setLayoutAnimation</code>来设置该配置。</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">val animation = AnimationUtils.loadAnimation(<span class="hljs-keyword">this</span>, R.anim.tran)<br>    val layoutAnimationController = LayoutAnimationController(animation)<br>    lay.layoutAnimation = layoutAnimationController<br>    layoutAnimationController.start()<br></code></pre></td></tr></table></figure>
 <p>该子类<code>GridLayoutAnimationController</code>是专门针对GridLayout的布局动画。</p>
-<h2 id="三、基于属性动画"><a href="#三、基于属性动画" class="headerlink" title="三、基于属性动画"></a>三、基于属性动画</h2><p>不同与上述的效果，该类即用于被控制的View，也可以作用到其他的子类上(增删改)。<br>提供了以下几类：<br>|名称 | 说明|<br>| —— | —- |<br>|APPEARING|View的添加或显示，作用在该新View上|<br>|DISAPPEARING|View的删除或隐藏，作用在该旧View上|<br>|CHANGE_APPEARING|View的添加或显示，作用在该其他View上|<br>|CHANGE_DISAPPEARING|View的删除或隐藏，作用在该其他View上|<br>|CHANGING|由于布局更改而更改，作用于所有View上，不是由添加到容器中或从容器中删除的项目引起的|</p>
+<h2 id="三、基于属性动画"><a href="#三、基于属性动画" class="headerlink" title="三、基于属性动画"></a>三、基于属性动画</h2><p>不同与上述的效果，该类即用于被控制的View，也可以作用到其他的子类上(增删改)。<br>提供了以下几类：<br>|名称 | 说明|<br>| ——— | —— |<br>|APPEARING|View的添加或显示，作用在该新View上|<br>|DISAPPEARING|View的删除或隐藏，作用在该旧View上|<br>|CHANGE_APPEARING|View的添加或显示，作用在该其他View上|<br>|CHANGE_DISAPPEARING|View的删除或隐藏，作用在该其他View上|<br>|CHANGING|由于布局更改而更改，作用于所有View上，不是由添加到容器中或从容器中删除的项目引起的|</p>
 <p>通过<code>android:animateLayoutChanges=&quot;true&quot;</code>来开启系统默认的过渡动画效果。</p>
 <p>如果需要自定义动画，就需要上述的<code>LayoutTransition</code>，但是需要注意，<strong>APPEARING、DISAPPEARING</strong>和<strong>CHANGE_XXXXX</strong>的使用方式不同，后者需要注意很多。</p>
-<h1 id="APPEARING-amp-DISAPPEARING"><a href="#APPEARING-amp-DISAPPEARING" class="headerlink" title="APPEARING &amp; DISAPPEARING"></a>APPEARING &amp; DISAPPEARING</h1><p>代码如下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">val layoutTransition = LayoutTransition()<br><span class="hljs-comment">// 加入（主）</span><br>val objectAnimator = ObjectAnimator.ofFloat(<span class="hljs-keyword">null</span>, <span class="hljs-string">&quot;translationX&quot;</span>, <span class="hljs-number">0f</span>, <span class="hljs-number">30f</span>, <span class="hljs-number">0f</span>)<br>layoutTransition.setDuration(LayoutTransition.APPEARING, <span class="hljs-number">300</span>)<br>layoutTransition.setAnimator(LayoutTransition.APPEARING, objectAnimator)<br><br><span class="hljs-comment">// 推出（主）</span><br>val animatorSet = AnimatorSet()<br>val objectAnimator1 = ObjectAnimator.ofFloat(<span class="hljs-keyword">null</span>, <span class="hljs-string">&quot;scaleX&quot;</span>,<span class="hljs-number">1f</span>, <span class="hljs-number">0f</span>)<br>val objectAnimator2 = ObjectAnimator.ofFloat(<span class="hljs-keyword">null</span>, <span class="hljs-string">&quot;scaleY&quot;</span>, <span class="hljs-number">1f</span>, <span class="hljs-number">0f</span>)<br>animatorSet.playTogether(objectAnimator1, objectAnimator2)<br>layoutTransition.setDuration(LayoutTransition.DISAPPEARING, <span class="hljs-number">300</span>)<br>layoutTransition.setAnimator(LayoutTransition.DISAPPEARING, animatorSet)<br>lll.layoutTransition = layoutTransition<br></code></pre></td></tr></table></figure>
-<p>这里给<code>lll</code>的layout控件添加了两种动画方式，方式也相对简单，将需要添加的动画添加至<code>layoutTransition</code>并添加对应动画模式的时间即可。</p>
+<h1 id="APPEARING-amp-DISAPPEARING"><a href="#APPEARING-amp-DISAPPEARING" class="headerlink" title="APPEARING &amp; DISAPPEARING"></a>APPEARING &amp; DISAPPEARING</h1><p>代码如下：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">val layoutTransition = LayoutTransition()<br><span class="hljs-comment">// 加入（主）</span><br>val objectAnimator = ObjectAnimator.ofFloat(<span class="hljs-keyword">null</span>, <span class="hljs-string">&quot;translationX&quot;</span>, <span class="hljs-number">0f</span>, <span class="hljs-number">30f</span>, <span class="hljs-number">0f</span>)<br>layoutTransition.setDuration(LayoutTransition.APPEARING, <span class="hljs-number">300</span>)<br>layoutTransition.setAnimator(LayoutTransition.APPEARING, objectAnimator)<br><br><span class="hljs-comment">// 推出（主）</span><br>val animatorSet = AnimatorSet()<br>val objectAnimator1 = ObjectAnimator.ofFloat(<span class="hljs-keyword">null</span>, <span class="hljs-string">&quot;scaleX&quot;</span>,<span class="hljs-number">1f</span>, <span class="hljs-number">0f</span>)<br>val objectAnimator2 = ObjectAnimator.ofFloat(<span class="hljs-keyword">null</span>, <span class="hljs-string">&quot;scaleY&quot;</span>, <span class="hljs-number">1f</span>, <span class="hljs-number">0f</span>)<br>animatorSet.playTogether(objectAnimator1, objectAnimator2)<br>layoutTransition.setDuration(LayoutTransition.DISAPPEARING, <span class="hljs-number">300</span>)<br>layoutTransition.setAnimator(LayoutTransition.DISAPPEARING, animatorSet)<br>lll.layoutTransition = layoutTransition<br></code></pre></td></tr></table></figure><br>这里给<code>lll</code>的layout控件添加了两种动画方式，方式也相对简单，将需要添加的动画添加至<code>layoutTransition</code>并添加对应动画模式的时间即可。</p>
 <h1 id="CHANGE-XXXXX"><a href="#CHANGE-XXXXX" class="headerlink" title="CHANGE_XXXXX"></a>CHANGE_XXXXX</h1><p>这类动画模式，即添加或移除时的其他子控件动画效果。相对注意很多：</p>
 <h2 id="使用ObjectAnimator动画："><a href="#使用ObjectAnimator动画：" class="headerlink" title="使用ObjectAnimator动画："></a>使用ObjectAnimator动画：</h2><p>如果传入的是ObjectAnimator，就需要注意：</p>
 <blockquote>
-<p>1.动画必须由PropertyValuesHolder组建<br>2.在组建动画时必须添加left、top、right、bottom中的两个(即使不需要这些功能)<br>3.组建的动画过程起始值必须和结束值相等</p>
+<p>1.动画必须由PropertyValuesHolder组建<br>2.在组建动画时必须添加left、top、right、bottom中的两个(即使不需要这些功能)<br>3.组建的动画过程起始值必须和结束值相等<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">val pvhLeft = PropertyValuesHolder.ofInt(<span class="hljs-string">&quot;left&quot;</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)<br>    val pvhTop = PropertyValuesHolder.ofInt(<span class="hljs-string">&quot;right&quot;</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)<br>    val properViewHolder = PropertyValuesHolder.ofFloat(<span class="hljs-string">&quot;rotation&quot;</span>, <span class="hljs-number">0f</span>, <span class="hljs-number">360f</span>, <span class="hljs-number">0f</span>)<br>    val objectAnimator4 = ObjectAnimator.ofPropertyValuesHolder(<span class="hljs-keyword">this</span>, properViewHolder, pvhLeft, pvhTop)<br></code></pre></td></tr></table></figure><br>如上代码，必须符合上两点要求，否则动画无效。</p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">val pvhLeft = PropertyValuesHolder.ofInt(<span class="hljs-string">&quot;left&quot;</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)<br>    val pvhTop = PropertyValuesHolder.ofInt(<span class="hljs-string">&quot;right&quot;</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)<br>    val properViewHolder = PropertyValuesHolder.ofFloat(<span class="hljs-string">&quot;rotation&quot;</span>, <span class="hljs-number">0f</span>, <span class="hljs-number">360f</span>, <span class="hljs-number">0f</span>)<br>    val objectAnimator4 = ObjectAnimator.ofPropertyValuesHolder(<span class="hljs-keyword">this</span>, properViewHolder, pvhLeft, pvhTop)<br></code></pre></td></tr></table></figure>
-<p>如上代码，必须符合上两点要求，否则动画无效。</p>
 <h2 id="使用AnimatorSet动画："><a href="#使用AnimatorSet动画：" class="headerlink" title="使用AnimatorSet动画："></a>使用AnimatorSet动画：</h2><p>相对简单，注意点不多：</p>
 <blockquote>
-<p>1.自动画可以由ObjectAnimator直接定义动画，再组合成AnimatorSet即可<br>2.组建的动画过程起始值必须和结束值相等</p>
+<p>1.自动画可以由ObjectAnimator直接定义动画，再组合成AnimatorSet即可<br>2.组建的动画过程起始值必须和结束值相等<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">val animatorSet1 = AnimatorSet()<br>        animatorSet1.playTogether(ObjectAnimator.ofFloat(<span class="hljs-keyword">null</span>, <span class="hljs-string">&quot;rotation&quot;</span>, <span class="hljs-number">0f</span>, <span class="hljs-number">360f</span>, <span class="hljs-number">0f</span>))<br></code></pre></td></tr></table></figure></p>
 </blockquote>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">val animatorSet1 = AnimatorSet()<br>        animatorSet1.playTogether(ObjectAnimator.ofFloat(<span class="hljs-keyword">null</span>, <span class="hljs-string">&quot;rotation&quot;</span>, <span class="hljs-number">0f</span>, <span class="hljs-number">360f</span>, <span class="hljs-number">0f</span>))<br></code></pre></td></tr></table></figure>
-
 <h1 id="CHANGING"><a href="#CHANGING" class="headerlink" title="CHANGING"></a>CHANGING</h1><p>指示由于布局更改而更改的项目上运行的动画，这些项目不是由添加到容器中或从容器中删除的项目引起的。<br>新增View是无法引起CHANGE动画的，只有改变布局大小才能引起动画效果。<br>CHANGE动画默认关闭，必须调用<code>enableTransitionType(int)</code>方法开启</p>
-<h1 id="其他函数"><a href="#其他函数" class="headerlink" title="其他函数"></a>其他函数</h1><table>
+<h1 id="其他函数"><a href="#其他函数" class="headerlink" title="其他函数"></a>其他函数</h1><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>函数名</th>
 <th>功能</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>setDuration(long duration)</td>
 <td>设置此过渡对象的所有动画使用的持续时间</td>
+<td>设置此过渡使用的其中一个动画对象的持续时间</td>
 </tr>
 <tr>
 <td>setDuration(int transitionType, long duration)</td>
@@ -106,14 +109,12 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <td>setStartDelay(int transitionType, long delay)</td>
 <td>设置此转换使用的某个动画对象的启动延迟</td>
 </tr>
-</tbody></table>
-<h2 id="四、Activity动画"><a href="#四、Activity动画" class="headerlink" title="四、Activity动画"></a>四、Activity动画</h2><h1 id="overridePendingTransition"><a href="#overridePendingTransition" class="headerlink" title="overridePendingTransition"></a>overridePendingTransition</h1><p><code>startActivity（android.content.intent）</code>或<code>finish（）</code>之后立即调用，以指定要执行next的显式转换动画。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 进入</span><br>    startActivity(Intent(<span class="hljs-keyword">this</span>, Main6Activity::class.java))<br>    overridePendingTransition(R.anim.alpha_in_anim, R.anim.alpha_out_anim)<br><span class="hljs-comment">// 退出</span><br>finish()<br>    overridePendingTransition(R.anim.alpha_in_anim, R.anim.alpha_out_anim)<br></code></pre></td></tr></table></figure>
-<p>传入的参数分别为：新Activity进入(旧Activity恢复)和旧Activity隐藏(新Activity隐藏)的两个参数。有点绕口，就是需要显示的Activity和需要隐藏的Activity的两个动画xml资源文件。</p>
+</tbody>
+</table>
+</div>
+<h2 id="四、Activity动画"><a href="#四、Activity动画" class="headerlink" title="四、Activity动画"></a>四、Activity动画</h2><h1 id="overridePendingTransition"><a href="#overridePendingTransition" class="headerlink" title="overridePendingTransition"></a>overridePendingTransition</h1><p><code>startActivity（android.content.intent）</code>或<code>finish（）</code>之后立即调用，以指定要执行next的显式转换动画。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 进入</span><br>    startActivity(Intent(<span class="hljs-keyword">this</span>, Main6Activity::class.java))<br>    overridePendingTransition(R.anim.alpha_in_anim, R.anim.alpha_out_anim)<br><span class="hljs-comment">// 退出</span><br>finish()<br>    overridePendingTransition(R.anim.alpha_in_anim, R.anim.alpha_out_anim)<br></code></pre></td></tr></table></figure><br>传入的参数分别为：新Activity进入(旧Activity恢复)和旧Activity隐藏(新Activity隐藏)的两个参数。有点绕口，就是需要显示的Activity和需要隐藏的Activity的两个动画xml资源文件。</p>
 <p>而Fragment可以使用<code>transaction.setCustomAnimations(...</code>函数来添加动画。</p>
-<p><strong>注意</strong>：但是需要注意在设置进入动画xml，但是没哟设置退出动画，则会出现黑屏的情况</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">overridePendingTransition(R.anim.alpha1_anim,<span class="hljs-number">0</span>)<br></code></pre></td></tr></table></figure>
-<p>在调试会发现退出的Activity黑屏现象。可以设置一个不动的动画xml设置到退出参数即可。</p>
+<p><strong>注意</strong>：但是需要注意在设置进入动画xml，但是没哟设置退出动画，则会出现黑屏的情况<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">overridePendingTransition(R.anim.alpha1_anim,<span class="hljs-number">0</span>)<br></code></pre></td></tr></table></figure><br>在调试会发现退出的Activity黑屏现象。可以设置一个不动的动画xml设置到退出参数即可。</p>
 <h2 id="可以使用AnimatorSet来完成组合动画效果"><a href="#可以使用AnimatorSet来完成组合动画效果" class="headerlink" title="可以使用AnimatorSet来完成组合动画效果"></a>可以使用AnimatorSet来完成组合动画效果</h2><h1 id="内置的Activity切换动画"><a href="#内置的Activity切换动画" class="headerlink" title="内置的Activity切换动画"></a>内置的Activity切换动画</h1><h2 id="进入-amp-退出"><a href="#进入-amp-退出" class="headerlink" title="进入 &amp; 退出"></a>进入 &amp; 退出</h2><p>提供了除“进入”和“退出”两种情景下的动画以外，还提供了一种共享元素动画<br>提供了如下功能：</p>
 <blockquote>
 <p>enter：用于决定第一次打开当前Activity时的动画<br>exit : 用于决定退出当前Activity时的动画<br>reenter: 用于决定如果当前Activity已经打开过，并且再次打开该Activity时的动画<br>shared elements:用于决定在两个Activity之间切换时，指定两个Activity中对应的View的过渡效果</p>
@@ -122,18 +123,12 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <blockquote>
 <p>explode：从屏幕中间进入或退出<br>slide：从屏幕边缘进入或退出<br>fade：淡入淡出</p>
 </blockquote>
-<p>如从ActivityA跳至ActivityB<br>ActivityB代码如下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function">override fun <span class="hljs-title">onCreate</span><span class="hljs-params">(savedInstanceState: Bundle?)</span> </span>&#123;<br>				<span class="hljs-comment">// 提示切换需要使用动画</span><br>        window.requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)<br>				<span class="hljs-comment">// 加载动画</span><br>        window.enterTransition = Explode()<br>        window.enterTransition = Slide()<br>        window.enterTransition = Fade()<br><br>        <span class="hljs-keyword">super</span>.onCreate(savedInstanceState)<br>        setContentView(R.layout.activity_main)<br><br></code></pre></td></tr></table></figure>
-<p>可以看到加载动画的函数为<code>enterXXXXX</code>，表示用于第一次打开当前Activity时的动画。</p>
+<p>如从ActivityA跳至ActivityB<br>ActivityB代码如下：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function">override fun <span class="hljs-title">onCreate</span><span class="hljs-params">(savedInstanceState: Bundle?)</span> </span>&#123;<br>				<span class="hljs-comment">// 提示切换需要使用动画</span><br>        window.requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)<br>				<span class="hljs-comment">// 加载动画</span><br>        window.enterTransition = Explode()<br>        window.enterTransition = Slide()<br>        window.enterTransition = Fade()<br><br>        <span class="hljs-keyword">super</span>.onCreate(savedInstanceState)<br>        setContentView(R.layout.activity_main)<br><br></code></pre></td></tr></table></figure><br>可以看到加载动画的函数为<code>enterXXXXX</code>，表示用于第一次打开当前Activity时的动画。</p>
 <blockquote>
 <p>Window.FEATURE_CONTENT_TRANSITIONS<br>Window.FEATURE_ACTIVITY_TRANSITIONS</p>
 </blockquote>
-<p>ActivityA代码如下：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//打开MainActivity</span><br>startActivity(Intent(<span class="hljs-keyword">this</span>, MainActivity::class.java), ActivityOptions.makeSceneTransitionAnimation(<span class="hljs-keyword">this</span>).toBundle())<br></code></pre></td></tr></table></figure>
-<p>最后使用该方式打开ActivityB。</p>
-<p>或者还可以在<strong>Styles.xml</strong>文件中添加上述这些动画效果:</p>
-<figure class="highlight"><table><tr><td class="code"><pre><code class="hljs java">&lt;item name=&quot;android:windowExitTransition&quot;&gt;@transition/explode&lt;/item&gt;<br>&lt;item name=&quot;android:windowEnterAnimation&quot;&gt;@transition/explode&lt;/item&gt;<br>&lt;item name=&quot;android:windowReenterTransition&quot;&gt;@transition/explode&lt;/item&gt;<br></code></pre></td></tr></table></figure>
-
+<p>ActivityA代码如下：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//打开MainActivity</span><br>startActivity(Intent(<span class="hljs-keyword">this</span>, MainActivity::class.java), ActivityOptions.makeSceneTransitionAnimation(<span class="hljs-keyword">this</span>).toBundle())<br></code></pre></td></tr></table></figure><br>最后使用该方式打开ActivityB。</p>
+<p>或者还可以在<strong>Styles.xml</strong>文件中添加上述这些动画效果:<br><figure class="highlight"><table><tr><td class="code"><pre><code class="hljs java">&lt;item name=&quot;android:windowExitTransition&quot;&gt;@transition/explode&lt;/item&gt;<br>&lt;item name=&quot;android:windowEnterAnimation&quot;&gt;@transition/explode&lt;/item&gt;<br>&lt;item name=&quot;android:windowReenterTransition&quot;&gt;@transition/explode&lt;/item&gt;<br></code></pre></td></tr></table></figure></p>
 <h3 id="ActivityOptions-amp-ActivityOptionsCompat"><a href="#ActivityOptions-amp-ActivityOptionsCompat" class="headerlink" title="ActivityOptions &amp; ActivityOptionsCompat"></a>ActivityOptions &amp; ActivityOptionsCompat</h3><p>最后在使用了该函数来生成Bundle。他会完成Activity的切换动画，但是功能有限。ActivityOptionsCompat是ActivityOptions的兼容包。</p>
 <h4 id="makeCustomAnimation-Context-context-int-enterResId-int-exitResId"><a href="#makeCustomAnimation-Context-context-int-enterResId-int-exitResId" class="headerlink" title="makeCustomAnimation(Context context, int enterResId, int exitResId)"></a>makeCustomAnimation(Context context, int enterResId, int exitResId)</h4><p>指定进入和退出的Activity动画</p>
 <blockquote>
@@ -152,7 +147,7 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <p>source：此缩略图的动画视图。这定义了startX和startY的坐标空间<br>thumbnail：将显示为动画的初始缩略图的位图<br>startX &amp; startY：放大时的起始位置</p>
 </blockquote>
 <h4 id="makeSceneTransitionAnimation-Activity-activity-View-sharedElement-String-sharedElementName"><a href="#makeSceneTransitionAnimation-Activity-activity-View-sharedElement-String-sharedElementName" class="headerlink" title="makeSceneTransitionAnimation(Activity activity, View sharedElement, String sharedElementName)"></a>makeSceneTransitionAnimation(Activity activity, View sharedElement, String sharedElementName)</h4><p>添加一个共享元素动画的元素</p>
-<h4 id="makeSceneTransitionAnimation-Activity-activity-Pair-lt-View-String-gt-sharedElements…"><a href="#makeSceneTransitionAnimation-Activity-activity-Pair-lt-View-String-gt-sharedElements…" class="headerlink" title="makeSceneTransitionAnimation(Activity activity, Pair&lt;View, String&gt; sharedElements…)"></a>makeSceneTransitionAnimation(Activity activity, Pair&lt;View, String&gt; sharedElements…)</h4><p>添加共享元素动画的多个元素，与上述相同</p>
+<h4 id="makeSceneTransitionAnimation-Activity-activity-Pair-sharedElements…"><a href="#makeSceneTransitionAnimation-Activity-activity-Pair-sharedElements…" class="headerlink" title="makeSceneTransitionAnimation(Activity activity, Pair\ sharedElements…)"></a>makeSceneTransitionAnimation(Activity activity, Pair\<View, String\> sharedElements…)</h4><p>添加共享元素动画的多个元素，与上述相同</p>
 <h3 id="自定义效果"><a href="#自定义效果" class="headerlink" title="自定义效果"></a>自定义效果</h3><p>上述都使用java自带的类来产生效果，当然也可以使用xml文件来给这些效果DIY。<br>需要声明的xml资源文件目录指定在<strong>xml/transition</strong>目录下。</p>
 <h4 id="xml文件配置"><a href="#xml文件配置" class="headerlink" title="xml文件配置"></a>xml文件配置</h4><ul>
 <li>explode</li>
@@ -168,11 +163,11 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <li>android:duration：动画时长毫秒</li>
 <li>android:interpolator：动画使用的插值器</li>
 <li>android:matchOrder：过渡动画执行顺序</li>
-<li> android:startDelay：在过渡动画之前延迟时间</li>
+<li>android:startDelay：在过渡动画之前延迟时间</li>
 </ul>
 </li>
 <li>transitionSet<ul>
-<li> android:transitionOrdering：确认是同时运行，还是顺序运行动画</li>
+<li>android:transitionOrdering：确认是同时运行，还是顺序运行动画</li>
 </ul>
 </li>
 </ul>
@@ -186,13 +181,9 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <h3 id="连接Activity的组件"><a href="#连接Activity的组件" class="headerlink" title="连接Activity的组件"></a>连接Activity的组件</h3><p>在ActivityA和ActivityB中的关联组件中添加<code>transitionName=&quot;...&quot;</code>，相同的名字就会跳到同名下的组件。</p>
 <h3 id="startActivity"><a href="#startActivity" class="headerlink" title="startActivity"></a>startActivity</h3><p>在开启Activity的时候，将上述的控件对象、设置的名称添加进去即可：<br><code>startActivity(Intent, ActivityOptions.makeSceneTransitionAnimation(this, open_two, &quot;shared&quot;).toBundle())</code><br>也可以添加多个控件：<br><code>startActivity(Intent, ActivityOptions.makeSceneTransitionAnimation(this, Pair.create(open_one, &quot;shareds&quot;), Pair.create(open_two, &quot;shared&quot;)).toBundle())</code></p>
 <h3 id="finishAfterTransition"><a href="#finishAfterTransition" class="headerlink" title="finishAfterTransition"></a>finishAfterTransition</h3><p>在回退Acitivity时调用<code>finishAfterTransition()</code>来退出并显示回退动画。</p>
-<h3 id="自定义共享元素动画"><a href="#自定义共享元素动画" class="headerlink" title="自定义共享元素动画"></a>自定义共享元素动画</h3><p>使用自定义元素路线来完成自定义共享元素动画。需要一个自定义的路径类：如<code>PatternPathMotion</code>、<code>ArcMotion</code>等。<br>然后让组件在设定的路径上完成动画即可。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">ArcMotion arcMotion = <span class="hljs-keyword">new</span> ArcMotion();<br><span class="hljs-comment">// 用于描述两点之间的弧的最小角度</span><br>arcMotion.setMinimumHorizontalAngle(<span class="hljs-number">50f</span>);<br>arcMotion.setMinimumVerticalAngle(<span class="hljs-number">50f</span>);<br></code></pre></td></tr></table></figure>
-
-<p>然后在使用上述的效果<strong>ChangeBounds</strong>，即可:</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 新建动画效果</span><br>val myChangsBounds = ChangeBounds()<br><span class="hljs-comment">// 新建曲线路径</span><br>    val arcMotion = ArcMotion()<br><span class="hljs-comment">// 设置最小弧</span><br>    arcMotion.minimumHorizontalAngle = <span class="hljs-number">50f</span><br>    arcMotion.minimumVerticalAngle = <span class="hljs-number">50f</span><br>    myChangsBounds.pathMotion = arcMotion<br>    window.sharedElementEnterTransition = myChangsBounds<br><br>    <span class="hljs-keyword">super</span>.onCreate(savedInstanceState)<br></code></pre></td></tr></table></figure>
-
-<h2 id="TransitionManager"><a href="#TransitionManager" class="headerlink" title="TransitionManager"></a>TransitionManager</h2><p>运用Transition框架来完成更完美的场景切换。使用**Scene(场景)**来创建起始场景和结束场景，TransitionManager负责执行动画任务。</p>
+<h3 id="自定义共享元素动画"><a href="#自定义共享元素动画" class="headerlink" title="自定义共享元素动画"></a>自定义共享元素动画</h3><p>使用自定义元素路线来完成自定义共享元素动画。需要一个自定义的路径类：如<code>PatternPathMotion</code>、<code>ArcMotion</code>等。<br>然后让组件在设定的路径上完成动画即可。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">ArcMotion arcMotion = <span class="hljs-keyword">new</span> ArcMotion();<br><span class="hljs-comment">// 用于描述两点之间的弧的最小角度</span><br>arcMotion.setMinimumHorizontalAngle(<span class="hljs-number">50f</span>);<br>arcMotion.setMinimumVerticalAngle(<span class="hljs-number">50f</span>);<br></code></pre></td></tr></table></figure></p>
+<p>然后在使用上述的效果<strong>ChangeBounds</strong>，即可:<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 新建动画效果</span><br>val myChangsBounds = ChangeBounds()<br><span class="hljs-comment">// 新建曲线路径</span><br>    val arcMotion = ArcMotion()<br><span class="hljs-comment">// 设置最小弧</span><br>    arcMotion.minimumHorizontalAngle = <span class="hljs-number">50f</span><br>    arcMotion.minimumVerticalAngle = <span class="hljs-number">50f</span><br>    myChangsBounds.pathMotion = arcMotion<br>    window.sharedElementEnterTransition = myChangsBounds<br><br>    <span class="hljs-keyword">super</span>.onCreate(savedInstanceState)<br></code></pre></td></tr></table></figure></p>
+<h2 id="TransitionManager"><a href="#TransitionManager" class="headerlink" title="TransitionManager"></a>TransitionManager</h2><p>运用Transition框架来完成更完美的场景切换。使用<strong>Scene(场景)</strong>来创建起始场景和结束场景，TransitionManager负责执行动画任务。</p>
 <h3 id="Scene"><a href="#Scene" class="headerlink" title="Scene"></a>Scene</h3><p>场景，即保存了View集合的一个状态，从起始到结束即从一个状态到另一个状态。<br>如何创建Scene:</p>
 <ul>
 <li>构造函数Scene<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">Scene(ViewGroup sceneRoot, View layout)<br></code></pre></td></tr></table></figure>
@@ -201,9 +192,7 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 </blockquote>
 </li>
 </ul>
-<p>如：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">val view = LayoutInflater.from(<span class="hljs-keyword">this</span>).inflate(R.layout.layout_two, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">false</span>)<br>scene2 = Scene(linearlayoutView, view)<br></code></pre></td></tr></table></figure>
-<p>即将状态view插入到linearlayoutView根节点中</p>
+<p>如：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">val view = LayoutInflater.from(<span class="hljs-keyword">this</span>).inflate(R.layout.layout_two, <span class="hljs-keyword">null</span>, <span class="hljs-keyword">false</span>)<br>scene2 = Scene(linearlayoutView, view)<br></code></pre></td></tr></table></figure><br>即将状态view插入到linearlayoutView根节点中</p>
 <ul>
 <li>getSceneForLayout()<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">Scene.getSceneForLayout(ViewGroup sceneRoot, <span class="hljs-keyword">int</span> layoutId, Context context)<br></code></pre></td></tr></table></figure>
 <blockquote>
@@ -219,9 +208,7 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 </blockquote>
 </li>
 </ul>
-<p>如：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">TransitionManager.beginDelayedTransition(layoutView);<br><span class="hljs-keyword">if</span> (flag) &#123;<br>	FrameLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();<br>	layoutParams.height =<span class="hljs-number">200</span>;<br>	layoutParams.width =<span class="hljs-number">200</span>;<br>	imageView.setLayoutParams(layoutParams);<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>	FrameLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();<br>	layoutParams.height = <span class="hljs-number">700</span>;<br>	layoutParams.width = <span class="hljs-number">200</span>;<br>	imageView.setLayoutParams(layoutParams);<br>&#125;<br><br>flag = !flag;<br></code></pre></td></tr></table></figure>
-
+<p>如：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">TransitionManager.beginDelayedTransition(layoutView);<br><span class="hljs-keyword">if</span> (flag) &#123;<br>	FrameLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();<br>	layoutParams.height =<span class="hljs-number">200</span>;<br>	layoutParams.width =<span class="hljs-number">200</span>;<br>	imageView.setLayoutParams(layoutParams);<br>&#125; <span class="hljs-keyword">else</span> &#123;<br>	FrameLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();<br>	layoutParams.height = <span class="hljs-number">700</span>;<br>	layoutParams.width = <span class="hljs-number">200</span>;<br>	imageView.setLayoutParams(layoutParams);<br>&#125;<br><br>flag = !flag;<br></code></pre></td></tr></table></figure></p>
 <ul>
 <li>go()<br>指定一个结束的Scene场景，来完成动画效果。<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">go(Scene scene, Transition transition)<br>go(Scene scene)<br></code></pre></td></tr></table></figure>
 <blockquote>
@@ -233,11 +220,8 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <blockquote>
 <p>Explode，Fade，Slide：根据View的显示和隐藏完成爆炸、透明、滑动效果。<br>ChangeBounds：改变目标View的边界完成动画<br>ChangeClipBounds：裁剪目标View的边界<br>ChangeImageTransform：改变目标图片的大小和缩放比例<br>ChangeTransform：改变目标View的缩放比例和旋转角度<br>ChangeScroll：改变滑动位置</p>
 </blockquote>
-<p>也可以使用上述的<code>transitionSet</code>在xml文件(res/transition)中完成混合动画效果。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">transition = TransitionInflater.from(<span class="hljs-keyword">this</span>).inflateTransition(R.transition.test_transition);<br>TransitionManager.go(scene1, transition);<br></code></pre></td></tr></table></figure>
-
-<p><strong>注意：</strong>在编写xml文件的时候，上述效果中可以指定layout中的view</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">transitionSet</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res/android&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">changeBounds</span> /&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">fade</span> <span class="hljs-attr">android:fadingMode</span>=<span class="hljs-string">&quot;fade_in_out&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">targets</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">target</span> <span class="hljs-attr">android:targetId</span>=<span class="hljs-string">&quot;@id/transition_title&quot;</span> /&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">targets</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">fade</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">transitionSet</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>也可以使用上述的<code>transitionSet</code>在xml文件(res/transition)中完成混合动画效果。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">transition = TransitionInflater.from(<span class="hljs-keyword">this</span>).inflateTransition(R.transition.test_transition);<br>TransitionManager.go(scene1, transition);<br></code></pre></td></tr></table></figure></p>
+<p><strong>注意：</strong>在编写xml文件的时候，上述效果中可以指定layout中的view<br><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">transitionSet</span> <span class="hljs-attr">xmlns:android</span>=<span class="hljs-string">&quot;http://schemas.android.com/apk/res/android&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">changeBounds</span> /&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">fade</span> <span class="hljs-attr">android:fadingMode</span>=<span class="hljs-string">&quot;fade_in_out&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">targets</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">target</span> <span class="hljs-attr">android:targetId</span>=<span class="hljs-string">&quot;@id/transition_title&quot;</span> /&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">targets</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">fade</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">transitionSet</span>&gt;</span><br></code></pre></td></tr></table></figure></p>
 <blockquote>
 <p>tragetId：指定该id的View完成动画<br>excludeId：指定除了该id以外的View完成动画</p>
 </blockquote>

@@ -38,8 +38,21 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
     orderedList: false,
     collapseDepth: 2,
   });
-})</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
+})</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script><script type="text/javascript">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
 </head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">杨小杨的博客</a></h1><p>保佑代码无bug🙏</p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">NDK开发问题合集</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">NDK开发问题合集</a></h2><span class="post__date">2019-04-08</span><a href="/tags/NDK/"><span class="post__tags">#NDK</span></a></div></div><div class="article__content"><h2 id="一、介绍"><a href="#一、介绍" class="headerlink" title="一、介绍"></a>一、介绍</h2><p>目前Android系统支持以下七种不用的CPU架构，每一种对应着各自的应用程序二进制接口ABI：(Application Binary Interface)定义了二进制文件(尤其是.so文件)如何运行在相应的系统平台上，从使用的指令集，内存对齐到可用的系统函数库。<br>关系如下:</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -47,7 +60,8 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <th>简称</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>ARMv7以下</td>
 <td>armeabi</td>
 </tr>
@@ -75,10 +89,11 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <td>MIPS64</td>
 <td>mips64</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h1 id="JNI是什么"><a href="#JNI是什么" class="headerlink" title="JNI是什么"></a>JNI是什么</h1><p>全称为Java Native Interface，即Java本地接口。JNI是Java调用Native 语言的一种特性。通过JNI可以使得Java与C/C++机型交互。由于JNI是JVM规范的一部分，因此可以将我们写的JNI的程序在任何实现了JNI规范的Java虚拟机中运行。同时，这个特性使我们可以复用以前用C/C++写的大量代码JNI是一种在Java虚拟机机制下的执行代码的标准机制。代码被编写成汇编程序或者C/C++程序，并组装为动态库。也就允许非静态绑定用法。</p>
-<h1 id="函数命名的规则是什么"><a href="#函数命名的规则是什么" class="headerlink" title="函数命名的规则是什么"></a>函数命名的规则是什么</h1><p>例如在.c文件中：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function">JNIExport jstring JNICALL <span class="hljs-title">Java_com_yang_demo_MainActivity_stringFromJNI</span><span class="hljs-params">( JNIEnv* env,jobject thiz )</span></span><br></code></pre></td></tr></table></figure>
+<h1 id="函数命名的规则是什么"><a href="#函数命名的规则是什么" class="headerlink" title="函数命名的规则是什么"></a>函数命名的规则是什么</h1><p>例如在.c文件中：<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function">JNIExport jstring JNICALL <span class="hljs-title">Java_com_yang_demo_MainActivity_stringFromJNI</span><span class="hljs-params">( JNIEnv* env,jobject thiz )</span></span><br></code></pre></td></tr></table></figure></p>
 <ul>
 <li>jstring为返回类型</li>
 <li>Java_com_yang_demo是包名</li>
@@ -86,7 +101,8 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <li>stringFromJNI是方法名</li>
 <li>JNIExport和JNICALL是不固定保留的关键字</li>
 </ul>
-<h2 id="二、基础记录"><a href="#二、基础记录" class="headerlink" title="二、基础记录"></a>二、基础记录</h2><h1 id="1-类型"><a href="#1-类型" class="headerlink" title="1 类型"></a>1 类型</h1><h2 id="1-1-基本类型"><a href="#1-1-基本类型" class="headerlink" title="1.1 基本类型"></a>1.1 基本类型</h2><table>
+<h2 id="二、基础记录"><a href="#二、基础记录" class="headerlink" title="二、基础记录"></a>二、基础记录</h2><h1 id="1-类型"><a href="#1-类型" class="headerlink" title="1 类型"></a>1 类型</h1><h2 id="1-1-基本类型"><a href="#1-1-基本类型" class="headerlink" title="1.1 基本类型"></a>1.1 基本类型</h2><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>Java类型</th>
@@ -94,7 +110,8 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <th>大小</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>boolean</td>
 <td>jboolean</td>
 <td>无符号8位</td>
@@ -139,8 +156,11 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <td>void</td>
 <td>N/A</td>
 </tr>
-</tbody></table>
-<h2 id="1-2-数组类型"><a href="#1-2-数组类型" class="headerlink" title="1.2 数组类型"></a>1.2 数组类型</h2><table>
+</tbody>
+</table>
+</div>
+<h2 id="1-2-数组类型"><a href="#1-2-数组类型" class="headerlink" title="1.2 数组类型"></a>1.2 数组类型</h2><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>Java类型</th>
@@ -148,7 +168,8 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <th>大小</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>boolean</td>
 <td>jboolean</td>
 <td>无符号8位</td>
@@ -193,7 +214,9 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <td>void</td>
 <td>N/A</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <h2 id="1-3-引用类型"><a href="#1-3-引用类型" class="headerlink" title="1.3 引用类型"></a>1.3 引用类型</h2><ul>
 <li>jobject        </li>
 <li>jclass       </li>
@@ -214,10 +237,9 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <li>jfieldID</li>
 <li>jmethodID</li>
 </ul>
-<h2 id="1-5-jvalue-特殊类型"><a href="#1-5-jvalue-特殊类型" class="headerlink" title="1.5 jvalue(特殊类型)"></a>1.5 jvalue(特殊类型)</h2><p>jvalue共用体可以保存多种类型的数据</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">union</span> <span class="hljs-title">jvalue</span> &#123;</span><br>jboolean    z;<br>jbyte       b;<br>jchar       c;<br>jshort      s;<br>jint        i;<br>jlong       j;<br>jfloat      f;<br>jdouble     d;<br>jobject     l;<br>&#125; jvalue;<br></code></pre></td></tr></table></figure>
-
+<h2 id="1-5-jvalue-特殊类型"><a href="#1-5-jvalue-特殊类型" class="headerlink" title="1.5 jvalue(特殊类型)"></a>1.5 jvalue(特殊类型)</h2><p>jvalue共用体可以保存多种类型的数据<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">union</span> <span class="hljs-title">jvalue</span> &#123;</span><br>jboolean    z;<br>jbyte       b;<br>jchar       c;<br>jshort      s;<br>jint        i;<br>jlong       j;<br>jfloat      f;<br>jdouble     d;<br>jobject     l;<br>&#125; jvalue;<br></code></pre></td></tr></table></figure></p>
 <h2 id="1-6-类型签名"><a href="#1-6-类型签名" class="headerlink" title="1.6 类型签名"></a>1.6 类型签名</h2><p>用于对java虚拟机内容表示</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -225,7 +247,8 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <th>java类型</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td>Z</td>
 <td>boolean</td>
 </tr>
@@ -269,43 +292,22 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <td>(参数类型签名,…)返回值类型签名</td>
 <td>方法类型</td>
 </tr>
-</tbody></table>
-<p><em><strong>例如：</strong></em></p>
-<figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">func</span><span class="hljs-params">(<span class="hljs-keyword">float</span> a, String b, byte[] c)</span></span><br></code></pre></td></tr></table></figure>
-<p>对应的签名为：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c">(FLjava/lang/String;[B)I<br></code></pre></td></tr></table></figure>
-
-<h2 id="1-7-字符串处理"><a href="#1-7-字符串处理" class="headerlink" title="1.7 字符串处理"></a>1.7 字符串处理</h2><h3 id="1-7-1-创建jstring"><a href="#1-7-1-创建jstring" class="headerlink" title="1.7.1 创建jstring"></a>1.7.1 创建jstring</h3><p>创建Unicode格式的jstring串</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function">jstring <span class="hljs-title">NewString</span><span class="hljs-params">(<span class="hljs-keyword">const</span> jchar *unicodeChars, jsize len)</span></span>;<br></code></pre></td></tr></table></figure>
-
-<p>创建UTF-8格式的jstring串</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function">jstring <span class="hljs-title">NewStringUTF</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *bytes)</span></span>;<br></code></pre></td></tr></table></figure>
-
-<h3 id="1-7-2-获取字符串长度"><a href="#1-7-2-获取字符串长度" class="headerlink" title="1.7.2 获取字符串长度"></a>1.7.2 获取字符串长度</h3><p>获取Unicode格式的jstring串长度</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function">jsize <span class="hljs-title">GetStringLength</span><span class="hljs-params">(jstring <span class="hljs-built_in">string</span>)</span></span>;<br></code></pre></td></tr></table></figure>
-
-<p>获取UTF-8格式的jstring串长度</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function">jsize <span class="hljs-title">GetStringUTFLength</span><span class="hljs-params">(jstring <span class="hljs-built_in">string</span>)</span></span>;<br></code></pre></td></tr></table></figure>
-
-<h3 id="1-7-3-jstring转化为C串及释放jstring串"><a href="#1-7-3-jstring转化为C串及释放jstring串" class="headerlink" title="1.7.3 jstring转化为C串及释放jstring串"></a>1.7.3 jstring转化为C串及释放jstring串</h3><h4 id="简单字符串处理"><a href="#简单字符串处理" class="headerlink" title="简单字符串处理"></a>简单字符串处理</h4><p>GetStringXXXChars &amp; ReleaseStringXXXChars<br>将jstring转为C字符串:</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">const</span> jchar* <span class="hljs-title">GetStringChars</span><span class="hljs-params">(jstring <span class="hljs-built_in">string</span>, jboolean *isCopy)</span></span>;<br><span class="hljs-function"><span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* <span class="hljs-title">GetStringUTFChars</span><span class="hljs-params">(jstring <span class="hljs-built_in">string</span>, jboolean *isCopy )</span></span>;<br></code></pre></td></tr></table></figure>
+</tbody>
+</table>
+</div>
+<p><strong><em>例如：</em></strong><br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">func</span><span class="hljs-params">(<span class="hljs-keyword">float</span> a, String b, byte[] c)</span></span><br></code></pre></td></tr></table></figure><br>对应的签名为：<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c">(FLjava/lang/String;[B)I<br></code></pre></td></tr></table></figure></p>
+<h2 id="1-7-字符串处理"><a href="#1-7-字符串处理" class="headerlink" title="1.7 字符串处理"></a>1.7 字符串处理</h2><h3 id="1-7-1-创建jstring"><a href="#1-7-1-创建jstring" class="headerlink" title="1.7.1 创建jstring"></a>1.7.1 创建jstring</h3><p>创建Unicode格式的jstring串<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function">jstring <span class="hljs-title">NewString</span><span class="hljs-params">(<span class="hljs-keyword">const</span> jchar *unicodeChars, jsize len)</span></span>;<br></code></pre></td></tr></table></figure></p>
+<p>创建UTF-8格式的jstring串<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function">jstring <span class="hljs-title">NewStringUTF</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *bytes)</span></span>;<br></code></pre></td></tr></table></figure></p>
+<h3 id="1-7-2-获取字符串长度"><a href="#1-7-2-获取字符串长度" class="headerlink" title="1.7.2 获取字符串长度"></a>1.7.2 获取字符串长度</h3><p>获取Unicode格式的jstring串长度<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function">jsize <span class="hljs-title">GetStringLength</span><span class="hljs-params">(jstring <span class="hljs-built_in">string</span>)</span></span>;<br></code></pre></td></tr></table></figure></p>
+<p>获取UTF-8格式的jstring串长度<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function">jsize <span class="hljs-title">GetStringUTFLength</span><span class="hljs-params">(jstring <span class="hljs-built_in">string</span>)</span></span>;<br></code></pre></td></tr></table></figure></p>
+<h3 id="1-7-3-jstring转化为C串及释放jstring串"><a href="#1-7-3-jstring转化为C串及释放jstring串" class="headerlink" title="1.7.3 jstring转化为C串及释放jstring串"></a>1.7.3 jstring转化为C串及释放jstring串</h3><h4 id="简单字符串处理"><a href="#简单字符串处理" class="headerlink" title="简单字符串处理"></a>简单字符串处理</h4><p>GetStringXXXChars &amp; ReleaseStringXXXChars<br>将jstring转为C字符串:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">const</span> jchar* <span class="hljs-title">GetStringChars</span><span class="hljs-params">(jstring <span class="hljs-built_in">string</span>, jboolean *isCopy)</span></span>;<br><span class="hljs-function"><span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>* <span class="hljs-title">GetStringUTFChars</span><span class="hljs-params">(jstring <span class="hljs-built_in">string</span>, jboolean *isCopy )</span></span>;<br></code></pre></td></tr></table></figure></p>
 <blockquote>
 <p>如果生成串的一个副本，isCopy参数将被置为JNI_TRUE，否则置为NULL或者JNI_FALSE</p>
 </blockquote>
-<p>通知虚拟机平台相关代码无需再访问 chars，释放指针。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ReleaseStringChars</span><span class="hljs-params">(jstring <span class="hljs-built_in">string</span>, <span class="hljs-keyword">const</span> jchar *chars)</span></span>;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ReleaseStringUTFChars</span><span class="hljs-params">(jstring <span class="hljs-built_in">string</span>, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *utf)</span></span>;<br></code></pre></td></tr></table></figure>
-
-<h4 id="复杂字符串处理"><a href="#复杂字符串处理" class="headerlink" title="复杂字符串处理"></a>复杂字符串处理</h4><p>GetStringRegion &amp; GetStringUTFRegion<br>GetStringRegion函数将串str的一个子串传送到一个字符缓存器。该子串在位置start处开始，在len-1处结束（这样传送的字符数就是len）</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">GetStringRegion</span><span class="hljs-params">(jstring str, jsize start, jsize len, jchar *buf)</span></span>;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">GetStringUTFRegion</span><span class="hljs-params">(jstring str, jsize start, jsize len, <span class="hljs-keyword">char</span> *buf)</span></span>;<br></code></pre></td></tr></table></figure>
-
-<h4 id="复杂字符串处理2"><a href="#复杂字符串处理2" class="headerlink" title="复杂字符串处理2"></a>复杂字符串处理2</h4><p>GetStringCritical &amp; ReleaseStringCritical<br>该函数返回一个指向特定串中字符的指针。如果需要复制该字符，并且函数返回时将isCopy置为JNI_TRUE,否则置为NULL或JNI_FALSE。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">const</span> jchar* <span class="hljs-title">GetStringCritical</span><span class="hljs-params">(jstring <span class="hljs-built_in">string</span>, jboolean *isCopy)</span></span>;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ReleaseStringCritical</span><span class="hljs-params">(jstring <span class="hljs-built_in">string</span>,<span class="hljs-keyword">const</span> jchar *carray)</span></span>;<br></code></pre></td></tr></table></figure>
-<p>在调用该函数后，直至调用ReleaseStringCritical之前，所使用的所有函数都无法使当前线程被阻塞。</p>
-<h1 id="2-静态方法-jclass-与实例方法-jobject"><a href="#2-静态方法-jclass-与实例方法-jobject" class="headerlink" title="2.静态方法(jclass)与实例方法(jobject)"></a>2.静态方法(jclass)与实例方法(jobject)</h1><p>在添加native方法时有静态方法与实例方法两种方式，但是在生成的C/C++函数会略有不同:</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c">Java_com_example_myrtmp_YuvLib_init(JNIEnv *env, jobject jobj);<br>Java_com_example_myrtmp_YuvLib_init(JNIEnv *env, jclass clazz);<br></code></pre></td></tr></table></figure>
-<p>区别就在于获取的应用类型：实例引用（jobject）和类引用(jclass)。<br>实例应用对应于Object，类引用对应于Class。前者为实例操作，后者为类操作。可以通过下面函数看出来：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 参数都是jclass</span><br>jfieldID    (*GetFieldID)(JNIEnv*, jclass, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>*, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>*);<br>jobject     (*CallStaticObjectMethod)(JNIEnv*, jclass, jmethodID, ...);<br>jobject     (*GetStaticObjectField)(JNIEnv*, jclass, jfieldID);<br><br><span class="hljs-comment">// 参数都是jobject</span><br>jobject     (*GetObjectField)(JNIEnv*, jobject, jfieldID);<br>jobject     (*CallObjectMethod)(JNIEnv*, jobject, jmethodID, ...);<br>object      (*GetObjectField)(JNIEnv*, jobject, jfieldID);<br></code></pre></td></tr></table></figure>
-
+<p>通知虚拟机平台相关代码无需再访问 chars，释放指针。<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ReleaseStringChars</span><span class="hljs-params">(jstring <span class="hljs-built_in">string</span>, <span class="hljs-keyword">const</span> jchar *chars)</span></span>;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ReleaseStringUTFChars</span><span class="hljs-params">(jstring <span class="hljs-built_in">string</span>, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *utf)</span></span>;<br></code></pre></td></tr></table></figure></p>
+<h4 id="复杂字符串处理"><a href="#复杂字符串处理" class="headerlink" title="复杂字符串处理"></a>复杂字符串处理</h4><p>GetStringRegion &amp; GetStringUTFRegion<br>GetStringRegion函数将串str的一个子串传送到一个字符缓存器。该子串在位置start处开始，在len-1处结束（这样传送的字符数就是len）<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">GetStringRegion</span><span class="hljs-params">(jstring str, jsize start, jsize len, jchar *buf)</span></span>;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">GetStringUTFRegion</span><span class="hljs-params">(jstring str, jsize start, jsize len, <span class="hljs-keyword">char</span> *buf)</span></span>;<br></code></pre></td></tr></table></figure></p>
+<h4 id="复杂字符串处理2"><a href="#复杂字符串处理2" class="headerlink" title="复杂字符串处理2"></a>复杂字符串处理2</h4><p>GetStringCritical &amp; ReleaseStringCritical<br>该函数返回一个指向特定串中字符的指针。如果需要复制该字符，并且函数返回时将isCopy置为JNI_TRUE,否则置为NULL或JNI_FALSE。<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">const</span> jchar* <span class="hljs-title">GetStringCritical</span><span class="hljs-params">(jstring <span class="hljs-built_in">string</span>, jboolean *isCopy)</span></span>;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ReleaseStringCritical</span><span class="hljs-params">(jstring <span class="hljs-built_in">string</span>,<span class="hljs-keyword">const</span> jchar *carray)</span></span>;<br></code></pre></td></tr></table></figure><br>在调用该函数后，直至调用ReleaseStringCritical之前，所使用的所有函数都无法使当前线程被阻塞。</p>
+<h1 id="2-静态方法-jclass-与实例方法-jobject"><a href="#2-静态方法-jclass-与实例方法-jobject" class="headerlink" title="2.静态方法(jclass)与实例方法(jobject)"></a>2.静态方法(jclass)与实例方法(jobject)</h1><p>在添加native方法时有静态方法与实例方法两种方式，但是在生成的C/C++函数会略有不同:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c">Java_com_example_myrtmp_YuvLib_init(JNIEnv *env, jobject jobj);<br>Java_com_example_myrtmp_YuvLib_init(JNIEnv *env, jclass clazz);<br></code></pre></td></tr></table></figure><br>区别就在于获取的应用类型：实例引用（jobject）和类引用(jclass)。<br>实例应用对应于Object，类引用对应于Class。前者为实例操作，后者为类操作。可以通过下面函数看出来：<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 参数都是jclass</span><br>jfieldID    (*GetFieldID)(JNIEnv*, jclass, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>*, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span>*);<br>jobject     (*CallStaticObjectMethod)(JNIEnv*, jclass, jmethodID, ...);<br>jobject     (*GetStaticObjectField)(JNIEnv*, jclass, jfieldID);<br><br><span class="hljs-comment">// 参数都是jobject</span><br>jobject     (*GetObjectField)(JNIEnv*, jobject, jfieldID);<br>jobject     (*CallObjectMethod)(JNIEnv*, jobject, jmethodID, ...);<br>object      (*GetObjectField)(JNIEnv*, jobject, jfieldID);<br></code></pre></td></tr></table></figure></p>
 <h2 id="三、类与异常问题"><a href="#三、类与异常问题" class="headerlink" title="三、类与异常问题"></a>三、类与异常问题</h2><h1 id="1-类"><a href="#1-类" class="headerlink" title="1.类"></a>1.类</h1><h3 id="1-1-加载类"><a href="#1-1-加载类" class="headerlink" title="1.1 加载类"></a>1.1 加载类</h3><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function">jclass <span class="hljs-title">DefineClass</span><span class="hljs-params">(JNIEnv *env, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *name, jobject loader,</span></span><br><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">const</span> jbyte *buf, jsize bufLen)</span></span>;<br></code></pre></td></tr></table></figure>
 <ul>
 <li>name：类的全名。</li>
@@ -466,7 +468,8 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <h1 id="4-获取某个对象的引用类型"><a href="#4-获取某个对象的引用类型" class="headerlink" title="4 获取某个对象的引用类型"></a>4 获取某个对象的引用类型</h1><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function">jobjectRefType <span class="hljs-title">GetObjectRefType</span><span class="hljs-params">(JNIEnv *env,jobject obj)</span></span>;<br></code></pre></td></tr></table></figure>
 <p>返回obj对象对应的引用类型，可以得到当前对象的引用类型是全局引用、局部引用还是弱全局引用。</p>
 <ul>
-<li>return：当前对象的引用类型。这些类型在jni.h文件中的定义如下所示。<figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">jobjectRefType</span> &#123;</span><br>    JNIInvalidRefType = <span class="hljs-number">0</span>,<span class="hljs-comment">//无效引用</span><br>    JNILocalRefType = <span class="hljs-number">1</span>,<span class="hljs-comment">//局部引用</span><br>    JNIGlobalRefType = <span class="hljs-number">2</span>,<span class="hljs-comment">//全局引用</span><br>    JNIWeakGlobalRefType = <span class="hljs-number">3</span><span class="hljs-comment">//弱全局引用</span><br>&#125; jobjectRefType;<br></code></pre></td></tr></table></figure></li>
+<li>return：当前对象的引用类型。这些类型在jni.h文件中的定义如下所示。<figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">jobjectRefType</span> &#123;</span><br>    JNIInvalidRefType = <span class="hljs-number">0</span>,<span class="hljs-comment">//无效引用</span><br>    JNILocalRefType = <span class="hljs-number">1</span>,<span class="hljs-comment">//局部引用</span><br>    JNIGlobalRefType = <span class="hljs-number">2</span>,<span class="hljs-comment">//全局引用</span><br>    JNIWeakGlobalRefType = <span class="hljs-number">3</span><span class="hljs-comment">//弱全局引用</span><br>&#125; jobjectRefType;<br></code></pre></td></tr></table></figure>
+</li>
 </ul>
 <h1 id="5-判断某个对象是否是某个“类”的子类"><a href="#5-判断某个对象是否是某个“类”的子类" class="headerlink" title="5 判断某个对象是否是某个“类”的子类"></a>5 判断某个对象是否是某个“类”的子类</h1><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function">jboolean <span class="hljs-title">IsInstanceOf</span><span class="hljs-params">(JNIEnv *env, jobject obj,jclass clazz)</span></span>; <br></code></pre></td></tr></table></figure>
 <p>测试obj是否是clazz的一个实例</p>

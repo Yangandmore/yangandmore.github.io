@@ -38,7 +38,19 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
     orderedList: false,
     collapseDepth: 2,
   });
-})</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
+})</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script><script type="text/javascript">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
 </head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">杨小杨的博客</a></h1><p>保佑代码无bug🙏</p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">了解跨域</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">了解跨域</a></h2><span class="post__date">2020-03-29</span><a href="/tags/%E5%90%8E%E5%8F%B0/"><span class="post__tags">#后台</span></a></div></div><div class="article__content"><h2 id="什么是跨域"><a href="#什么是跨域" class="headerlink" title="什么是跨域"></a>什么是跨域</h2><p>跨域，是指浏览器不能执行其他网站的脚本。它是由浏览器的同源策略造成的，凡是发送请求url的协议、域名、端口三者之间任意一个与当前页面地址不同即为跨域。<br>无法跨域是浏览器对于用户安全的考虑。</p>
 <p>同源策略限制了一下行为：</p>
 <blockquote>
@@ -55,31 +67,12 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <ul>
 <li><p>1.请求方式为<strong>HEAD</strong>、<strong>POST</strong> 或者 <strong>GET</strong></p>
 </li>
-<li><p>2.HTTP的头信息不超出以下几种字段</p>
-</li>
-<li><ul>
-<li>Accept</li>
-</ul>
-</li>
-<li><ul>
-<li>Accept-Language</li>
-</ul>
-</li>
-<li><ul>
-<li>Content-Language</li>
-</ul>
-</li>
-<li><ul>
-<li>Last-Event-ID</li>
-</ul>
-</li>
-<li><ul>
-<li>Content-Type：只限于三个值<strong>application/x-www-form-urlencoded</strong>、<strong>multipart/form-data</strong>、<strong>text/plain</strong></li>
-</ul>
+<li><p>2.HTTP的头信息不超出以下几种字段<br><strong> Accept
+</strong> Accept-Language<br><strong> Content-Language
+</strong> Last-Event-ID<br><strong> Content-Type：只限于三个值</strong>application/x-www-form-urlencoded<strong>、</strong>multipart/form-data<strong>、</strong>text/plain**</p>
 </li>
 </ul>
-<p>浏览器发送CORS请求时，在头信息之中，增加一个Origin字段。<br>Origin字段用来说明，本次请求来自哪个源（协议 + 域名 + 端口）。服务器根据这个值，决定是否同意这次请求。<br>如果服务器允许跨域，需要在返回的响应头中携带下面信息：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">Access-Control-Allow-Origin:</span> <span class="hljs-string">http://xxx.xxx.xxx</span><br><span class="hljs-attr">Access-Control-Allow-Credentials:</span> <span class="hljs-literal">true</span><br><span class="hljs-attr">Access-Control-Expose-Headers:</span> <span class="hljs-string">...</span><br><span class="hljs-attr">withCredentials:</span> <br></code></pre></td></tr></table></figure>
+<p>浏览器发送CORS请求时，在头信息之中，增加一个Origin字段。<br>Origin字段用来说明，本次请求来自哪个源（协议 + 域名 + 端口）。服务器根据这个值，决定是否同意这次请求。<br>如果服务器允许跨域，需要在返回的响应头中携带下面信息：<br><figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">Access-Control-Allow-Origin:</span> <span class="hljs-string">http://xxx.xxx.xxx</span><br><span class="hljs-attr">Access-Control-Allow-Credentials:</span> <span class="hljs-literal">true</span><br><span class="hljs-attr">Access-Control-Expose-Headers:</span> <span class="hljs-string">...</span><br><span class="hljs-attr">withCredentials:</span> <br></code></pre></td></tr></table></figure></p>
 <ul>
 <li><strong>Access-Control-Allow-Origin</strong>（必须）：可接受的域，是一个具体域名或者*，代表任意</li>
 <li>Access-Control-Allow-Credentials：是否允许携带cookie，默认情况下，cors不会携带cookie，除非这个值是true</li>
@@ -94,7 +87,7 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <p>非简单请求的CORS请求，会在正式通信之前，增加一次HTTP查询请求，称为”预检”请求（preflight）——浏览器先询问服务器，当前网页所在的域名是否在服务器的许可名单之中，以及可以使用哪些HTTP动词和头信息字段。只有得到肯定答复，浏览器才会发出正式的XMLHttpRequest请求，否则就报错。</p>
 <h3 id="预检请求的HTTP头信息"><a href="#预检请求的HTTP头信息" class="headerlink" title="预检请求的HTTP头信息"></a>预检请求的HTTP头信息</h3><ul>
 <li>OPTIONS /cors HTTP/1.1</li>
-<li>Origin: <a target="_blank" rel="noopener" href="http://api.bob.com/">http://api.bob.com</a></li>
+<li>Origin: <a target="_blank" rel="noopener" href="http://api.bob.com">http://api.bob.com</a></li>
 <li>Access-Control-Request-Method: PUT</li>
 <li>Access-Control-Request-Headers: X-Custom-Header</li>
 <li>Host: api.alice.com</li>
@@ -109,7 +102,7 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <li>HTTP/1.1 200 OK</li>
 <li>Date: Mon, 01 Dec 2008 01:15:39 GMT</li>
 <li>Server: Apache/2.0.61 (Unix)</li>
-<li>Access-Control-Allow-Origin: <a target="_blank" rel="noopener" href="http://manage.leyou.com/">http://manage.leyou.com</a></li>
+<li>Access-Control-Allow-Origin: <a target="_blank" rel="noopener" href="http://manage.leyou.com">http://manage.leyou.com</a></li>
 <li>Access-Control-Allow-Credentials: true</li>
 <li>Access-Control-Allow-Methods: GET, POST, PUT</li>
 <li>Access-Control-Allow-Headers: X-Custom-Header</li>

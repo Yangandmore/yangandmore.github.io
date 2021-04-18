@@ -38,10 +38,22 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
     orderedList: false,
     collapseDepth: 2,
   });
-})</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
+})</script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script><script type="text/javascript">MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
 </head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">杨小杨的博客</a></h1><p>保佑代码无bug🙏</p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">H264编码基础</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">H264编码基础</a></h2><span class="post__date">2019-04-01</span><a href="/tags/%E8%A7%86%E9%A2%91%E6%A0%BC%E5%BC%8F/"><span class="post__tags">#视频格式</span></a></div></div><div class="article__content"><h2 id="一、基本介绍"><a href="#一、基本介绍" class="headerlink" title="一、基本介绍"></a>一、基本介绍</h2><p>视频是由一帧帧图像组成，视频为了不卡顿，一秒钟至少要16帧画面，但是图片内容太大，传输不现实。因此需要对他们编码。</p>
 <p>官方文档：<a target="_blank" rel="noopener" href="http://www.itu.int/rec/T-REC-H.264">http://www.itu.int/rec/T-REC-H.264</a><br>翻译文档：<a target="_blank" rel="noopener" href="http://www.itu.int/rec/T-REC-H.264-200503-S/en">http://www.itu.int/rec/T-REC-H.264-200503-S/en</a></p>
-<h2 id="1-过程"><a href="#1-过程" class="headerlink" title="1 过程"></a>1 过程</h2><p>H264通过比较相邻几张图像的像素差(编码)，来保存这几张图片的真实数据，当两张图片的像素点不大的时候则不去编码来减小传递张数(压缩)。来大大提高视频质量和传输速率。<br><em><strong>例：</strong></em></p>
+<h2 id="1-过程"><a href="#1-过程" class="headerlink" title="1 过程"></a>1 过程</h2><p>H264通过比较相邻几张图像的像素差(编码)，来保存这几张图片的真实数据，当两张图片的像素点不大的时候则不去编码来减小传递张数(压缩)。来大大提高视频质量和传输速率。<br><strong><em>例：</em></strong></p>
 <ul>
 <li>1.编码得出一个完整的图片A</li>
 <li>2.将第二张图片与第一张图片A进行比较，获取的像素差，作为第二张图片B</li>
@@ -59,9 +71,21 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <h4 id="1-2-空间上的预测"><a href="#1-2-空间上的预测" class="headerlink" title="1.2 空间上的预测"></a>1.2 空间上的预测</h4><h6 id="1-2-1-帧内预测"><a href="#1-2-1-帧内预测" class="headerlink" title="1.2.1 帧内预测"></a>1.2.1 帧内预测</h6><p>经研究发现，人眼在对图像识别时，对低频的亮度很敏感，而对高频下的亮度不太敏感。帧内预测技术就是对人眼中不敏感的数据去除。<br>图片被分好宏块后，对每块宏块进行9种模式的预测。来找到与原图最接近的模式。</p>
 <p>在得到帧内预测的图片后，就将原图与帧内检测后的图片相减得到差值。</p>
 <p>最后将差值图片与预测模式保存，在解码器中就会根据这些数据进行恢复了。</p>
-<h6 id="1-2-2-DCT"><a href="#1-2-2-DCT" class="headerlink" title="1.2.2 DCT"></a>1.2.2 DCT</h6><p>将上述的残差数据做整数离散余弦变换，去除数据的相关性，进行二次压缩数据。<br>如一个图片为 4x4 的图片矩阵：<br>$$<br>\begin{bmatrix}<br>-97 &amp; -95 &amp; -96 &amp; -95\\<br>-96 &amp; -95 &amp; -96 &amp; -95\\<br>-95 &amp; -94 &amp; -94 &amp; -95\\<br>-82 &amp; -71 &amp; -61 &amp; -57\\<br>\end{bmatrix}<br>$$</p>
-<p>变换后：<br>$$<br>\begin{bmatrix}<br>-1414 &amp; -228 &amp; 106 &amp; -104\\<br>-64 &amp; 113 &amp; -62 &amp; 59\\<br>-10 &amp; 14 &amp; -6 &amp; 2\\<br>-12 &amp; -1 &amp; -6 &amp; 7\\<br>\end{bmatrix}<br>$$</p>
-<p>可以看到能量(低频信号)集中到了左上方，而变换后的数据完全可以通过反变换还原。为了达到压缩数据，我们需要丢弃掉一些能量低的数据(高频信号)，而对图像质量影响很小。<br>最后我们再去除相关性，可以得到更大的压缩量。<br>具体的转换可以看下大佬们的博客：<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xkfz007/archive/2012/07/31/2616791.html">https://www.cnblogs.com/xkfz007/archive/2012/07/31/2616791.html</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/sno_guo/article/details/8039659">https://blog.csdn.net/sno_guo/article/details/8039659</a><br>做完 DCT 后，还不够，还要进行 CABAC 进行无损压缩。</p>
+<h6 id="1-2-2-DCT"><a href="#1-2-2-DCT" class="headerlink" title="1.2.2 DCT"></a>1.2.2 DCT</h6><p>将上述的残差数据做整数离散余弦变换，去除数据的相关性，进行二次压缩数据。<br>如一个图片为 4x4 的图片矩阵：</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+-97 & -95 & -96 & -95\\\\
+-96 & -95 & -96 & -95\\\\
+-95 & -94 & -94 & -95\\\\
+-82 & -71 & -61 & -57\\\\
+\end{bmatrix}</script><p>变换后：</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+-1414 & -228 & 106 & -104\\\\
+-64 & 113 & -62 & 59\\\\
+-10 & 14 & -6 & 2\\\\
+-12 & -1 & -6 & 7\\\\
+\end{bmatrix}</script><p>可以看到能量(低频信号)集中到了左上方，而变换后的数据完全可以通过反变换还原。为了达到压缩数据，我们需要丢弃掉一些能量低的数据(高频信号)，而对图像质量影响很小。<br>最后我们再去除相关性，可以得到更大的压缩量。<br>具体的转换可以看下大佬们的博客：<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/xkfz007/archive/2012/07/31/2616791.html">https://www.cnblogs.com/xkfz007/archive/2012/07/31/2616791.html</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/sno_guo/article/details/8039659">https://blog.csdn.net/sno_guo/article/details/8039659</a><br>做完 DCT 后，还不够，还要进行 CABAC 进行无损压缩。</p>
 <h6 id="1-2-3-CABAC"><a href="#1-2-3-CABAC" class="headerlink" title="1.2.3 CABAC"></a>1.2.3 CABAC</h6><p>上面的帧内压缩是属于有损压缩技术。也就是说图像被压缩后，无法完全复原。而CABAC属于无损压缩技术。<br>属于熵编码的一种，包括霍夫曼编码、指数哥伦布编码、CABAC等等。这类编码主旨就是，找到一种编码，使得码字的平均码长达到熵极限。<br>如：取得概率较大的符号，取较短的码长，而对于概率较小的符号，取较大的码长。</p>
 <blockquote>
 <p>熵：信息越是随机，它的熵值越高。而信息熵，就是为了解决信息的量化度量问题，它描述了整个信源的平均信息量。在使用熵编码时，码字的平均码长尽量达到熵极限，表明熵编码的压缩效率越高。</p>
@@ -125,7 +149,7 @@ gtag('config', 'xx-xxxxxxx-xx');</script><script src="https://www.unpkg.com/vali
 <li>RBSP：原始字节序列载荷，EBSP + 0x03。</li>
 <li>SODB：最原始的编码数据，SODB + RBSP_STOP_ONE_BIT(1) + RBSP_ALIGNMENT_ZERO_BIT(0…)<br><img src="/img/H264/6.png" alt="github"></li>
 </ul>
-<h6 id="2-2-1-EBSP与RBSP的差距差别0x03"><a href="#2-2-1-EBSP与RBSP的差距差别0x03" class="headerlink" title="2.2.1 EBSP与RBSP的差距差别0x03"></a>2.2.1 EBSP与RBSP的差距差别0x03</h6><p>由于NALU依靠起始码来分割NALU段，0x03就是为了防止这些可能在出现的干扰(如：在NALU中出现了0x000001或0x00000就会被认为是新NALU点，但这样肯定是不对的)。为了解决这个问题，提供了0x03的一个安全机制。<br><strong>当检测到它们存在时，编码器就在最后一个字节前，插入一个新的字节：0x03。</strong><br>0x00 00 00 -&gt; 0x00 00 03 00<br>0x00 00 01 -&gt; 0x00 00 03 01<br>0x00 00 02 -&gt; 0x00 00 03 02<br>0x00 00 03 -&gt; 0x00 00 03 03<br>这里的 0x000000 和 0x000001上面已经讲了，0x000002作为保留项，0x000003则是因为在NALU内部也存在使用情况。</p>
+<h6 id="2-2-1-EBSP与RBSP的差距差别0x03"><a href="#2-2-1-EBSP与RBSP的差距差别0x03" class="headerlink" title="2.2.1 EBSP与RBSP的差距差别0x03"></a>2.2.1 EBSP与RBSP的差距差别0x03</h6><p>由于NALU依靠起始码来分割NALU段，0x03就是为了防止这些可能在出现的干扰(如：在NALU中出现了0x000001或0x00000就会被认为是新NALU点，但这样肯定是不对的)。为了解决这个问题，提供了0x03的一个安全机制。<br><strong>当检测到它们存在时，编码器就在最后一个字节前，插入一个新的字节：0x03。</strong><br>0x00 00 00 -> 0x00 00 03 00<br>0x00 00 01 -> 0x00 00 03 01<br>0x00 00 02 -> 0x00 00 03 02<br>0x00 00 03 -> 0x00 00 03 03<br>这里的 0x000000 和 0x000001上面已经讲了，0x000002作为保留项，0x000003则是因为在NALU内部也存在使用情况。</p>
 <h6 id="2-2-2-RBSP与SODB的差别"><a href="#2-2-2-RBSP与SODB的差别" class="headerlink" title="2.2.2 RBSP与SODB的差别"></a>2.2.2 RBSP与SODB的差别</h6><p>差别在于SODB的尾部添加结束字符。有以下两种方式</p>
 <p><strong>方式一</strong><br>大多数的NALU使用的<code>RBSP_STOP_ONE_BIT、RBSP_ALIGNMENT_ZERO_BIT</code>。</p>
 <blockquote>
