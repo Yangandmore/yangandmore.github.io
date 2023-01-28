@@ -1,0 +1,2473 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Git详细讲解(本地) | 杨小杨的博客</title>
+  <meta name="keywords" content=" git ">
+  <meta name="description" content="Git详细讲解(本地) | 杨小杨的博客">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="在mac中打开eclipse提示错误">
+<meta property="og:type" content="article">
+<meta property="og:title" content="eclipse-mac-err">
+<meta property="og:url" content="http://example.com/2022/09/27/eclipse-mac-err/index.html">
+<meta property="og:site_name" content="杨小杨的博客">
+<meta property="og:description" content="在mac中打开eclipse提示错误">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-09-27T22:24:54.000Z">
+<meta property="article:modified_time" content="2022-09-27T14:26:46.000Z">
+<meta property="article:author" content="Yang">
+<meta property="article:tag" content="异常问题">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/header.png">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/header.png"/>
+</a>
+<div class="author">
+    <span>Yang</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="github"
+               href="https://github.com/Yangandmore"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="email"
+               href="mailto:635408602@qq.com"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="qq"
+               href="http://wpa.qq.com/msgrd?v=3&uin=635408602&site=qq&menu=yes"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-qq"></use>
+                    </svg>
+                
+            </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(148)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                <li>
+                    <div data-rel="数据库">
+                        
+                        数据库
+                        <small>(4)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="包管理">
+                        
+                        包管理
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="编译的库">
+                        
+                        编译的库
+                        <small>(5)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="分布式事务">
+                        
+                        分布式事务
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="分布式搜索">
+                        
+                        分布式搜索
+                        <small>(5)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="后台">
+                        
+                        后台
+                        <small>(3)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="机器学习">
+                        
+                        机器学习
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="流程引擎">
+                        
+                        流程引擎
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="数据结构">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        数据结构
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="数据结构<--->算法分析">
+                                        
+                                        算法分析
+                                        
+                                            <small>(2
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="异常问题">
+                        
+                        异常问题
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="音视频">
+                        
+                        音视频
+                        <small>(13)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="正则表达式">
+                        
+                        正则表达式
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Android">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        Android
+                        <small>(17)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="Android<--->热更新">
+                                        
+                                        热更新
+                                        
+                                            <small>(2
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="C/C++">
+                        
+                        C/C++
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="git">
+                        
+                        git
+                        <small>(3)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Gradle">
+                        
+                        Gradle
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="java">
+                        
+                        java
+                        <small>(9)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="JavaScript">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        JavaScript
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="JavaScript<--->npm">
+                                        
+                                        npm
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="ReactNative">
+                        
+                        ReactNative
+                        <small>(10)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Redis">
+                        
+                        Redis
+                        <small>(4)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="rust">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        rust
+                        <small>(46)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="rust<--->p2p">
+                                        
+                                        p2p
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="spring">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        spring
+                        <small>(9)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="spring<--->java">
+                                        
+                                        java
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="ssr">
+                        
+                        ssr
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="148">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>包管理</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>贝塞尔曲线</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>分布式事务</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>分布式搜索</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>构建工具</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>后台</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>汇编</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>机器学习</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>跨域</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>流程引擎</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>热更新</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>视频格式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>数据结构与算法分析</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>数据库</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>图片格式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>异步</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>异常问题</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>音频</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>音视频</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>正则表达式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>直播</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>android</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Android</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>C</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>camera</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Cpp</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>es</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ffmpeg</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>git</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Gradle</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>java</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>javaScript</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libfaac</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libjpeg-turbo</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libx264</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libyuv</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Linux</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>NDK</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>react</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>React</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ReactNative</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Redis</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>RTMP</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>rust</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>seate</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>spring</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>springboot</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>SQL</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>srs</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ssr</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class="All 异常问题 "
+           href="/2022/09/27/eclipse-mac-err/"
+           data-tag="异常问题"
+           data-author="" >
+            <span class="post-title" title="eclipse-mac-err">eclipse-mac-err</span>
+            <span class="post-date" title="2022-09-27 22:24:54">2022/09/27</span>
+        </a>
+        
+        <a  class="All 流程引擎 "
+           href="/2022/09/16/activiti7/"
+           data-tag="流程引擎"
+           data-author="" >
+            <span class="post-title" title="流程引擎-activiti7">流程引擎-activiti7</span>
+            <span class="post-date" title="2022-09-16 10:01:11">2022/09/16</span>
+        </a>
+        
+        <a  class="All 分布式事务 "
+           href="/2022/09/04/seate/"
+           data-tag="seate,分布式事务"
+           data-author="" >
+            <span class="post-title" title="配置seate">配置seate</span>
+            <span class="post-date" title="2022-09-04 19:11:24">2022/09/04</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/09/01/es-java/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="es在java环境中使用">es在java环境中使用</span>
+            <span class="post-date" title="2022-09-01 22:11:48">2022/09/01</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/09/01/es-ik/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="es配置ik分词器及热更新">es配置ik分词器及热更新</span>
+            <span class="post-date" title="2022-09-01 16:38:27">2022/09/01</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/06/es-7-change-password/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="es修改密码">es修改密码</span>
+            <span class="post-date" title="2022-08-06 23:37:16">2022/08/06</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/06/es-linux/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="elk在linux上简单安装">elk在linux上简单安装</span>
+            <span class="post-date" title="2022-08-06 21:02:25">2022/08/06</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/02/ELK/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="ELK学习">ELK学习</span>
+            <span class="post-date" title="2022-08-02 15:13:44">2022/08/02</span>
+        </a>
+        
+        <a  class="All 包管理 "
+           href="/2022/07/29/chocolatey/"
+           data-tag="包管理"
+           data-author="" >
+            <span class="post-title" title="chocolatey">chocolatey</span>
+            <span class="post-date" title="2022-07-29 16:56:39">2022/07/29</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/28/Spring-#U57fa#U78405/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础5">Spring-基础5</span>
+            <span class="post-date" title="2022-07-28 21:11:57">2022/07/28</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/28/Spring-#U57fa#U78404/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(四)">Spring-基础(四)</span>
+            <span class="post-date" title="2022-07-28 15:50:59">2022/07/28</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-#U57fa#U78403/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(三)">Spring-基础(三)</span>
+            <span class="post-date" title="2022-07-25 21:51:47">2022/07/25</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-#U57fa#U78402/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(二)">Spring-基础(二)</span>
+            <span class="post-date" title="2022-07-25 10:26:06">2022/07/25</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-#U57fa#U78401/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(一)">Spring-基础(一)</span>
+            <span class="post-date" title="2022-07-25 09:58:25">2022/07/25</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/07/17/P2P/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="P2P">P2P</span>
+            <span class="post-date" title="2022-07-17 10:46:24">2022/07/17</span>
+        </a>
+        
+        <a  class="All rust p2p "
+           href="/2022/07/16/Rust-libp2p/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-libp2p">Rust-libp2p</span>
+            <span class="post-date" title="2022-07-16 14:04:11">2022/07/16</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/07/06/#U533a#U5757#U94fe-#U8bb0#U8d26#U6a21#U5f0f/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="区块链-记账模式">区块链-记账模式</span>
+            <span class="post-date" title="2022-07-06 21:48:04">2022/07/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/06/26/Summer-boot#U4e00#U671f#U5b8f#U90e8#U5206#U6784#U601d#U53ca#U5b9e#U73b0/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Summer-boot一期宏部分构思及实现">Summer-boot一期宏部分构思及实现</span>
+            <span class="post-date" title="2022-06-26 10:12:27">2022/06/26</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2022/06/16/Git-fork#U9879#U76ee#U66f4#U65b0/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git-fork项目更新">Git-fork项目更新</span>
+            <span class="post-date" title="2022-06-16 15:11:56">2022/06/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/06/12/Rust-#U7f16#U7801#U89c4#U8303/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-编码规范">Rust-编码规范</span>
+            <span class="post-date" title="2022-06-12 09:05:33">2022/06/12</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2022/05/29/MySql-Some#U7b49#U6307#U4ee4/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="MySql_Some、Any、All的用法">MySql_Some、Any、All的用法</span>
+            <span class="post-date" title="2022-05-29 10:07:14">2022/05/29</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/12/Redis-#U805a#U5408#U64cd#U4f5c/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-聚合操作">Redis-聚合操作</span>
+            <span class="post-date" title="2022-05-12 14:34:47">2022/05/12</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/11/Redis-#U5207#U7247#U96c6#U7fa4#U914d#U7f6e/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-切片集群配置">Redis-切片集群配置</span>
+            <span class="post-date" title="2022-05-11 15:45:38">2022/05/11</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/10/Redis-#U54e8#U5175#U673a#U5236#U914d#U7f6e/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-哨兵机制配置">Redis-哨兵机制配置</span>
+            <span class="post-date" title="2022-05-10 17:02:25">2022/05/10</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/10/Redis-#U8fdc#U7a0b#U5f00#U5173/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-开启远程访问">Redis-开启远程访问</span>
+            <span class="post-date" title="2022-05-10 14:24:32">2022/05/10</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/05/06/Rust-#U5c5e#U6027/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-属性">Rust-属性</span>
+            <span class="post-date" title="2022-05-06 10:08:24">2022/05/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/20/Rust-build/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust编译过程图">Rust编译过程图</span>
+            <span class="post-date" title="2022-04-20 14:54:46">2022/04/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/08/Rust-Atomic/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-Atomic">Rust-Atomic</span>
+            <span class="post-date" title="2022-04-08 09:55:50">2022/04/08</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/06/Rust-#U6b7b#U7075#U672f3/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵术3">Rust-死灵术3</span>
+            <span class="post-date" title="2022-04-06 20:48:19">2022/04/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/06/Rust-#U6b7b#U7075#U672f2/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵术2">Rust-死灵术2</span>
+            <span class="post-date" title="2022-04-06 14:54:22">2022/04/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/02/Rust-AnyTrait/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-AnyTrait">Rust-AnyTrait</span>
+            <span class="post-date" title="2022-04-02 14:25:05">2022/04/02</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/02/Rust-Cow#U667a#U80fd#U6307#U9488/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-Cow智能指针">Rust-Cow智能指针</span>
+            <span class="post-date" title="2022-04-02 10:16:00">2022/04/02</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/01/Rust-#U6b7b#U7075#U672f/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵书（一）">Rust-死灵书（一）</span>
+            <span class="post-date" title="2022-04-01 16:42:36">2022/04/01</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/03/09/Rust-#U53c2#U8003#U624b#U518c/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-参考手册">Rust-参考手册</span>
+            <span class="post-date" title="2022-03-09 10:15:21">2022/03/09</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/03/08/Rust-#U5b8f/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-小宏书(声明宏)">Rust-高级-小宏书(声明宏)</span>
+            <span class="post-date" title="2022-03-08 20:22:51">2022/03/08</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2022/03/03/Android#U96c6#U6210Rust/"
+           data-tag="Android,rust"
+           data-author="" >
+            <span class="post-title" title="Android集成Rust">Android集成Rust</span>
+            <span class="post-date" title="2022-03-03 10:56:49">2022/03/03</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/02/08/Rust-#U7c7b#U578b#U8f6c#U6362/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-类型转换-From &amp; Into">Rust-类型转换-From &amp; Into</span>
+            <span class="post-date" title="2022-02-08 16:53:33">2022/02/08</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/16/Rust-#U9ad8#U7ea7-Crate#U4e4bbitflags/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之bitflags">Rust-高级-Crate之bitflags</span>
+            <span class="post-date" title="2022-01-16 22:36:28">2022/01/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-#U9ad8#U7ea7-Crate#U4e4brayon/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之rayon">Rust-高级-Crate之rayon</span>
+            <span class="post-date" title="2022-01-12 21:55:30">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-#U9ad8#U7ea7-Crate#U4e4blazy-static/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之lazy_static">Rust-高级-Crate之lazy_static</span>
+            <span class="post-date" title="2022-01-12 21:50:32">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-#U9ad8#U7ea7-Crate#U4e4bWalkdir/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之Walkdir">Rust-高级-Crate之Walkdir</span>
+            <span class="post-date" title="2022-01-12 21:50:15">2022/01/12</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/12/Rust-#U9ad8#U7ea7-Crate#U4e4bthreadpool/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之threadpool">Rust-高级-Crate之threadpool</span>
+            <span class="post-date" title="2022-01-12 21:49:50">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-#U9ad8#U7ea7-Crate#U4e4berror-chain/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之error_chain">Rust-高级-Crate之error_chain</span>
+            <span class="post-date" title="2022-01-12 21:49:39">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-#U9ad8#U7ea7-Crate#U4e4bcrossbeam/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之crossbeam">Rust-高级-Crate之crossbeam</span>
+            <span class="post-date" title="2022-01-12 21:16:24">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-#U9ad8#U7ea7-Crate#U4e4btar/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之tar">Rust-高级-Crate之tar</span>
+            <span class="post-date" title="2022-01-12 10:29:50">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/11/Rust-#U9ad8#U7ea7-Crate#U4e4brand/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之rand">Rust-高级-Crate之rand</span>
+            <span class="post-date" title="2022-01-11 14:52:45">2022/01/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/09/Rust-#U9ad8#U7ea7-Crate#U4e4bserde/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之serde">Rust-高级-Crate之serde</span>
+            <span class="post-date" title="2022-01-09 21:10:52">2022/01/09</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/09/Rust#U4e2d#U7684#U5f15#U7528#U4e0e#U501f#U7528/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust中的引用与借用">Rust中的引用与借用</span>
+            <span class="post-date" title="2022-01-09 19:03:47">2022/01/09</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/09/graphQL/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="graphQL">graphQL</span>
+            <span class="post-date" title="2022-01-09 17:02:35">2022/01/09</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/05/Rust-#U9ad8#U7ea7-#U670d#U52a1#U4e4bActix/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-服务之Actix">Rust-高级-服务之Actix</span>
+            <span class="post-date" title="2022-01-05 21:13:56">2022/01/05</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/05/Rust-#U9ad8#U7ea7-#U5f02#U6b65#U4e4bfutures/"
+           data-tag="rust,异步"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-异步之futures">Rust-高级-异步之futures</span>
+            <span class="post-date" title="2022-01-05 21:13:38">2022/01/05</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/30/Rust-#U6700#U540e#U7684#U9879#U76ee/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-最后的项目">Rust-最后的项目</span>
+            <span class="post-date" title="2021-12-30 14:46:33">2021/12/30</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/21/Rust-#U9ad8#U7ea7#U7279#U5f81/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级特征">Rust-高级特征</span>
+            <span class="post-date" title="2021-12-21 22:22:15">2021/12/21</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-#U6a21#U5f0f#U7528#U6765#U5339#U914d#U503c#U7684#U7ed3#U6784/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-模式与模式匹配">Rust-模式与模式匹配</span>
+            <span class="post-date" title="2021-12-20 20:53:44">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-#U9762#U5411#U5bf9#U8c61/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-面向对象">Rust-面向对象</span>
+            <span class="post-date" title="2021-12-20 15:15:04">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-#U65e0#U754f#U5e76#U53d1/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-无畏并发">Rust-无畏并发</span>
+            <span class="post-date" title="2021-12-20 09:44:35">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/19/Rust-#U667a#U80fd#U6307#U9488/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-智能指针">Rust-智能指针</span>
+            <span class="post-date" title="2021-12-19 10:23:23">2021/12/19</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/16/Rust-CargoAndCratesIO/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-CargoAndCratesIO">Rust-CargoAndCratesIO</span>
+            <span class="post-date" title="2021-12-16 22:52:05">2021/12/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/16/Rust-#U51fd#U6570#U5f0f#U8bed#U8a00#U529f#U80fd-#U8fed#U4ee3#U5668#U4e0e#U95ed#U5305/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-函数式语言功能:迭代器与闭包">Rust-函数式语言功能:迭代器与闭包</span>
+            <span class="post-date" title="2021-12-16 16:08:22">2021/12/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/15/Rust-#U6784#U5efa#U4e00#U4e2a#U547d#U4ee4#U884c#U7a0b#U5e8f/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-IO">Rust-IO</span>
+            <span class="post-date" title="2021-12-15 17:07:26">2021/12/15</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/15/Rust-#U6d4b#U8bd5/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-测试">Rust-测试</span>
+            <span class="post-date" title="2021-12-15 14:08:29">2021/12/15</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/14/Rust-#U6cdb#U578b#U3001trait#U548c#U751f#U547d#U5468#U671f/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-泛型、trait和生命周期">Rust-泛型、trait和生命周期</span>
+            <span class="post-date" title="2021-12-14 20:57:17">2021/12/14</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/14/Rust-#U9519#U8bef#U5904#U7406/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-错误处理">Rust-错误处理</span>
+            <span class="post-date" title="2021-12-14 10:48:51">2021/12/14</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-#U5e38#U89c1#U96c6#U5408/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-常见集合">Rust-常见集合</span>
+            <span class="post-date" title="2021-12-13 20:55:23">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-#U4f7f#U7528#U6a21#U5757#U7ec4#U7ec7#U548c#U590d#U7528#U4ee3#U7801/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-使用模块组织和复用代码">Rust-使用模块组织和复用代码</span>
+            <span class="post-date" title="2021-12-13 16:26:05">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-#U679a#U4e3e#U548c#U6a21#U5f0f#U5339#U914d/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-枚举和模式匹配">Rust-枚举和模式匹配</span>
+            <span class="post-date" title="2021-12-13 10:44:04">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/12/Rust-#U7ed3#U6784#U4f53/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-结构体">Rust-结构体</span>
+            <span class="post-date" title="2021-12-12 22:42:42">2021/12/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/12/Rust-#U6240#U6709#U6743/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-所有权">Rust-所有权</span>
+            <span class="post-date" title="2021-12-12 11:32:16">2021/12/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/11/Rust-#U57fa#U7840#U6280#U672f/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-基础技术">Rust-基础技术</span>
+            <span class="post-date" title="2021-12-11 20:25:09">2021/12/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/11/Rust-#U7f16#U7a0b#U731c#U8c1c#U6e38#U620f/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-编程猜谜游戏">Rust-编程猜谜游戏</span>
+            <span class="post-date" title="2021-12-11 18:58:04">2021/12/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/10/Rust-#U5165#U95e8/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-入门">Rust-入门</span>
+            <span class="post-date" title="2021-12-10 11:18:25">2021/12/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/10/Java-#U5185#U90e8#U7c7b/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-内部类">Java-内部类</span>
+            <span class="post-date" title="2021-12-10 08:50:32">2021/12/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/09/Java-#U63a5#U53e3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-接口">Java-接口</span>
+            <span class="post-date" title="2021-12-09 14:54:05">2021/12/09</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/09/Java-#U591a#U6001/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-多态">Java-多态</span>
+            <span class="post-date" title="2021-12-09 08:42:47">2021/12/09</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/23/JavaNIO/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaNIO">JavaNIO</span>
+            <span class="post-date" title="2021-11-23 10:47:14">2021/11/23</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/23/JavaIO/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaIO">JavaIO</span>
+            <span class="post-date" title="2021-11-23 10:47:07">2021/11/23</span>
+        </a>
+        
+        <a  class="All spring java "
+           href="/2021/11/22/Spring#U5de5#U4f5c#U5bf9#U8c61/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring工作对象">Spring工作对象</span>
+            <span class="post-date" title="2021-11-22 09:44:06">2021/11/22</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/18/Java#U51fd#U6570#U5f0f#U63a5#U53e3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java函数式接口">Java函数式接口</span>
+            <span class="post-date" title="2021-11-18 10:50:22">2021/11/18</span>
+        </a>
+        
+        <a  class="All "
+           href="/2021/11/17/SpringBoot#U542f#U52a8-#U57fa#U7840/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="SpringBoot启动-基础">SpringBoot启动-基础</span>
+            <span class="post-date" title="2021-11-17 17:01:58">2021/11/17</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/16/JRebel/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JRebel">JRebel</span>
+            <span class="post-date" title="2021-11-16 08:58:18">2021/11/16</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/11/Spring#U542f#U52a8-#U57fa#U7840/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring启动-基础">Spring启动-基础</span>
+            <span class="post-date" title="2021-11-11 15:25:33">2021/11/11</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/10/#U53cd#U5c04/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="反射">反射</span>
+            <span class="post-date" title="2021-11-10 20:57:08">2021/11/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/10/#U6ce8#U89e3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="注解">注解</span>
+            <span class="post-date" title="2021-11-10 20:50:55">2021/11/10</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/09/SpringAOP-#U57fa#U7840/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="SpringAOP-基础">SpringAOP-基础</span>
+            <span class="post-date" title="2021-11-09 10:31:31">2021/11/09</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/08/SpringIOC-#U57fa#U7840/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="SpringIOC-基础">SpringIOC-基础</span>
+            <span class="post-date" title="2021-11-08 10:27:28">2021/11/08</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2021/11/02/#U97f3#U89c6#U9891#U7f16#U89e3#U7801#U6280#U672f#U57fa#U7840/"
+           data-tag="音视频"
+           data-author="" >
+            <span class="post-title" title="音视频编解码技术基础">音视频编解码技术基础</span>
+            <span class="post-date" title="2021-11-02 12:06:49">2021/11/02</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2021/11/02/MysqlErrHosts/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="mysql安装时，Unable to connect to any of the specified MySQL hosts">mysql安装时，Unable to connect to any of the specified MySQL hosts</span>
+            <span class="post-date" title="2021-11-02 10:58:50">2021/11/02</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2021/10/08/H264#U7f16#U7801-SPSPPS/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码 SPS &amp; PPS">H264编码 SPS &amp; PPS</span>
+            <span class="post-date" title="2021-10-08 21:20:12">2021/10/08</span>
+        </a>
+        
+        <a  class="All ssr "
+           href="/2021/01/18/centos#U7ec8#U7aefssr#U914d#U7f6e/"
+           data-tag="ssr"
+           data-author="" >
+            <span class="post-title" title="centos终端ssr配置">centos终端ssr配置</span>
+            <span class="post-date" title="2021-01-18 08:21:35">2021/01/18</span>
+        </a>
+        
+        <a  class="All 数据结构 算法分析 "
+           href="/2020/12/14/#U6570#U636e#U7ed3#U6784#U4e0e#U7b97#U6cd5#U5206#U6790#U9605#U8bfb#U7b14#U8bb0#U5176#U4e8c/"
+           data-tag="数据结构与算法分析"
+           data-author="" >
+            <span class="post-title" title="数据结构与算法分析阅读笔记其二">数据结构与算法分析阅读笔记其二</span>
+            <span class="post-date" title="2020-12-14 22:34:39">2020/12/14</span>
+        </a>
+        
+        <a  class="All 数据结构 算法分析 "
+           href="/2020/12/09/#U6570#U636e#U7ed3#U6784#U4e0e#U7b97#U6cd5#U5206#U6790#U9605#U8bfb#U7b14#U8bb0/"
+           data-tag="数据结构与算法分析"
+           data-author="" >
+            <span class="post-title" title="数据结构与算法分析阅读笔记">数据结构与算法分析阅读笔记</span>
+            <span class="post-date" title="2020-12-09 21:52:40">2020/12/09</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/10/27/FLV#U683c#U5f0f/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="FLV格式">FLV格式</span>
+            <span class="post-date" title="2020-10-27 15:33:56">2020/10/27</span>
+        </a>
+        
+        <a  class="All 机器学习 "
+           href="/2020/09/20/Mac#U4e2dPython3-x#U7f16#U8bd1Caffe/"
+           data-tag="机器学习"
+           data-author="" >
+            <span class="post-title" title="Mac中Python3.x编译Caffe">Mac中Python3.x编译Caffe</span>
+            <span class="post-date" title="2020-09-20 01:08:09">2020/09/20</span>
+        </a>
+        
+        <a  class="All JavaScript npm "
+           href="/2020/07/17/npm#U5e38#U7528#U547d#U4ee4#U64cd#U4f5c/"
+           data-tag="直播"
+           data-author="" >
+            <span class="post-title" title="npm常用命令操作">npm常用命令操作</span>
+            <span class="post-date" title="2020-07-17 10:14:01">2020/07/17</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/16/MediaExtractorANDMediaMuxer/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="android端的音频处理工具MediaExtractor和MediaMuxer">android端的音频处理工具MediaExtractor和MediaMuxer</span>
+            <span class="post-date" title="2020-07-16 11:55:28">2020/07/16</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/15/AAC#U97f3#U9891#U7801#U6d41/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="AAC音频码流">AAC音频码流</span>
+            <span class="post-date" title="2020-07-15 17:45:10">2020/07/15</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/15/Android-PCM#U5904#U7406/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="Android-PCM">Android-PCM</span>
+            <span class="post-date" title="2020-07-15 13:29:49">2020/07/15</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/13/yuv-tool#U5de5#U5177#U7c7b/"
+           data-tag="android,libyuv"
+           data-author="" >
+            <span class="post-title" title="yuv-tool工具类">yuv-tool工具类</span>
+            <span class="post-date" title="2020-07-13 22:58:21">2020/07/13</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/18/ffmpegforandroid#U7f16#U8bd1/"
+           data-tag="ffmpeg"
+           data-author="" >
+            <span class="post-title" title="ffmpegforandroid编译">ffmpegforandroid编译</span>
+            <span class="post-date" title="2020-06-18 13:38:35">2020/06/18</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/11/libfaac#U7f16#U8bd1/"
+           data-tag="libfaac"
+           data-author="" >
+            <span class="post-title" title="libfaac编译">libfaac编译</span>
+            <span class="post-date" title="2020-06-11 14:00:57">2020/06/11</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/11/libx264#U7f16#U8bd1/"
+           data-tag="libx264"
+           data-author="" >
+            <span class="post-title" title="libx264编译">libx264编译</span>
+            <span class="post-date" title="2020-06-11 13:51:36">2020/06/11</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/06/10/RTMP#U89c4#U8303#U5b66#U4e60/"
+           data-tag="RTMP,直播"
+           data-author="" >
+            <span class="post-title" title="RTMP规范学习">RTMP规范学习</span>
+            <span class="post-date" title="2020-06-10 11:35:52">2020/06/10</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/06/01/React-Native#U70ed#U66f4#U65b0/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native热更新">React-Native热更新</span>
+            <span class="post-date" title="2020-06-01 16:03:28">2020/06/01</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2020/06/01/JavaWeb/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaWeb">JavaWeb</span>
+            <span class="post-date" title="2020-06-01 11:09:17">2020/06/01</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2020/05/26/JDBC/"
+           data-tag="java,数据库"
+           data-author="" >
+            <span class="post-title" title="JDBC">JDBC</span>
+            <span class="post-date" title="2020-05-26 16:23:01">2020/05/26</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2020/03/29/#U4e86#U89e3#U8de8#U57df/"
+           data-tag="后台,跨域"
+           data-author="" >
+            <span class="post-title" title="了解跨域">了解跨域</span>
+            <span class="post-date" title="2020-03-29 21:31:15">2020/03/29</span>
+        </a>
+        
+        <a  class="All JavaScript "
+           href="/2020/03/08/JavaScript#U8bed#U6cd5#Uff08#U4e00#Uff09/"
+           data-tag="javaScript"
+           data-author="" >
+            <span class="post-title" title="JavaScript语法（一）">JavaScript语法（一）</span>
+            <span class="post-date" title="2020-03-08 10:29:30">2020/03/08</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/03/06/React-native-#U9ad8#U5fb7#U5730#U56fe/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-native 高德地图">React-native 高德地图</span>
+            <span class="post-date" title="2020-03-06 10:07:45">2020/03/06</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/03/03/React-16-8-Hooks/"
+           data-tag="React"
+           data-author="" >
+            <span class="post-title" title="React 16.8 Hooks">React 16.8 Hooks</span>
+            <span class="post-date" title="2020-03-03 10:07:02">2020/03/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/01/06/React-Native#U539f#U751f#U901a#U4fe1/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native原生通信">React-Native原生通信</span>
+            <span class="post-date" title="2020-01-06 16:34:00">2020/01/06</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/27/React-Native#U539f#U7406#U6d45#U6790/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native原理浅析">React-Native原理浅析</span>
+            <span class="post-date" title="2019-12-27 15:32:08">2019/12/27</span>
+        </a>
+        
+        <a  class="All 正则表达式 "
+           href="/2019/12/18/#U6b63#U5219#U8868#U8fbe#U5f0f/"
+           data-tag="正则表达式"
+           data-author="" >
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2019-12-18 21:45:36">2019/12/18</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/05/React-Native-#U52a8#U753b/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native-动画">React-Native-动画</span>
+            <span class="post-date" title="2019-12-05 16:20:25">2019/12/05</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/03/React-#U81ea#U5b66#U4e4b#U8def#Uff08#U4e8c#Uff09/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="React-自学之路（二）">React-自学之路（二）</span>
+            <span class="post-date" title="2019-12-03 13:06:53">2019/12/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/03/React-#U81ea#U5b66#U4e4b#U8def#Uff08#U4e00#Uff09/"
+           data-tag="React"
+           data-author="" >
+            <span class="post-title" title="React-自学之路（一）">React-自学之路（一）</span>
+            <span class="post-date" title="2019-12-03 09:40:28">2019/12/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/10/12/React#U65b0#U7684#U751f#U547d#U5468#U671f/"
+           data-tag="react"
+           data-author="" >
+            <span class="post-title" title="React新的生命周期">React新的生命周期</span>
+            <span class="post-date" title="2019-10-12 15:41:02">2019/10/12</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2019/09/18/#U521b#U5efamaven#U9879#U76ee#U65f6#Uff0c#U51fa#U73b0Could-not-calculate-build-plan#U9519#U8bef/"
+           data-tag="springboot"
+           data-author="" >
+            <span class="post-title" title="创建maven项目时，出现Could not calculate build plan错误">创建maven项目时，出现Could not calculate build plan错误</span>
+            <span class="post-date" title="2019-09-18 09:25:06">2019/09/18</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2019/09/07/MySQL#U5e38#U7528#U6307#U4ee4/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="MySQL常用指令">MySQL常用指令</span>
+            <span class="post-date" title="2019-09-07 21:10:03">2019/09/07</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/07/05/RecycleView#Uff08#U4e00#Uff09/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="RecycleView（一）">RecycleView（一）</span>
+            <span class="post-date" title="2019-07-05 14:03:06">2019/07/05</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/25/Android#U52a8#U753b#Uff08#U4e09#Uff09/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（三）">Android动画（三）</span>
+            <span class="post-date" title="2019-06-25 14:15:26">2019/06/25</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/20/Android#U52a8#U753b#Uff08#U4e8c#Uff09/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（二）">Android动画（二）</span>
+            <span class="post-date" title="2019-06-20 15:10:00">2019/06/20</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/19/Android#U52a8#U753b#Uff08#U4e00#Uff09/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（一）">Android动画（一）</span>
+            <span class="post-date" title="2019-06-19 15:15:56">2019/06/19</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/18/Android#U81ea#U5b9a#U4e49#U63a7#U4ef6#Uff08#U4e8c#Uff09/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android自定义控件（二）">Android自定义控件（二）</span>
+            <span class="post-date" title="2019-06-18 13:43:11">2019/06/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/13/#U8d1d#U585e#U5c14#U66f2#U7ebf/"
+           data-tag="Android,贝塞尔曲线"
+           data-author="" >
+            <span class="post-title" title="贝塞尔曲线">贝塞尔曲线</span>
+            <span class="post-date" title="2019-06-13 10:14:25">2019/06/13</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/04/Java-Binder#U8fdb#U7a0b#U901a#U4fe1#U7406#U89e3/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Java Binder进程通信理解">Java Binder进程通信理解</span>
+            <span class="post-date" title="2019-06-04 14:01:43">2019/06/04</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/05/30/arm-neon-h#U6587#U4ef6#U529f#U80fd/"
+           data-tag="汇编"
+           data-author="" >
+            <span class="post-title" title="arm-neon.h文件功能">arm-neon.h文件功能</span>
+            <span class="post-date" title="2019-05-30 08:45:08">2019/05/30</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/05/06/Handler#U6d88#U606f#U673a#U5236/"
+           data-tag="android"
+           data-author="" >
+            <span class="post-title" title="Handler消息机制">Handler消息机制</span>
+            <span class="post-date" title="2019-05-06 14:09:45">2019/05/06</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/05/06/H264#U7f16#U7801-#U71b5#U7f16#U7801/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码-熵编码">H264编码-熵编码</span>
+            <span class="post-date" title="2019-05-06 13:42:57">2019/05/06</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/04/08/NDK#U5f00#U53d1#U95ee#U9898#U5408#U96c6/"
+           data-tag="NDK"
+           data-author="" >
+            <span class="post-title" title="NDK开发问题合集">NDK开发问题合集</span>
+            <span class="post-date" title="2019-04-08 10:53:30">2019/04/08</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/04/01/H264#U7f16#U7801#U57fa#U7840/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码基础">H264编码基础</span>
+            <span class="post-date" title="2019-04-01 09:26:11">2019/04/01</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/31/srs#U76f4#U64ad#U5e73#U53f0#U642d#U5efa/"
+           data-tag="直播,srs"
+           data-author="" >
+            <span class="post-title" title="srs直播平台搭建">srs直播平台搭建</span>
+            <span class="post-date" title="2019-03-31 10:37:42">2019/03/31</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/27/#U56fe#U7247RGB#U6570#U636e#U683c#U5f0f/"
+           data-tag="图片格式"
+           data-author="" >
+            <span class="post-title" title="图片RGB数据格式">图片RGB数据格式</span>
+            <span class="post-date" title="2019-03-27 22:24:49">2019/03/27</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/14/#U56fe#U7247YUV#U6570#U636e#U683c#U5f0f/"
+           data-tag="图片格式"
+           data-author="" >
+            <span class="post-title" title="图片YUV数据格式">图片YUV数据格式</span>
+            <span class="post-date" title="2019-03-14 11:10:16">2019/03/14</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2019/03/08/libjpeg-turbo#U7f16#U8bd1/"
+           data-tag="libjpeg-turbo"
+           data-author="" >
+            <span class="post-title" title="libjpeg-turbo编译">libjpeg-turbo编译</span>
+            <span class="post-date" title="2019-03-08 13:41:20">2019/03/08</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2019/03/07/libYUV#U7f16#U8bd1/"
+           data-tag="libyuv"
+           data-author="" >
+            <span class="post-title" title="libYUV编译">libYUV编译</span>
+            <span class="post-date" title="2019-03-07 15:05:11">2019/03/07</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/02/18/Android-camera#Uff08#U4e00#Uff09/"
+           data-tag="camera"
+           data-author="" >
+            <span class="post-title" title="Android camera（一）">Android camera（一）</span>
+            <span class="post-date" title="2019-02-18 15:03:27">2019/02/18</span>
+        </a>
+        
+        <a  class="All C/C++ "
+           href="/2019/01/23/Cpp#U57fa#U7840#Uff08#U4e00#Uff09/"
+           data-tag="Cpp"
+           data-author="" >
+            <span class="post-title" title="Cpp基础（一）">Cpp基础（一）</span>
+            <span class="post-date" title="2019-01-23 10:52:13">2019/01/23</span>
+        </a>
+        
+        <a  class="All C/C++ "
+           href="/2019/01/18/C#U57fa#U7840#Uff08#U4e00#Uff09/"
+           data-tag="C"
+           data-author="" >
+            <span class="post-title" title="C基础（一）">C基础（一）</span>
+            <span class="post-date" title="2019-01-18 14:08:23">2019/01/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/12/18/EasyPermission/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="EasyPermission">EasyPermission</span>
+            <span class="post-date" title="2018-12-18 13:20:30">2018/12/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/12/15/Android#U81ea#U5b9a#U4e49#U63a7#U4ef6#Uff08#U4e00#Uff09/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android自定义控件（一）">Android自定义控件（一）</span>
+            <span class="post-date" title="2018-12-15 21:44:34">2018/12/15</span>
+        </a>
+        
+        <a  class="All ssr "
+           href="/2018/12/10/Linux#U914d#U7f6eShadowSocks-R/"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux配置ShadowSocks-R">Linux配置ShadowSocks-R</span>
+            <span class="post-date" title="2018-12-10 15:58:52">2018/12/10</span>
+        </a>
+        
+        <a  class="All Android 热更新 "
+           href="/2018/10/29/Sophix#U70ed#U66f4#U65b0/"
+           data-tag="android,热更新"
+           data-author="" >
+            <span class="post-title" title="Sophix热更新">Sophix热更新</span>
+            <span class="post-date" title="2018-10-29 16:50:36">2018/10/29</span>
+        </a>
+        
+        <a  class="All Android 热更新 "
+           href="/2018/10/18/TinkerPatch#U70ed#U66f4#U65b0/"
+           data-tag="android,热更新"
+           data-author="" >
+            <span class="post-title" title="TinkerPatch热更新">TinkerPatch热更新</span>
+            <span class="post-date" title="2018-10-18 20:11:30">2018/10/18</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2018/06/21/React-native-flex#U5e03#U5c40/"
+           data-tag="react"
+           data-author="" >
+            <span class="post-title" title="React-native flex布局">React-native flex布局</span>
+            <span class="post-date" title="2018-06-21 16:22:47">2018/06/21</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/01/25/Android#U4e8b#U4ef6#U5206#U53d1/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android事件分发">Android事件分发</span>
+            <span class="post-date" title="2018-01-25 16:36:52">2018/01/25</span>
+        </a>
+        
+        <a  class="All Gradle "
+           href="/2018/01/25/Gradle#Uff08#U4e00#Uff09/"
+           data-tag="构建工具,Gradle"
+           data-author="" >
+            <span class="post-title" title="Gradle（一）">Gradle（一）</span>
+            <span class="post-date" title="2018-01-25 16:36:52">2018/01/25</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2017/11/24/firstBlod2/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git详细讲解(远程)">Git详细讲解(远程)</span>
+            <span class="post-date" title="2017-11-24 10:18:05">2017/11/24</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2017/10/19/firstBlod/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git详细讲解(本地)">Git详细讲解(本地)</span>
+            <span class="post-date" title="2017-10-19 21:49:28">2017/10/19</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-firstBlod" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">Git详细讲解(本地)</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="git">git</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color4">git</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2022-06-16 07:12:53'>2017-10-19 21:49</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                Comment:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D"><span class="toc-text">一、基本介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8F%B2"><span class="toc-text">简史</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%9B%86%E4%B8%AD%E5%BC%8F%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F"><span class="toc-text">1.集中式版本控制系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%86%E5%B8%83%E5%BC%8F%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E7%B3%BB%E7%BB%9F"><span class="toc-text">2.分布式版本控制系统</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%B7%A5%E4%BD%9C%E7%89%B9%E6%80%A7"><span class="toc-text">二、工作特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BF%9D%E5%AD%98%E6%96%B9%E5%BC%8F"><span class="toc-text">1.保存方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%8C%BA%E5%9F%9F%E5%88%92%E5%88%86"><span class="toc-text">2.区域划分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%96%87%E4%BB%B6%E5%88%86%E7%B1%BB"><span class="toc-text">3.文件分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-git%E5%AF%B9%E8%B1%A1"><span class="toc-text">4.git对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E7%9B%AE%E5%BD%95%E4%BB%8B%E7%BB%8D"><span class="toc-text">5.目录介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A4%E8%AF%86HEAD"><span class="toc-text">* 认识HEAD</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="toc-text">三、基本用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="toc-text">1.基本配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BA%E5%8F%8A%E5%9F%BA%E6%9C%AC%E6%9C%AC%E5%9C%B0%E6%93%8D%E4%BD%9C%E7%89%88%E6%9C%AC%E5%BA%93"><span class="toc-text">2.创建及基本本地操作版本库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%9F%BA%E6%9C%AC%E6%8C%87%E4%BB%A4"><span class="toc-text">1.基本指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%9F%A5%E9%98%85%E6%8C%87%E4%BB%A4"><span class="toc-text">2.查阅指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%B7%AE%E5%BC%82%E6%8C%87%E4%BB%A4"><span class="toc-text">3.差异指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E6%96%87%E4%BB%B6%E5%88%A0%E9%99%A4"><span class="toc-text">4.文件删除</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%88%86%E6%94%AF"><span class="toc-text">3.分支</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="toc-text">1.基本操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-merge%E4%B8%8Erebase"><span class="toc-text">2.merge与rebase</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-merge"><span class="toc-text">2.merge</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#fast-forward%E5%92%8Cno-fast-forward"><span class="toc-text">fast-forward和no fast forward</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-rebase"><span class="toc-text">3.rebase</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BA%A4%E4%BA%92%E5%BC%8Frebase"><span class="toc-text">交互式rebase</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%A0%87%E7%AD%BE"><span class="toc-text">4.标签</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、基本介绍"><a href="#一、基本介绍" class="headerlink" title="一、基本介绍"></a>一、基本介绍</h2><p>首先，Git作为版本控制系统，他的原理与SVN为首的集中式版本控制系统差别较大。</p>
+<h3 id="简史"><a href="#简史" class="headerlink" title="简史"></a>简史</h3><p>很多人都知道，Linus在1991年创建了开源的Linux，从此，Linux系统不断发展，已经成为最大的服务器系统软件了。</p>
+<p>Linus Torvalds在2002年起，使用BitMover的版本控制软件BitKeeper管理Linux核心开发，而因为BitKeeper除商业付费版本，仅提供可免费使用但不允许修改重新编译的精简版本，引起了开源社区的不满，如自由软件之父Richard stallman也敢严厉批评Linux Torvalds使用非自由软件开发Linux核心。<br>在2005年，Samba档案服务器开发人Andrew Tridgell写了连接BitKeeper存储库的简单程序，被BitMover创办人Larry McVoy指控对BitKeeper进行逆向工程，因为决定停止BitKeeper对Linux的支持。<br>顿时Linux核心开发受到了严峻的挑战，而Linus Torvalds秉承自己的版本自己写的精神，整个周末都不见人影，隔周却如变戏法般带着Git出现。<br>Linus花了近10天时间自己用C写了一个分布式版本控制系统，这就是Git！一个月之内，Linux系统的源码已经由Git管理了！牛是怎么定义的呢？大家可以体会一下。<br>Git迅速成为最流行的分布式版本控制系统，尤其是2008年，GitHub网站上线了，它为开源项目免费提供Git存储，无数开源项目开始迁移至GitHub，包括jQuery，PHP，Ruby等等。</p>
+<h3 id="1-集中式版本控制系统"><a href="#1-集中式版本控制系统" class="headerlink" title="1.集中式版本控制系统"></a>1.集中式版本控制系统</h3><p>集中式版本控制系统，其将版本库集中存放在中央服务器上，所有的版本控制也都在中央服务器，所以在项目分支功能上略显无力，所以对于这类项目的版本控制，只有通过多次的项目、文件网络提交来形成版本控制。并且在中央服务器上发生故障时，对整个团队的协同工作效率略有下降。甚至在最坏的情况下发生项目丢失现象。<br>当然，他的强大也是毋庸置疑的，在统一的版本控制器上可以清楚看到该项目上的所有开发者在做什么，集中化项目也可以很好的管理项目版本，所以集中式版本控制系统是以项目的视角进行控制版本。管理员也轻松掌控着每个开发者的权限。</p>
+<p><img src="/img/git/0.png" alt="github"><br>pdfView</p>
+<h3 id="2-分布式版本控制系统"><a href="#2-分布式版本控制系统" class="headerlink" title="2.分布式版本控制系统"></a>2.分布式版本控制系统</h3><p>相对于上述系统来讲，Git则以分布式的形式完成版本控制功能。开发者并不是在原始代码上进行加工并上传形成版本树，而是将整个项目镜像下来，将项目分布式管理。所以在发生上述故障时，其他开发者也有相对完整项目版本库。而其强大的分支管理更是Git的版本控制特点。Git作为版本控制是以开发者的视角进行版本控制，形成与开发者相匹配的版本树。</p>
+<p><img src="/img/git/1.png" alt="github"></p>
+<h2 id="二、工作特性"><a href="#二、工作特性" class="headerlink" title="二、工作特性"></a>二、工作特性</h2><h3 id="1-保存方式"><a href="#1-保存方式" class="headerlink" title="1.保存方式"></a>1.保存方式</h3><p>首先，Git保存数据是以快照的形式展现。如果此次版本中的文件没有做任何修改，则会保存上个版本的地址链接。他与SVN的记录文件差异的方法不同。当保存一个文件的时候，Git把这个文件的信息和内容存储在一个文件里，然后求得这个文件的sha-1作为文件名（.git/objects）。在保存在Git中的数据都是用这些sha-1算法生成的哈希值作为唯一索引进行引用，这一方式可以节省项目存储的空间。<br>sha-1算法是将文件中的内容计算生成一个40位的哈希值，sha-1的前两位为文件夹名/sha1剩余部分为该文件的文件名。他就像每一个文件的指纹记录，在文件进入暂存区中生成，当该文件进入本地仓库后，指针便指向该文件。<br><code>0c85f9f5ce1d60376130469d4e455166c041ea</code></p>
+<p>Git更像是把数据看作是对小型文件系统的一组快照,将所有数据以哈希值作为引用key，合理保存并使用我们的项目文件。<br><img src="/img/git/3.png" alt="github"></p>
+<h3 id="2-区域划分"><a href="#2-区域划分" class="headerlink" title="2.区域划分"></a>2.区域划分</h3><p>其次需要清除Git的工作区、暂存区、本地仓库和远程仓库概念。</p>
+<ul>
+<li>工作区:项目目录</li>
+<li>暂存区:在英文解释中使用index/stage来表示暂存区（在.git/index中），此时会将文件生成快照，在工作区的文件与本地最新的版本库文件发生变化后，便用指针指向这个文件。</li>
+<li>本地仓库:相对于每个开发者本地Git的项目版本（在git/objects中）</li>
+<li>远程仓库:个人理解为项目的统一版本库</li>
+</ul>
+<p><img src="/img/git/2.jpg" alt="github"></p>
+<h3 id="3-文件分类"><a href="#3-文件分类" class="headerlink" title="3.文件分类"></a>3.文件分类</h3><p>我们所有的项目文件就在这四个域中进行各种操作。而不同的域中会以不同的文件状态展示已提交（committed），已修改（modified）和已暂存（staged）。</p>
+<ul>
+<li><strong><font color=#6495ED>已修改</font></strong>:表示修改了某个文件，但还没有提交保存，处于修改后的工作区中</li>
+<li><strong><font color=#6495ED>已暂存</font></strong>:已暂存表示把已修改的文件放在下次提交时要保存的清单上</li>
+<li><strong><font color=#6495ED>已提交</font></strong>:表示该文件已经被安全地保存在本地数据库，处于本地仓库中</li>
+</ul>
+<h3 id="4-git对象"><a href="#4-git对象" class="headerlink" title="4.git对象"></a>4.git对象</h3><p>从根本上讲，git是一套内容寻址的文件系统，存储的是key-value键值对，然后根据key值来查找value的，说到寻址就会想到指针，git也是根据指针来寻址的，这些指针就存储在git的对象中。git一共有3种对象，commit对象，tree对象和blob对象，最后应该还有一个tag</p>
+<ul>
+<li><strong>commit</strong> 该对象指向一个”tree”对象，并且带有相关的描述信息，标记项目某一个特定时间点的状态</li>
+<li><strong>tree</strong> 像一个目录，管理一些”tree”对象或是”blob”对象</li>
+<li><strong>blob</strong> 一个”blob”通常用来存储文件的内容</li>
+<li><strong>tag</strong> 给某个提交增添一个标记。一个”tag”对象包括一个对象名(SHA1签名)、对象类型、标签名、标签创建人的名字(“tagger”), 还有一条可能包含有签名(signature)的消息<br><img src="/img/git/4.jpg" alt="github"></li>
+</ul>
+<h3 id="5-目录介绍"><a href="#5-目录介绍" class="headerlink" title="5.目录介绍"></a>5.目录介绍</h3><p>打开”.git”目录可以看到<br><img src="/img/git/5.png" alt="github"></p>
+<ul>
+<li><strong>COMMIT_EDITMSG</strong> 保存最新的commit message，git系统不会用到这个文件，只是给用户一个参考</li>
+<li><strong>config</strong> 这个是git仓库的配置文件</li>
+<li><strong>description</strong> 仓库的描述信息，主要给gitweb等git托管系统使用</li>
+<li><strong>HEAD</strong> 这个文件包含了一个档期分支（branch）的引用，通过这个文件Git可以得到下一次commit的parent</li>
+<li><strong>hooks</strong> 这个目录存放一些shell脚本，可以设置特定的git命令后触发相应的脚本；在搭建gitweb系统或其他git托管系统会经常用到hook script</li>
+<li><strong>index</strong> 这个文件就是我们前面提到的暂存区（stage），是一个二进制文件</li>
+<li><strong>info</strong> 包含仓库的一些信息</li>
+<li><strong>logs</strong> 保存所有更新的引用记录</li>
+<li><strong>objects</strong> 所有的git对象都会存放在这个目录中，对象的SHA1哈希值的前两位是文件夹名称，后38位作为对象文件名</li>
+<li><strong>refs</strong> 这个目录一般包括三个子文件夹，heads、remotes和tags，heads中的文件标识了项目中的各个分支指向的当前commit</li>
+</ul>
+<p>git中的引用是一个非常重要的概念，对于理解分支、HEAD指针以及reflog非常有帮助。</p>
+<h3 id="认识HEAD"><a href="#认识HEAD" class="headerlink" title="* 认识HEAD"></a>* 认识HEAD</h3><p>HEAD是一个引用，一般情况下间接指向你当前所在的分支的最新的commit上。HEAD跟Git中一般的引用不同，它并不包含某个commit的SHA1哈希值，而是包含当前所在的分支，所有HEAD直接执行当前所在的分支，然后间接指向当前所在分支的最新提交。<br>可以看一下”.git/HEAD”的内容:<br><strong>ref: refs/heads/master</strong><br>这表示HEAD是一个指向master分支的引用，根据路径查看到一下内容:<br><strong>74be835ef696faed6ca9e7ee43474253b695a4bf</strong><br>一个哈希值，前两位为文件夹名，后38位及时文件名，根据上述讲到文件存储都在object目录下可以看到<br><img src="/img/git/6.png" alt="github"></p>
+<h2 id="三、基本用法"><a href="#三、基本用法" class="headerlink" title="三、基本用法"></a>三、基本用法</h2><p><strong>目前为止，文章依旧没有涉及命令行操作，依旧在解释Git基础逻辑。</strong></p>
+<h3 id="1-基本配置"><a href="#1-基本配置" class="headerlink" title="1.基本配置"></a>1.基本配置</h3><ul>
+<li><p><strong><font color=#6495ED>git config --list</font></strong> 显示所有配置信息</p>
+</li>
+<li><p><strong><font color=#6495ED>git config --global user.name yourname</font></strong> 配置全局用户名，如果不要”--global”或者使用”--local”，则表示配置为局部用户名</p>
+</li>
+<li><strong><font color=#6495ED>git config --global user.email youremail</font></strong> 配置全局电子邮箱</li>
+<li><p><strong><font color=#6495ED>git config --global alias.cm commit</font></strong> 为git命令配置别名。他可以降低工作繁琐性，还可以配置复合操作</p>
+</li>
+<li><p><strong><font color=#6495ED>git help</font></strong> 显示帮助信息</p>
+</li>
+</ul>
+<p>当然，你也可以生成你的ssh公钥来配置你的git本地与github远程仓库。</p>
+<h3 id="2-创建及基本本地操作版本库"><a href="#2-创建及基本本地操作版本库" class="headerlink" title="2.创建及基本本地操作版本库"></a>2.创建及基本本地操作版本库</h3><h4 id="1-基本指令"><a href="#1-基本指令" class="headerlink" title="1.基本指令"></a>1.基本指令</h4><ul>
+<li><strong><font color=#6495ED>git init &lt;dir&gt;</font></strong> 在当前目录（不添加dir参数）或dir目录下创建为Git仓库，初始化后会在指定目录下生成一个.git的隐藏目录</li>
+</ul>
+<p><img src="/img/git/7.png" alt="github"></p>
+<p>上面的4条指令实在工作区、暂存区和本地仓库之间进行复制文件。</p>
+<ul>
+<li><strong><font color=#6495ED>git add &lt;files&gt;</font></strong> 将此文件添加至暂存区<blockquote>
+<ul>
+<li>. :提交新文件(new)和被修改(modified)文件，不包括被删除(deleted)文件</li>
+<li>-u :提交被修改(modified)和被删除(deleted)文件，不包括新文件(new)</li>
+<li>-A :是上面两个功能的合集</li>
+</ul>
+</blockquote>
+</li>
+<li><strong><font color=#6495ED>git commit</font></strong> 将暂存区中文件生成快照，并提交至本地仓库<blockquote>
+<ul>
+<li>-m “提交内容描述” :如果这里不用-m参数的话，git将调到一个文本编译器（通常是vim）来让你输入提交的描述信息</li>
+<li>-a :可只将所有被修改或者已删除的且已经被git管理的文档提交倒仓库中</li>
+<li>—amend :对于已提交过文件形成版本后，如过需要在该版本上添加或修改文件，则需要使用，该提交会使就提交取消</li>
+</ul>
+</blockquote>
+</li>
+<li><strong><font color=#6495ED>git reset -- &lt;files&gt;</font></strong> 用来完成版本回退工作<blockquote>
+<ul>
+<li>—hard :stage与工作区都将回退，该命令危险度较高，因为在回退版本之后会很难找回回退前的版本，之后可以选择文件、HEAD、HEAD~版本号、提交的sha-1值</li>
+<li>—soft :工作区回退，而不会恢复到stage中，所以如果将数据还原只需将stage中的数据commit就可以了</li>
+<li>—mixed :此为默认方式，将stage和本地仓库代码还原至上个版本，但将还原前的内容保留在工作区中</li>
+</ul>
+</blockquote>
+</li>
+<li><strong><font color=#6495ED>git checkout -- &lt;files&gt;</font></strong> 将stage的文件版本取出并覆盖至工作区)(‘—‘表示为在此版本分支下的文件，或使用版本号及commitID代替，表示为使用该版本文件或该次提交时的文件来覆盖工作区)。<em>如果files是版本名的话就会将当前分支切换到该分支上。</em><blockquote>
+<ul>
+<li>. :将本地仓库中的文件来覆盖工作区与stage区域</li>
+<li>-b:生成一个版本分支，并切换到该分支上，类似git branch branchname &amp; git checkout branchname的合并命令</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h4 id="2-查阅指令"><a href="#2-查阅指令" class="headerlink" title="2.查阅指令"></a>2.查阅指令</h4><ul>
+<li><strong><font color=#6495ED>git status</font></strong> 在进行文件的上传后，可以查看暂存区文件的状态<blockquote>
+<p><em>Untracked files</em> 未被跟踪的文件，路径为工作目录<br><em>Changes to be committed</em> 已添加至暂存区<br><em>Changes not staged for commit</em> 跟踪的已发生改变的文件</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="/img/git/9.png" alt="github"><br>此时可以清楚看到在<strong>git add test3.txt</strong>后，<em>Changes to be committed</em>下就有个该文件，表示该文件已添加至暂存区；而在删除文件后也会在此提示。</p>
+<p><strong><font color=#6495ED>git log &lt;files&gt;</font></strong><br>此时可以清楚看到每次提交的日志信息</p>
+<blockquote>
+<ul>
+<li><em>commit</em>为此次提交的sha-1唯一码</li>
+<li><em>Author</em>为此次提交的用户信息</li>
+<li><em>Date</em>为此次提交的日期</li>
+<li>最后下方为此次提交的日志。</li>
+</ul>
+</blockquote>
+<p><strong><font color=#6495ED>git log --pretty=oneline &lt;files&gt;</font></strong><br>但是每次显示的信息太多，我们也并不关心这些，所以我们也可以使用这个指令来查看提交日志。<br><img src="/img/git/11.png" alt="github"></p>
+<p><strong><font color=#6495ED>git ls-files --stage</font></strong><br>这里可以查看index暂存区的文件名与其快照<br><img src="/img/git/8.png" alt="github"></p>
+<p><strong><font color=#6495ED>git reflog</font></strong><br>可以查看项目此时head指针指向的版本(当前版本)，及所有的版本号<br><img src="/img/git/12.png" alt="github"></p>
+<h4 id="3-差异指令"><a href="#3-差异指令" class="headerlink" title="3.差异指令"></a>3.差异指令</h4><p><strong><font color=#6495ED>git diff &lt;files&gt;</font></strong><br>可以查看工作区与暂存区快照之间的差异，也就是修改文件还没有暂存起来变化的内容。</p>
+<blockquote>
+<ul>
+<li>第一行显示为变化前后的文件名称</li>
+<li>第二行显示变化前后的快照sha-1ID号</li>
+<li>@@中间为文件<em>-</em>修改前版本与<em>+</em>修改后版本</li>
+<li><em>—-</em>为修改前的文件名；<em>+++</em>为修改后的文件名</li>
+<li>最后显示未修改内容(白)、删除内容(红)及添加内容(绿)<em>颜色不同的地方可能是我使用的是Cmder来运行git</em><br><img src="/img/git/10.png" alt="github"></li>
+</ul>
+</blockquote>
+<p><strong><font color=#6495ED>git diff --cached &lt;files&gt;</font></strong><br>这里可以查看暂存区与最新版本库的代码差异，显示也同上。</p>
+<p><strong><font color=#6495ED>git diff --staged &lt;files&gt;</font></strong><br>这里可以查看下一次提交到本地代码库的内容</p>
+<p><strong><font color=#6495ED>git diff head &lt;files&gt;</font></strong><br>这里可以查看工作区与最新版本库的代码差异，如果此处的head指向master分支，则可以使用master代替head。</p>
+<p><strong><font color=#6495ED>git diff &lt;branch1&gt; &lt;branch2&gt; &lt;files&gt;</font></strong><br><strong><font color=#6495ED>git diff &lt;branch1&gt; &lt;branch2&gt; --stat &lt;files&gt;</font></strong><br>而这里是比较不同版本或单独文件的差异详情，而后者则不会显示差异详情内容</p>
+<h4 id="4-文件删除"><a href="#4-文件删除" class="headerlink" title="4.文件删除"></a>4.文件删除</h4><p><strong><font color=#6495ED>git rm &lt;files&gt;</font></strong><br>用于删除版本库中的文件，在删除之后会在stage中形成差异，可以在<strong>git status</strong>中查看。在需要将文件彻底删除则使用<strong>git commit</strong>指令；如需恢复则可以用上述的<strong>git checkout</strong>指令</p>
+<blockquote>
+<ul>
+<li>—cached :当我们需要删除暂存区或分支上的文件, 但本地又需要使用, 只是不希望这个文件被版本控制</li>
+</ul>
+</blockquote>
+<p><img src="/img/git/13.png" alt="github"><br>这里可以看到使用git rm删除后git commit就完成版本文件的删除。<br>而在下面因为在删除后本地的情况与stage中一样，所以直接使用git check是无效的，而是先使用<strong>git reset</strong>将本地仓库中的文件目录与stage区域同步，再使用<strong>git checkout</strong>将stage区域与工作区同步，完成文件恢复。<br><img src="/img/git/14.png" alt="github"></p>
+<h3 id="3-分支"><a href="#3-分支" class="headerlink" title="3.分支"></a>3.分支</h3><p>我们知道在使用git的时候，每次提交（commit）都会形成一个版本。git将他们串成一条时间线，而作为初始化版本的master就是一条时间线。而HEAD严格来说不是指向提交，而是指向master，master才是指向提交的，所以HEAD指向的就是当前分支。</p>
+<h4 id="1-基本操作"><a href="#1-基本操作" class="headerlink" title="1.基本操作"></a>1.基本操作</h4><p><strong><font color=#6495ED>git branch</font></strong> 查看本地分支</p>
+<blockquote>
+<ul>
+<li>-a :查看所有分支</li>
+<li>-r :查看远程分支</li>
+<li>-d :删除已经参与了合并的分支</li>
+<li>-D :强制删除分支</li>
+<li>-m :重命名当前分支</li>
+<li>-v :查看各个分支最后一个提交对象的信息</li>
+<li>—no-merged :查看尚未合并的分支。在删除这些尚未合并的分支可能会需要<strong>-D</strong>参数，来保护分支中还包含着尚未合并进来的工作成果</li>
+</ul>
+</blockquote>
+<p>在此之前，我们先创建一个分支:<br><strong><font color=#6495ED>git branch &lt;branchname&gt;</font></strong> 创建一个分支。当然，如果想创建分支并切换到那个分支上，可以使用命令<strong>git checkout -b &lt;branchname&gt;</strong>来完成<br><strong><font color=#6495ED>git checkout &lt;branchname&gt;</font></strong> 切换分支</p>
+<p><strong><font color=#6495ED>git merge &lt;branchname&gt;</font></strong> 合并分支，将branchname分支与所在分支合并成一次新的提交</p>
+<blockquote>
+<ul>
+<li>—abort :中断一次合并，会尝试恢复到你运行合并前的状态。但当运行命令前，在工作目录中有未储藏、未提交的修改时它不能完美处理，除此之外它都工作地很好。</li>
+<li>-Xignore-space-change :忽略所有空白修改。如果你的团队中的某个人可能不小心重新格式化空格为制表符或者相反的操作，这会是一个救命稻草。</li>
+</ul>
+</blockquote>
+<p>完成分支工作后，我们就可以合并分支了，合并后我们可以查看<br><img src="/img/git/17.png" alt="github"></p>
+<p>git 作了合并，但没有提交，它会停下来等你解决冲突。vim打开文件可以看到下文件:<br><img src="/img/git/18.png" alt="github"><br>可以看到 =======隔开的上半部分，是 HEAD（即 master 分支，在运行 merge 命令时所切换到的分支）中的内容，下半部分是在test2分支中的内容。解决冲突的办法无非是二者选其一或者由你亲自整合到一起。</p>
+<p>当然，git允许你使用其他的合并工具或图形化界面。在合并之后可以使用下面的命令开启图形化冲突解决:<br><strong><font color=#6495ED>git mergetool</font></strong><br><img src="/img/git/19.png" alt="github"><br>这里显示默认的合并工具是tortoisemerge，在后面可以输入opendiff，就可以打开一个图形合并工具。</p>
+<p>在完成合并后，如何没有冲突则不需要提交，如果冲突解决后就可以<strong>git add</strong>和<strong>git commit</strong>来完成此次的合并提交工作。</p>
+<p><strong><font color=#6495ED>git log --graph</font></strong> 可以看到分支合并图</p>
+<h4 id="2-merge与rebase"><a href="#2-merge与rebase" class="headerlink" title="2.merge与rebase"></a>2.merge与rebase</h4><p>首先，git merge与git rebase所做的事是一样的。都被设计来将一个分支的更改并入另一个分支，只不过方式有些不同。<br>经常会在工作中创建分支:<br><img src="/img/git/20.png" alt="github"></p>
+<p>现在，如果master中新的提交和你的工作是相关的。为了将新的提交并入你的分支，你有两个选择：merge或rebase。</p>
+<h5 id="2-merge"><a href="#2-merge" class="headerlink" title="2.merge"></a>2.merge</h5><p>关于merge合并的方法我们也已经知道，命令<strong><font color=#6495ED>git checkout feature</font></strong>和<strong><font color=#6495ED>git merge master</font></strong> 或者 <strong><font color=#6495ED>git merge master feature</font></strong>可以在feature分支中生成新的合并提交。得到以下结构:<br><img src="/img/git/21.png" alt="github"></p>
+<p>Merge是一个安全的操作。现有的分支不会被更改，避免了rebase潜在的缺点。<br>但是这意味着每次合并上游更改时feature分支都会引入一个外来的合并提交。如果master非常活跃的话，这或多或少会污染你的分支历史。当大量分支合并时就需要高级<strong>git log</strong>来查看项目历史提交。</p>
+<h6 id="fast-forward和no-fast-forward"><a href="#fast-forward和no-fast-forward" class="headerlink" title="fast-forward和no fast forward"></a>fast-forward和no fast forward</h6><p>当前分支合并到另一分支时，如果没有分歧解决，就会直接移动文件指针。这个过程叫做fastforward。。属于<strong>快进方式</strong>，不过这种情况如果删除分支，则会丢失分支信息。因为在这个过程中没有创建commit。</p>
+<p><img src="/img/git/22.png" alt="github"><br>可以看到蓝框就是master的直接后代（无分叉）的结果，这时git会默认在merge时是执行一个fast-forward的merge策略，git并不会创建一个merge commit而是简单地把T1分支标签移动到master分支tip所指向的commit；这时合并后master分支就变换成一个透明分支，我们在提交图谱中无法得知其存在（途中绿色部分），并且一旦这个branch被删除，那么从历史上我们再也无法看到任何关于这个开发分支曾经存在的历史渊源。<br>这不是我们所想要的，所以我们通过强制git产生一个真正的merge—-通过使用—no-ff参数（no fast forward的意思）。<br><strong><font color=#6495ED>git merge --no-ff brenchname</font></strong> no fast forward的意思，使得每一次的合并都创建一个新的commit记录。即使这个commit只是fast-foward，用来避免丢失信息。<br><strong><font color=#6495ED>git merge --squash brenchname</font></strong> 是用来把一些不必要commit进行压缩。需要进行一次额外的commit来“总结”一下，然后完成最终的合并。</p>
+<h5 id="3-rebase"><a href="#3-rebase" class="headerlink" title="3.rebase"></a>3.rebase</h5><p>作为merge的替代选择，你可以像merge一样使用rebase。<br><strong><font color=#6495ED>git checkout branch</font></strong> 和 <strong><font color=#6495ED>git rebase basebranch topicbranch</font></strong><br><img src="/img/git/23.png" alt="github"></p>
+<p>merge试讲两个分支进行合并并完成一次提交，而rebase是在当前分支上重演另一个分支的历史。会联想到一次剪切效果。<br>其最大特点就是会使你的项目历史非诚干净，呈现出一条线性提交，因为它不会引入合并提交，因此在合并后显示的提交日志和 <strong>gitk</strong> 结构清晰。但是你需要注意使用rebase的黄金定律:<br><strong><em>永远不要rebase一个已经分享的分支（到非remote分支，比如rebase到master,develop,release分支上），也就是说永远不要rebase一个已经在中央库中存在的分支.只能rebase你自己使用的私有分支。</em></strong><br>因为在进行多人并行开发时，在rebase后没有合并提交历史，这样会给整个项目历史带来灾难性的影响。</p>
+<p>在下图可以看到有两个分支，master和t1；两个分支都对其父节点做了commit提交。<br><img src="/img/git/24.png" alt="github"></p>
+<p>首先切换至t1分支，并开始于master分支rebase；在完成分支衍合后，可以看到我们目前进入<strong>游离分支</strong>，一旦切换分支该分支则会消失。<br><strong><font color=#6495ED>git status</font></strong>查看工作空间后可以看到已添加至<code>f9d1184...</code>的commitid上，查看上图的分支图就知道这个分支是master分支。<br><img src="/img/git/25.png" alt="github"></p>
+<p>最后命令<strong><font color=#6495ED>git add </font></strong> 和 <strong><font color=#6495ED>git rebase —continue</font></strong>就完成了rebase的衍合操作。再进入master分支merge，<strong><font color=#6495ED>git checkout master</font></strong> 和 <strong><font color=#6495ED>git merge branchname</font></strong>就完成了在主分支上的衍合。查看log日志可以看到记录和merge合并完全不一样。<br><img src="/img/git/26.png" alt="github"></p>
+<h6 id="交互式rebase"><a href="#交互式rebase" class="headerlink" title="交互式rebase"></a>交互式rebase</h6><p><strong><font color=#6495ED>git rebase -i &lt;master&gt;</font></strong> 该功能可以在rebase的基础上进行历史重写效果。<br>下图中可以看到两条分支:master和t，两者的分支都对文件有修改，现在开始对t分支进行历史修改并rebase到master分支上:<br><img src="/img/git/27.png" alt="github"></p>
+<p>可以看到这里会给出t分支上的历史版本:<br><img src="/img/git/28.png" alt="github"></p>
+<blockquote>
+<ul>
+<li>pick: 正常选中</li>
+<li>reword: 选中，并且修改提交信息；</li>
+<li>edit: 选中，rebase时会暂停，允许你修改这个commit（参考这里）</li>
+<li>squash: 选中，会将当前commit与上一个commit合并</li>
+<li>fixup: 与squash相同，但不会保存当前commit的提交信息</li>
+<li>exec: 执行其他shell命令</li>
+</ul>
+</blockquote>
+<p>这里使用fixup测试一下:<br><img src="/img/git/29.png" alt="github"></p>
+<p>在修改完成并提交后，完成相应修改后就可以完成合并。<br><img src="/img/git/30.png" alt="github"></p>
+<p>最后将分支合并至master上，查看就可以看到将t分支的修改版修改完成后，rebase到master分支上。<br><img src="/img/git/31.png" alt="github"></p>
+<h3 id="4-标签"><a href="#4-标签" class="headerlink" title="4.标签"></a>4.标签</h3><p>git可以给历史中的某一个提交打上标签，表示及其重要。</p>
+<p>git使用两种主要类型的标签：轻量标签（lightweight）与附注标签（annotated）。<br>一个轻量标签很像一个不会改变的分支 - 它只是一个特定提交的引用。</p>
+<p><strong><font color=#6495ED>git tag -a V1.4 -m “message”</font></strong> 这里创建一个附注标签。-m 选项指定了一条将会存储在标签中的信息。如果没有为附注标签指定一条信息，Git 会运行编辑器要求你输入信息<br><strong><font color=#6495ED>git show &lt;tagname&gt;</font></strong> 这条命令可以看到标签信息与对应的提交信息。其中会显示打标签者、日期、附注信息等</p>
+<p><strong><font color=#6495ED>git tag &lt;CreateTagName&gt;</font></strong> 创建轻量标签，只需要提供标签名字<br>下图可以看到两个tag详情，左侧为附注标签，右侧为轻量标签。可以很清楚看到两者的差别；当然差别不知是表面。轻量标签本质上是将提交校验和存储到一个文件中，没有保存任何其他信息。而附注标签是存储在 git 数据库中的一个完整对象。<br><img src="/img/git/32.png" alt="github"></p>
+<p><strong><font color=#6495ED>git show &lt;commitID&gt;</font></strong> 在我们过去的版本中也可以打标签，寻找到提交ID就可以完成</p>
+<p><strong><font color=#6495ED>git tag</font></strong> 列出已有的标签列表。</p>
+<blockquote>
+<ul>
+<li><strong>-d</strong> :删除tag</li>
+</ul>
+</blockquote>
+
+      
+       
+    </div>
+</article>
+
+
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '07584e1e38d09c739a16',
+            clientSecret: '6a466750b46c76ed9cc8ee0fe0d78e0c33898937',
+            repo: 'yangandmore.github.io',
+            owner: 'Yangandmore',
+            admin: ['Yangandmore'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2016-2020 Yangandmore
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

@@ -1,0 +1,2532 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>React-Native热更新 | 杨小杨的博客</title>
+  <meta name="keywords" content=" ReactNative ">
+  <meta name="description" content="React-Native热更新 | 杨小杨的博客">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="在mac中打开eclipse提示错误">
+<meta property="og:type" content="article">
+<meta property="og:title" content="eclipse-mac-err">
+<meta property="og:url" content="http://example.com/2022/09/27/eclipse-mac-err/index.html">
+<meta property="og:site_name" content="杨小杨的博客">
+<meta property="og:description" content="在mac中打开eclipse提示错误">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-09-27T22:24:54.000Z">
+<meta property="article:modified_time" content="2022-09-27T14:26:46.000Z">
+<meta property="article:author" content="Yang">
+<meta property="article:tag" content="异常问题">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/header.png">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/header.png"/>
+</a>
+<div class="author">
+    <span>Yang</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="github"
+               href="https://github.com/Yangandmore"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="email"
+               href="mailto:635408602@qq.com"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="qq"
+               href="http://wpa.qq.com/msgrd?v=3&uin=635408602&site=qq&menu=yes"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-qq"></use>
+                    </svg>
+                
+            </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(148)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                <li>
+                    <div data-rel="数据库">
+                        
+                        数据库
+                        <small>(4)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="包管理">
+                        
+                        包管理
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="编译的库">
+                        
+                        编译的库
+                        <small>(5)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="分布式事务">
+                        
+                        分布式事务
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="分布式搜索">
+                        
+                        分布式搜索
+                        <small>(5)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="后台">
+                        
+                        后台
+                        <small>(3)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="机器学习">
+                        
+                        机器学习
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="流程引擎">
+                        
+                        流程引擎
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="数据结构">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        数据结构
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="数据结构<--->算法分析">
+                                        
+                                        算法分析
+                                        
+                                            <small>(2
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="异常问题">
+                        
+                        异常问题
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="音视频">
+                        
+                        音视频
+                        <small>(13)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="正则表达式">
+                        
+                        正则表达式
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Android">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        Android
+                        <small>(17)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="Android<--->热更新">
+                                        
+                                        热更新
+                                        
+                                            <small>(2
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="C/C++">
+                        
+                        C/C++
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="git">
+                        
+                        git
+                        <small>(3)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Gradle">
+                        
+                        Gradle
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="java">
+                        
+                        java
+                        <small>(9)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="JavaScript">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        JavaScript
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="JavaScript<--->npm">
+                                        
+                                        npm
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="ReactNative">
+                        
+                        ReactNative
+                        <small>(10)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Redis">
+                        
+                        Redis
+                        <small>(4)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="rust">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        rust
+                        <small>(46)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="rust<--->p2p">
+                                        
+                                        p2p
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="spring">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        spring
+                        <small>(9)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="spring<--->java">
+                                        
+                                        java
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="ssr">
+                        
+                        ssr
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="148">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>包管理</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>贝塞尔曲线</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>分布式事务</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>分布式搜索</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>构建工具</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>后台</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>汇编</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>机器学习</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>跨域</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>流程引擎</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>热更新</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>视频格式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>数据结构与算法分析</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>数据库</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>图片格式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>异步</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>异常问题</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>音频</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>音视频</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>正则表达式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>直播</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>android</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Android</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>C</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>camera</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Cpp</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>es</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ffmpeg</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>git</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Gradle</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>java</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>javaScript</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libfaac</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libjpeg-turbo</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libx264</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libyuv</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Linux</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>NDK</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>react</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>React</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ReactNative</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Redis</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>RTMP</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>rust</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>seate</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>spring</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>springboot</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>SQL</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>srs</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ssr</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class="All 异常问题 "
+           href="/2022/09/27/eclipse-mac-err/"
+           data-tag="异常问题"
+           data-author="" >
+            <span class="post-title" title="eclipse-mac-err">eclipse-mac-err</span>
+            <span class="post-date" title="2022-09-27 22:24:54">2022/09/27</span>
+        </a>
+        
+        <a  class="All 流程引擎 "
+           href="/2022/09/16/activiti7/"
+           data-tag="流程引擎"
+           data-author="" >
+            <span class="post-title" title="流程引擎-activiti7">流程引擎-activiti7</span>
+            <span class="post-date" title="2022-09-16 10:01:11">2022/09/16</span>
+        </a>
+        
+        <a  class="All 分布式事务 "
+           href="/2022/09/04/seate/"
+           data-tag="seate,分布式事务"
+           data-author="" >
+            <span class="post-title" title="配置seate">配置seate</span>
+            <span class="post-date" title="2022-09-04 19:11:24">2022/09/04</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/09/01/es-java/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="es在java环境中使用">es在java环境中使用</span>
+            <span class="post-date" title="2022-09-01 22:11:48">2022/09/01</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/09/01/es-ik/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="es配置ik分词器及热更新">es配置ik分词器及热更新</span>
+            <span class="post-date" title="2022-09-01 16:38:27">2022/09/01</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/06/es-7-change-password/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="es修改密码">es修改密码</span>
+            <span class="post-date" title="2022-08-06 23:37:16">2022/08/06</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/06/es-linux/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="elk在linux上简单安装">elk在linux上简单安装</span>
+            <span class="post-date" title="2022-08-06 21:02:25">2022/08/06</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/02/ELK/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="ELK学习">ELK学习</span>
+            <span class="post-date" title="2022-08-02 15:13:44">2022/08/02</span>
+        </a>
+        
+        <a  class="All 包管理 "
+           href="/2022/07/29/chocolatey/"
+           data-tag="包管理"
+           data-author="" >
+            <span class="post-title" title="chocolatey">chocolatey</span>
+            <span class="post-date" title="2022-07-29 16:56:39">2022/07/29</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/28/Spring-#U57fa#U78405/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础5">Spring-基础5</span>
+            <span class="post-date" title="2022-07-28 21:11:57">2022/07/28</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/28/Spring-#U57fa#U78404/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(四)">Spring-基础(四)</span>
+            <span class="post-date" title="2022-07-28 15:50:59">2022/07/28</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-#U57fa#U78403/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(三)">Spring-基础(三)</span>
+            <span class="post-date" title="2022-07-25 21:51:47">2022/07/25</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-#U57fa#U78402/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(二)">Spring-基础(二)</span>
+            <span class="post-date" title="2022-07-25 10:26:06">2022/07/25</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-#U57fa#U78401/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(一)">Spring-基础(一)</span>
+            <span class="post-date" title="2022-07-25 09:58:25">2022/07/25</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/07/17/P2P/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="P2P">P2P</span>
+            <span class="post-date" title="2022-07-17 10:46:24">2022/07/17</span>
+        </a>
+        
+        <a  class="All rust p2p "
+           href="/2022/07/16/Rust-libp2p/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-libp2p">Rust-libp2p</span>
+            <span class="post-date" title="2022-07-16 14:04:11">2022/07/16</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/07/06/#U533a#U5757#U94fe-#U8bb0#U8d26#U6a21#U5f0f/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="区块链-记账模式">区块链-记账模式</span>
+            <span class="post-date" title="2022-07-06 21:48:04">2022/07/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/06/26/Summer-boot#U4e00#U671f#U5b8f#U90e8#U5206#U6784#U601d#U53ca#U5b9e#U73b0/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Summer-boot一期宏部分构思及实现">Summer-boot一期宏部分构思及实现</span>
+            <span class="post-date" title="2022-06-26 10:12:27">2022/06/26</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2022/06/16/Git-fork#U9879#U76ee#U66f4#U65b0/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git-fork项目更新">Git-fork项目更新</span>
+            <span class="post-date" title="2022-06-16 15:11:56">2022/06/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/06/12/Rust-#U7f16#U7801#U89c4#U8303/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-编码规范">Rust-编码规范</span>
+            <span class="post-date" title="2022-06-12 09:05:33">2022/06/12</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2022/05/29/MySql-Some#U7b49#U6307#U4ee4/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="MySql_Some、Any、All的用法">MySql_Some、Any、All的用法</span>
+            <span class="post-date" title="2022-05-29 10:07:14">2022/05/29</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/12/Redis-#U805a#U5408#U64cd#U4f5c/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-聚合操作">Redis-聚合操作</span>
+            <span class="post-date" title="2022-05-12 14:34:47">2022/05/12</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/11/Redis-#U5207#U7247#U96c6#U7fa4#U914d#U7f6e/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-切片集群配置">Redis-切片集群配置</span>
+            <span class="post-date" title="2022-05-11 15:45:38">2022/05/11</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/10/Redis-#U54e8#U5175#U673a#U5236#U914d#U7f6e/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-哨兵机制配置">Redis-哨兵机制配置</span>
+            <span class="post-date" title="2022-05-10 17:02:25">2022/05/10</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/10/Redis-#U8fdc#U7a0b#U5f00#U5173/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-开启远程访问">Redis-开启远程访问</span>
+            <span class="post-date" title="2022-05-10 14:24:32">2022/05/10</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/05/06/Rust-#U5c5e#U6027/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-属性">Rust-属性</span>
+            <span class="post-date" title="2022-05-06 10:08:24">2022/05/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/20/Rust-build/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust编译过程图">Rust编译过程图</span>
+            <span class="post-date" title="2022-04-20 14:54:46">2022/04/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/08/Rust-Atomic/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-Atomic">Rust-Atomic</span>
+            <span class="post-date" title="2022-04-08 09:55:50">2022/04/08</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/06/Rust-#U6b7b#U7075#U672f3/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵术3">Rust-死灵术3</span>
+            <span class="post-date" title="2022-04-06 20:48:19">2022/04/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/06/Rust-#U6b7b#U7075#U672f2/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵术2">Rust-死灵术2</span>
+            <span class="post-date" title="2022-04-06 14:54:22">2022/04/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/02/Rust-AnyTrait/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-AnyTrait">Rust-AnyTrait</span>
+            <span class="post-date" title="2022-04-02 14:25:05">2022/04/02</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/02/Rust-Cow#U667a#U80fd#U6307#U9488/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-Cow智能指针">Rust-Cow智能指针</span>
+            <span class="post-date" title="2022-04-02 10:16:00">2022/04/02</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/01/Rust-#U6b7b#U7075#U672f/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵书（一）">Rust-死灵书（一）</span>
+            <span class="post-date" title="2022-04-01 16:42:36">2022/04/01</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/03/09/Rust-#U53c2#U8003#U624b#U518c/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-参考手册">Rust-参考手册</span>
+            <span class="post-date" title="2022-03-09 10:15:21">2022/03/09</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/03/08/Rust-#U5b8f/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-小宏书(声明宏)">Rust-高级-小宏书(声明宏)</span>
+            <span class="post-date" title="2022-03-08 20:22:51">2022/03/08</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2022/03/03/Android#U96c6#U6210Rust/"
+           data-tag="Android,rust"
+           data-author="" >
+            <span class="post-title" title="Android集成Rust">Android集成Rust</span>
+            <span class="post-date" title="2022-03-03 10:56:49">2022/03/03</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/02/08/Rust-#U7c7b#U578b#U8f6c#U6362/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-类型转换-From &amp; Into">Rust-类型转换-From &amp; Into</span>
+            <span class="post-date" title="2022-02-08 16:53:33">2022/02/08</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/16/Rust-#U9ad8#U7ea7-Crate#U4e4bbitflags/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之bitflags">Rust-高级-Crate之bitflags</span>
+            <span class="post-date" title="2022-01-16 22:36:28">2022/01/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-#U9ad8#U7ea7-Crate#U4e4brayon/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之rayon">Rust-高级-Crate之rayon</span>
+            <span class="post-date" title="2022-01-12 21:55:30">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-#U9ad8#U7ea7-Crate#U4e4blazy-static/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之lazy_static">Rust-高级-Crate之lazy_static</span>
+            <span class="post-date" title="2022-01-12 21:50:32">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-#U9ad8#U7ea7-Crate#U4e4bWalkdir/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之Walkdir">Rust-高级-Crate之Walkdir</span>
+            <span class="post-date" title="2022-01-12 21:50:15">2022/01/12</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/12/Rust-#U9ad8#U7ea7-Crate#U4e4bthreadpool/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之threadpool">Rust-高级-Crate之threadpool</span>
+            <span class="post-date" title="2022-01-12 21:49:50">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-#U9ad8#U7ea7-Crate#U4e4berror-chain/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之error_chain">Rust-高级-Crate之error_chain</span>
+            <span class="post-date" title="2022-01-12 21:49:39">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-#U9ad8#U7ea7-Crate#U4e4bcrossbeam/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之crossbeam">Rust-高级-Crate之crossbeam</span>
+            <span class="post-date" title="2022-01-12 21:16:24">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-#U9ad8#U7ea7-Crate#U4e4btar/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之tar">Rust-高级-Crate之tar</span>
+            <span class="post-date" title="2022-01-12 10:29:50">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/11/Rust-#U9ad8#U7ea7-Crate#U4e4brand/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之rand">Rust-高级-Crate之rand</span>
+            <span class="post-date" title="2022-01-11 14:52:45">2022/01/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/09/Rust-#U9ad8#U7ea7-Crate#U4e4bserde/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之serde">Rust-高级-Crate之serde</span>
+            <span class="post-date" title="2022-01-09 21:10:52">2022/01/09</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/09/Rust#U4e2d#U7684#U5f15#U7528#U4e0e#U501f#U7528/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust中的引用与借用">Rust中的引用与借用</span>
+            <span class="post-date" title="2022-01-09 19:03:47">2022/01/09</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/09/graphQL/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="graphQL">graphQL</span>
+            <span class="post-date" title="2022-01-09 17:02:35">2022/01/09</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/05/Rust-#U9ad8#U7ea7-#U670d#U52a1#U4e4bActix/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-服务之Actix">Rust-高级-服务之Actix</span>
+            <span class="post-date" title="2022-01-05 21:13:56">2022/01/05</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/05/Rust-#U9ad8#U7ea7-#U5f02#U6b65#U4e4bfutures/"
+           data-tag="rust,异步"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-异步之futures">Rust-高级-异步之futures</span>
+            <span class="post-date" title="2022-01-05 21:13:38">2022/01/05</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/30/Rust-#U6700#U540e#U7684#U9879#U76ee/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-最后的项目">Rust-最后的项目</span>
+            <span class="post-date" title="2021-12-30 14:46:33">2021/12/30</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/21/Rust-#U9ad8#U7ea7#U7279#U5f81/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级特征">Rust-高级特征</span>
+            <span class="post-date" title="2021-12-21 22:22:15">2021/12/21</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-#U6a21#U5f0f#U7528#U6765#U5339#U914d#U503c#U7684#U7ed3#U6784/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-模式与模式匹配">Rust-模式与模式匹配</span>
+            <span class="post-date" title="2021-12-20 20:53:44">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-#U9762#U5411#U5bf9#U8c61/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-面向对象">Rust-面向对象</span>
+            <span class="post-date" title="2021-12-20 15:15:04">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-#U65e0#U754f#U5e76#U53d1/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-无畏并发">Rust-无畏并发</span>
+            <span class="post-date" title="2021-12-20 09:44:35">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/19/Rust-#U667a#U80fd#U6307#U9488/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-智能指针">Rust-智能指针</span>
+            <span class="post-date" title="2021-12-19 10:23:23">2021/12/19</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/16/Rust-CargoAndCratesIO/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-CargoAndCratesIO">Rust-CargoAndCratesIO</span>
+            <span class="post-date" title="2021-12-16 22:52:05">2021/12/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/16/Rust-#U51fd#U6570#U5f0f#U8bed#U8a00#U529f#U80fd-#U8fed#U4ee3#U5668#U4e0e#U95ed#U5305/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-函数式语言功能:迭代器与闭包">Rust-函数式语言功能:迭代器与闭包</span>
+            <span class="post-date" title="2021-12-16 16:08:22">2021/12/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/15/Rust-#U6784#U5efa#U4e00#U4e2a#U547d#U4ee4#U884c#U7a0b#U5e8f/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-IO">Rust-IO</span>
+            <span class="post-date" title="2021-12-15 17:07:26">2021/12/15</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/15/Rust-#U6d4b#U8bd5/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-测试">Rust-测试</span>
+            <span class="post-date" title="2021-12-15 14:08:29">2021/12/15</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/14/Rust-#U6cdb#U578b#U3001trait#U548c#U751f#U547d#U5468#U671f/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-泛型、trait和生命周期">Rust-泛型、trait和生命周期</span>
+            <span class="post-date" title="2021-12-14 20:57:17">2021/12/14</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/14/Rust-#U9519#U8bef#U5904#U7406/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-错误处理">Rust-错误处理</span>
+            <span class="post-date" title="2021-12-14 10:48:51">2021/12/14</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-#U5e38#U89c1#U96c6#U5408/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-常见集合">Rust-常见集合</span>
+            <span class="post-date" title="2021-12-13 20:55:23">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-#U4f7f#U7528#U6a21#U5757#U7ec4#U7ec7#U548c#U590d#U7528#U4ee3#U7801/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-使用模块组织和复用代码">Rust-使用模块组织和复用代码</span>
+            <span class="post-date" title="2021-12-13 16:26:05">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-#U679a#U4e3e#U548c#U6a21#U5f0f#U5339#U914d/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-枚举和模式匹配">Rust-枚举和模式匹配</span>
+            <span class="post-date" title="2021-12-13 10:44:04">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/12/Rust-#U7ed3#U6784#U4f53/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-结构体">Rust-结构体</span>
+            <span class="post-date" title="2021-12-12 22:42:42">2021/12/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/12/Rust-#U6240#U6709#U6743/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-所有权">Rust-所有权</span>
+            <span class="post-date" title="2021-12-12 11:32:16">2021/12/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/11/Rust-#U57fa#U7840#U6280#U672f/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-基础技术">Rust-基础技术</span>
+            <span class="post-date" title="2021-12-11 20:25:09">2021/12/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/11/Rust-#U7f16#U7a0b#U731c#U8c1c#U6e38#U620f/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-编程猜谜游戏">Rust-编程猜谜游戏</span>
+            <span class="post-date" title="2021-12-11 18:58:04">2021/12/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/10/Rust-#U5165#U95e8/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-入门">Rust-入门</span>
+            <span class="post-date" title="2021-12-10 11:18:25">2021/12/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/10/Java-#U5185#U90e8#U7c7b/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-内部类">Java-内部类</span>
+            <span class="post-date" title="2021-12-10 08:50:32">2021/12/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/09/Java-#U63a5#U53e3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-接口">Java-接口</span>
+            <span class="post-date" title="2021-12-09 14:54:05">2021/12/09</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/09/Java-#U591a#U6001/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-多态">Java-多态</span>
+            <span class="post-date" title="2021-12-09 08:42:47">2021/12/09</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/23/JavaNIO/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaNIO">JavaNIO</span>
+            <span class="post-date" title="2021-11-23 10:47:14">2021/11/23</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/23/JavaIO/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaIO">JavaIO</span>
+            <span class="post-date" title="2021-11-23 10:47:07">2021/11/23</span>
+        </a>
+        
+        <a  class="All spring java "
+           href="/2021/11/22/Spring#U5de5#U4f5c#U5bf9#U8c61/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring工作对象">Spring工作对象</span>
+            <span class="post-date" title="2021-11-22 09:44:06">2021/11/22</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/18/Java#U51fd#U6570#U5f0f#U63a5#U53e3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java函数式接口">Java函数式接口</span>
+            <span class="post-date" title="2021-11-18 10:50:22">2021/11/18</span>
+        </a>
+        
+        <a  class="All "
+           href="/2021/11/17/SpringBoot#U542f#U52a8-#U57fa#U7840/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="SpringBoot启动-基础">SpringBoot启动-基础</span>
+            <span class="post-date" title="2021-11-17 17:01:58">2021/11/17</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/16/JRebel/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JRebel">JRebel</span>
+            <span class="post-date" title="2021-11-16 08:58:18">2021/11/16</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/11/Spring#U542f#U52a8-#U57fa#U7840/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring启动-基础">Spring启动-基础</span>
+            <span class="post-date" title="2021-11-11 15:25:33">2021/11/11</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/10/#U53cd#U5c04/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="反射">反射</span>
+            <span class="post-date" title="2021-11-10 20:57:08">2021/11/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/10/#U6ce8#U89e3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="注解">注解</span>
+            <span class="post-date" title="2021-11-10 20:50:55">2021/11/10</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/09/SpringAOP-#U57fa#U7840/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="SpringAOP-基础">SpringAOP-基础</span>
+            <span class="post-date" title="2021-11-09 10:31:31">2021/11/09</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/08/SpringIOC-#U57fa#U7840/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="SpringIOC-基础">SpringIOC-基础</span>
+            <span class="post-date" title="2021-11-08 10:27:28">2021/11/08</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2021/11/02/#U97f3#U89c6#U9891#U7f16#U89e3#U7801#U6280#U672f#U57fa#U7840/"
+           data-tag="音视频"
+           data-author="" >
+            <span class="post-title" title="音视频编解码技术基础">音视频编解码技术基础</span>
+            <span class="post-date" title="2021-11-02 12:06:49">2021/11/02</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2021/11/02/MysqlErrHosts/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="mysql安装时，Unable to connect to any of the specified MySQL hosts">mysql安装时，Unable to connect to any of the specified MySQL hosts</span>
+            <span class="post-date" title="2021-11-02 10:58:50">2021/11/02</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2021/10/08/H264#U7f16#U7801-SPSPPS/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码 SPS &amp; PPS">H264编码 SPS &amp; PPS</span>
+            <span class="post-date" title="2021-10-08 21:20:12">2021/10/08</span>
+        </a>
+        
+        <a  class="All ssr "
+           href="/2021/01/18/centos#U7ec8#U7aefssr#U914d#U7f6e/"
+           data-tag="ssr"
+           data-author="" >
+            <span class="post-title" title="centos终端ssr配置">centos终端ssr配置</span>
+            <span class="post-date" title="2021-01-18 08:21:35">2021/01/18</span>
+        </a>
+        
+        <a  class="All 数据结构 算法分析 "
+           href="/2020/12/14/#U6570#U636e#U7ed3#U6784#U4e0e#U7b97#U6cd5#U5206#U6790#U9605#U8bfb#U7b14#U8bb0#U5176#U4e8c/"
+           data-tag="数据结构与算法分析"
+           data-author="" >
+            <span class="post-title" title="数据结构与算法分析阅读笔记其二">数据结构与算法分析阅读笔记其二</span>
+            <span class="post-date" title="2020-12-14 22:34:39">2020/12/14</span>
+        </a>
+        
+        <a  class="All 数据结构 算法分析 "
+           href="/2020/12/09/#U6570#U636e#U7ed3#U6784#U4e0e#U7b97#U6cd5#U5206#U6790#U9605#U8bfb#U7b14#U8bb0/"
+           data-tag="数据结构与算法分析"
+           data-author="" >
+            <span class="post-title" title="数据结构与算法分析阅读笔记">数据结构与算法分析阅读笔记</span>
+            <span class="post-date" title="2020-12-09 21:52:40">2020/12/09</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/10/27/FLV#U683c#U5f0f/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="FLV格式">FLV格式</span>
+            <span class="post-date" title="2020-10-27 15:33:56">2020/10/27</span>
+        </a>
+        
+        <a  class="All 机器学习 "
+           href="/2020/09/20/Mac#U4e2dPython3-x#U7f16#U8bd1Caffe/"
+           data-tag="机器学习"
+           data-author="" >
+            <span class="post-title" title="Mac中Python3.x编译Caffe">Mac中Python3.x编译Caffe</span>
+            <span class="post-date" title="2020-09-20 01:08:09">2020/09/20</span>
+        </a>
+        
+        <a  class="All JavaScript npm "
+           href="/2020/07/17/npm#U5e38#U7528#U547d#U4ee4#U64cd#U4f5c/"
+           data-tag="直播"
+           data-author="" >
+            <span class="post-title" title="npm常用命令操作">npm常用命令操作</span>
+            <span class="post-date" title="2020-07-17 10:14:01">2020/07/17</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/16/MediaExtractorANDMediaMuxer/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="android端的音频处理工具MediaExtractor和MediaMuxer">android端的音频处理工具MediaExtractor和MediaMuxer</span>
+            <span class="post-date" title="2020-07-16 11:55:28">2020/07/16</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/15/AAC#U97f3#U9891#U7801#U6d41/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="AAC音频码流">AAC音频码流</span>
+            <span class="post-date" title="2020-07-15 17:45:10">2020/07/15</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/15/Android-PCM#U5904#U7406/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="Android-PCM">Android-PCM</span>
+            <span class="post-date" title="2020-07-15 13:29:49">2020/07/15</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/13/yuv-tool#U5de5#U5177#U7c7b/"
+           data-tag="android,libyuv"
+           data-author="" >
+            <span class="post-title" title="yuv-tool工具类">yuv-tool工具类</span>
+            <span class="post-date" title="2020-07-13 22:58:21">2020/07/13</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/18/ffmpegforandroid#U7f16#U8bd1/"
+           data-tag="ffmpeg"
+           data-author="" >
+            <span class="post-title" title="ffmpegforandroid编译">ffmpegforandroid编译</span>
+            <span class="post-date" title="2020-06-18 13:38:35">2020/06/18</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/11/libfaac#U7f16#U8bd1/"
+           data-tag="libfaac"
+           data-author="" >
+            <span class="post-title" title="libfaac编译">libfaac编译</span>
+            <span class="post-date" title="2020-06-11 14:00:57">2020/06/11</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/11/libx264#U7f16#U8bd1/"
+           data-tag="libx264"
+           data-author="" >
+            <span class="post-title" title="libx264编译">libx264编译</span>
+            <span class="post-date" title="2020-06-11 13:51:36">2020/06/11</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/06/10/RTMP#U89c4#U8303#U5b66#U4e60/"
+           data-tag="RTMP,直播"
+           data-author="" >
+            <span class="post-title" title="RTMP规范学习">RTMP规范学习</span>
+            <span class="post-date" title="2020-06-10 11:35:52">2020/06/10</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/06/01/React-Native#U70ed#U66f4#U65b0/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native热更新">React-Native热更新</span>
+            <span class="post-date" title="2020-06-01 16:03:28">2020/06/01</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2020/06/01/JavaWeb/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaWeb">JavaWeb</span>
+            <span class="post-date" title="2020-06-01 11:09:17">2020/06/01</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2020/05/26/JDBC/"
+           data-tag="java,数据库"
+           data-author="" >
+            <span class="post-title" title="JDBC">JDBC</span>
+            <span class="post-date" title="2020-05-26 16:23:01">2020/05/26</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2020/03/29/#U4e86#U89e3#U8de8#U57df/"
+           data-tag="后台,跨域"
+           data-author="" >
+            <span class="post-title" title="了解跨域">了解跨域</span>
+            <span class="post-date" title="2020-03-29 21:31:15">2020/03/29</span>
+        </a>
+        
+        <a  class="All JavaScript "
+           href="/2020/03/08/JavaScript#U8bed#U6cd5#Uff08#U4e00#Uff09/"
+           data-tag="javaScript"
+           data-author="" >
+            <span class="post-title" title="JavaScript语法（一）">JavaScript语法（一）</span>
+            <span class="post-date" title="2020-03-08 10:29:30">2020/03/08</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/03/06/React-native-#U9ad8#U5fb7#U5730#U56fe/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-native 高德地图">React-native 高德地图</span>
+            <span class="post-date" title="2020-03-06 10:07:45">2020/03/06</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/03/03/React-16-8-Hooks/"
+           data-tag="React"
+           data-author="" >
+            <span class="post-title" title="React 16.8 Hooks">React 16.8 Hooks</span>
+            <span class="post-date" title="2020-03-03 10:07:02">2020/03/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/01/06/React-Native#U539f#U751f#U901a#U4fe1/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native原生通信">React-Native原生通信</span>
+            <span class="post-date" title="2020-01-06 16:34:00">2020/01/06</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/27/React-Native#U539f#U7406#U6d45#U6790/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native原理浅析">React-Native原理浅析</span>
+            <span class="post-date" title="2019-12-27 15:32:08">2019/12/27</span>
+        </a>
+        
+        <a  class="All 正则表达式 "
+           href="/2019/12/18/#U6b63#U5219#U8868#U8fbe#U5f0f/"
+           data-tag="正则表达式"
+           data-author="" >
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2019-12-18 21:45:36">2019/12/18</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/05/React-Native-#U52a8#U753b/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native-动画">React-Native-动画</span>
+            <span class="post-date" title="2019-12-05 16:20:25">2019/12/05</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/03/React-#U81ea#U5b66#U4e4b#U8def#Uff08#U4e8c#Uff09/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="React-自学之路（二）">React-自学之路（二）</span>
+            <span class="post-date" title="2019-12-03 13:06:53">2019/12/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/03/React-#U81ea#U5b66#U4e4b#U8def#Uff08#U4e00#Uff09/"
+           data-tag="React"
+           data-author="" >
+            <span class="post-title" title="React-自学之路（一）">React-自学之路（一）</span>
+            <span class="post-date" title="2019-12-03 09:40:28">2019/12/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/10/12/React#U65b0#U7684#U751f#U547d#U5468#U671f/"
+           data-tag="react"
+           data-author="" >
+            <span class="post-title" title="React新的生命周期">React新的生命周期</span>
+            <span class="post-date" title="2019-10-12 15:41:02">2019/10/12</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2019/09/18/#U521b#U5efamaven#U9879#U76ee#U65f6#Uff0c#U51fa#U73b0Could-not-calculate-build-plan#U9519#U8bef/"
+           data-tag="springboot"
+           data-author="" >
+            <span class="post-title" title="创建maven项目时，出现Could not calculate build plan错误">创建maven项目时，出现Could not calculate build plan错误</span>
+            <span class="post-date" title="2019-09-18 09:25:06">2019/09/18</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2019/09/07/MySQL#U5e38#U7528#U6307#U4ee4/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="MySQL常用指令">MySQL常用指令</span>
+            <span class="post-date" title="2019-09-07 21:10:03">2019/09/07</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/07/05/RecycleView#Uff08#U4e00#Uff09/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="RecycleView（一）">RecycleView（一）</span>
+            <span class="post-date" title="2019-07-05 14:03:06">2019/07/05</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/25/Android#U52a8#U753b#Uff08#U4e09#Uff09/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（三）">Android动画（三）</span>
+            <span class="post-date" title="2019-06-25 14:15:26">2019/06/25</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/20/Android#U52a8#U753b#Uff08#U4e8c#Uff09/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（二）">Android动画（二）</span>
+            <span class="post-date" title="2019-06-20 15:10:00">2019/06/20</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/19/Android#U52a8#U753b#Uff08#U4e00#Uff09/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（一）">Android动画（一）</span>
+            <span class="post-date" title="2019-06-19 15:15:56">2019/06/19</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/18/Android#U81ea#U5b9a#U4e49#U63a7#U4ef6#Uff08#U4e8c#Uff09/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android自定义控件（二）">Android自定义控件（二）</span>
+            <span class="post-date" title="2019-06-18 13:43:11">2019/06/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/13/#U8d1d#U585e#U5c14#U66f2#U7ebf/"
+           data-tag="Android,贝塞尔曲线"
+           data-author="" >
+            <span class="post-title" title="贝塞尔曲线">贝塞尔曲线</span>
+            <span class="post-date" title="2019-06-13 10:14:25">2019/06/13</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/04/Java-Binder#U8fdb#U7a0b#U901a#U4fe1#U7406#U89e3/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Java Binder进程通信理解">Java Binder进程通信理解</span>
+            <span class="post-date" title="2019-06-04 14:01:43">2019/06/04</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/05/30/arm-neon-h#U6587#U4ef6#U529f#U80fd/"
+           data-tag="汇编"
+           data-author="" >
+            <span class="post-title" title="arm-neon.h文件功能">arm-neon.h文件功能</span>
+            <span class="post-date" title="2019-05-30 08:45:08">2019/05/30</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/05/06/Handler#U6d88#U606f#U673a#U5236/"
+           data-tag="android"
+           data-author="" >
+            <span class="post-title" title="Handler消息机制">Handler消息机制</span>
+            <span class="post-date" title="2019-05-06 14:09:45">2019/05/06</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/05/06/H264#U7f16#U7801-#U71b5#U7f16#U7801/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码-熵编码">H264编码-熵编码</span>
+            <span class="post-date" title="2019-05-06 13:42:57">2019/05/06</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/04/08/NDK#U5f00#U53d1#U95ee#U9898#U5408#U96c6/"
+           data-tag="NDK"
+           data-author="" >
+            <span class="post-title" title="NDK开发问题合集">NDK开发问题合集</span>
+            <span class="post-date" title="2019-04-08 10:53:30">2019/04/08</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/04/01/H264#U7f16#U7801#U57fa#U7840/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码基础">H264编码基础</span>
+            <span class="post-date" title="2019-04-01 09:26:11">2019/04/01</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/31/srs#U76f4#U64ad#U5e73#U53f0#U642d#U5efa/"
+           data-tag="直播,srs"
+           data-author="" >
+            <span class="post-title" title="srs直播平台搭建">srs直播平台搭建</span>
+            <span class="post-date" title="2019-03-31 10:37:42">2019/03/31</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/27/#U56fe#U7247RGB#U6570#U636e#U683c#U5f0f/"
+           data-tag="图片格式"
+           data-author="" >
+            <span class="post-title" title="图片RGB数据格式">图片RGB数据格式</span>
+            <span class="post-date" title="2019-03-27 22:24:49">2019/03/27</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/14/#U56fe#U7247YUV#U6570#U636e#U683c#U5f0f/"
+           data-tag="图片格式"
+           data-author="" >
+            <span class="post-title" title="图片YUV数据格式">图片YUV数据格式</span>
+            <span class="post-date" title="2019-03-14 11:10:16">2019/03/14</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2019/03/08/libjpeg-turbo#U7f16#U8bd1/"
+           data-tag="libjpeg-turbo"
+           data-author="" >
+            <span class="post-title" title="libjpeg-turbo编译">libjpeg-turbo编译</span>
+            <span class="post-date" title="2019-03-08 13:41:20">2019/03/08</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2019/03/07/libYUV#U7f16#U8bd1/"
+           data-tag="libyuv"
+           data-author="" >
+            <span class="post-title" title="libYUV编译">libYUV编译</span>
+            <span class="post-date" title="2019-03-07 15:05:11">2019/03/07</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/02/18/Android-camera#Uff08#U4e00#Uff09/"
+           data-tag="camera"
+           data-author="" >
+            <span class="post-title" title="Android camera（一）">Android camera（一）</span>
+            <span class="post-date" title="2019-02-18 15:03:27">2019/02/18</span>
+        </a>
+        
+        <a  class="All C/C++ "
+           href="/2019/01/23/Cpp#U57fa#U7840#Uff08#U4e00#Uff09/"
+           data-tag="Cpp"
+           data-author="" >
+            <span class="post-title" title="Cpp基础（一）">Cpp基础（一）</span>
+            <span class="post-date" title="2019-01-23 10:52:13">2019/01/23</span>
+        </a>
+        
+        <a  class="All C/C++ "
+           href="/2019/01/18/C#U57fa#U7840#Uff08#U4e00#Uff09/"
+           data-tag="C"
+           data-author="" >
+            <span class="post-title" title="C基础（一）">C基础（一）</span>
+            <span class="post-date" title="2019-01-18 14:08:23">2019/01/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/12/18/EasyPermission/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="EasyPermission">EasyPermission</span>
+            <span class="post-date" title="2018-12-18 13:20:30">2018/12/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/12/15/Android#U81ea#U5b9a#U4e49#U63a7#U4ef6#Uff08#U4e00#Uff09/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android自定义控件（一）">Android自定义控件（一）</span>
+            <span class="post-date" title="2018-12-15 21:44:34">2018/12/15</span>
+        </a>
+        
+        <a  class="All ssr "
+           href="/2018/12/10/Linux#U914d#U7f6eShadowSocks-R/"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux配置ShadowSocks-R">Linux配置ShadowSocks-R</span>
+            <span class="post-date" title="2018-12-10 15:58:52">2018/12/10</span>
+        </a>
+        
+        <a  class="All Android 热更新 "
+           href="/2018/10/29/Sophix#U70ed#U66f4#U65b0/"
+           data-tag="android,热更新"
+           data-author="" >
+            <span class="post-title" title="Sophix热更新">Sophix热更新</span>
+            <span class="post-date" title="2018-10-29 16:50:36">2018/10/29</span>
+        </a>
+        
+        <a  class="All Android 热更新 "
+           href="/2018/10/18/TinkerPatch#U70ed#U66f4#U65b0/"
+           data-tag="android,热更新"
+           data-author="" >
+            <span class="post-title" title="TinkerPatch热更新">TinkerPatch热更新</span>
+            <span class="post-date" title="2018-10-18 20:11:30">2018/10/18</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2018/06/21/React-native-flex#U5e03#U5c40/"
+           data-tag="react"
+           data-author="" >
+            <span class="post-title" title="React-native flex布局">React-native flex布局</span>
+            <span class="post-date" title="2018-06-21 16:22:47">2018/06/21</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/01/25/Android#U4e8b#U4ef6#U5206#U53d1/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android事件分发">Android事件分发</span>
+            <span class="post-date" title="2018-01-25 16:36:52">2018/01/25</span>
+        </a>
+        
+        <a  class="All Gradle "
+           href="/2018/01/25/Gradle#Uff08#U4e00#Uff09/"
+           data-tag="构建工具,Gradle"
+           data-author="" >
+            <span class="post-title" title="Gradle（一）">Gradle（一）</span>
+            <span class="post-date" title="2018-01-25 16:36:52">2018/01/25</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2017/11/24/firstBlod2/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git详细讲解(远程)">Git详细讲解(远程)</span>
+            <span class="post-date" title="2017-11-24 10:18:05">2017/11/24</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2017/10/19/firstBlod/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git详细讲解(本地)">Git详细讲解(本地)</span>
+            <span class="post-date" title="2017-10-19 21:49:28">2017/10/19</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-React-Native#U70ed#U66f4#U65b0" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">React-Native热更新</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="ReactNative">ReactNative</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color2">ReactNative</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2021-04-17 07:10:38'>2020-06-01 16:03</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                Comment:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%88%86%E7%B1%BB"><span class="toc-text">一、分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81CodePush"><span class="toc-text">二、CodePush</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Code-Push-Cli"><span class="toc-text">安装Code Push Cli</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B4%A6%E6%88%B7%E7%AE%A1%E7%90%86"><span class="toc-text">账户管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A4%E8%AF%81%E6%96%B9%E5%BC%8F"><span class="toc-text">认证方式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E5%AE%8C%E6%88%90%E5%90%8E%EF%BC%8C%E6%B3%A8%E5%86%8C%E9%80%9A%E8%BF%87"><span class="toc-text">安装完成后，注册通过</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E5%B7%B2%E7%BB%8F%E6%9C%89%E4%B8%80%E4%B8%AA%E5%B8%90%E6%88%B7%EF%BC%8C%E9%80%9A%E8%BF%87%E5%B0%86%E5%B8%90%E6%88%B7%E9%93%BE%E6%8E%A5%E5%88%B0%E5%8F%A6%E4%B8%80%E4%B8%AA%E8%BA%AB%E4%BB%BD%E6%8F%90%E4%BE%9B%E8%80%85"><span class="toc-text">如果已经有一个帐户，通过将帐户链接到另一个身份提供者</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E9%9C%80%E8%A6%81%E6%AD%A3%E5%B8%B8%E7%99%BB%E9%99%86%E5%88%99%E9%80%9A%E8%BF%87"><span class="toc-text">如果需要正常登陆则通过</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E6%82%A8%E6%83%B3%E7%A1%AE%E5%AE%9A%E8%87%AA%E5%B7%B1%E6%98%AF%E5%90%A6%E5%B7%B2%E7%BB%8F%E7%99%BB%E5%BD%95"><span class="toc-text">如果您想确定自己是否已经登录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%80%80%E5%87%BA%E7%99%BB%E9%99%86"><span class="toc-text">退出登陆</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E5%BF%98%E8%AE%B0%E4%BB%8E%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%B3%A8%E9%94%80%EF%BC%8C%E5%88%99%E4%B8%8D%E6%83%B3%E4%BF%9D%E7%95%99%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9A%84%E4%BC%9A%E8%AF%9D"><span class="toc-text">如果忘记从计算机注销，则不想保留正在运行的会话</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%86%E9%92%A5%E7%99%BB%E9%99%86"><span class="toc-text">密钥登陆</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%90%86%E6%94%AF%E6%8C%81"><span class="toc-text">代理支持</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E6%83%85%E5%86%B5%E4%B8%8B%EF%BC%8C%E8%AF%A5login%E5%91%BD%E4%BB%A4%E5%B0%86%E8%87%AA%E5%8A%A8%E6%9F%A5%E6%89%BE%E9%80%9A%E8%BF%87HTTPS-PROXY%E6%88%96HTTP-PROXY%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E6%8C%87%E5%AE%9A%E7%9A%84%E7%B3%BB%E7%BB%9F%E8%8C%83%E5%9B%B4%E7%9A%84%E4%BB%A3%E7%90%86%EF%BC%8C%E5%B9%B6%E4%BD%BF%E7%94%A8%E8%AF%A5%E4%BB%A3%E7%90%86%E8%BF%9E%E6%8E%A5%E5%88%B0CodePush%E6%9C%8D%E5%8A%A1%E5%99%A8%E3%80%82%E5%A6%82%E6%9E%9C%E6%82%A8%E6%83%B3%E7%A6%81%E7%94%A8%E6%AD%A4%E8%A1%8C%E4%B8%BA%EF%BC%8C%E5%B9%B6%E8%AE%A9CLI%E5%BB%BA%E7%AB%8B%E4%B8%8ECodePush%E7%9A%84%E7%9B%B4%E6%8E%A5%E8%BF%9E%E6%8E%A5%EF%BC%8C%E9%80%9A%E8%BF%87-noProxy%E5%AE%8C%E6%88%90%EF%BC%9A"><span class="toc-text">默认情况下，该login命令将自动查找通过HTTPS_PROXY或HTTP_PROXY环境变量指定的系统范围的代理，并使用该代理连接到CodePush服务器。如果您想禁用此行为，并让CLI建立与CodePush的直接连接，通过--noProxy完成：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%80%8C%E5%A6%82%E6%9E%9C%E4%B8%8D%E6%83%B3%E9%80%9A%E8%BF%87%E7%B3%BB%E7%BB%9F%E4%BB%A3%E7%90%86%EF%BC%8C%E8%80%8C%E6%8C%87%E5%AE%9A%E4%BB%A3%E7%90%86%E6%96%B9%E5%BC%8F%EF%BC%8C%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87-proxy%E5%AE%8C%E6%88%90%EF%BC%9A"><span class="toc-text">而如果不想通过系统代理，而指定代理方式，可以通过--proxy完成：</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E7%AE%A1%E7%90%86"><span class="toc-text">应用管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="toc-text">基本操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%A4%9A%E4%BA%BA%E7%AE%A1%E7%90%86"><span class="toc-text">应用多人管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%80%E6%9C%89%E6%9D%83%E8%BD%AC%E7%A7%BB"><span class="toc-text">所有权转移</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E7%AE%A1%E7%90%86"><span class="toc-text">部署管理</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%91%E5%B8%83%E6%9B%B4%E6%96%B0"><span class="toc-text">发布更新</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%91%E5%B8%83%E6%9B%B4%E6%96%B0-%E5%B8%B8%E8%A7%84"><span class="toc-text">发布更新(常规)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%91%E5%B8%83%E6%9B%B4%E6%96%B0-React-Native"><span class="toc-text">发布更新(React-Native)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%91%E5%B8%83%E6%9B%B4%E6%96%B0-Cordova"><span class="toc-text">发布更新(Cordova)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B0%83%E8%AF%95CodePush%E9%9B%86%E6%88%90"><span class="toc-text">调试CodePush集成</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%AE%E8%A1%A5%E6%9B%B4%E6%96%B0%E5%8F%82%E6%95%B0"><span class="toc-text">修补更新参数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%91%E5%B8%83%E6%9B%B4%E6%96%B0-1"><span class="toc-text">发布更新</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9E%E6%BB%9A%E6%9B%B4%E6%96%B0"><span class="toc-text">回滚更新</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%8F%91%E8%A1%8C%E8%AE%B0%E5%BD%95"><span class="toc-text">查看发行记录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B8%85%E9%99%A4%E5%8F%91%E5%B8%83%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95"><span class="toc-text">清除发布历史记录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%AD%BE%E5%90%8D"><span class="toc-text">代码签名</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%96%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-text">他是什么</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81"><span class="toc-text">为什么需要</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C"><span class="toc-text">如何工作</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81react-native-code-push"><span class="toc-text">三、react-native-code-push</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Android"><span class="toc-text">Android</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#npm-install-react-native-code-push-%E2%80%94save-OR-yarn-add-react-native-code-push"><span class="toc-text">npm install react-native-code-push —save OR yarn add react-native-code-push</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E9%85%8D%E7%BD%AE"><span class="toc-text">基本配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%93%E5%8C%85%EF%BC%88Android%E5%9F%BA%E7%A1%80%E5%8C%85%EF%BC%89"><span class="toc-text">打包（Android基础包）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%9B%B4%E6%96%B0-%E7%AE%80%E5%8D%95%E5%AE%9E%E4%BE%8B"><span class="toc-text">开启第一次更新(简单实例)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#code-push-release-react-%E8%BF%98%E6%98%AF-code-push-release"><span class="toc-text">code-push release-react 还是 code-push release ?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Android-API"><span class="toc-text">Android-API</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IOS"><span class="toc-text">IOS</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JS%E4%BB%A3%E7%A0%81"><span class="toc-text">JS代码</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81code-push-server"><span class="toc-text">四、code-push-server</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E5%BA%93"><span class="toc-text">下载库</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySql"><span class="toc-text">MySql</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E8%B7%AF%E5%BE%84"><span class="toc-text">修改数据存储路径</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-text">数据库初始化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E6%9C%8D%E5%8A%A1"><span class="toc-text">开启服务</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#code-push%E9%85%8D%E7%BD%AE"><span class="toc-text">code-push配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%99%BB%E9%99%86"><span class="toc-text">登陆</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E6%89%80%E6%9C%89%E5%B7%A5%E4%BD%9C%E9%83%BD%E4%BD%BF%E7%94%A8code-push%E5%AE%8C%E6%88%90"><span class="toc-text">其他所有工作都使用code-push完成</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#react-native%E9%85%8D%E7%BD%AE"><span class="toc-text">react-native配置</span></a>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、分类"><a href="#一、分类" class="headerlink" title="一、分类"></a>一、分类</h2><p>有两种选择方式：</p>
+<ul>
+<li>Pushy：官方热更新方案</li>
+<li>Code-Push：微软提供的热更新方案</li>
+</ul>
+<h2 id="二、CodePush"><a href="#二、CodePush" class="headerlink" title="二、CodePush"></a>二、CodePush</h2><p><a target="_blank" rel="noopener" href="https://www.npmjs.com/package/code-push-cli#debugging-codepush-integration">官方网址</a></p>
+<p>所有的操作最好都现在官方上过一遍，毕竟电脑配置，环境都会影响。</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h3 id="安装Code-Push-Cli"><a href="#安装Code-Push-Cli" class="headerlink" title="安装Code Push Cli"></a>安装<code>Code Push Cli</code></h3><p><code>npm install -g code-push-cli</code></p>
+<h1 id="账户管理"><a href="#账户管理" class="headerlink" title="账户管理"></a>账户管理</h1><h3 id="认证方式"><a href="#认证方式" class="headerlink" title="认证方式"></a>认证方式</h3><h5 id="安装完成后，注册通过"><a href="#安装完成后，注册通过" class="headerlink" title="安装完成后，注册通过"></a>安装完成后，注册通过</h5><p><code>code-push register</code></p>
+<blockquote>
+<p>他会打开浏览器进行注册/登陆功能，可以使用 github 、Microsoft进行第三方账户登陆。登陆成功后会生成一个访问密钥，将其复制到命令行后即可登陆验证操作。</p>
+</blockquote>
+<h5 id="如果已经有一个帐户，通过将帐户链接到另一个身份提供者"><a href="#如果已经有一个帐户，通过将帐户链接到另一个身份提供者" class="headerlink" title="如果已经有一个帐户，通过将帐户链接到另一个身份提供者"></a>如果已经有一个帐户，通过将帐户链接到另一个身份提供者</h5><p><code>code-push link</code></p>
+<h5 id="如果需要正常登陆则通过"><a href="#如果需要正常登陆则通过" class="headerlink" title="如果需要正常登陆则通过"></a>如果需要正常登陆则通过</h5><p><code>code-push login</code></p>
+<h5 id="如果您想确定自己是否已经登录"><a href="#如果您想确定自己是否已经登录" class="headerlink" title="如果您想确定自己是否已经登录"></a>如果您想确定自己是否已经登录</h5><p><code>code-push whoami</code></p>
+<blockquote>
+<p>他会返回当前账户注册的邮件</p>
+</blockquote>
+<h5 id="退出登陆"><a href="#退出登陆" class="headerlink" title="退出登陆"></a>退出登陆</h5><p><code>code-push logout</code></p>
+<h5 id="如果忘记从计算机注销，则不想保留正在运行的会话"><a href="#如果忘记从计算机注销，则不想保留正在运行的会话" class="headerlink" title="如果忘记从计算机注销，则不想保留正在运行的会话"></a>如果忘记从计算机注销，则不想保留正在运行的会话</h5><ul>
+<li>通过<a target="_blank" rel="noopener" href="https://appcenter.ms/settings/apitokens">移动中心网站</a></li>
+<li>通过Mobile Center CLI命令：<figure class="highlight maxima"><table><tr><td class="code"><pre><code class="hljs maxima">mobile-<span class="hljs-built_in">center</span> <span class="hljs-built_in">tokens</span> list<br>mobile-<span class="hljs-built_in">center</span> <span class="hljs-built_in">tokens</span> <span class="hljs-built_in">delete</span> &lt;machineName&gt;<br></code></pre></td></tr></table></figure>
+<h3 id="密钥登陆"><a href="#密钥登陆" class="headerlink" title="密钥登陆"></a>密钥登陆</h3>如果不想打开服务器进行验证登陆，则需要运行以下命令来创建“访问密钥”<br><code>code-push access-key add &quot;VSTS Integration&quot;</code></li>
+</ul>
+<p>创建新密钥后，可以使用命令的<code>--accessKey</code>标志指定其值，该标志login允许执行身份验证，而不是启动浏览器。<br><code>code-push login --accessKey &lt;accessKey&gt;</code></p>
+<blockquote>
+<p>通过这种方法登录时，访问密钥不会在注销时自动失效，并且可以在以后的会话中使用，直到将其从CodePush服务器中明确删除或到期为止。</p>
+</blockquote>
+<h3 id="代理支持"><a href="#代理支持" class="headerlink" title="代理支持"></a>代理支持</h3><h5 id="默认情况下，该login命令将自动查找通过HTTPS-PROXY或HTTP-PROXY环境变量指定的系统范围的代理，并使用该代理连接到CodePush服务器。如果您想禁用此行为，并让CLI建立与CodePush的直接连接，通过-noProxy完成："><a href="#默认情况下，该login命令将自动查找通过HTTPS-PROXY或HTTP-PROXY环境变量指定的系统范围的代理，并使用该代理连接到CodePush服务器。如果您想禁用此行为，并让CLI建立与CodePush的直接连接，通过-noProxy完成：" class="headerlink" title="默认情况下，该login命令将自动查找通过HTTPS_PROXY或HTTP_PROXY环境变量指定的系统范围的代理，并使用该代理连接到CodePush服务器。如果您想禁用此行为，并让CLI建立与CodePush的直接连接，通过--noProxy完成："></a>默认情况下，该login命令将自动查找通过HTTPS_PROXY或HTTP_PROXY环境变量指定的系统范围的代理，并使用该代理连接到CodePush服务器。如果您想禁用此行为，并让CLI建立与CodePush的直接连接，通过<code>--noProxy</code>完成：</h5><p><code>code-push login --noProxy</code></p>
+<h5 id="而如果不想通过系统代理，而指定代理方式，可以通过-proxy完成："><a href="#而如果不想通过系统代理，而指定代理方式，可以通过-proxy完成：" class="headerlink" title="而如果不想通过系统代理，而指定代理方式，可以通过--proxy完成："></a>而如果不想通过系统代理，而指定代理方式，可以通过<code>--proxy</code>完成：</h5><p><code>code-push login --proxy https://foo.com:3454</code></p>
+<blockquote>
+<p>所有通过代理参数完成的登陆，都会在登陆成功后保存的本地，可以无需再次键入代理，如果需要取消则需要重新启动并设置代理参数即可。通过 code-push whoami 可以查看当前的代理地址</p>
+</blockquote>
+<h1 id="应用管理"><a href="#应用管理" class="headerlink" title="应用管理"></a>应用管理</h1><h3 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h3><p>需要使用以下命令在CodePush服务中注册应用程序：<br><code>code-push app add &lt;appName&gt; &lt;os&gt; &lt;platform&gt;</code></p>
+<blockquote>
+<p>appName：用户软件在codepush下的名字<br>os：当前软件的系统环境<br>platform：js集成环境(<a target="_blank" rel="noopener" href="https://github.com/Microsoft/cordova-plugin-code-push">cordova</a>和<a target="_blank" rel="noopener" href="http://github.com/Microsoft/react-native-code-push">react-native</a>)</p>
+</blockquote>
+<p>举个栗子：<br>使用<code>-Android</code>和<code>-iOS</code>为命名约定，无需担心创建后的相关内容，因为后面可以查看细节部分。<br><figure class="highlight armasm"><table><tr><td class="code"><pre><code class="hljs armasm"><span class="hljs-symbol">code</span>-<span class="hljs-keyword">push</span> app <span class="hljs-keyword">add</span> MyApp-Android android cordova<br><span class="hljs-symbol">code</span>-<span class="hljs-keyword">push</span> app <span class="hljs-keyword">add</span> MyApp-iOS ios react-native<br></code></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意：对于iOS和Android使用相同的应用程序可能会导致安装异常，因为为iOS生成的CodePush更新程序包将具有与为Android生成的更新内容不同的内容。</p>
+</blockquote>
+<p>所有新应用程序都会自动带有两个部署环境（Staging和Production）可以开始使用它们通过各自的SDK(<a target="_blank" rel="noopener" href="https://github.com/Microsoft/cordova-plugin-code-push">cordova</a>和<a target="_blank" rel="noopener" href="http://github.com/Microsoft/react-native-code-push">react-native</a>)进行配置。</p>
+<p>如果决定不喜欢为应用程序提供的名称，则可以使用以下命令随时对其进行重命名：<br><code>code-push app rename &lt;appName&gt; &lt;newAppName&gt;</code></p>
+<p>如果有时不再需要某个应用程序，则可以使用以下命令将其从服务器中删除：<br><code>code-push app rm &lt;appName&gt;</code></p>
+<p>如果要列出已在CodePush服务器上注册的所有应用程序，则可以运行以下命令：<br><code>code-push app ls</code></p>
+<h3 id="应用多人管理"><a href="#应用多人管理" class="headerlink" title="应用多人管理"></a>应用多人管理</h3><p>如果要在同一CodePush应用程序上与其他开发人员一起工作，则可以使用以下命令将他们添加为协作者：<br><code>code-push collaborator add &lt;appName&gt; &lt;collaboratorEmail&gt;</code></p>
+<blockquote>
+<p>appName：协作者可以查看的app名称<br>collaboratorEmail：协作者邮箱</p>
+</blockquote>
+<p>添加后，所有协作者将立即对新共享的应用程序具有以下权限：</p>
+<blockquote>
+<p>1.查看该应用程序，其协作者，部署和发布历史记录<br>2.发布对任何应用程序部署的更新<br>3.促进任何应用程序部署之间的更新<br>4.回滚任何应用程序的部署<br>5.修补任何应用程序部署中的所有版本</p>
+</blockquote>
+<p>相反，这意味着应用程序协作者不能执行以下任何操作：</p>
+<blockquote>
+<p>1.重命名或删除应用<br>2.在应用程序中创建，重命名或删除新的部署<br>3.清除部署的发布历史记录<br>4.在应用中添加或删除协作者</p>
+</blockquote>
+<p>如果某人不再与您一起处理应用程序，则可以使用以下命令将其作为协作者删除：<br><code>code-push collaborator rm &lt;appName&gt; &lt;collaboratorEmail&gt;</code></p>
+<p>如果您想随时列出已添加到应用程序中的所有协作者，则只需运行以下命令：<br><code>code-push collaborator ls &lt;appName&gt;</code></p>
+<h3 id="所有权转移"><a href="#所有权转移" class="headerlink" title="所有权转移"></a>所有权转移</h3><p><strong><em>在版本2.0.0.0的更新中，删除了该app transfer命令。</em></strong>这要求访问<a target="_blank" rel="noopener" href="https://mobile.azure.com/">Mobile Center</a>并执行一些步骤。</p>
+<blockquote>
+<p>1.转到<a target="_blank" rel="noopener" href="https://mobile.azure.com并创建一个新组织。">https://mobile.azure.com并创建一个新组织。</a><br>2.邀请希望将应用程序转移到组织的人。他们接受邀请后，将其访问权限更改为“管理员”。<br>3.导航到自己的应用程序，然后单击“管理应用程序”按钮（在该应用程序的“入门”页面上，在右上角）。点击那里的转移按钮，将应用转移到组织。请注意，尽管将来会更改此操作，但当前无法撤消该操作。<br>4.受邀者接受后，选择创建的组织并从中删除自己。</p>
+</blockquote>
+<h3 id="部署管理"><a href="#部署管理" class="headerlink" title="部署管理"></a>部署管理</h3><p>虽然每个App有对应的平台，但是对于 CodePush 而言，只是一个分组而已。他会帮助开发人员完成从测试、QA、过度环境，完成最后的生产环境。</p>
+<blockquote>
+<p>注意：将看到下面的release，promote并rollback命令是需要应用程序的名称，并以工作部署名称，因为它是唯一标识分布点两者的组合（例如我要发布的更新将我的iOS应用发送给Beta测试人员）。</p>
+</blockquote>
+<p>每当使用CLI注册应用程序时，默认情况下，CodePush服务都会包括两个部署：Staging(过度环境)和Production(生产环境)。如果这两个环境无法满足测试过程，可以使用：<br><code>code-push deployment add &lt;appName&gt; &lt;deploymentName&gt;</code></p>
+<blockquote>
+<p>appName：应用名称<br>deploymentName：部署环境名称</p>
+</blockquote>
+<p>与应用程序一样，您也可以分别使用以下命令来删除和重命名部署：<br><figure class="highlight vim"><table><tr><td class="code"><pre><code class="hljs vim">code-push deployment rm <span class="hljs-symbol">&lt;appName&gt;</span> <span class="hljs-symbol">&lt;deploymentName&gt;</span><br>code-push deployment <span class="hljs-built_in">rename</span> <span class="hljs-symbol">&lt;appName&gt;</span> <span class="hljs-symbol">&lt;deploymentName&gt;</span> <span class="hljs-symbol">&lt;newDeploymentName&gt;</span><br></code></pre></td></tr></table></figure></p>
+<p>查看指定App下的部署列表详情：<br><code>code-push deployment ls &lt;appName&gt; [--displayKeys|-k]</code><br>查看详情包括：</p>
+<blockquote>
+<p>1.部署环境名称列表，软件名称等基本信息<br>2.部署环境相应的密钥(需要加上 -k 参数)<br>3.更新内容表述，版本号，是否强制下发，下发时间<br>4.active：当前正在运行此版本的成功安装次数。该指标显示了活跃用户的总数以及代表的总受众人数的百分比。<br>5.total：此更新获得的成功安装的总数。<br>6.pending：已下载但尚未安装此版本的次数<br>7.rollbacks：此版本已在客户端上自动回滚的次数。如果在安装过程中发布了包含崩溃的更新，则CodePush插件会将最终用户回滚到以前的版本，并将该问题报告给服务器。<br>8.rollout：表示有资格接收此更新的用户百分比。<br>9.disabled：指示该版本是否已标记为已禁用，因此最终用户可以下载该版本。仅对于实际禁用的版本显示此属性。</p>
+</blockquote>
+<h1 id="发布更新"><a href="#发布更新" class="headerlink" title="发布更新"></a>发布更新</h1><p>在完成上述配置后并下发软件下载包，即可开始发布更新。CodePush CLI包括三个用于发布更新的不同命令：</p>
+<ul>
+<li>常规：将由外部工具或构建脚本生成的更新发布到CodePush服务器。在适应现有工作流程方面提供了最大的灵活性。</li>
+<li>react-native：执行与常规release命令相同的功能，但还处理生成更新的应用程序内容（JS包和资产）的任务。无需多个指令。</li>
+<li>cordova：同react-native类似效果。</li>
+</ul>
+<p><strong><em>注意：客户端只能发现和下载部署中的50个最新版本。</em></strong></p>
+<h3 id="发布更新-常规"><a href="#发布更新-常规" class="headerlink" title="发布更新(常规)"></a>发布更新(常规)</h3><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml">code-push release <span class="hljs-tag">&lt;<span class="hljs-name">appName</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">updateContents</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">targetBinaryVersion</span>&gt;</span><br>[--deploymentName <span class="hljs-tag">&lt;<span class="hljs-name">deploymentName</span>&gt;</span>]<br>[--description <span class="hljs-tag">&lt;<span class="hljs-name">description</span>&gt;</span>]<br>[--disabled <span class="hljs-tag">&lt;<span class="hljs-name">disabled</span>&gt;</span>]<br>[--mandatory]<br>[--noDuplicateReleaseError]<br>[--rollout <span class="hljs-tag">&lt;<span class="hljs-name">rolloutPercentage</span>&gt;</span>]<br>[--privateKeyPath <span class="hljs-tag">&lt;<span class="hljs-name">pathToPrivateKey</span>&gt;</span>]<br></code></pre></td></tr></table></figure>
+<ul>
+<li>appName<br>  这指定了要为其发布此更新的CodePush应用的名称。</li>
+<li><p>updateContents<br>  这指定了要发布的更新的应用程序代码和资源的位置。可以指定js文件或者目录，但是不要需要对他们压缩，因为codepush会自己完成。<br>  重要的是，您指定的路径是指特定于平台的应用程序的预准备/捆绑版本。<br>  平台|准备命令|包路径（相对于项目根）<br>  -|-|-<br>  Cordova（Android）|cordova prepare android|对于cordova-android版本7和更高版本：./platforms/android/app/src/main/assets/www目录；对于cordova-android版本6和更早版本：./platforms/android/assets/www目录；<br>  Cordova（iOS）|cordova prepare ios|./platforms/ios/www 目录<br>  React Native wo / assets（Android）|react-native bundle --platform android --entry-file &lt;entryFile&gt; --bundle-output &lt;bundleOutput&gt; --dev false|--bundle-output期权的价值<br>  React Native w / assets（Android）|react-native bundle --platform android --entry-file &lt;entryFile&gt; --bundle-output &lt;releaseFolder&gt;/&lt;bundleOutput&gt; --assets-dest &lt;releaseFolder&gt; --dev false|--assets-dest选项的值，应代表包含您的资产和JS捆绑包的新创建的目录<br>  React Native wo / assets（iOS）|react-native bundle --platform ios --entry-file &lt;entryFile&gt; --bundle-output &lt;bundleOutput&gt; --dev false|--bundle-output期权的价值<br>  React Native w / assets（iOS）|react-native bundle --platform ios --entry-file &lt;entryFile&gt; --bundle-output &lt;releaseFolder&gt;/&lt;bundleOutput&gt; --assets-dest &lt;releaseFolder&gt; --dev false|--assets-dest选项的值，应代表包含您的资产和JS捆绑包的新创建的目录</p>
+</li>
+<li><p>targetBinaryVersion<br>  这指定了要为其发布更新的应用程序的存储//二进制版本，以便只有运行该版本的用户才能收到更新，而运行较旧和/或较新版本的应用程序二进制文件的用户则不会。出于以下原因，这很有用：</p>
+<blockquote>
+<p>如果用户运行的是较旧的二进制版本，则CodePush更新中的重大更改可能与他们所运行的版本不兼容。<br>如果用户正在运行较新的二进制版本，则假定他们正在运行的版本与CodePush更新较新（并且可能不兼容）。<br>  如果希望通过更新来定位应用商店二进制文件的多个版本，我们还允许您将参数指定为<a target="_blank" rel="noopener" href="https://github.com/npm/node-semver#advanced-range-syntax">semver range表达式</a>。这样，任何运行满足范围表达式（即semver.satisfies(version, range)return true）的二进制版本的客户端设备都将获得更新。有效的semver范围表达式的示例如下：<br>  范围表达|谁得到更新<br>  -|-<br>  1.2.3|仅运行特定二进制应用程序商店版本1.2.3的设备<br>  *|任何配置为使用CodePush应用程序更新的设备<br>  1.2.x|运行主要版本1，次要版本2和应用程序的任何修补程序版本的设备<br>  1.2.3 - 1.2.7|在1.2.3（包括）和1.2.7（包括）之间运行任何二进制版本的设备<br>  &gt;=1.2.3 &lt;1.2.7|运行介于1.2.3（包含）和1.2.7（包含）之间的任何二进制版本的设备<br>  1.2|相当于 &gt;=1.2.0 &lt;1.3.0<br>  ~1.2.3|相当于 &gt;=1.2.3 &lt;1.3.0<br>  ^1.2.3|相当于 &gt;=1.2.3 &lt;2.0.0<br>注意：如果您的semver表达了特殊的shell字符或运营商，如启动&gt;，^或** ，该命令可能不正确，如果你不用引号括作为外壳将不提供正确的价值观对我们的CLI值执行处理。因此，最好targetBinaryVersion在调用release命令时将参数用双引号引起来，例如code-push release MyApp-iOS updateContents “&gt;1.2.3”。<br>  下表概述了CodePush希望更新的版本范围可以满足每种应用类型的版本值：<br>  平台|应用商店版本的来源<br>  -|-<br>  科尔多瓦|文件中的&lt;widget version&gt;属性config.xml<br>  React Native（Android）|文件中的android.defaultConfig.versionName属性build.gradle<br>  React Native（iOS）|文件中的CFBundleShortVersionString密钥Info.plist<br>  React Native（Windows）|文件中的&lt;Identity Version&gt;密钥Package.appxmanifest<br>  如果用户正在运行较新的二进制版本，则假定他们正在运行的版本与CodePush更新较新（并且可能不兼容）。</p>
+</blockquote>
+</li>
+<li><p>deploymentName<br>  这指定要将更新发布到哪个部署。默认值为Staging，但是准备部署到Production或自定义部署之一时，只需显式设置此参数即可。<br>  <strong><em>注意：可以使用“ —deploymentName”或“ -d”来设置参数。</em></strong></p>
+</li>
+<li><p>description<br>  这为部署提供了一个可选的“更改日志”。该值只是往返于客户端，以便在检测到更新时，应用可以选择将其显示给最终用户（例如，通过“新功能”对话框）。该字符串接受诸如\n和的控制字符，\t因此可以在描述中包括空格格式，以提高可读性。<br>  <strong><em>注意：可以使用“ —description”或“ —des”设置此参数</em></strong></p>
+</li>
+<li><p>disabled<br>  这指定更新是否应由最终用户下载。如果未指定，则不会禁用该更新。如果您要发布一个无法立即获得的更新，则此参数非常有用，直到您希望最终用户能够下载该更新。<br>  <strong><em>注意：可以使用“ —disabled”或“ -x”设置此参数</em></strong></p>
+</li>
+<li><p>mandatory<br>  这指定是否应将更新视为强制性更新（例如，该更新包含重要的安全修复程序）。<br>  例如，假设您对应用发布了以下三个更新：<br>  Release|Mandatory\?<br>  v1|No<br>  v2|Yes<br>  v3|No</p>
+<blockquote>
+<p>如果最终用户当前正在运行v1，并且他们查询服务器以获取更新，它将以v3（因为这是最新的）响应，但是由于在两者之间发布了强制更新，因此它将动态地将发布转换为强制更新。<br>如果最终用户当前正在运行v2，并且他们查询服务器以获取更新，它将以响应v3，但将发行版保留为可选。<br>  <strong><em>注意：可以使用—mandatory或设置此参数。-m</em></strong></p>
+</blockquote>
+</li>
+<li><p>noDuplicateReleaseError<br>  这指定如果更新与部署中的最新版本相同，则CLI应该生成警告而不是错误。</p>
+</li>
+<li><p>rolloutPercentage<br>  该参数指定应有资格接收此更新的用户百分比（为1和之间的整数100）。如果您想让一部分受众（例如25％）“发布”新版本，并获得反馈和/或注意异常/崩溃，这可能会有所帮助，然后再将其广泛提供给所有人。如果未设置此参数，则将其设置为100%。<br>  利用推出功能时，需要牢记一些其他注意事项：</p>
+<blockquote>
+<p>1.不能将最新更新发布到其最新发布为“Active”发布（即，其发布属性为非null）的部署中。必须先完成部署（即，将该rollout属性设置为100），然后才能发布对部署的进一步更新。即必须<br>2.如果回滚最新版本为“active”的部署，则将清除回滚值，从而有效地“暂停”回滚行为。<br>3.与mandatory和description字段不同，当需要将发布从一个部署升级到另一个部署时，它不会传播该rollout属性，因此，如果希望新发布（在目标部署中）具有部署值，则需要显式设置它当您调用promote命令时。<br>  <strong><em>注意：为了使此参数真正生效，您的最终用户需要运行CodePush插件的版本1.6.0-beta+（对于Cordova）或1.9.0-beta+（对于React Native）。如果发布的更新指定了rollout属性，则运行较旧版本的Cordova或React Native插件的最终用户将无资格获得此更新。因此，在您采用必要版本的特定于平台的CodePush插件之前（如前所述），我们建议您不要在发行版中设置推广值，因为没有人最终会收到它。</em></strong><br>  <strong><em>注意：可以使用—rollout或设置此参数。-r</em></strong></p>
+</blockquote>
+</li>
+<li><p>pathToPrevatekey<br>  此参数指定用于生成更新签名的私钥文件的路径。如果省略了私钥路径参数，则将忽略代码推送插件中的签名验证。<br>  <strong><em>注意：仅Android和iOS平台上的React Native应用程序支持此选项。</em></strong></p>
+</li>
+</ul>
+<h3 id="发布更新-React-Native"><a href="#发布更新-React-Native" class="headerlink" title="发布更新(React-Native)"></a>发布更新(React-Native)</h3><figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">code</span>-push release-react &lt;appName&gt; &lt;platform&gt;<br><span class="hljs-selector-attr">[--bundleName &lt;bundleName&gt;]</span><br><span class="hljs-selector-attr">[--deploymentName &lt;deploymentName&gt;]</span><br><span class="hljs-selector-attr">[--description &lt;description&gt;]</span><br><span class="hljs-selector-attr">[--development &lt;development&gt;]</span><br><span class="hljs-selector-attr">[--disabled &lt;disabled&gt;]</span><br><span class="hljs-selector-attr">[--entryFile &lt;entryFile&gt;]</span><br><span class="hljs-selector-attr">[--gradleFile &lt;gradleFile&gt;]</span><br><span class="hljs-selector-attr">[--mandatory]</span><br><span class="hljs-selector-attr">[--noDuplicateReleaseError]</span><br><span class="hljs-selector-attr">[--outputDir &lt;outputDir&gt;]</span><br><span class="hljs-selector-attr">[--plistFile &lt;plistFile&gt;]</span><br><span class="hljs-selector-attr">[--plistFilePrefix &lt;plistFilePrefix&gt;]</span><br><span class="hljs-selector-attr">[--sourcemapOutput &lt;sourcemapOutput&gt;]</span><br><span class="hljs-selector-attr">[--targetBinaryVersion &lt;targetBinaryVersion&gt;]</span><br><span class="hljs-selector-attr">[--rollout &lt;rolloutPercentage&gt;]</span><br><span class="hljs-selector-attr">[--privateKeyPath &lt;pathToPrivateKey&gt;]</span><br><span class="hljs-selector-attr">[--config &lt;config&gt;]</span><br></code></pre></td></tr></table></figure>
+<p>简化了释放通过执行以下附加行为更新的过程：</p>
+<blockquote>
+<p>1.运行react-native bundle命令以生成将被发布到CodePush服务器的更新内容（JS包和资源）。它尽可能使用明智的默认值（例如，假设iOS入口文件命名为index.ios.js，创建非开发版本），而且还公开相关react-native bundle参数以实现灵活性（例如—sourcemapOutput）。<br>2.targetBinaryVersion通过使用项目Info.plist（对于iOS）和build.gradle（对于Android）文件中指定的版本名称来推断此发行版。</p>
+</blockquote>
+<p>举个例子：<br>一般发布需要打包和发布两个操作：<br><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-string">//</span> 打包<br>react-native bundle <span class="hljs-params">--platform</span> ios \<br><span class="hljs-params">--entry-file</span> index.ios.js \<br><span class="hljs-params">--bundle-output</span> <span class="hljs-string">./CodePush/main.jsbundle</span> \<br><span class="hljs-params">--assets-dest</span> <span class="hljs-string">./CodePush</span> \<br><span class="hljs-params">--dev</span> <span class="hljs-literal">false</span><br><span class="hljs-string">//</span> 发布<br>code-push release MyApp-iOS <span class="hljs-string">./CodePush</span> 1.0.0<br></code></pre></td></tr></table></figure><br>使用此命令可以一步完成：<br><figure class="highlight gauss"><table><tr><td class="code"><pre><code class="hljs gauss"><span class="hljs-built_in">code</span>-<span class="hljs-keyword">push</span> release-react MyApp-iOS ios<br></code></pre></td></tr></table></figure></p>
+<ul>
+<li><p>appName<br>  同上</p>
+</li>
+<li><p>platform<br>  这指定了当前更新所定位的平台，并且可以是android，ios或windows（不区分大小写）。该值仅用于确定如何正确捆绑更新内容，而实际上并未发送到服务器。</p>
+</li>
+<li><p>bundleName<br>  这指定了应用于生成的JS包的文件名。如果未指定，则标准捆绑包名称将用于指定的平台：main.jsbundle（iOS），index.android.bundle（Android）和index.windows.bundle（Windows）。<br>  <strong><em>注意：可以使用—bundleName或-b设置此参数</em></strong></p>
+</li>
+<li><p>updateContents<br>  同上</p>
+</li>
+<li><p>targetBinaryVersion<br>  同上</p>
+</li>
+<li><p>deploymentName<br>  同上</p>
+</li>
+<li><p>description<br>  同上</p>
+</li>
+<li><p>development<br>  这指定是否生成未缩小的开发JS包。如果未指定，则默认为false禁用警告并缩小包的位置。<br>  <strong><em>注意：可以使用—development或—dev设置此参数</em></strong></p>
+</li>
+<li><p>disabled<br>  同上</p>
+</li>
+<li><p>entryFile<br>  这指定了应用程序的根/条目JavaScript文件的相对路径。如果未指定，则默认为index.ios.js（对于iOS）， index.android.js（对于Android）或index.windows.bundle（对于Windows）（如果该文件存在）<br>  <strong><em>注意：可以使用—entryFile或-e设置此参数</em></strong></p>
+</li>
+<li><p>gradleFile(仅适用于Android)<br>  这指定了build.gradle在尝试自动检测发行版的目标二进制版本时CLI应该使用的文件的相对路径。此参数仅适用于高级方案，因为CLI可以自动build.grade在“标准” React Native项目中找到您的文件。但是，如果gradle文件位于CLI找不到的任意位置，则使用此参数可以使您继续释放CodePush更新，而无需显式设置<code>--targetBinaryVersion</code>参数。由于build.gradle是必需的文件名，因此指定包含文件夹的路径或文件本身的完整路径都将达到相同的效果。</p>
+</li>
+<li><p>plistFile(仅适用于IOS)<br>  这指定了Info.plist在尝试自动检测发行版的目标二进制版本时CLI应该使用的文件的相对路径。该参数仅适用于高级方案，因为CLI可以自动Info.plist在“标准” React Native项目中找到您的文件，并且您可以使用该<code>--plistFilePrefix</code>参数来支持每个环境的plist文件（例如STAGING-Info.plist）。但是，如果您的plist位于CLI找不到的任意位置，则使用此参数可以使您继续释放CodePush更新，而无需显式设置<code>--targetBinaryVersion</code>参数。<br>  <strong><em>注意：可以使用—plistFile或-p设置此参数</em></strong></p>
+</li>
+<li><p>plistFilePrefix(仅适用于IOS)<br>  这指定了Info.plistCLI在尝试自动检测发行版的目标二进制版本时应使用的文件的文件名前缀。如果你已经创建了每个环境的plist文件（例如，这可能是有用的DEV-Info.plist，STAGING-Info.plist），并且希望能够释放CodePush更新，而无需显式设置的—targetBinaryVersion参数。通过指定 —plistFilePrefx，CLI将在以下位置查找一个名为的文件&lt;prefix&gt;-Info.plist，而不是简单的文件名Info.plist（这是默认行为）：./ios和./ios/&lt;appName&gt;。如果您的plist文件不在这两个目录中（例如，您的应用程序是具有嵌入式RN视图的本机iOS应用程序），或者使用了完全不同的文件命名约定，请考虑使用—plistFile参数。<br>  <strong><em>注意：可以使用—plistFilePrefix或—pre设置此参数</em></strong></p>
+</li>
+<li><p>sourcemapOutput<br>  这指定了将生成的JS包的源映射文件写入的相对路径。如果未指定，将不会生成源映射。<br>  <strong><em>注意：可以使用—sourcemapOutput或-s设置此参数</em></strong></p>
+</li>
+<li><p>outputDir<br>  这指定资源，JS捆绑包和源地图文件应写入的相对路径。如果未指定，则资源，JS捆绑包和源地图将被复制到该/tmp/CodePush文件夹中。<br>  <strong><em>注意：复制之前，指定文件夹中的所有内容将被删除</em></strong><br>  <strong><em>注意：可以使用—outputDir或-o设置此参数</em></strong></p>
+</li>
+<li><p>mandatory<br>  同上</p>
+</li>
+<li><p>noDuplicateReleaseError<br>  同上</p>
+</li>
+<li><p>rolloutPercentage<br>  同上</p>
+</li>
+<li><p>pathToPrevatekey<br>  同上</p>
+</li>
+</ul>
+<h3 id="发布更新-Cordova"><a href="#发布更新-Cordova" class="headerlink" title="发布更新(Cordova)"></a>发布更新(Cordova)</h3><p>略…</p>
+<h1 id="调试CodePush集成"><a href="#调试CodePush集成" class="headerlink" title="调试CodePush集成"></a>调试CodePush集成</h1><p>为了调试CodePush更新发现体验，可以运行以下命令，以便在应用程序中轻松查看CodePush插件生成的诊断日志：<br><code>code-push debug &lt;platform&gt;</code><br><strong><em>注意：该命令无法调试ios真机</em></strong></p>
+<h1 id="修补更新参数"><a href="#修补更新参数" class="headerlink" title="修补更新参数"></a>修补更新参数</h1><p>发布更新后，在某些情况下，需要修改与之关联的一个或多个数据属性（例如，忘记将关键的错误修复标记为强制性的，希望增加更新的发布百分比）。可以通过运行以下命令轻松地执行此操作：<br><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml">code-push patch <span class="hljs-tag">&lt;<span class="hljs-name">appName</span>&gt;</span> <span class="hljs-tag">&lt;<span class="hljs-name">deploymentName</span>&gt;</span><br>[--label <span class="hljs-tag">&lt;<span class="hljs-name">releaseLabel</span>&gt;</span>]<br>[--mandatory <span class="hljs-tag">&lt;<span class="hljs-name">isMandatory</span>&gt;</span>]<br>[--description <span class="hljs-tag">&lt;<span class="hljs-name">description</span>&gt;</span>]<br>[--rollout <span class="hljs-tag">&lt;<span class="hljs-name">rolloutPercentage</span>&gt;</span>]<br>[--disabled <span class="hljs-tag">&lt;<span class="hljs-name">isDisabled</span>&gt;</span>]<br>[--targetBinaryVersion <span class="hljs-tag">&lt;<span class="hljs-name">targetBinaryVersion</span>&gt;</span>]<br></code></pre></td></tr></table></figure><br><strong><em>注意：此命令不允许修改发行版的实际更新内容，除了appName和deploymentName，其他都是可选参数</em></strong></p>
+<ul>
+<li><p>releaseLabel<br>  用于指定在哪个版本上进行更新。如果省略，则请求的更改将应用于指定部署中的最新版本。<br>  为了查找要更新的发行版的标签，您可以运行下面命令查看当前版本列表<br>  <code>code-push deployment history</code><br>  <strong><em>注意：可以使用—label或设置此参数。-l</em></strong></p>
+</li>
+<li><p>isMandatory<br>  仅允许更新是否应将发行版视为强制发行。<br>  <strong><em>注意：请注意，—mandatory和—mandatory true是等效的；而省略则是忽略，而不是—mandatory false。</em></strong></p>
+</li>
+<li><p>description</p>
+<pre><code>  仅允许更新与发行版关联的描述（例如，在发行时输入了错字，或者根本没有添加描述）。如果省略此参数，则不会更改目标版本的description属性的值。
+</code></pre></li>
+<li>rolloutPercentage<br>  仅允许您增加目标发行版的推出百分比。只能将此参数设置为一个值，该值大于当前推出的值。</li>
+<li><p>isDisabled<br>  仅允许您更新是否应禁用发行版。<br>  <strong><em>注意：请注意，—disabled和—disabled true是等效的；而省略则是忽略，而不是—disabled false。</em></strong></p>
+</li>
+<li><p>targetBinaryVersion<br>  仅允许更新semver范围，该范围指示发行版与哪个二进制版本兼容。如果在最初发布更新时犯了一个错误（例如，指定1.0.0但表示1.1.0），或者想增加或减少该版本支持的版本范围（例如，发现某个发布根本无法使用1.1.2），这将非常有用。。如果忽略此参数，则不会更改目标发行版的version属性的值。</p>
+</li>
+</ul>
+<h1 id="发布更新-1"><a href="#发布更新-1" class="headerlink" title="发布更新"></a>发布更新</h1><p>一旦针对特定的部署（例如Staging）测试了更新，并希望将其“下游”升级（例如dev-&gt; staging，staging-&gt; production），则只需使用以下命令从一个版本复制发布部署到另一个：<br><figure class="highlight css"><table><tr><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">code</span>-push promote &lt;appName&gt; &lt;sourceDeploymentName&gt; &lt;destDeploymentName&gt;<br><span class="hljs-selector-attr">[--description &lt;description&gt;]</span><br><span class="hljs-selector-attr">[--label &lt;label&gt;]</span><br><span class="hljs-selector-attr">[--disabled &lt;disabled&gt;]</span><br><span class="hljs-selector-attr">[--mandatory]</span><br><span class="hljs-selector-attr">[--noDuplicateReleaseError]</span><br><span class="hljs-selector-attr">[--rollout &lt;rolloutPercentage&gt;]</span><br><span class="hljs-selector-attr">[--targetBinaryVersion &lt;targetBinaryVersion]</span><br></code></pre></td></tr></table></figure><br>该promote命令将为目标部署创建一个新版本，其中包括源部署的最新版本中的确切代码和元数据（描述，强制性版本和目标二进制版本）。尽管可以使用release命令“手动”将更新从一个环境迁移到另一个环境，但该promote命令具有以下优点：</p>
+<blockquote>
+<p>1.速度更快，因为不需要重组要发布的发行资产，也不需要记住与源部署的发行版关联的描述/应用商店版本。<br>2.由于提升操作可确保已在源部署（例如Staging）中测试的确切内容在目标部署（例如Production）中变为活动状态，因此它不那么容易出错。</p>
+</blockquote>
+<ul>
+<li><p>descriptin<br>  同上，仅允许您覆盖将用于升级版本的描述。</p>
+</li>
+<li><p>label<br>  使用此可选参数，可以从源部署中选择指定的标签，并将其升级到目标部署。如果未指定，则将升级源部署上的最新版本。</p>
+</li>
+<li><p>disabled<br>  同上，仅允许您覆盖将用于升级版本的Disabled标志的值。如果未指定，则新版本将继承要升级的版本的disabled属性。</p>
+</li>
+<li><p>mandatory<br>  同上，仅允许您覆盖将用于升级版本的强制性标志。如果未指定，则新版本将继承要升级的版本的必需属性。</p>
+</li>
+<li><p>noDuplicateReleaseError<br>  同上</p>
+</li>
+<li><p>rolloutPercentage<br>  同上，并允许指定是否仅将新创建的发行版提供给部分用户。与其他发布元数据参数（例如description）不同，rollout发布的不会作为升级的一部分进行继承/继承，因此，如果不希望新创建的发布可用于所有人，则需要显式设置此设置。</p>
+</li>
+<li><p>targetBinaryVersion<br>  同上，仅允许覆盖将用于升级版本的目标二进制版本。如果未指定，则新版本将继承要升级的版本的目标二进制版本属性。</p>
+</li>
+</ul>
+<h1 id="回滚更新"><a href="#回滚更新" class="headerlink" title="回滚更新"></a>回滚更新</h1><p>部署的发布历史记录是不可变的，因此一旦发布了单个更新，便不能删除或删除它们，而又不能删除所有部署的发布历史记录。但是，如果发布的更新已损坏或包含意外功能，则可以使用以下rollback命令轻松将其回滚：<br><figure class="highlight gauss"><table><tr><td class="code"><pre><code class="hljs gauss"><span class="hljs-built_in">code</span>-<span class="hljs-keyword">push</span> rollback &lt;appName&gt; &lt;deploymentName&gt;<br><span class="hljs-built_in">code</span>-<span class="hljs-keyword">push</span> rollback MyApp-iOS Production<br></code></pre></td></tr></table></figure><br>这具有为部署创建一个新版本的作用，该版本包括与最新版本完全相同的代码和元数据。例如，假设向应用发布了以下更新：<br>Release|描述|Mandatory<br>-|-|-<br>v1|初版本|Yes<br>v2|新增功能|No<br>v3|修复bug|Yes</p>
+<p>如果rollback在该部署上运行该命令，v4则将创建一个包含v2发行版内容的新发行版<br>Release|描述|Mandatory<br>-|-|-<br>v1|初版本|Yes<br>v2|新增功能|No<br>v3|修复bug|Yes<br>v4（从v3还原到v2）|新增功能|没有</p>
+<blockquote>
+<p>v3现在，已经获取的最终用户将被“移回”到v2该应用执行更新检查时。此外，所有仍在运行的用户v2（因此从未获得过）不会v3收到更新，因为他们已经在运行最新版本（这就是为什么我们的更新检查除了使用发布标签之外，还使用程序包哈希值的原因）。</p>
+</blockquote>
+<p>如果要将部署回滚到除先前版本以外的版本（例如v3-&gt; v2），则可以指定可选<code>--targetRelease</code>参数：<br><code>code-push rollback MyApp-iOS Production --targetRelease v34</code></p>
+<p><strong><em>注意：回滚产生的发行版将在deployment history命令的输出中进行注释，以帮助更轻松地识别它们。</em></strong></p>
+<h1 id="查看发行记录"><a href="#查看发行记录" class="headerlink" title="查看发行记录"></a>查看发行记录</h1><p>可以使用以下命令查看特定应用程序部署的50个最新版本的历史记录：<br><code>code-push deployment history &lt;appName&gt; &lt;deploymentName&gt;</code><br><strong><em>注意：也可以使用“ h”别名来运行history命令</em></strong></p>
+<h1 id="清除发布历史记录"><a href="#清除发布历史记录" class="headerlink" title="清除发布历史记录"></a>清除发布历史记录</h1><p>虽然无法删除单个发行版，但是可以使用以下命令清除与部署关联的整个发行版历史记录：<br><code>code-push deployment clear &lt;appName&gt; &lt;deploymentName&gt;</code><br><strong><em>运行此命令后，配置为使用其关联的部署密钥接收更新的客户端设备将不再接收已清除的更新。此命令是不可逆的，因此不应在生产部署中使用。</em></strong></p>
+<h1 id="代码签名"><a href="#代码签名" class="headerlink" title="代码签名"></a>代码签名</h1><h5 id="他是什么"><a href="#他是什么" class="headerlink" title="他是什么"></a>他是什么</h5><p>代码签名是为捆绑创建数字签名的一种方式，以后可以在安装之前在客户端进行验证。</p>
+<h5 id="为什么需要"><a href="#为什么需要" class="headerlink" title="为什么需要"></a>为什么需要</h5><p>开发人员想知道他们交付的代码就是他们编写的代码。代码签名是提供这种保证的主要机制，可以帮助减轻或消除整个中间级攻击。</p>
+<h5 id="如何工作"><a href="#如何工作" class="headerlink" title="如何工作"></a>如何工作</h5><p>首先，开发人员生成一个非对称密钥对：私钥将用于对捆绑包进行签名；捆绑签名验证的公共密钥。该CodePush CLI然后使用私钥签名过程中捆绑release，release-react并release-cordova命令。公共密钥随移动应用程序一起提供。开发人员可以控制密钥的生成和管理。</p>
+<h2 id="三、react-native-code-push"><a href="#三、react-native-code-push" class="headerlink" title="三、react-native-code-push"></a>三、react-native-code-push</h2><p>Android与Ios只是说了配置及基础更新方式。具体js层代码描述、API，都在Js中具体说明。</p>
+<h1 id="Android"><a href="#Android" class="headerlink" title="Android"></a>Android</h1><h3 id="npm-install-react-native-code-push-—save-OR-yarn-add-react-native-code-push"><a href="#npm-install-react-native-code-push-—save-OR-yarn-add-react-native-code-push" class="headerlink" title="npm install react-native-code-push —save OR yarn add react-native-code-push"></a>npm install react-native-code-push —save OR yarn add react-native-code-push</h3><p>安装库<br><figure class="highlight gauss"><table><tr><td class="code"><pre><code class="hljs gauss">npm install react-native-<span class="hljs-built_in">code</span>-<span class="hljs-keyword">push</span> --<span class="hljs-keyword">save</span><br><span class="hljs-meta"># 或者</span><br>yarn add react-native-<span class="hljs-built_in">code</span>-<span class="hljs-keyword">push</span><br></code></pre></td></tr></table></figure></p>
+<h3 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h3><p>[官方网址效果最佳]<a target="_blank" rel="noopener" href="https://github.com/microsoft/react-native-code-push/blob/master/docs/setup-android.md">https://github.com/microsoft/react-native-code-push/blob/master/docs/setup-android.md</a></p>
+<p><strong>配置时需要注意自己项目的react-native版本号对应上，否则会出现很多问题。</strong></p>
+<p>以下react-native版本：0.63的配置实例：</p>
+<blockquote>
+<p>1.<code>android/settings.gradle</code>中添加以下配置<br><figure class="highlight reasonml"><table><tr><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">include</span> &#x27;:app&#x27;, &#x27;:react-native-code-push&#x27;<br>project(&#x27;:react-native-code-push&#x27;).projectDir = <span class="hljs-keyword">new</span> <span class="hljs-constructor">File(<span class="hljs-params">rootProject</span>.<span class="hljs-params">projectDir</span>, &#x27;..<span class="hljs-operator">/</span><span class="hljs-params">node_modules</span><span class="hljs-operator">/</span><span class="hljs-params">react</span>-<span class="hljs-params">native</span>-<span class="hljs-params">code</span>-<span class="hljs-params">push</span><span class="hljs-operator">/</span><span class="hljs-params">android</span><span class="hljs-operator">/</span><span class="hljs-params">app</span>&#x27;)</span><br></code></pre></td></tr></table></figure><br>2.<code>android/app/build.gradle</code>中添加以下配置<br><figure class="highlight sqf"><table><tr><td class="code"><pre><code class="hljs sqf"><span class="hljs-built_in">apply</span> <span class="hljs-keyword">from</span>: <span class="hljs-string">&quot;../../node_modules/react-native/react.gradle&quot;</span><br><span class="hljs-built_in">apply</span> <span class="hljs-keyword">from</span>: <span class="hljs-string">&quot;../../node_modules/react-native-code-push/android/codepush.gradle&quot;</span><br></code></pre></td></tr></table></figure><br>3.<code>MainApplication.java</code>中添加以下配置<br><figure class="highlight scala"><table><tr><td class="code"><pre><code class="hljs scala"><span class="hljs-comment">// 1. Import the plugin class.</span><br><span class="hljs-keyword">import</span> com.microsoft.codepush.react.<span class="hljs-type">CodePush</span>;<br><br>public <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MainApplication</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Application</span> <span class="hljs-title">implements</span> <span class="hljs-title">ReactApplication</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-type">ReactNativeHost</span> mReactNativeHost = <span class="hljs-keyword">new</span> <span class="hljs-type">ReactNativeHost</span>(<span class="hljs-keyword">this</span>) &#123;<br>        ...<br><br>        <span class="hljs-comment">// 2. Override the getJSBundleFile method in order to let</span><br>        <span class="hljs-comment">// the CodePush runtime determine where to get the JS</span><br>        <span class="hljs-comment">// bundle location from on each app start</span><br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-keyword">protected</span> <span class="hljs-type">String</span> getJSBundleFile() &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-type">CodePush</span>.getJSBundleFile();<br>        &#125;<br>    &#125;;<br>&#125;<br></code></pre></td></tr></table></figure><br>4.配置gradle版本号<code>app/build.gradle</code>从两位改为三位<br><figure class="highlight nginx"><table><tr><td class="code"><pre><code class="hljs nginx"><span class="hljs-section">android</span> &#123;<br><br>    <span class="hljs-section">defaultConfig</span> &#123;<br>        <span class="hljs-attribute">versionName</span> <span class="hljs-string">&quot;1.0.0&quot;</span><br>    &#125;<br></code></pre></td></tr></table></figure><br>5.添加Deployment Key，将需要更新的值复制到<code>res/values/strings.xml</code>中<br><a href="/img/ReactNativeHotUpdate/0.png">!github</a><br><figure class="highlight applescript"><table><tr><td class="code"><pre><code class="hljs applescript">&lt;resources&gt;<br>	&lt;<span class="hljs-built_in">string</span> <span class="hljs-built_in">name</span>=<span class="hljs-string">&quot;app_name&quot;</span>&gt;AppName&lt;/<span class="hljs-built_in">string</span>&gt;<br>	&lt;<span class="hljs-built_in">string</span> moduleConfig=<span class="hljs-string">&quot;true&quot;</span> <span class="hljs-built_in">name</span>=<span class="hljs-string">&quot;CodePushDeploymentKey&quot;</span>&gt;DeploymentKey&lt;/<span class="hljs-built_in">string</span>&gt;<br>&lt;/resources&gt;<br></code></pre></td></tr></table></figure><br>6.编译！<br>7.JS中引入<br><figure class="highlight clean"><table><tr><td class="code"><pre><code class="hljs clean"><span class="hljs-keyword">import</span> CodePush <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-native-code-push&#x27;</span>;<br></code></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="打包（Android基础包）"><a href="#打包（Android基础包）" class="headerlink" title="打包（Android基础包）"></a>打包（Android基础包）</h3><p>指令：<br><figure class="highlight jboss-cli"><table><tr><td class="code"><pre><code class="hljs jboss-cli"><span class="hljs-string">./gradlew</span> assembleRelease<br></code></pre></td></tr></table></figure><br>GUI：<br>双击-Gradle-AppName-app-Tasks-other-assembleRelease<br><a href="/img/ReactNativeHotUpdate/1.png">!github</a></p>
+<p>完成的包就在<strong>app/build/output/</strong>文件夹下。</p>
+<h3 id="开启第一次更新-简单实例"><a href="#开启第一次更新-简单实例" class="headerlink" title="开启第一次更新(简单实例)"></a>开启第一次更新(简单实例)</h3><blockquote>
+<p>1.修改需要改动的js代码(原生代码无法更新)<br>2.打包<br>使用上面说明的指令或者GUI方式两种都可以。这里推荐GUI方式，因为这里可以看到很多日志。<br><a href="/img/ReactNativeHotUpdate/2.png">!github</a><br>3.上传更新包，这里分别使用<code>release-react</code>和<code>release</code>的方式来记录过程。</p>
+<ul>
+<li>3.1 code-push release-react<br>此方式不需要多想，直接敲命令行：<figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">code</span>-push release-react CodePushDemoAndroid android -t <span class="hljs-number">1</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span> -m --des <span class="hljs-string">&quot;1.0.1版本更新测试&quot;</span><br></code></pre></td></tr></table></figure>
+-t：需要更新的基础版本号<br>-m：是否强制更新<br>—des：当前更新描述</li>
+<li>3.2 code-push release<br>此方式需要两个步骤，需要进行jsbundle打包，然后推送到服务器上。<figure class="highlight gradle"><table><tr><td class="code"><pre><code class="hljs gradle"># jsbundle打包 assets文件夹需要手动创建，也可以自定义位置<br>react-<span class="hljs-keyword">native</span> bundle --entry-<span class="hljs-keyword">file</span> index.js --platform android --dev <span class="hljs-keyword">false</span> --bundle-output .<span class="hljs-regexp">/android/</span>app<span class="hljs-regexp">/src/m</span>ain<span class="hljs-regexp">/assets/i</span>ndex.android.bundle --assets-dest .<span class="hljs-regexp">/android/</span>app<span class="hljs-regexp">/src/m</span>ain<span class="hljs-regexp">/assets/</span><br># 推送到服务器上<br>code-<span class="hljs-keyword">push</span> release CodePushDemoAndroid .<span class="hljs-regexp">/android/</span>app<span class="hljs-regexp">/src/m</span>ain/assets <span class="hljs-number">1.0</span>.<span class="hljs-number">0</span> -m --des <span class="hljs-string">&quot;1.0.1版本更新测试&quot;</span><br></code></pre></td></tr></table></figure>
+第一步，将js与资源打包成bundle文件及资源文件。<br>第二部，将指定的文件夹内资源推送至服务器<br>1.0.0：需要更新的基础版本号<br>-m：是否强制更新<br>—des：当前更新描述<br><strong><em>注意，出了任何问题可以清空更新库(code-push deployment clear CodePushDemoAndroid Staging)然后再做上传文件进行更新。</em></strong></li>
+</ul>
+</blockquote>
+<h3 id="code-push-release-react-还是-code-push-release"><a href="#code-push-release-react-还是-code-push-release" class="headerlink" title="code-push release-react 还是 code-push release ?"></a>code-push release-react 还是 code-push release ?</h3><p>上面实例可以看出，前者提供了方便的套餐方式，过程不需要介入；而后者更将步骤显现的更清晰。</p>
+<h3 id="Android-API"><a href="#Android-API" class="headerlink" title="Android-API"></a>Android-API</h3><p>[官方网址]<a target="_blank" rel="noopener" href="https://github.com/microsoft/react-native-code-push/blob/master/docs/api-android.md">https://github.com/microsoft/react-native-code-push/blob/master/docs/api-android.md</a></p>
+<blockquote>
+<p>Public Key:用于代码签名功能中的捆绑包验证。添加到<code>app/src/main/res/values/strings/xml</code><br><figure class="highlight vbnet"><table><tr><td class="code"><pre><code class="hljs vbnet">&lt;<span class="hljs-type">string</span> moduleConfig=<span class="hljs-string">&quot;true&quot;</span> name=<span class="hljs-string">&quot;CodePushPublicKey&quot;</span>&gt;your-<span class="hljs-keyword">public</span>-<span class="hljs-keyword">key</span>&lt;/<span class="hljs-type">string</span>&gt;<br></code></pre></td></tr></table></figure><br>Server Url:用于指定CodePush服务器网址。<br><figure class="highlight vim"><table><tr><td class="code"><pre><code class="hljs vim">&lt;<span class="hljs-built_in">string</span> moduleConfig=<span class="hljs-string">&quot;true&quot;</span> name=<span class="hljs-string">&quot;CodePushServerUrl&quot;</span>&gt;http<span class="hljs-variable">s:</span>//yourcodepush.server.<span class="hljs-keyword">com</span>&lt;/<span class="hljs-built_in">string</span>&gt;<br></code></pre></td></tr></table></figure><br>CodePush创建<br><figure class="highlight vhdl"><table><tr><td class="code"><pre><code class="hljs vhdl">CodePush（<span class="hljs-built_in">String</span> deploymentKey，Activity mainActivity）<br>CodePush（<span class="hljs-built_in">String</span> deploymentKey，Activity mainActivity，bool isDebugMode）<br>CodePush（<span class="hljs-built_in">String</span> deploymentKey，<span class="hljs-keyword">Context</span> <span class="hljs-keyword">context</span>，<span class="hljs-built_in">boolean</span> isDebugMode，<span class="hljs-built_in">Integer</span> publicKeyResourceDescriptor）<br>CodePush（<span class="hljs-built_in">String</span> deploymentKey，<span class="hljs-keyword">Context</span> <span class="hljs-keyword">context</span>，<span class="hljs-built_in">boolean</span> isDebugMode，<span class="hljs-built_in">String</span> serverUrl）<br></code></pre></td></tr></table></figure></p>
+<blockquote>
+<p>isDebugMode: 是否置于调试模式<br>publicKeyResourceDescriptor: 允许指定读取公共密钥内容所需的公共密钥资源描述符。<br>serverUrl: 允许指定CodePush Server Url。默认值：”<a target="_blank" rel="noopener" href="https://codepush.appcenter.ms/&quot;被中指定的值覆盖serverUrl。">https://codepush.appcenter.ms/&quot;被中指定的值覆盖serverUrl。</a></p>
+</blockquote>
+</blockquote>
+<p>其中还可以使用构建者模式<code>CodePushBuilder</code>。</p>
+<blockquote>
+<p>static 函数</p>
+<blockquote>
+<p>getBundleUrl():返回index.android.bundle路径。<br>getBundleUrl(String bundleName)<br>CodePush.getJSBundleFile()<br>CodePush.getJSBundleFile(String assetsBundleFileName):<br>getPackageFolder():返回当前更新文件夹的路径。<br>overrideAppVersion(String appVersionOverride):设置应用程序二进制接口的版本，否则默认指定为Play商店的版本versionName中build.gradle。</p>
+</blockquote>
+</blockquote>
+<h1 id="IOS"><a href="#IOS" class="headerlink" title="IOS"></a>IOS</h1><h1 id="JS代码"><a href="#JS代码" class="headerlink" title="JS代码"></a>JS代码</h1><h2 id="四、code-push-server"><a href="#四、code-push-server" class="headerlink" title="四、code-push-server"></a>四、code-push-server</h2><p>上面所使用的推送库都是微软所在的外网下。可以通过<code>code-push-server</code>来快速部署一个局域网下的热更新服务。<br>以下过程是在对codepush环境存在的情况下完成的。</p>
+<h1 id="下载库"><a href="#下载库" class="headerlink" title="下载库"></a>下载库</h1><figure class="highlight gauss"><table><tr><td class="code"><pre><code class="hljs gauss">npm install <span class="hljs-built_in">code</span>-<span class="hljs-keyword">push</span>-server -g<br></code></pre></td></tr></table></figure>
+<p>还需要<code>code-push-cli</code>。</p>
+<h1 id="MySql"><a href="#MySql" class="headerlink" title="MySql"></a>MySql</h1><p>功能需要用到mysql服务。根据环境来配置MySql(建议使用5.6)。此处忽略</p>
+<h1 id="修改数据存储路径"><a href="#修改数据存储路径" class="headerlink" title="修改数据存储路径"></a>修改数据存储路径</h1><p>在<strong>code-push-server文件夹下的config/config.js文件</strong>。<br><figure class="highlight 1c"><table><tr><td class="code"><pre><code class="hljs 1c">local: &#123;<br>  <span class="hljs-comment">// Binary files storage dir, Do not use tmpdir and it&#x27;s public download dir.</span><br><span class="hljs-comment">// 修改数据存储路径</span><br>  storageDir: process.env.STORAGE_DIR <span class="hljs-string">|| &quot;</span>/Users/.../stroage<span class="hljs-string">&quot;,</span><br>  <span class="hljs-comment">// Binary files download host address which Code Push Server listen to. the files storage in storageDir.</span><br><span class="hljs-comment">// 修改为外网地址</span><br>  downloadUrl: process.env.LOCAL_DOWNLOAD_URL <span class="hljs-string">|| &quot;</span>http:<span class="hljs-comment">//172.30.109.40:3000/download&quot;,</span><br>  <span class="hljs-comment">// public static download spacename.</span><br>  public: &#x27;/download&#x27;<br>&#125;,<br></code></pre></td></tr></table></figure></p>
+<h1 id="数据库初始化"><a href="#数据库初始化" class="headerlink" title="数据库初始化"></a>数据库初始化</h1><p>打开数据库服务，然后输入下面命令：<br><figure class="highlight dsconfig"><table><tr><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-string">code-push-server-db</span> <span class="hljs-string">init</span> <span class="hljs-built_in">--dbhost</span> <span class="hljs-string">localhost</span> <span class="hljs-built_in">--dbuser</span> <span class="hljs-string">root</span> <span class="hljs-built_in">--dbpassword</span> <span class="hljs-string">&#x27;数据库root账户密码&#x27;</span><br></code></pre></td></tr></table></figure><br>此处配置的数据库信息，都对应在<strong>code-push-server文件夹下的config/config.js文件</strong>。</p>
+<p>另外里面还有其他配置项:</p>
+<blockquote>
+<p>common里面的storageType,dataDir<br>对应的storagetype中的配置<br>如果使用的是local，就需要修改storageDir和downloadUrl，不修改的话他就会自己创建相应文件夹，可能遇到无法创建的问题。</p>
+</blockquote>
+<h1 id="开启服务"><a href="#开启服务" class="headerlink" title="开启服务"></a>开启服务</h1><p>运行命令开启服务(注意数据库服务是否开启):<br><figure class="highlight gauss"><table><tr><td class="code"><pre><code class="hljs gauss"><span class="hljs-built_in">code</span>-<span class="hljs-keyword">push</span>-server<br></code></pre></td></tr></table></figure><br>[web地址]<a target="_blank" rel="noopener" href="http://127.0.0.1:3000">http://127.0.0.1:3000</a><br>初始化用户名：admin<br>初始化密码：123456</p>
+<p>登陆后获取token，用于code-push登陆</p>
+<h1 id="code-push配置"><a href="#code-push配置" class="headerlink" title="code-push配置"></a>code-push配置</h1><h3 id="登陆"><a href="#登陆" class="headerlink" title="登陆"></a>登陆</h3><figure class="highlight gauss"><table><tr><td class="code"><pre><code class="hljs gauss"><span class="hljs-built_in">code</span>-<span class="hljs-keyword">push</span> login <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>:<span class="hljs-number">3000</span><br></code></pre></td></tr></table></figure>
+<p>数据完成后会提示输入token值，就是登陆web页面后获取的token值，复制即可。</p>
+<h3 id="其他所有工作都使用code-push完成"><a href="#其他所有工作都使用code-push完成" class="headerlink" title="其他所有工作都使用code-push完成"></a>其他所有工作都使用code-push完成</h3><h1 id="react-native配置"><a href="#react-native配置" class="headerlink" title="react-native配置"></a>react-native配置</h1><p>修改CodePush的更新地址即可：YourCodePushServerUrl: <a target="_blank" rel="noopener" href="http://外网地址:3000">http://外网地址:3000</a></p>
+
+      
+       
+    </div>
+</article>
+
+
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '07584e1e38d09c739a16',
+            clientSecret: '6a466750b46c76ed9cc8ee0fe0d78e0c33898937',
+            repo: 'yangandmore.github.io',
+            owner: 'Yangandmore',
+            admin: ['Yangandmore'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2016-2020 Yangandmore
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

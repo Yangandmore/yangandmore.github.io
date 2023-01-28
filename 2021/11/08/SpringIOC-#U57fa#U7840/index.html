@@ -1,0 +1,2373 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>SpringIOC-基础 | 杨小杨的博客</title>
+  <meta name="keywords" content=" spring ">
+  <meta name="description" content="SpringIOC-基础 | 杨小杨的博客">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="在mac中打开eclipse提示错误">
+<meta property="og:type" content="article">
+<meta property="og:title" content="eclipse-mac-err">
+<meta property="og:url" content="http://example.com/2022/09/27/eclipse-mac-err/index.html">
+<meta property="og:site_name" content="杨小杨的博客">
+<meta property="og:description" content="在mac中打开eclipse提示错误">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-09-27T22:24:54.000Z">
+<meta property="article:modified_time" content="2022-09-27T14:26:46.000Z">
+<meta property="article:author" content="Yang">
+<meta property="article:tag" content="异常问题">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/header.png">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/header.png"/>
+</a>
+<div class="author">
+    <span>Yang</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="github"
+               href="https://github.com/Yangandmore"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="email"
+               href="mailto:635408602@qq.com"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="qq"
+               href="http://wpa.qq.com/msgrd?v=3&uin=635408602&site=qq&menu=yes"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-qq"></use>
+                    </svg>
+                
+            </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(148)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                <li>
+                    <div data-rel="数据库">
+                        
+                        数据库
+                        <small>(4)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="包管理">
+                        
+                        包管理
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="编译的库">
+                        
+                        编译的库
+                        <small>(5)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="分布式事务">
+                        
+                        分布式事务
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="分布式搜索">
+                        
+                        分布式搜索
+                        <small>(5)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="后台">
+                        
+                        后台
+                        <small>(3)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="机器学习">
+                        
+                        机器学习
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="流程引擎">
+                        
+                        流程引擎
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="数据结构">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        数据结构
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="数据结构<--->算法分析">
+                                        
+                                        算法分析
+                                        
+                                            <small>(2
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="异常问题">
+                        
+                        异常问题
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="音视频">
+                        
+                        音视频
+                        <small>(13)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="正则表达式">
+                        
+                        正则表达式
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Android">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        Android
+                        <small>(17)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="Android<--->热更新">
+                                        
+                                        热更新
+                                        
+                                            <small>(2
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="C/C++">
+                        
+                        C/C++
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="git">
+                        
+                        git
+                        <small>(3)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Gradle">
+                        
+                        Gradle
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="java">
+                        
+                        java
+                        <small>(9)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="JavaScript">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        JavaScript
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="JavaScript<--->npm">
+                                        
+                                        npm
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="ReactNative">
+                        
+                        ReactNative
+                        <small>(10)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Redis">
+                        
+                        Redis
+                        <small>(4)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="rust">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        rust
+                        <small>(46)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="rust<--->p2p">
+                                        
+                                        p2p
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="spring">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        spring
+                        <small>(9)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="spring<--->java">
+                                        
+                                        java
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="ssr">
+                        
+                        ssr
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="148">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>包管理</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>贝塞尔曲线</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>分布式事务</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>分布式搜索</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>构建工具</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>后台</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>汇编</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>机器学习</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>跨域</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>流程引擎</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>热更新</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>视频格式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>数据结构与算法分析</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>数据库</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>图片格式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>异步</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>异常问题</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>音频</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>音视频</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>正则表达式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>直播</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>android</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Android</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>C</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>camera</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Cpp</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>es</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ffmpeg</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>git</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Gradle</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>java</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>javaScript</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libfaac</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libjpeg-turbo</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libx264</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libyuv</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Linux</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>NDK</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>react</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>React</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ReactNative</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Redis</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>RTMP</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>rust</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>seate</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>spring</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>springboot</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>SQL</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>srs</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ssr</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class="All 异常问题 "
+           href="/2022/09/27/eclipse-mac-err/"
+           data-tag="异常问题"
+           data-author="" >
+            <span class="post-title" title="eclipse-mac-err">eclipse-mac-err</span>
+            <span class="post-date" title="2022-09-27 22:24:54">2022/09/27</span>
+        </a>
+        
+        <a  class="All 流程引擎 "
+           href="/2022/09/16/activiti7/"
+           data-tag="流程引擎"
+           data-author="" >
+            <span class="post-title" title="流程引擎-activiti7">流程引擎-activiti7</span>
+            <span class="post-date" title="2022-09-16 10:01:11">2022/09/16</span>
+        </a>
+        
+        <a  class="All 分布式事务 "
+           href="/2022/09/04/seate/"
+           data-tag="seate,分布式事务"
+           data-author="" >
+            <span class="post-title" title="配置seate">配置seate</span>
+            <span class="post-date" title="2022-09-04 19:11:24">2022/09/04</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/09/01/es-java/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="es在java环境中使用">es在java环境中使用</span>
+            <span class="post-date" title="2022-09-01 22:11:48">2022/09/01</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/09/01/es-ik/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="es配置ik分词器及热更新">es配置ik分词器及热更新</span>
+            <span class="post-date" title="2022-09-01 16:38:27">2022/09/01</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/06/es-7-change-password/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="es修改密码">es修改密码</span>
+            <span class="post-date" title="2022-08-06 23:37:16">2022/08/06</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/06/es-linux/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="elk在linux上简单安装">elk在linux上简单安装</span>
+            <span class="post-date" title="2022-08-06 21:02:25">2022/08/06</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/02/ELK/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="ELK学习">ELK学习</span>
+            <span class="post-date" title="2022-08-02 15:13:44">2022/08/02</span>
+        </a>
+        
+        <a  class="All 包管理 "
+           href="/2022/07/29/chocolatey/"
+           data-tag="包管理"
+           data-author="" >
+            <span class="post-title" title="chocolatey">chocolatey</span>
+            <span class="post-date" title="2022-07-29 16:56:39">2022/07/29</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/28/Spring-#U57fa#U78405/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础5">Spring-基础5</span>
+            <span class="post-date" title="2022-07-28 21:11:57">2022/07/28</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/28/Spring-#U57fa#U78404/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(四)">Spring-基础(四)</span>
+            <span class="post-date" title="2022-07-28 15:50:59">2022/07/28</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-#U57fa#U78403/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(三)">Spring-基础(三)</span>
+            <span class="post-date" title="2022-07-25 21:51:47">2022/07/25</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-#U57fa#U78402/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(二)">Spring-基础(二)</span>
+            <span class="post-date" title="2022-07-25 10:26:06">2022/07/25</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-#U57fa#U78401/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(一)">Spring-基础(一)</span>
+            <span class="post-date" title="2022-07-25 09:58:25">2022/07/25</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/07/17/P2P/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="P2P">P2P</span>
+            <span class="post-date" title="2022-07-17 10:46:24">2022/07/17</span>
+        </a>
+        
+        <a  class="All rust p2p "
+           href="/2022/07/16/Rust-libp2p/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-libp2p">Rust-libp2p</span>
+            <span class="post-date" title="2022-07-16 14:04:11">2022/07/16</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/07/06/#U533a#U5757#U94fe-#U8bb0#U8d26#U6a21#U5f0f/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="区块链-记账模式">区块链-记账模式</span>
+            <span class="post-date" title="2022-07-06 21:48:04">2022/07/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/06/26/Summer-boot#U4e00#U671f#U5b8f#U90e8#U5206#U6784#U601d#U53ca#U5b9e#U73b0/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Summer-boot一期宏部分构思及实现">Summer-boot一期宏部分构思及实现</span>
+            <span class="post-date" title="2022-06-26 10:12:27">2022/06/26</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2022/06/16/Git-fork#U9879#U76ee#U66f4#U65b0/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git-fork项目更新">Git-fork项目更新</span>
+            <span class="post-date" title="2022-06-16 15:11:56">2022/06/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/06/12/Rust-#U7f16#U7801#U89c4#U8303/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-编码规范">Rust-编码规范</span>
+            <span class="post-date" title="2022-06-12 09:05:33">2022/06/12</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2022/05/29/MySql-Some#U7b49#U6307#U4ee4/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="MySql_Some、Any、All的用法">MySql_Some、Any、All的用法</span>
+            <span class="post-date" title="2022-05-29 10:07:14">2022/05/29</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/12/Redis-#U805a#U5408#U64cd#U4f5c/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-聚合操作">Redis-聚合操作</span>
+            <span class="post-date" title="2022-05-12 14:34:47">2022/05/12</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/11/Redis-#U5207#U7247#U96c6#U7fa4#U914d#U7f6e/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-切片集群配置">Redis-切片集群配置</span>
+            <span class="post-date" title="2022-05-11 15:45:38">2022/05/11</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/10/Redis-#U54e8#U5175#U673a#U5236#U914d#U7f6e/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-哨兵机制配置">Redis-哨兵机制配置</span>
+            <span class="post-date" title="2022-05-10 17:02:25">2022/05/10</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/10/Redis-#U8fdc#U7a0b#U5f00#U5173/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-开启远程访问">Redis-开启远程访问</span>
+            <span class="post-date" title="2022-05-10 14:24:32">2022/05/10</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/05/06/Rust-#U5c5e#U6027/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-属性">Rust-属性</span>
+            <span class="post-date" title="2022-05-06 10:08:24">2022/05/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/20/Rust-build/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust编译过程图">Rust编译过程图</span>
+            <span class="post-date" title="2022-04-20 14:54:46">2022/04/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/08/Rust-Atomic/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-Atomic">Rust-Atomic</span>
+            <span class="post-date" title="2022-04-08 09:55:50">2022/04/08</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/06/Rust-#U6b7b#U7075#U672f3/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵术3">Rust-死灵术3</span>
+            <span class="post-date" title="2022-04-06 20:48:19">2022/04/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/06/Rust-#U6b7b#U7075#U672f2/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵术2">Rust-死灵术2</span>
+            <span class="post-date" title="2022-04-06 14:54:22">2022/04/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/02/Rust-AnyTrait/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-AnyTrait">Rust-AnyTrait</span>
+            <span class="post-date" title="2022-04-02 14:25:05">2022/04/02</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/02/Rust-Cow#U667a#U80fd#U6307#U9488/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-Cow智能指针">Rust-Cow智能指针</span>
+            <span class="post-date" title="2022-04-02 10:16:00">2022/04/02</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/01/Rust-#U6b7b#U7075#U672f/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵书（一）">Rust-死灵书（一）</span>
+            <span class="post-date" title="2022-04-01 16:42:36">2022/04/01</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/03/09/Rust-#U53c2#U8003#U624b#U518c/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-参考手册">Rust-参考手册</span>
+            <span class="post-date" title="2022-03-09 10:15:21">2022/03/09</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/03/08/Rust-#U5b8f/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-小宏书(声明宏)">Rust-高级-小宏书(声明宏)</span>
+            <span class="post-date" title="2022-03-08 20:22:51">2022/03/08</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2022/03/03/Android#U96c6#U6210Rust/"
+           data-tag="Android,rust"
+           data-author="" >
+            <span class="post-title" title="Android集成Rust">Android集成Rust</span>
+            <span class="post-date" title="2022-03-03 10:56:49">2022/03/03</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/02/08/Rust-#U7c7b#U578b#U8f6c#U6362/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-类型转换-From &amp; Into">Rust-类型转换-From &amp; Into</span>
+            <span class="post-date" title="2022-02-08 16:53:33">2022/02/08</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/16/Rust-#U9ad8#U7ea7-Crate#U4e4bbitflags/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之bitflags">Rust-高级-Crate之bitflags</span>
+            <span class="post-date" title="2022-01-16 22:36:28">2022/01/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-#U9ad8#U7ea7-Crate#U4e4brayon/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之rayon">Rust-高级-Crate之rayon</span>
+            <span class="post-date" title="2022-01-12 21:55:30">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-#U9ad8#U7ea7-Crate#U4e4blazy-static/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之lazy_static">Rust-高级-Crate之lazy_static</span>
+            <span class="post-date" title="2022-01-12 21:50:32">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-#U9ad8#U7ea7-Crate#U4e4bWalkdir/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之Walkdir">Rust-高级-Crate之Walkdir</span>
+            <span class="post-date" title="2022-01-12 21:50:15">2022/01/12</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/12/Rust-#U9ad8#U7ea7-Crate#U4e4bthreadpool/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之threadpool">Rust-高级-Crate之threadpool</span>
+            <span class="post-date" title="2022-01-12 21:49:50">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-#U9ad8#U7ea7-Crate#U4e4berror-chain/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之error_chain">Rust-高级-Crate之error_chain</span>
+            <span class="post-date" title="2022-01-12 21:49:39">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-#U9ad8#U7ea7-Crate#U4e4bcrossbeam/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之crossbeam">Rust-高级-Crate之crossbeam</span>
+            <span class="post-date" title="2022-01-12 21:16:24">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-#U9ad8#U7ea7-Crate#U4e4btar/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之tar">Rust-高级-Crate之tar</span>
+            <span class="post-date" title="2022-01-12 10:29:50">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/11/Rust-#U9ad8#U7ea7-Crate#U4e4brand/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之rand">Rust-高级-Crate之rand</span>
+            <span class="post-date" title="2022-01-11 14:52:45">2022/01/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/09/Rust-#U9ad8#U7ea7-Crate#U4e4bserde/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之serde">Rust-高级-Crate之serde</span>
+            <span class="post-date" title="2022-01-09 21:10:52">2022/01/09</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/09/Rust#U4e2d#U7684#U5f15#U7528#U4e0e#U501f#U7528/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust中的引用与借用">Rust中的引用与借用</span>
+            <span class="post-date" title="2022-01-09 19:03:47">2022/01/09</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/09/graphQL/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="graphQL">graphQL</span>
+            <span class="post-date" title="2022-01-09 17:02:35">2022/01/09</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/05/Rust-#U9ad8#U7ea7-#U670d#U52a1#U4e4bActix/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-服务之Actix">Rust-高级-服务之Actix</span>
+            <span class="post-date" title="2022-01-05 21:13:56">2022/01/05</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/05/Rust-#U9ad8#U7ea7-#U5f02#U6b65#U4e4bfutures/"
+           data-tag="rust,异步"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-异步之futures">Rust-高级-异步之futures</span>
+            <span class="post-date" title="2022-01-05 21:13:38">2022/01/05</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/30/Rust-#U6700#U540e#U7684#U9879#U76ee/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-最后的项目">Rust-最后的项目</span>
+            <span class="post-date" title="2021-12-30 14:46:33">2021/12/30</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/21/Rust-#U9ad8#U7ea7#U7279#U5f81/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级特征">Rust-高级特征</span>
+            <span class="post-date" title="2021-12-21 22:22:15">2021/12/21</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-#U6a21#U5f0f#U7528#U6765#U5339#U914d#U503c#U7684#U7ed3#U6784/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-模式与模式匹配">Rust-模式与模式匹配</span>
+            <span class="post-date" title="2021-12-20 20:53:44">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-#U9762#U5411#U5bf9#U8c61/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-面向对象">Rust-面向对象</span>
+            <span class="post-date" title="2021-12-20 15:15:04">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-#U65e0#U754f#U5e76#U53d1/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-无畏并发">Rust-无畏并发</span>
+            <span class="post-date" title="2021-12-20 09:44:35">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/19/Rust-#U667a#U80fd#U6307#U9488/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-智能指针">Rust-智能指针</span>
+            <span class="post-date" title="2021-12-19 10:23:23">2021/12/19</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/16/Rust-CargoAndCratesIO/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-CargoAndCratesIO">Rust-CargoAndCratesIO</span>
+            <span class="post-date" title="2021-12-16 22:52:05">2021/12/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/16/Rust-#U51fd#U6570#U5f0f#U8bed#U8a00#U529f#U80fd-#U8fed#U4ee3#U5668#U4e0e#U95ed#U5305/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-函数式语言功能:迭代器与闭包">Rust-函数式语言功能:迭代器与闭包</span>
+            <span class="post-date" title="2021-12-16 16:08:22">2021/12/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/15/Rust-#U6784#U5efa#U4e00#U4e2a#U547d#U4ee4#U884c#U7a0b#U5e8f/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-IO">Rust-IO</span>
+            <span class="post-date" title="2021-12-15 17:07:26">2021/12/15</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/15/Rust-#U6d4b#U8bd5/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-测试">Rust-测试</span>
+            <span class="post-date" title="2021-12-15 14:08:29">2021/12/15</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/14/Rust-#U6cdb#U578b#U3001trait#U548c#U751f#U547d#U5468#U671f/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-泛型、trait和生命周期">Rust-泛型、trait和生命周期</span>
+            <span class="post-date" title="2021-12-14 20:57:17">2021/12/14</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/14/Rust-#U9519#U8bef#U5904#U7406/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-错误处理">Rust-错误处理</span>
+            <span class="post-date" title="2021-12-14 10:48:51">2021/12/14</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-#U5e38#U89c1#U96c6#U5408/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-常见集合">Rust-常见集合</span>
+            <span class="post-date" title="2021-12-13 20:55:23">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-#U4f7f#U7528#U6a21#U5757#U7ec4#U7ec7#U548c#U590d#U7528#U4ee3#U7801/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-使用模块组织和复用代码">Rust-使用模块组织和复用代码</span>
+            <span class="post-date" title="2021-12-13 16:26:05">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-#U679a#U4e3e#U548c#U6a21#U5f0f#U5339#U914d/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-枚举和模式匹配">Rust-枚举和模式匹配</span>
+            <span class="post-date" title="2021-12-13 10:44:04">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/12/Rust-#U7ed3#U6784#U4f53/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-结构体">Rust-结构体</span>
+            <span class="post-date" title="2021-12-12 22:42:42">2021/12/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/12/Rust-#U6240#U6709#U6743/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-所有权">Rust-所有权</span>
+            <span class="post-date" title="2021-12-12 11:32:16">2021/12/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/11/Rust-#U57fa#U7840#U6280#U672f/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-基础技术">Rust-基础技术</span>
+            <span class="post-date" title="2021-12-11 20:25:09">2021/12/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/11/Rust-#U7f16#U7a0b#U731c#U8c1c#U6e38#U620f/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-编程猜谜游戏">Rust-编程猜谜游戏</span>
+            <span class="post-date" title="2021-12-11 18:58:04">2021/12/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/10/Rust-#U5165#U95e8/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-入门">Rust-入门</span>
+            <span class="post-date" title="2021-12-10 11:18:25">2021/12/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/10/Java-#U5185#U90e8#U7c7b/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-内部类">Java-内部类</span>
+            <span class="post-date" title="2021-12-10 08:50:32">2021/12/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/09/Java-#U63a5#U53e3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-接口">Java-接口</span>
+            <span class="post-date" title="2021-12-09 14:54:05">2021/12/09</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/09/Java-#U591a#U6001/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-多态">Java-多态</span>
+            <span class="post-date" title="2021-12-09 08:42:47">2021/12/09</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/23/JavaNIO/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaNIO">JavaNIO</span>
+            <span class="post-date" title="2021-11-23 10:47:14">2021/11/23</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/23/JavaIO/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaIO">JavaIO</span>
+            <span class="post-date" title="2021-11-23 10:47:07">2021/11/23</span>
+        </a>
+        
+        <a  class="All spring java "
+           href="/2021/11/22/Spring#U5de5#U4f5c#U5bf9#U8c61/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring工作对象">Spring工作对象</span>
+            <span class="post-date" title="2021-11-22 09:44:06">2021/11/22</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/18/Java#U51fd#U6570#U5f0f#U63a5#U53e3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java函数式接口">Java函数式接口</span>
+            <span class="post-date" title="2021-11-18 10:50:22">2021/11/18</span>
+        </a>
+        
+        <a  class="All "
+           href="/2021/11/17/SpringBoot#U542f#U52a8-#U57fa#U7840/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="SpringBoot启动-基础">SpringBoot启动-基础</span>
+            <span class="post-date" title="2021-11-17 17:01:58">2021/11/17</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/16/JRebel/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JRebel">JRebel</span>
+            <span class="post-date" title="2021-11-16 08:58:18">2021/11/16</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/11/Spring#U542f#U52a8-#U57fa#U7840/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring启动-基础">Spring启动-基础</span>
+            <span class="post-date" title="2021-11-11 15:25:33">2021/11/11</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/10/#U53cd#U5c04/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="反射">反射</span>
+            <span class="post-date" title="2021-11-10 20:57:08">2021/11/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/10/#U6ce8#U89e3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="注解">注解</span>
+            <span class="post-date" title="2021-11-10 20:50:55">2021/11/10</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/09/SpringAOP-#U57fa#U7840/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="SpringAOP-基础">SpringAOP-基础</span>
+            <span class="post-date" title="2021-11-09 10:31:31">2021/11/09</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/08/SpringIOC-#U57fa#U7840/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="SpringIOC-基础">SpringIOC-基础</span>
+            <span class="post-date" title="2021-11-08 10:27:28">2021/11/08</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2021/11/02/#U97f3#U89c6#U9891#U7f16#U89e3#U7801#U6280#U672f#U57fa#U7840/"
+           data-tag="音视频"
+           data-author="" >
+            <span class="post-title" title="音视频编解码技术基础">音视频编解码技术基础</span>
+            <span class="post-date" title="2021-11-02 12:06:49">2021/11/02</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2021/11/02/MysqlErrHosts/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="mysql安装时，Unable to connect to any of the specified MySQL hosts">mysql安装时，Unable to connect to any of the specified MySQL hosts</span>
+            <span class="post-date" title="2021-11-02 10:58:50">2021/11/02</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2021/10/08/H264#U7f16#U7801-SPSPPS/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码 SPS &amp; PPS">H264编码 SPS &amp; PPS</span>
+            <span class="post-date" title="2021-10-08 21:20:12">2021/10/08</span>
+        </a>
+        
+        <a  class="All ssr "
+           href="/2021/01/18/centos#U7ec8#U7aefssr#U914d#U7f6e/"
+           data-tag="ssr"
+           data-author="" >
+            <span class="post-title" title="centos终端ssr配置">centos终端ssr配置</span>
+            <span class="post-date" title="2021-01-18 08:21:35">2021/01/18</span>
+        </a>
+        
+        <a  class="All 数据结构 算法分析 "
+           href="/2020/12/14/#U6570#U636e#U7ed3#U6784#U4e0e#U7b97#U6cd5#U5206#U6790#U9605#U8bfb#U7b14#U8bb0#U5176#U4e8c/"
+           data-tag="数据结构与算法分析"
+           data-author="" >
+            <span class="post-title" title="数据结构与算法分析阅读笔记其二">数据结构与算法分析阅读笔记其二</span>
+            <span class="post-date" title="2020-12-14 22:34:39">2020/12/14</span>
+        </a>
+        
+        <a  class="All 数据结构 算法分析 "
+           href="/2020/12/09/#U6570#U636e#U7ed3#U6784#U4e0e#U7b97#U6cd5#U5206#U6790#U9605#U8bfb#U7b14#U8bb0/"
+           data-tag="数据结构与算法分析"
+           data-author="" >
+            <span class="post-title" title="数据结构与算法分析阅读笔记">数据结构与算法分析阅读笔记</span>
+            <span class="post-date" title="2020-12-09 21:52:40">2020/12/09</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/10/27/FLV#U683c#U5f0f/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="FLV格式">FLV格式</span>
+            <span class="post-date" title="2020-10-27 15:33:56">2020/10/27</span>
+        </a>
+        
+        <a  class="All 机器学习 "
+           href="/2020/09/20/Mac#U4e2dPython3-x#U7f16#U8bd1Caffe/"
+           data-tag="机器学习"
+           data-author="" >
+            <span class="post-title" title="Mac中Python3.x编译Caffe">Mac中Python3.x编译Caffe</span>
+            <span class="post-date" title="2020-09-20 01:08:09">2020/09/20</span>
+        </a>
+        
+        <a  class="All JavaScript npm "
+           href="/2020/07/17/npm#U5e38#U7528#U547d#U4ee4#U64cd#U4f5c/"
+           data-tag="直播"
+           data-author="" >
+            <span class="post-title" title="npm常用命令操作">npm常用命令操作</span>
+            <span class="post-date" title="2020-07-17 10:14:01">2020/07/17</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/16/MediaExtractorANDMediaMuxer/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="android端的音频处理工具MediaExtractor和MediaMuxer">android端的音频处理工具MediaExtractor和MediaMuxer</span>
+            <span class="post-date" title="2020-07-16 11:55:28">2020/07/16</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/15/AAC#U97f3#U9891#U7801#U6d41/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="AAC音频码流">AAC音频码流</span>
+            <span class="post-date" title="2020-07-15 17:45:10">2020/07/15</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/15/Android-PCM#U5904#U7406/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="Android-PCM">Android-PCM</span>
+            <span class="post-date" title="2020-07-15 13:29:49">2020/07/15</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/13/yuv-tool#U5de5#U5177#U7c7b/"
+           data-tag="android,libyuv"
+           data-author="" >
+            <span class="post-title" title="yuv-tool工具类">yuv-tool工具类</span>
+            <span class="post-date" title="2020-07-13 22:58:21">2020/07/13</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/18/ffmpegforandroid#U7f16#U8bd1/"
+           data-tag="ffmpeg"
+           data-author="" >
+            <span class="post-title" title="ffmpegforandroid编译">ffmpegforandroid编译</span>
+            <span class="post-date" title="2020-06-18 13:38:35">2020/06/18</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/11/libfaac#U7f16#U8bd1/"
+           data-tag="libfaac"
+           data-author="" >
+            <span class="post-title" title="libfaac编译">libfaac编译</span>
+            <span class="post-date" title="2020-06-11 14:00:57">2020/06/11</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/11/libx264#U7f16#U8bd1/"
+           data-tag="libx264"
+           data-author="" >
+            <span class="post-title" title="libx264编译">libx264编译</span>
+            <span class="post-date" title="2020-06-11 13:51:36">2020/06/11</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/06/10/RTMP#U89c4#U8303#U5b66#U4e60/"
+           data-tag="RTMP,直播"
+           data-author="" >
+            <span class="post-title" title="RTMP规范学习">RTMP规范学习</span>
+            <span class="post-date" title="2020-06-10 11:35:52">2020/06/10</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/06/01/React-Native#U70ed#U66f4#U65b0/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native热更新">React-Native热更新</span>
+            <span class="post-date" title="2020-06-01 16:03:28">2020/06/01</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2020/06/01/JavaWeb/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaWeb">JavaWeb</span>
+            <span class="post-date" title="2020-06-01 11:09:17">2020/06/01</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2020/05/26/JDBC/"
+           data-tag="java,数据库"
+           data-author="" >
+            <span class="post-title" title="JDBC">JDBC</span>
+            <span class="post-date" title="2020-05-26 16:23:01">2020/05/26</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2020/03/29/#U4e86#U89e3#U8de8#U57df/"
+           data-tag="后台,跨域"
+           data-author="" >
+            <span class="post-title" title="了解跨域">了解跨域</span>
+            <span class="post-date" title="2020-03-29 21:31:15">2020/03/29</span>
+        </a>
+        
+        <a  class="All JavaScript "
+           href="/2020/03/08/JavaScript#U8bed#U6cd5#Uff08#U4e00#Uff09/"
+           data-tag="javaScript"
+           data-author="" >
+            <span class="post-title" title="JavaScript语法（一）">JavaScript语法（一）</span>
+            <span class="post-date" title="2020-03-08 10:29:30">2020/03/08</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/03/06/React-native-#U9ad8#U5fb7#U5730#U56fe/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-native 高德地图">React-native 高德地图</span>
+            <span class="post-date" title="2020-03-06 10:07:45">2020/03/06</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/03/03/React-16-8-Hooks/"
+           data-tag="React"
+           data-author="" >
+            <span class="post-title" title="React 16.8 Hooks">React 16.8 Hooks</span>
+            <span class="post-date" title="2020-03-03 10:07:02">2020/03/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/01/06/React-Native#U539f#U751f#U901a#U4fe1/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native原生通信">React-Native原生通信</span>
+            <span class="post-date" title="2020-01-06 16:34:00">2020/01/06</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/27/React-Native#U539f#U7406#U6d45#U6790/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native原理浅析">React-Native原理浅析</span>
+            <span class="post-date" title="2019-12-27 15:32:08">2019/12/27</span>
+        </a>
+        
+        <a  class="All 正则表达式 "
+           href="/2019/12/18/#U6b63#U5219#U8868#U8fbe#U5f0f/"
+           data-tag="正则表达式"
+           data-author="" >
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2019-12-18 21:45:36">2019/12/18</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/05/React-Native-#U52a8#U753b/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native-动画">React-Native-动画</span>
+            <span class="post-date" title="2019-12-05 16:20:25">2019/12/05</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/03/React-#U81ea#U5b66#U4e4b#U8def#Uff08#U4e8c#Uff09/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="React-自学之路（二）">React-自学之路（二）</span>
+            <span class="post-date" title="2019-12-03 13:06:53">2019/12/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/03/React-#U81ea#U5b66#U4e4b#U8def#Uff08#U4e00#Uff09/"
+           data-tag="React"
+           data-author="" >
+            <span class="post-title" title="React-自学之路（一）">React-自学之路（一）</span>
+            <span class="post-date" title="2019-12-03 09:40:28">2019/12/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/10/12/React#U65b0#U7684#U751f#U547d#U5468#U671f/"
+           data-tag="react"
+           data-author="" >
+            <span class="post-title" title="React新的生命周期">React新的生命周期</span>
+            <span class="post-date" title="2019-10-12 15:41:02">2019/10/12</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2019/09/18/#U521b#U5efamaven#U9879#U76ee#U65f6#Uff0c#U51fa#U73b0Could-not-calculate-build-plan#U9519#U8bef/"
+           data-tag="springboot"
+           data-author="" >
+            <span class="post-title" title="创建maven项目时，出现Could not calculate build plan错误">创建maven项目时，出现Could not calculate build plan错误</span>
+            <span class="post-date" title="2019-09-18 09:25:06">2019/09/18</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2019/09/07/MySQL#U5e38#U7528#U6307#U4ee4/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="MySQL常用指令">MySQL常用指令</span>
+            <span class="post-date" title="2019-09-07 21:10:03">2019/09/07</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/07/05/RecycleView#Uff08#U4e00#Uff09/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="RecycleView（一）">RecycleView（一）</span>
+            <span class="post-date" title="2019-07-05 14:03:06">2019/07/05</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/25/Android#U52a8#U753b#Uff08#U4e09#Uff09/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（三）">Android动画（三）</span>
+            <span class="post-date" title="2019-06-25 14:15:26">2019/06/25</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/20/Android#U52a8#U753b#Uff08#U4e8c#Uff09/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（二）">Android动画（二）</span>
+            <span class="post-date" title="2019-06-20 15:10:00">2019/06/20</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/19/Android#U52a8#U753b#Uff08#U4e00#Uff09/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（一）">Android动画（一）</span>
+            <span class="post-date" title="2019-06-19 15:15:56">2019/06/19</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/18/Android#U81ea#U5b9a#U4e49#U63a7#U4ef6#Uff08#U4e8c#Uff09/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android自定义控件（二）">Android自定义控件（二）</span>
+            <span class="post-date" title="2019-06-18 13:43:11">2019/06/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/13/#U8d1d#U585e#U5c14#U66f2#U7ebf/"
+           data-tag="Android,贝塞尔曲线"
+           data-author="" >
+            <span class="post-title" title="贝塞尔曲线">贝塞尔曲线</span>
+            <span class="post-date" title="2019-06-13 10:14:25">2019/06/13</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/04/Java-Binder#U8fdb#U7a0b#U901a#U4fe1#U7406#U89e3/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Java Binder进程通信理解">Java Binder进程通信理解</span>
+            <span class="post-date" title="2019-06-04 14:01:43">2019/06/04</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/05/30/arm-neon-h#U6587#U4ef6#U529f#U80fd/"
+           data-tag="汇编"
+           data-author="" >
+            <span class="post-title" title="arm-neon.h文件功能">arm-neon.h文件功能</span>
+            <span class="post-date" title="2019-05-30 08:45:08">2019/05/30</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/05/06/Handler#U6d88#U606f#U673a#U5236/"
+           data-tag="android"
+           data-author="" >
+            <span class="post-title" title="Handler消息机制">Handler消息机制</span>
+            <span class="post-date" title="2019-05-06 14:09:45">2019/05/06</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/05/06/H264#U7f16#U7801-#U71b5#U7f16#U7801/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码-熵编码">H264编码-熵编码</span>
+            <span class="post-date" title="2019-05-06 13:42:57">2019/05/06</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/04/08/NDK#U5f00#U53d1#U95ee#U9898#U5408#U96c6/"
+           data-tag="NDK"
+           data-author="" >
+            <span class="post-title" title="NDK开发问题合集">NDK开发问题合集</span>
+            <span class="post-date" title="2019-04-08 10:53:30">2019/04/08</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/04/01/H264#U7f16#U7801#U57fa#U7840/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码基础">H264编码基础</span>
+            <span class="post-date" title="2019-04-01 09:26:11">2019/04/01</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/31/srs#U76f4#U64ad#U5e73#U53f0#U642d#U5efa/"
+           data-tag="直播,srs"
+           data-author="" >
+            <span class="post-title" title="srs直播平台搭建">srs直播平台搭建</span>
+            <span class="post-date" title="2019-03-31 10:37:42">2019/03/31</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/27/#U56fe#U7247RGB#U6570#U636e#U683c#U5f0f/"
+           data-tag="图片格式"
+           data-author="" >
+            <span class="post-title" title="图片RGB数据格式">图片RGB数据格式</span>
+            <span class="post-date" title="2019-03-27 22:24:49">2019/03/27</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/14/#U56fe#U7247YUV#U6570#U636e#U683c#U5f0f/"
+           data-tag="图片格式"
+           data-author="" >
+            <span class="post-title" title="图片YUV数据格式">图片YUV数据格式</span>
+            <span class="post-date" title="2019-03-14 11:10:16">2019/03/14</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2019/03/08/libjpeg-turbo#U7f16#U8bd1/"
+           data-tag="libjpeg-turbo"
+           data-author="" >
+            <span class="post-title" title="libjpeg-turbo编译">libjpeg-turbo编译</span>
+            <span class="post-date" title="2019-03-08 13:41:20">2019/03/08</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2019/03/07/libYUV#U7f16#U8bd1/"
+           data-tag="libyuv"
+           data-author="" >
+            <span class="post-title" title="libYUV编译">libYUV编译</span>
+            <span class="post-date" title="2019-03-07 15:05:11">2019/03/07</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/02/18/Android-camera#Uff08#U4e00#Uff09/"
+           data-tag="camera"
+           data-author="" >
+            <span class="post-title" title="Android camera（一）">Android camera（一）</span>
+            <span class="post-date" title="2019-02-18 15:03:27">2019/02/18</span>
+        </a>
+        
+        <a  class="All C/C++ "
+           href="/2019/01/23/Cpp#U57fa#U7840#Uff08#U4e00#Uff09/"
+           data-tag="Cpp"
+           data-author="" >
+            <span class="post-title" title="Cpp基础（一）">Cpp基础（一）</span>
+            <span class="post-date" title="2019-01-23 10:52:13">2019/01/23</span>
+        </a>
+        
+        <a  class="All C/C++ "
+           href="/2019/01/18/C#U57fa#U7840#Uff08#U4e00#Uff09/"
+           data-tag="C"
+           data-author="" >
+            <span class="post-title" title="C基础（一）">C基础（一）</span>
+            <span class="post-date" title="2019-01-18 14:08:23">2019/01/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/12/18/EasyPermission/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="EasyPermission">EasyPermission</span>
+            <span class="post-date" title="2018-12-18 13:20:30">2018/12/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/12/15/Android#U81ea#U5b9a#U4e49#U63a7#U4ef6#Uff08#U4e00#Uff09/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android自定义控件（一）">Android自定义控件（一）</span>
+            <span class="post-date" title="2018-12-15 21:44:34">2018/12/15</span>
+        </a>
+        
+        <a  class="All ssr "
+           href="/2018/12/10/Linux#U914d#U7f6eShadowSocks-R/"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux配置ShadowSocks-R">Linux配置ShadowSocks-R</span>
+            <span class="post-date" title="2018-12-10 15:58:52">2018/12/10</span>
+        </a>
+        
+        <a  class="All Android 热更新 "
+           href="/2018/10/29/Sophix#U70ed#U66f4#U65b0/"
+           data-tag="android,热更新"
+           data-author="" >
+            <span class="post-title" title="Sophix热更新">Sophix热更新</span>
+            <span class="post-date" title="2018-10-29 16:50:36">2018/10/29</span>
+        </a>
+        
+        <a  class="All Android 热更新 "
+           href="/2018/10/18/TinkerPatch#U70ed#U66f4#U65b0/"
+           data-tag="android,热更新"
+           data-author="" >
+            <span class="post-title" title="TinkerPatch热更新">TinkerPatch热更新</span>
+            <span class="post-date" title="2018-10-18 20:11:30">2018/10/18</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2018/06/21/React-native-flex#U5e03#U5c40/"
+           data-tag="react"
+           data-author="" >
+            <span class="post-title" title="React-native flex布局">React-native flex布局</span>
+            <span class="post-date" title="2018-06-21 16:22:47">2018/06/21</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/01/25/Android#U4e8b#U4ef6#U5206#U53d1/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android事件分发">Android事件分发</span>
+            <span class="post-date" title="2018-01-25 16:36:52">2018/01/25</span>
+        </a>
+        
+        <a  class="All Gradle "
+           href="/2018/01/25/Gradle#Uff08#U4e00#Uff09/"
+           data-tag="构建工具,Gradle"
+           data-author="" >
+            <span class="post-title" title="Gradle（一）">Gradle（一）</span>
+            <span class="post-date" title="2018-01-25 16:36:52">2018/01/25</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2017/11/24/firstBlod2/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git详细讲解(远程)">Git详细讲解(远程)</span>
+            <span class="post-date" title="2017-11-24 10:18:05">2017/11/24</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2017/10/19/firstBlod/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git详细讲解(本地)">Git详细讲解(本地)</span>
+            <span class="post-date" title="2017-10-19 21:49:28">2017/10/19</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-SpringIOC-#U57fa#U7840" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">SpringIOC-基础</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="spring">spring</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color2">spring</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2021-11-16 01:30:57'>2021-11-08 10:27</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                Comment:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Spring-IOC%E5%8E%9F%E7%90%86%E6%8F%8F%E8%BF%B0"><span class="toc-text">Spring IOC原理描述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%85%83%E6%95%B0%E6%8D%AE"><span class="toc-text">配置元数据</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%B8%8B%E9%9D%A2%E6%98%AF%E5%9F%BA%E4%BA%8E%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0%E7%9A%84%E6%95%B0%E6%8D%AE%E7%A4%BA%E4%BE%8B%EF%BC%9A"><span class="toc-text">下面是基于接口实现的数据示例：</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%B8%8B%E9%9D%A2%E6%98%AF%E5%9F%BA%E4%BA%8E%E6%B3%A8%E8%A7%A3%E7%9A%84%E9%85%8D%E7%BD%AE%E5%85%83%E6%95%B0%E6%8D%AE%E7%A4%BA%E4%BE%8B%EF%BC%9A"><span class="toc-text">下面是基于注解的配置元数据示例：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5"><span class="toc-text">依赖注入</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Setter%E6%B3%A8%E5%85%A5"><span class="toc-text">Setter注入</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E6%B3%A8%E5%85%A5"><span class="toc-text">构造函数注入</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96"><span class="toc-text">循环依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B"><span class="toc-text">依赖解析过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%86%99Bean%E5%AE%9A%E4%B9%89"><span class="toc-text">重写Bean定义</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%A7%8D"><span class="toc-text">第一种</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%A7%8D"><span class="toc-text">第二种</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8depends-on%E7%89%B9%E6%80%A7"><span class="toc-text">使用depends-on特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D"><span class="toc-text">自动装配</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#byType"><span class="toc-text">byType</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#byName"><span class="toc-text">byName</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#constructor-NaN"><span class="toc-text">constructor</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E6%B3%A8%E8%A7%A3%E7%9A%84%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D"><span class="toc-text">基于注解的自动装配</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Autowired"><span class="toc-text">@Autowired</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Resource"><span class="toc-text">@Resource</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Value"><span class="toc-text">@Value</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bean%E6%9F%A5%E6%89%BE"><span class="toc-text">Bean查找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bean%E7%AE%A1%E7%90%86"><span class="toc-text">Bean管理</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%91%BD%E5%90%8DBean"><span class="toc-text">命名Bean</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Bean%E7%A4%BA%E4%BE%8B%E5%8C%96%E6%96%B9%E6%B3%95"><span class="toc-text">Bean示例化方法</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Bean%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-text">Bean作用域</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%BB%B6%E8%BF%9F%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-text">延迟初始化</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%9B%9E%E8%B0%83"><span class="toc-text">生命周期回调</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Bean%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">Bean定义配置文件</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-text">环境</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Spring-IOC原理描述"><a href="#Spring-IOC原理描述" class="headerlink" title="Spring IOC原理描述"></a>Spring IOC原理描述</h2><p>IOC是一种设计思想，在日常开发中，面对创建的对象（new），都会出现不好的开发习惯。导致代码量大，更糟糕都会导致程序崩溃、耦合度极高等问题。因此，<strong>IOC（控制反转）</strong>实现了<strong>不需要使用new</strong>的操作符来实例化，而是在<strong>运行时</strong>由容器实例将<strong>依赖组建注入组建</strong>，对依赖性的控制由组建转到容器，这就是控制反转。“不要给我们打电话，我们会给你打电话”。<br><strong><em> Spring IOS是对IOC设计思想的一种实现。 </em></strong><br>这个容器负责了三个核心(基础)功能：<strong>对象创建</strong>、<strong>对象存储（map）</strong>、<strong>对象管理（依赖查找、依赖注入）</strong>。</p>
+<ul>
+<li>依赖查找：容器向其管理的组建提供了回调方法，而组建则通过这些回调方法于容器进行交互并显式地获取他们的依赖项。</li>
+<li>依赖注入：组建提供了合适的组建函数或<strong>Setter</strong>方法，以便容器可以注入依赖组建。</li>
+</ul>
+<h3 id="配置元数据"><a href="#配置元数据" class="headerlink" title="配置元数据"></a>配置元数据</h3><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">beans</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;http://www.springframework.org/schema/beans&quot;</span></span><br><span class="hljs-tag">       <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span><br><span class="hljs-tag">       <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span></span><br><span class="hljs-tag"><span class="hljs-string">        &quot;</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;accountService&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;com.wiley.spring.service.impl.AccountServiceImpl&quot;</span>&gt;</span><br>			<span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;accountDao&quot;</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;accountDao&quot;</span>/&gt;</span><br>		<span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;accountDao&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;com.wiley.spring.dao.impl.AccountDaoImpl&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">beans</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>所有的<strong>Bean</strong>都被定义在<strong><beans></strong>元素中，而每个<strong>Bean</strong>则使用<strong><bean></strong>元素进行定义。名称有<strong>id</strong>特性定义。应用程序或配置元数据中的其他Bean定义可以通过名称来访问相关的Bean。<br>示例中，<strong>accountService Bean</strong>又一个<strong>accountDao</strong>的属性，而该属性又满足了配置中定义的<strong>accountDao Bean</strong>。</p>
+<h6 id="下面是基于接口实现的数据示例："><a href="#下面是基于接口实现的数据示例：" class="headerlink" title="下面是基于接口实现的数据示例："></a>下面是基于接口实现的数据示例：</h6><ul>
+<li>AccountDao，Dao层<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">AccountDao</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">testAccount</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li>AccountDaoImpl，实现类<br>这里实现了Dao层中的功能<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AccountDaoImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">AccountDao</span></span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">testAccount</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;TestAccount&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li>AccountService，Service接口<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">AccountService</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">serviceTest</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li>AccountServiceImpl，Service层<br>这里实现了Service层中的功能，并且引入了<strong>AccountDao</strong>依赖。<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AccountServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">AccountService</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> AccountDao accountDao;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setAccountDao</span><span class="hljs-params">(AccountDao accountDao)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.accountDao = accountDao;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">serviceTest</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;ServiceTest&quot;</span>);<br>        accountDao.testAccount();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h6 id="下面是基于注解的配置元数据示例："><a href="#下面是基于注解的配置元数据示例：" class="headerlink" title="下面是基于注解的配置元数据示例："></a>下面是基于注解的配置元数据示例：</h6><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Ch2BeanConfiguration</span> </span>&#123;<br><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> AccountDao <span class="hljs-title">accountDao</span><span class="hljs-params">()</span></span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> AccountDaoImpl();<br>    &#125;<br><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> AccountService <span class="hljs-title">accountService</span><span class="hljs-params">()</span></span>&#123;<br>        AccountServiceImpl bean=<span class="hljs-keyword">new</span> AccountServiceImpl();<br>        bean.setAccountDao(accountDao());<br>        <span class="hljs-keyword">return</span> bean;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>上面的代码咋一个使用<strong>@Configuration</strong>注解的Java类中<strong>定义Bean</strong>。每一个使用注解<strong>@Bean</strong>的公共方法都对应一个<strong>Bean定义</strong>。<strong><em>通过调用构造函数示例化Bean，然后通过调用其他Bean的定义方法获取其依赖项，并将其注入。</em></strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Service(&quot;accountService&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AccountServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">AccountService</span> </span>&#123;<br>  <span class="hljs-keyword">private</span> AccountDao accountDao;<br>  <span class="hljs-meta">@Autowired</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setAccountDao</span><span class="hljs-params">(AccountDao accountDao)</span> </span>&#123;<br>    <span class="hljs-keyword">this</span>.accountDao = accountDao;<br>  &#125;<br>&#125;<br><br><span class="hljs-meta">@Repository(&quot;accountDao&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AccountDaoImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">AccountDao</span></span>&#123;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>上面代码使用Java注解<strong>定义Bean</strong>。其中<strong>@Service</strong>和<strong>@Repository</strong>被用来定义两个<strong>Bean</strong>。实际上，他们又是注解<strong>@Component</strong>的具体形式。此外，注解<strong>@Autowired</strong>通常用来制定在运行时被Spring容器<strong>所注入的Bean依赖</strong>。</p>
+<p>在一个庞大的项目中，将<strong>配置元数据划分到多个不同的文件</strong>是一个好主意。</p>
+<ul>
+<li>beans-web.xml：定义了web层/表示层的Bean。</li>
+<li>beans-service.xml：定义了服务层/业务层的Bean。</li>
+<li>beans-dao.xml：定义了数据访问层中的Bean。</li>
+<li>beans-config.xml：定义了激活几个特定功能所需要的Bean。</li>
+<li>beans-security.xml：定义了应用程序安全性需求的Bean。</li>
+</ul>
+<h3 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a>依赖注入</h3><h6 id="Setter注入"><a href="#Setter注入" class="headerlink" title="Setter注入"></a>Setter注入</h6><p>是在<strong>Bean示例创建完毕之后执行</strong>。通过调用于Bean的配置元数据中定义的所有属性相对于的<strong>Setter方法</strong>注入这些属性。<br><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;account&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;.....Account&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;id&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;1&quot;</span> /&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;ownerName&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;John&quot;</span> /&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;locked&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;false&quot;</span> /&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">property</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;maps&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">map</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">entry</span> <span class="hljs-attr">key</span>=<span class="hljs-string">&quot;1&quot;</span> <span class="hljs-attr">value-ref</span>=<span class="hljs-string">&quot;one&quot;</span>/&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">entry</span> <span class="hljs-attr">key</span>=<span class="hljs-string">&quot;2&quot;</span> <span class="hljs-attr">value-ref</span>=<span class="hljs-string">&quot;two&quot;</span>/&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">map</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">property</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span><br></code></pre></td></tr></table></figure><br>可以看出Spring需要尽可能多地处理必要的类型转换。此外还允许注入<strong>Collection</strong>或<strong>Map</strong>值。</p>
+<h6 id="构造函数注入"><a href="#构造函数注入" class="headerlink" title="构造函数注入"></a>构造函数注入</h6><p>构造函数注入在<strong>组建创建期间被执行</strong>。依赖项被表示为构造函数的参数，容器通过检测Bean定义中制定的构造函数参数来确定调用哪个函数。</p>
+<ul>
+<li>该构造函数接收一个对象作为输入参数。<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AccountServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">AccountService</span></span>&#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 需要注入的对象Dao层对象</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> AccountDao accountDao;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 构造注入</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">AccountServiceImpl</span><span class="hljs-params">(AccountDao accountDao)</span></span>&#123;<br>        <span class="hljs-keyword">this</span>.accountDao=accountDao;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>使用构造函数注入的<strong>accountService Bean</strong>定义如下</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;accountService&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;com.spring.springIoc.service.impl.AccountServiceImpl&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">constructor-arg</span>  <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;accountDao&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;accountDao&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;com.spring.springIoc.dao.impl.AccountDaoImpl&quot;</span>/&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>xml引入Spring容器</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Main</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        ClassPathXmlApplicationContext context = <span class="hljs-keyword">new</span> ClassPathXmlApplicationContext(<span class="hljs-string">&quot;...xml&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>调用</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">AccountService service = context.getBean(<span class="hljs-string">&quot;accountService&quot;</span>, AccountService.class);<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>除了上述的对其他Bean的引用外，还可以对非Bean内容引用，比如int、boolean等。通过<strong><constructor-arg></strong>接收<strong>value</strong>特性来注入相关值，而必要的类型转换由Spring容器处理。而在多个参数的构造函数中，则可以通过添加<strong>index</strong>来对合适的构造函数中寻找。</p>
+<h3 id="循环依赖"><a href="#循环依赖" class="headerlink" title="循环依赖"></a>循环依赖</h3><p>构造函数注入的其中一个确定是无法处理循环依赖。例如：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> B b;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">A</span><span class="hljs-params">(B b)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.b = b;<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> A a;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">B</span><span class="hljs-params">(A a)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.a = a;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;a&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;com.spring.springioc.ch2.A&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">constructor-arg</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;b&quot;</span> /&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;b&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;com.spring.springioc.ch2.B&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">constructor-arg</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;a&quot;</span> /&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span><br></code></pre></td></tr></table></figure><br><strong><em>这样会导致BeanCurrentlyInCreationException异常。</em></strong></p>
+<h3 id="依赖解析过程"><a href="#依赖解析过程" class="headerlink" title="依赖解析过程"></a>依赖解析过程</h3><p>大致分为两个主要阶段。</p>
+<ul>
+<li>容器处理配置元数据，并建立元数据中存在的Bean定义，这个过程中会对Bean定义进行验证。在这个过程中Bean并没有被创建，相关的属性也没有被注入。</li>
+<li>完成Bean的创建，然后完成依赖注入。但是这个过程中仅创建了无状态作用域的Bean。</li>
+</ul>
+<h3 id="重写Bean定义"><a href="#重写Bean定义" class="headerlink" title="重写Bean定义"></a>重写Bean定义</h3><p>提供了两种不同形式的重写机制。</p>
+<h6 id="第一种"><a href="#第一种" class="headerlink" title="第一种"></a>第一种</h6><p>第一种发生在Bean配置元数据文件级别。<br>首先将配置元数据划分到多个不同的文件或类中，然后在<strong>ApplicationContext</strong>创建期间制定这些文件和类组合在一起。在合并期间配置源的顺序非常重要。如果两个不同的配置源中拥有两个相同的Bean定义，那么根据给定的顺序第二个Bean定义将重写第一个Bean定义。只有当同名的Bean定义被放置知道不同的配置源数据源时，这些类型的Bean重写才会发生。</p>
+<ul>
+<li><p>创建Foo类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getName</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> name;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setName</span><span class="hljs-params">(String name)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.name = name;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>创建两个@Configuration</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Configuration1</span> </span>&#123;<br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Foo <span class="hljs-title">foo</span><span class="hljs-params">()</span> </span>&#123;<br>        Foo foo = <span class="hljs-keyword">new</span> Foo();<br>        foo.setName(<span class="hljs-string">&quot;My Foo&quot;</span>);<br>        <span class="hljs-keyword">return</span> foo;<br>    &#125;<br>&#125;<br><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Configuration2</span> </span>&#123;<br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Foo <span class="hljs-title">foo</span><span class="hljs-params">()</span> </span>&#123;<br>        Foo foo = <span class="hljs-keyword">new</span> Foo();<br>        foo.setName(<span class="hljs-string">&quot;Your Foo&quot;</span>);<br>        <span class="hljs-keyword">return</span> foo;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>修改Main方法中的Configuration</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Main</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        AnnotationConfigApplicationContext context = <span class="hljs-keyword">new</span> AnnotationConfigApplicationContext(Configuration1.class, Configuration2.class);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>访问ApplicationContext中的foo bean</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">Foo foo = context.getBean(Foo.class);<br>System.out.println(foo.getName());<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>修改Configuration顺序</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Main</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>        AnnotationConfigApplicationContext context = <span class="hljs-keyword">new</span> AnnotationConfigApplicationContext(Configuration2.class, Configuration1.class);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>上述代码看到两个<strong>@Configuration类</strong>，检查两个顺序，在第一次调用中使用了类Configuration2中的定义；第二次调用中使用了类Configuration1的定义。</p>
+<h6 id="第二种"><a href="#第二种" class="headerlink" title="第二种"></a>第二种</h6><p>发生在容器级别。<br>ApplicationContext可能有父ApplicationContext，在父子示例中存在两个同名的Bean示例完全可能。在使用重复时，Spring将提供子ApplicationContext中所定义的Bean。</p>
+<h3 id="使用depends-on特性"><a href="#使用depends-on特性" class="headerlink" title="使用depends-on特性"></a>使用depends-on特性</h3><p>如果Bean a直接或间接依赖Bean b，那么可以肯定Spring容器将首先创建Bean b。相反如果没有依赖关心，则无法确保两者之前创建的顺序。如果需要这个操作，则使用该特性。<br><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;a&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;xxxxxx.A&quot;</span> <span class="hljs-attr">depends-on</span>=<span class="hljs-string">&quot;b,c&quot;</span>/&gt;</span><br></code></pre></td></tr></table></figure><br>这样就标志类Bean b、c在Bean a之前被创建。 </p>
+<h3 id="自动装配"><a href="#自动装配" class="headerlink" title="自动装配"></a>自动装配</h3><p>自动装配有三种模式：<strong>byType</strong>、<strong>byName</strong>、<strong>constructor</strong>。</p>
+<h6 id="byType"><a href="#byType" class="headerlink" title="byType"></a>byType</h6><p>通过Java反射查看Bean定义中的类，然后尝试将容器中可用的Bean注入与其类型相匹配的属性。主要通过这些属性的<strong>Setter方法</strong>完成。<br><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;accountService&quot;</span> <span class="hljs-attr">autowire</span>=<span class="hljs-string">&quot;byType&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;...impl.AccountServiceImpl&quot;</span> /&gt;</span><br></code></pre></td></tr></table></figure></p>
+<p>如果有多个Bean实例合适自动装配到某一个特定属性，这个注入就会失败。此时可以通过<strong>aotuwire-acandidate</strong>特性：<br>设置当前bean在被其他对象作为自动注入对象的时候，是否作为候选bean，默认值是true。<br><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;accountService&quot;</span> <span class="hljs-attr">autowire</span>=<span class="hljs-string">&quot;byType&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;...impl.AccountServiceImpl&quot;</span> <span class="hljs-attr">autowire-candidate</span>=<span class="hljs-string">&quot;false&quot;</span> /&gt;</span><br></code></pre></td></tr></table></figure></p>
+<h6 id="byName"><a href="#byName" class="headerlink" title="byName"></a>byName</h6><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;accountService&quot;</span> <span class="hljs-attr">autowire</span>=<span class="hljs-string">&quot;byName&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;...impl.AccountServiceImpl&quot;</span> /&gt;</span><br></code></pre></td></tr></table></figure>
+<h6 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h6><p>该模式类似byType模式，Spring容器尝试找到那些类型于构造函数参数匹配的Bean。</p>
+<h3 id="基于注解的自动装配"><a href="#基于注解的自动装配" class="headerlink" title="基于注解的自动装配"></a>基于注解的自动装配</h3><p>需要添加注解驱动。<br><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">context:annotation-config</span>/&gt;</span><br></code></pre></td></tr></table></figure></p>
+<h6 id="Autowired"><a href="#Autowired" class="headerlink" title="@Autowired"></a>@Autowired</h6><p>可以对类成员变量、方法及构造函数进行标注，完成自动装配的工作。 通过<strong>@Autowired</strong>的使用标注到成员变量时不需要有set方法，请注意<strong>@Autowired默认按类型匹配的</strong>，。如果需要按名称匹配，可以使用<strong>@Qualifier</strong>和<strong>@Autowired</strong>合并使用。</p>
+<h6 id="Resource"><a href="#Resource" class="headerlink" title="@Resource"></a>@Resource</h6><p>默认<strong>byName模式</strong>。可以标注在成员变量和set方法上，但无法标注构造函数。</p>
+<h6 id="Value"><a href="#Value" class="headerlink" title="@Value"></a>@Value</h6><p>针对基本类型如int、boolean等类型，提供了<strong>@Value注入</strong>方式。接收一个String值，指定了被注入到java类型属性值。</p>
+<h3 id="Bean查找"><a href="#Bean查找" class="headerlink" title="Bean查找"></a>Bean查找</h3><p>在Spring的应用中，尽量增加Bean的数量。<br>由于在使用过程中需要在Spring管理的Bean内显式Bean查找。提供了该接口：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SpringContextUtil</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ApplicationContextAware</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setApplicationContext</span><span class="hljs-params">(ApplicationContext applicationContext)</span> <span class="hljs-keyword">throws</span> BeansException </span>&#123;:w<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>如果创建的bean类实现了该接口，那么则可以在Bean内访问自己的容器。对于基于Java和基于注解的配置，甚至不需要实现该接口，只需要将<strong>@Autowired</strong>注解放到字段或setter方法上就可以进行注入。</p>
+<h3 id="Bean管理"><a href="#Bean管理" class="headerlink" title="Bean管理"></a>Bean管理</h3><h6 id="命名Bean"><a href="#命名Bean" class="headerlink" title="命名Bean"></a>命名Bean</h6><p>Bean通过名称进行区分。如果没有，Spring容器将会为其自动分配个内部名称。在xml配置中，<strong>id特性</strong>讲一个名称分配给Bean。<br>如果在Bean定义中为其分配多个名称，可以使用<strong>name特性</strong>。在该特性中可以使用空格、逗号、分毫来分离Bean定义的多个名称。<br><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;a,b,c&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;xxxx.AccountDao&quot;</span>/&gt;</span><br></code></pre></td></tr></table></figure></p>
+<p>除了次名称外，还可以使用别名（aliase）操作赋予别名。<br><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;a,b,c&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;xxxx.AccountDao&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">alias</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;a&quot;</span> <span class="hljs-attr">alias</span>=<span class="hljs-string">&quot;d&quot;</span>/&gt;</span><br></code></pre></td></tr></table></figure></p>
+<h6 id="Bean示例化方法"><a href="#Bean示例化方法" class="headerlink" title="Bean示例化方法"></a>Bean示例化方法</h6><ul>
+<li>创建Bean的首要方式就是通过构造函数，Spring管理着他们。</li>
+<li>调用可用的静态或实例工厂方法。<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FooFactory</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Foo <span class="hljs-title">createFoo3</span><span class="hljs-params">()</span> </span>&#123;<br>        Foo foo = <span class="hljs-keyword">new</span> Foo();<br>        foo.setName(<span class="hljs-string">&quot;foo3&quot;</span>);<br>        <span class="hljs-keyword">return</span> foo;<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Foo <span class="hljs-title">createFoo4</span><span class="hljs-params">()</span> </span>&#123;<br>        Foo foo = <span class="hljs-keyword">new</span> Foo();<br>        foo.setName(<span class="hljs-string">&quot;foo4&quot;</span>);<br>        <span class="hljs-keyword">return</span> foo;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+xml中通过<strong>factory-method</strong>特性进行配置，其接收一个静态工厂方法名称作为一个参数值。<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;foo3&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;......FooFactory&quot;</span> <span class="hljs-attr">factory-method</span>=<span class="hljs-string">&quot;createFoo3&quot;</span> /&gt;</span><br></code></pre></td></tr></table></figure>
+而面对实例工厂方法需要引入<strong>factory-bean</strong>特性：<figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;fooFactory&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;......FooFactory&quot;</span> /&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;foo4&quot;</span> <span class="hljs-attr">factory-bean</span>=<span class="hljs-string">&quot;fooFactory&quot;</span> <span class="hljs-attr">factory-method</span>=<span class="hljs-string">&quot;createFoo4&quot;</span> /&gt;</span><br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在基于注解的配置中，首先需要使用<strong>@Component元素</strong>注解FooFactory类。然后使用<strong>@Bean注解</strong>fooFactory Bean中的静态和实例工厂方法。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FooFactory</span> </span>&#123;<br>    <span class="hljs-meta">@Bean(name=&quot;foo3&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Foo <span class="hljs-title">createFoo3</span><span class="hljs-params">()</span> </span>&#123;<br>        Foo foo = <span class="hljs-keyword">new</span> Foo();<br>        foo.setName(<span class="hljs-string">&quot;foo3&quot;</span>);<br>        <span class="hljs-keyword">return</span> foo;<br>    &#125;<br>    <br>    <span class="hljs-meta">@Bean(name=&quot;foo4&quot;)</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Foo <span class="hljs-title">createFoo4</span><span class="hljs-params">()</span> </span>&#123;<br>        Foo foo = <span class="hljs-keyword">new</span> Foo();<br>        foo.setName(<span class="hljs-string">&quot;foo4&quot;</span>);<br>        <span class="hljs-keyword">return</span> foo;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<ul>
+<li>最后是通过<strong>FactoryBean<T></strong>接口实现<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FooFactoryBean</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">FactoryBean</span>&lt;<span class="hljs-title">Foo</span>&gt; </span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Foo <span class="hljs-title">getObject</span><span class="hljs-params">()</span> </span>&#123;<br>        Foo foo = <span class="hljs-keyword">new</span> Foo();<br>        foo.setName(<span class="hljs-string">&quot;foo3&quot;</span>);<br>        <span class="hljs-keyword">return</span> foo;<br>    &#125;<br>    <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> Class&lt;?&gt; getObjectType() &#123;<br>        <span class="hljs-keyword">return</span> Foo.class;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isSingleton</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>    &#125;<br>&#125;<br><br>&lt;bean id=<span class="hljs-string">&quot;foo5&quot;</span> <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;xxxxxxx.FooFactoryBean&quot;</span>/&gt;<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h6 id="Bean作用域"><a href="#Bean作用域" class="headerlink" title="Bean作用域"></a>Bean作用域</h6><p>由Spring容器创建的Bean的生存期被称为其作用域。默认情况下，有Spring容器创建的所有Bean都是<strong>Singleton作用域</strong>。就是一个Bean定义只创建一个Bean实例，并且在整个应用程序中被使用。此时创建的实例都是无状态的。<br><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">bean</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;manager&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;xxxxxx.Manager&quot;</span> <span class="hljs-attr">scope</span>=<span class="hljs-string">&quot;signleton&quot;</span>/&gt;</span><br></code></pre></td></tr></table></figure><br>使用<strong>scope特性</strong>来指定其作用域。默认为<strong>singleton</strong>。<br>其支持的第二种作用域是<strong>prototype</strong>。类似于Java中使用new操作符创建对象。每当容器中或者通过Bean引用其他Bean定义中，都会创建他们。<br>Spring2.5中新的作用域<strong>Request</strong>和<strong>Session</strong>。这些作用域只能在Web应用程序中使用。<br>当定义Request作用域和Sesion作用域的Bean是，必须在\<bean\>中放入<strong><aop:scoped-proxy/></strong>元素作为子元素。<br><img src="/img/Spring/0.png" alt="github"></p>
+<h6 id="延迟初始化"><a href="#延迟初始化" class="headerlink" title="延迟初始化"></a>延迟初始化</h6><p>默认情况下，Spring容器在启动阶段创建Bean。给过程被称为Bean初始化。优点在于尽早发现配置错误。<br>Spring还支持延迟Bean初始化。延迟直到真正需要时才创建。使用<strong>lazy-init特性</strong>触发。并且可以添加<strong>default-lazy-init特性</strong>配置默认值。</p>
+<h6 id="生命周期回调"><a href="#生命周期回调" class="headerlink" title="生命周期回调"></a>生命周期回调</h6><p>可以定义回调方法，这些方法可以在Bean生命期的任何特定时间点由容器调用。在xml配置中有<strong>init-method特性</strong>和<strong>destroy-method特性</strong>。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">()</span> </span>&#123;<br><br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">destroy</span><span class="hljs-params">()</span> </span>&#123;<br><br>    &#125;<br>&#125;<br><br>&lt;bean id=<span class="hljs-string">&quot;foo&quot;</span> <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;xxxxxx.Foo&quot;</span> init-method=<span class="hljs-string">&quot;init&quot;</span> destroy-method=<span class="hljs-string">&quot;destroy&quot;</span>/&gt;<br></code></pre></td></tr></table></figure><br>在bean初始化后，回调用相应的<strong>init</strong>函数，并注入相关属性。相反，<strong>destroy</strong>函数则是在Bean生命周期结束之前由容器调用。</p>
+<p>针对<strong>JSR-250 Common</strong>提供了<strong>@PostConstruct</strong>和<strong>@PreDestroy</strong>，具有相同功能。<br>但是需要添加<strong><em><context:annotation-config/></em></strong>命名空间元素。<br><strong><em>实现的第三种</em></strong>。Spring Framework提供了两个特殊的接口：<strong>org.springframework.beans.factory.InitializingBean和org.springframework.beans.factory.DisposableBean</strong>。他们分别声明了<strong>afterPropertiesSet()方法和destroy()方法</strong>。前者将在属性注入完毕后调用、后者则在Bean销毁前调用。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Baz</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">InitializingBean</span>, <span class="hljs-title">DisposableBean</span> </span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">afterPropertiesSet</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;<br>    <br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">destroy</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;<br><br>    &#125;<br>&#125;<br><br>&lt;bean <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;xxxxxx.Baz&quot;</span>/&gt;<br></code></pre></td></tr></table></figure></p>
+<h6 id="Bean定义配置文件"><a href="#Bean定义配置文件" class="headerlink" title="Bean定义配置文件"></a>Bean定义配置文件</h6><p>有时，我们需要根据运行时环境来定义Bean。针对开发环境、生产环境的不同而使用不同的数据库。针对不同环境创建不同的xml文件：<strong>dataSource-dev.xml和dataSource-prod.xml</strong>。或者在<strong>beans元素</strong>中添加<strong>profile特性</strong>，该特性可以配置bean环境。<br><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">beans</span> <span class="hljs-attr">profile</span>=<span class="hljs-string">&quot;dev,test&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">bean</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">bean</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">beans</span>&gt;</span><br></code></pre></td></tr></table></figure></p>
+<h6 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h6><p>Spring3.1引入新的接口<strong>org.springframe.core.env.Environment</strong>来代表应用程序所在的运行环境。</p>
+
+      
+       
+    </div>
+</article>
+
+
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '07584e1e38d09c739a16',
+            clientSecret: '6a466750b46c76ed9cc8ee0fe0d78e0c33898937',
+            repo: 'yangandmore.github.io',
+            owner: 'Yangandmore',
+            admin: ['Yangandmore'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2016-2020 Yangandmore
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
