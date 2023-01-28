@@ -1,0 +1,2330 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Rust-结构体 | 杨小杨的博客</title>
+  <meta name="keywords" content=" rust ">
+  <meta name="description" content="Rust-结构体 | 杨小杨的博客">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="整洁代码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="观看Clean Code(整洁代码)记录-1">
+<meta property="og:url" content="http://example.com/2023/01/28/%E9%87%8D%E6%9E%84%E4%BB%A3%E7%A0%811/index.html">
+<meta property="og:site_name" content="杨小杨的博客">
+<meta property="og:description" content="整洁代码">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/CleanCode/0.png">
+<meta property="og:image" content="http://example.com/img/CleanCode/1.png">
+<meta property="article:published_time" content="2023-01-28T08:02:25.000Z">
+<meta property="article:modified_time" content="2023-01-28T09:49:19.837Z">
+<meta property="article:author" content="Yang">
+<meta property="article:tag" content="整洁代码">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/CleanCode/0.png">
+
+
+<link rel="icon" href="/img/header.png">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/header.png"/>
+</a>
+<div class="author">
+    <span>Yang</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="github"
+               href="https://github.com/Yangandmore"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="email"
+               href="mailto:635408602@qq.com"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="qq"
+               href="http://wpa.qq.com/msgrd?v=3&uin=635408602&site=qq&menu=yes"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-qq"></use>
+                    </svg>
+                
+            </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(149)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                <li>
+                    <div data-rel="数据库">
+                        
+                        数据库
+                        <small>(4)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="包管理">
+                        
+                        包管理
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="编译的库">
+                        
+                        编译的库
+                        <small>(5)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="分布式事务">
+                        
+                        分布式事务
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="分布式搜索">
+                        
+                        分布式搜索
+                        <small>(5)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="后台">
+                        
+                        后台
+                        <small>(3)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="机器学习">
+                        
+                        机器学习
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="流程引擎">
+                        
+                        流程引擎
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="数据结构">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        数据结构
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="数据结构<--->算法分析">
+                                        
+                                        算法分析
+                                        
+                                            <small>(2
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="异常问题">
+                        
+                        异常问题
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="音视频">
+                        
+                        音视频
+                        <small>(13)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="整洁代码">
+                        
+                        整洁代码
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="正则表达式">
+                        
+                        正则表达式
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Android">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        Android
+                        <small>(17)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="Android<--->热更新">
+                                        
+                                        热更新
+                                        
+                                            <small>(2
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="C/C++">
+                        
+                        C/C++
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="git">
+                        
+                        git
+                        <small>(3)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Gradle">
+                        
+                        Gradle
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="java">
+                        
+                        java
+                        <small>(9)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="JavaScript">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        JavaScript
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="JavaScript<--->npm">
+                                        
+                                        npm
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="ReactNative">
+                        
+                        ReactNative
+                        <small>(10)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Redis">
+                        
+                        Redis
+                        <small>(4)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="rust">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        rust
+                        <small>(46)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="rust<--->p2p">
+                                        
+                                        p2p
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="spring">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        spring
+                        <small>(9)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="spring<--->java">
+                                        
+                                        java
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="ssr">
+                        
+                        ssr
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="149">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>包管理</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>贝塞尔曲线</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>分布式事务</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>分布式搜索</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>构建工具</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>后台</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>汇编</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>机器学习</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>跨域</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>流程引擎</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>热更新</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>视频格式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>数据结构与算法分析</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>数据库</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>图片格式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>异步</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>异常问题</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>音频</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>音视频</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>整洁代码</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>正则表达式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>直播</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>android</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Android</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>C</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>camera</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Cpp</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>es</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ffmpeg</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>git</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Gradle</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>java</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>javaScript</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libfaac</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libjpeg-turbo</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libx264</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libyuv</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Linux</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>NDK</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>react</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>React</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ReactNative</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Redis</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>RTMP</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>rust</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>seate</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>spring</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>springboot</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>SQL</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>srs</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ssr</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class="All 整洁代码 "
+           href="/2023/01/28/%E9%87%8D%E6%9E%84%E4%BB%A3%E7%A0%811/"
+           data-tag="整洁代码"
+           data-author="" >
+            <span class="post-title" title="观看Clean Code(整洁代码)记录-1">观看Clean Code(整洁代码)记录-1</span>
+            <span class="post-date" title="2023-01-28 08:02:25">2023/01/28</span>
+        </a>
+        
+        <a  class="All 异常问题 "
+           href="/2022/09/27/eclipse-mac-err/"
+           data-tag="异常问题"
+           data-author="" >
+            <span class="post-title" title="eclipse-mac-err">eclipse-mac-err</span>
+            <span class="post-date" title="2022-09-27 22:24:54">2022/09/27</span>
+        </a>
+        
+        <a  class="All 流程引擎 "
+           href="/2022/09/16/activiti7/"
+           data-tag="流程引擎"
+           data-author="" >
+            <span class="post-title" title="流程引擎-activiti7">流程引擎-activiti7</span>
+            <span class="post-date" title="2022-09-16 10:01:11">2022/09/16</span>
+        </a>
+        
+        <a  class="All 分布式事务 "
+           href="/2022/09/04/seate/"
+           data-tag="seate,分布式事务"
+           data-author="" >
+            <span class="post-title" title="配置seate">配置seate</span>
+            <span class="post-date" title="2022-09-04 19:11:24">2022/09/04</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/09/01/es-java/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="es在java环境中使用">es在java环境中使用</span>
+            <span class="post-date" title="2022-09-01 22:11:48">2022/09/01</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/09/01/es-ik/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="es配置ik分词器及热更新">es配置ik分词器及热更新</span>
+            <span class="post-date" title="2022-09-01 16:38:27">2022/09/01</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/06/es-7-change-password/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="es修改密码">es修改密码</span>
+            <span class="post-date" title="2022-08-06 23:37:16">2022/08/06</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/06/es-linux/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="elk在linux上简单安装">elk在linux上简单安装</span>
+            <span class="post-date" title="2022-08-06 21:02:25">2022/08/06</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/02/ELK/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="ELK学习">ELK学习</span>
+            <span class="post-date" title="2022-08-02 15:13:44">2022/08/02</span>
+        </a>
+        
+        <a  class="All 包管理 "
+           href="/2022/07/29/chocolatey/"
+           data-tag="包管理"
+           data-author="" >
+            <span class="post-title" title="chocolatey">chocolatey</span>
+            <span class="post-date" title="2022-07-29 16:56:39">2022/07/29</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/28/Spring-%E5%9F%BA%E7%A1%805/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础5">Spring-基础5</span>
+            <span class="post-date" title="2022-07-28 21:11:57">2022/07/28</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/28/Spring-%E5%9F%BA%E7%A1%804/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(四)">Spring-基础(四)</span>
+            <span class="post-date" title="2022-07-28 15:50:59">2022/07/28</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-%E5%9F%BA%E7%A1%803/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(三)">Spring-基础(三)</span>
+            <span class="post-date" title="2022-07-25 21:51:47">2022/07/25</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-%E5%9F%BA%E7%A1%802/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(二)">Spring-基础(二)</span>
+            <span class="post-date" title="2022-07-25 10:26:06">2022/07/25</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-%E5%9F%BA%E7%A1%801/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(一)">Spring-基础(一)</span>
+            <span class="post-date" title="2022-07-25 09:58:25">2022/07/25</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/07/17/P2P/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="P2P">P2P</span>
+            <span class="post-date" title="2022-07-17 10:46:24">2022/07/17</span>
+        </a>
+        
+        <a  class="All rust p2p "
+           href="/2022/07/16/Rust-libp2p/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-libp2p">Rust-libp2p</span>
+            <span class="post-date" title="2022-07-16 14:04:11">2022/07/16</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/07/06/%E5%8C%BA%E5%9D%97%E9%93%BE-%E8%AE%B0%E8%B4%A6%E6%A8%A1%E5%BC%8F/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="区块链-记账模式">区块链-记账模式</span>
+            <span class="post-date" title="2022-07-06 21:48:04">2022/07/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/06/26/Summer-boot%E4%B8%80%E6%9C%9F%E5%AE%8F%E9%83%A8%E5%88%86%E6%9E%84%E6%80%9D%E5%8F%8A%E5%AE%9E%E7%8E%B0/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Summer-boot一期宏部分构思及实现">Summer-boot一期宏部分构思及实现</span>
+            <span class="post-date" title="2022-06-26 10:12:27">2022/06/26</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2022/06/16/Git-fork%E9%A1%B9%E7%9B%AE%E6%9B%B4%E6%96%B0/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git-fork项目更新">Git-fork项目更新</span>
+            <span class="post-date" title="2022-06-16 15:11:56">2022/06/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/06/12/Rust-%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-编码规范">Rust-编码规范</span>
+            <span class="post-date" title="2022-06-12 09:05:33">2022/06/12</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2022/05/29/MySql-Some%E7%AD%89%E6%8C%87%E4%BB%A4/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="MySql_Some、Any、All的用法">MySql_Some、Any、All的用法</span>
+            <span class="post-date" title="2022-05-29 10:07:14">2022/05/29</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/12/Redis-%E8%81%9A%E5%90%88%E6%93%8D%E4%BD%9C/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-聚合操作">Redis-聚合操作</span>
+            <span class="post-date" title="2022-05-12 14:34:47">2022/05/12</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/11/Redis-%E5%88%87%E7%89%87%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-切片集群配置">Redis-切片集群配置</span>
+            <span class="post-date" title="2022-05-11 15:45:38">2022/05/11</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/10/Redis-%E5%93%A8%E5%85%B5%E6%9C%BA%E5%88%B6%E9%85%8D%E7%BD%AE/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-哨兵机制配置">Redis-哨兵机制配置</span>
+            <span class="post-date" title="2022-05-10 17:02:25">2022/05/10</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/10/Redis-%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%85%B3/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-开启远程访问">Redis-开启远程访问</span>
+            <span class="post-date" title="2022-05-10 14:24:32">2022/05/10</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/05/06/Rust-%E5%B1%9E%E6%80%A7/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-属性">Rust-属性</span>
+            <span class="post-date" title="2022-05-06 10:08:24">2022/05/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/20/Rust-build/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust编译过程图">Rust编译过程图</span>
+            <span class="post-date" title="2022-04-20 14:54:46">2022/04/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/08/Rust-Atomic/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-Atomic">Rust-Atomic</span>
+            <span class="post-date" title="2022-04-08 09:55:50">2022/04/08</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/06/Rust-%E6%AD%BB%E7%81%B5%E6%9C%AF3/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵术3">Rust-死灵术3</span>
+            <span class="post-date" title="2022-04-06 20:48:19">2022/04/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/06/Rust-%E6%AD%BB%E7%81%B5%E6%9C%AF2/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵术2">Rust-死灵术2</span>
+            <span class="post-date" title="2022-04-06 14:54:22">2022/04/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/02/Rust-AnyTrait/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-AnyTrait">Rust-AnyTrait</span>
+            <span class="post-date" title="2022-04-02 14:25:05">2022/04/02</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/02/Rust-Cow%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-Cow智能指针">Rust-Cow智能指针</span>
+            <span class="post-date" title="2022-04-02 10:16:00">2022/04/02</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/01/Rust-%E6%AD%BB%E7%81%B5%E6%9C%AF/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵书（一）">Rust-死灵书（一）</span>
+            <span class="post-date" title="2022-04-01 16:42:36">2022/04/01</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/03/09/Rust-%E5%8F%82%E8%80%83%E6%89%8B%E5%86%8C/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-参考手册">Rust-参考手册</span>
+            <span class="post-date" title="2022-03-09 10:15:21">2022/03/09</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/03/08/Rust-%E5%AE%8F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-小宏书(声明宏)">Rust-高级-小宏书(声明宏)</span>
+            <span class="post-date" title="2022-03-08 20:22:51">2022/03/08</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2022/03/03/Android%E9%9B%86%E6%88%90Rust/"
+           data-tag="Android,rust"
+           data-author="" >
+            <span class="post-title" title="Android集成Rust">Android集成Rust</span>
+            <span class="post-date" title="2022-03-03 10:56:49">2022/03/03</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/02/08/Rust-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-类型转换-From &amp; Into">Rust-类型转换-From &amp; Into</span>
+            <span class="post-date" title="2022-02-08 16:53:33">2022/02/08</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/16/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bbitflags/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之bitflags">Rust-高级-Crate之bitflags</span>
+            <span class="post-date" title="2022-01-16 22:36:28">2022/01/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Brayon/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之rayon">Rust-高级-Crate之rayon</span>
+            <span class="post-date" title="2022-01-12 21:55:30">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Blazy-static/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之lazy_static">Rust-高级-Crate之lazy_static</span>
+            <span class="post-date" title="2022-01-12 21:50:32">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8BWalkdir/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之Walkdir">Rust-高级-Crate之Walkdir</span>
+            <span class="post-date" title="2022-01-12 21:50:15">2022/01/12</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bthreadpool/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之threadpool">Rust-高级-Crate之threadpool</span>
+            <span class="post-date" title="2022-01-12 21:49:50">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Berror-chain/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之error_chain">Rust-高级-Crate之error_chain</span>
+            <span class="post-date" title="2022-01-12 21:49:39">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bcrossbeam/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之crossbeam">Rust-高级-Crate之crossbeam</span>
+            <span class="post-date" title="2022-01-12 21:16:24">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Btar/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之tar">Rust-高级-Crate之tar</span>
+            <span class="post-date" title="2022-01-12 10:29:50">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/11/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Brand/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之rand">Rust-高级-Crate之rand</span>
+            <span class="post-date" title="2022-01-11 14:52:45">2022/01/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/09/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bserde/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之serde">Rust-高级-Crate之serde</span>
+            <span class="post-date" title="2022-01-09 21:10:52">2022/01/09</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/09/Rust%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8%E4%B8%8E%E5%80%9F%E7%94%A8/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust中的引用与借用">Rust中的引用与借用</span>
+            <span class="post-date" title="2022-01-09 19:03:47">2022/01/09</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/09/graphQL/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="graphQL">graphQL</span>
+            <span class="post-date" title="2022-01-09 17:02:35">2022/01/09</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/05/Rust-%E9%AB%98%E7%BA%A7-%E6%9C%8D%E5%8A%A1%E4%B9%8BActix/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-服务之Actix">Rust-高级-服务之Actix</span>
+            <span class="post-date" title="2022-01-05 21:13:56">2022/01/05</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/05/Rust-%E9%AB%98%E7%BA%A7-%E5%BC%82%E6%AD%A5%E4%B9%8Bfutures/"
+           data-tag="rust,异步"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-异步之futures">Rust-高级-异步之futures</span>
+            <span class="post-date" title="2022-01-05 21:13:38">2022/01/05</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/30/Rust-%E6%9C%80%E5%90%8E%E7%9A%84%E9%A1%B9%E7%9B%AE/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-最后的项目">Rust-最后的项目</span>
+            <span class="post-date" title="2021-12-30 14:46:33">2021/12/30</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/21/Rust-%E9%AB%98%E7%BA%A7%E7%89%B9%E5%BE%81/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级特征">Rust-高级特征</span>
+            <span class="post-date" title="2021-12-21 22:22:15">2021/12/21</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-%E6%A8%A1%E5%BC%8F%E7%94%A8%E6%9D%A5%E5%8C%B9%E9%85%8D%E5%80%BC%E7%9A%84%E7%BB%93%E6%9E%84/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-模式与模式匹配">Rust-模式与模式匹配</span>
+            <span class="post-date" title="2021-12-20 20:53:44">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-面向对象">Rust-面向对象</span>
+            <span class="post-date" title="2021-12-20 15:15:04">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-%E6%97%A0%E7%95%8F%E5%B9%B6%E5%8F%91/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-无畏并发">Rust-无畏并发</span>
+            <span class="post-date" title="2021-12-20 09:44:35">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/19/Rust-%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-智能指针">Rust-智能指针</span>
+            <span class="post-date" title="2021-12-19 10:23:23">2021/12/19</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/16/Rust-CargoAndCratesIO/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-CargoAndCratesIO">Rust-CargoAndCratesIO</span>
+            <span class="post-date" title="2021-12-16 22:52:05">2021/12/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/16/Rust-%E5%87%BD%E6%95%B0%E5%BC%8F%E8%AF%AD%E8%A8%80%E5%8A%9F%E8%83%BD-%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E9%97%AD%E5%8C%85/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-函数式语言功能:迭代器与闭包">Rust-函数式语言功能:迭代器与闭包</span>
+            <span class="post-date" title="2021-12-16 16:08:22">2021/12/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/15/Rust-%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%A8%8B%E5%BA%8F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-IO">Rust-IO</span>
+            <span class="post-date" title="2021-12-15 17:07:26">2021/12/15</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/15/Rust-%E6%B5%8B%E8%AF%95/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-测试">Rust-测试</span>
+            <span class="post-date" title="2021-12-15 14:08:29">2021/12/15</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/14/Rust-%E6%B3%9B%E5%9E%8B%E3%80%81trait%E5%92%8C%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-泛型、trait和生命周期">Rust-泛型、trait和生命周期</span>
+            <span class="post-date" title="2021-12-14 20:57:17">2021/12/14</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/14/Rust-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-错误处理">Rust-错误处理</span>
+            <span class="post-date" title="2021-12-14 10:48:51">2021/12/14</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-%E5%B8%B8%E8%A7%81%E9%9B%86%E5%90%88/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-常见集合">Rust-常见集合</span>
+            <span class="post-date" title="2021-12-13 20:55:23">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%9D%97%E7%BB%84%E7%BB%87%E5%92%8C%E5%A4%8D%E7%94%A8%E4%BB%A3%E7%A0%81/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-使用模块组织和复用代码">Rust-使用模块组织和复用代码</span>
+            <span class="post-date" title="2021-12-13 16:26:05">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-枚举和模式匹配">Rust-枚举和模式匹配</span>
+            <span class="post-date" title="2021-12-13 10:44:04">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/12/Rust-%E7%BB%93%E6%9E%84%E4%BD%93/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-结构体">Rust-结构体</span>
+            <span class="post-date" title="2021-12-12 22:42:42">2021/12/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/12/Rust-%E6%89%80%E6%9C%89%E6%9D%83/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-所有权">Rust-所有权</span>
+            <span class="post-date" title="2021-12-12 11:32:16">2021/12/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/11/Rust-%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-基础技术">Rust-基础技术</span>
+            <span class="post-date" title="2021-12-11 20:25:09">2021/12/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/11/Rust-%E7%BC%96%E7%A8%8B%E7%8C%9C%E8%B0%9C%E6%B8%B8%E6%88%8F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-编程猜谜游戏">Rust-编程猜谜游戏</span>
+            <span class="post-date" title="2021-12-11 18:58:04">2021/12/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/10/Rust-%E5%85%A5%E9%97%A8/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-入门">Rust-入门</span>
+            <span class="post-date" title="2021-12-10 11:18:25">2021/12/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/10/Java-%E5%86%85%E9%83%A8%E7%B1%BB/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-内部类">Java-内部类</span>
+            <span class="post-date" title="2021-12-10 08:50:32">2021/12/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/09/Java-%E6%8E%A5%E5%8F%A3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-接口">Java-接口</span>
+            <span class="post-date" title="2021-12-09 14:54:05">2021/12/09</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/09/Java-%E5%A4%9A%E6%80%81/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-多态">Java-多态</span>
+            <span class="post-date" title="2021-12-09 08:42:47">2021/12/09</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/23/JavaNIO/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaNIO">JavaNIO</span>
+            <span class="post-date" title="2021-11-23 10:47:14">2021/11/23</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/23/JavaIO/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaIO">JavaIO</span>
+            <span class="post-date" title="2021-11-23 10:47:07">2021/11/23</span>
+        </a>
+        
+        <a  class="All spring java "
+           href="/2021/11/22/Spring%E5%B7%A5%E4%BD%9C%E5%AF%B9%E8%B1%A1/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring工作对象">Spring工作对象</span>
+            <span class="post-date" title="2021-11-22 09:44:06">2021/11/22</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/18/Java%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java函数式接口">Java函数式接口</span>
+            <span class="post-date" title="2021-11-18 10:50:22">2021/11/18</span>
+        </a>
+        
+        <a  class="All "
+           href="/2021/11/17/SpringBoot%E5%90%AF%E5%8A%A8-%E5%9F%BA%E7%A1%80/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="SpringBoot启动-基础">SpringBoot启动-基础</span>
+            <span class="post-date" title="2021-11-17 17:01:58">2021/11/17</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/16/JRebel/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JRebel">JRebel</span>
+            <span class="post-date" title="2021-11-16 08:58:18">2021/11/16</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/11/Spring%E5%90%AF%E5%8A%A8-%E5%9F%BA%E7%A1%80/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring启动-基础">Spring启动-基础</span>
+            <span class="post-date" title="2021-11-11 15:25:33">2021/11/11</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/10/%E5%8F%8D%E5%B0%84/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="反射">反射</span>
+            <span class="post-date" title="2021-11-10 20:57:08">2021/11/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/10/%E6%B3%A8%E8%A7%A3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="注解">注解</span>
+            <span class="post-date" title="2021-11-10 20:50:55">2021/11/10</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/09/SpringAOP-%E5%9F%BA%E7%A1%80/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="SpringAOP-基础">SpringAOP-基础</span>
+            <span class="post-date" title="2021-11-09 10:31:31">2021/11/09</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/08/SpringIOC-%E5%9F%BA%E7%A1%80/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="SpringIOC-基础">SpringIOC-基础</span>
+            <span class="post-date" title="2021-11-08 10:27:28">2021/11/08</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2021/11/02/%E9%9F%B3%E8%A7%86%E9%A2%91%E7%BC%96%E8%A7%A3%E7%A0%81%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/"
+           data-tag="音视频"
+           data-author="" >
+            <span class="post-title" title="音视频编解码技术基础">音视频编解码技术基础</span>
+            <span class="post-date" title="2021-11-02 12:06:49">2021/11/02</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2021/11/02/MysqlErrHosts/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="mysql安装时，Unable to connect to any of the specified MySQL hosts">mysql安装时，Unable to connect to any of the specified MySQL hosts</span>
+            <span class="post-date" title="2021-11-02 10:58:50">2021/11/02</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2021/10/08/H264%E7%BC%96%E7%A0%81-SPSPPS/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码 SPS &amp; PPS">H264编码 SPS &amp; PPS</span>
+            <span class="post-date" title="2021-10-08 21:20:12">2021/10/08</span>
+        </a>
+        
+        <a  class="All ssr "
+           href="/2021/01/18/centos%E7%BB%88%E7%AB%AFssr%E9%85%8D%E7%BD%AE/"
+           data-tag="ssr"
+           data-author="" >
+            <span class="post-title" title="centos终端ssr配置">centos终端ssr配置</span>
+            <span class="post-date" title="2021-01-18 08:21:35">2021/01/18</span>
+        </a>
+        
+        <a  class="All 数据结构 算法分析 "
+           href="/2020/12/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E5%85%B6%E4%BA%8C/"
+           data-tag="数据结构与算法分析"
+           data-author="" >
+            <span class="post-title" title="数据结构与算法分析阅读笔记其二">数据结构与算法分析阅读笔记其二</span>
+            <span class="post-date" title="2020-12-14 22:34:39">2020/12/14</span>
+        </a>
+        
+        <a  class="All 数据结构 算法分析 "
+           href="/2020/12/09/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"
+           data-tag="数据结构与算法分析"
+           data-author="" >
+            <span class="post-title" title="数据结构与算法分析阅读笔记">数据结构与算法分析阅读笔记</span>
+            <span class="post-date" title="2020-12-09 21:52:40">2020/12/09</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/10/27/FLV%E6%A0%BC%E5%BC%8F/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="FLV格式">FLV格式</span>
+            <span class="post-date" title="2020-10-27 15:33:56">2020/10/27</span>
+        </a>
+        
+        <a  class="All 机器学习 "
+           href="/2020/09/20/Mac%E4%B8%ADPython3-x%E7%BC%96%E8%AF%91Caffe/"
+           data-tag="机器学习"
+           data-author="" >
+            <span class="post-title" title="Mac中Python3.x编译Caffe">Mac中Python3.x编译Caffe</span>
+            <span class="post-date" title="2020-09-20 01:08:09">2020/09/20</span>
+        </a>
+        
+        <a  class="All JavaScript npm "
+           href="/2020/07/17/npm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%93%8D%E4%BD%9C/"
+           data-tag="直播"
+           data-author="" >
+            <span class="post-title" title="npm常用命令操作">npm常用命令操作</span>
+            <span class="post-date" title="2020-07-17 10:14:01">2020/07/17</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/16/MediaExtractorANDMediaMuxer/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="android端的音频处理工具MediaExtractor和MediaMuxer">android端的音频处理工具MediaExtractor和MediaMuxer</span>
+            <span class="post-date" title="2020-07-16 11:55:28">2020/07/16</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/15/AAC%E9%9F%B3%E9%A2%91%E7%A0%81%E6%B5%81/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="AAC音频码流">AAC音频码流</span>
+            <span class="post-date" title="2020-07-15 17:45:10">2020/07/15</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/15/Android-PCM%E5%A4%84%E7%90%86/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="Android-PCM">Android-PCM</span>
+            <span class="post-date" title="2020-07-15 13:29:49">2020/07/15</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/13/yuv-tool%E5%B7%A5%E5%85%B7%E7%B1%BB/"
+           data-tag="android,libyuv"
+           data-author="" >
+            <span class="post-title" title="yuv-tool工具类">yuv-tool工具类</span>
+            <span class="post-date" title="2020-07-13 22:58:21">2020/07/13</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/18/ffmpegforandroid%E7%BC%96%E8%AF%91/"
+           data-tag="ffmpeg"
+           data-author="" >
+            <span class="post-title" title="ffmpegforandroid编译">ffmpegforandroid编译</span>
+            <span class="post-date" title="2020-06-18 13:38:35">2020/06/18</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/11/libfaac%E7%BC%96%E8%AF%91/"
+           data-tag="libfaac"
+           data-author="" >
+            <span class="post-title" title="libfaac编译">libfaac编译</span>
+            <span class="post-date" title="2020-06-11 14:00:57">2020/06/11</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/11/libx264%E7%BC%96%E8%AF%91/"
+           data-tag="libx264"
+           data-author="" >
+            <span class="post-title" title="libx264编译">libx264编译</span>
+            <span class="post-date" title="2020-06-11 13:51:36">2020/06/11</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/06/10/RTMP%E8%A7%84%E8%8C%83%E5%AD%A6%E4%B9%A0/"
+           data-tag="RTMP,直播"
+           data-author="" >
+            <span class="post-title" title="RTMP规范学习">RTMP规范学习</span>
+            <span class="post-date" title="2020-06-10 11:35:52">2020/06/10</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/06/01/React-Native%E7%83%AD%E6%9B%B4%E6%96%B0/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native热更新">React-Native热更新</span>
+            <span class="post-date" title="2020-06-01 16:03:28">2020/06/01</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2020/06/01/JavaWeb/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaWeb">JavaWeb</span>
+            <span class="post-date" title="2020-06-01 11:09:17">2020/06/01</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2020/05/26/JDBC/"
+           data-tag="java,数据库"
+           data-author="" >
+            <span class="post-title" title="JDBC">JDBC</span>
+            <span class="post-date" title="2020-05-26 16:23:01">2020/05/26</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2020/03/29/%E4%BA%86%E8%A7%A3%E8%B7%A8%E5%9F%9F/"
+           data-tag="后台,跨域"
+           data-author="" >
+            <span class="post-title" title="了解跨域">了解跨域</span>
+            <span class="post-date" title="2020-03-29 21:31:15">2020/03/29</span>
+        </a>
+        
+        <a  class="All JavaScript "
+           href="/2020/03/08/JavaScript%E8%AF%AD%E6%B3%95%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="javaScript"
+           data-author="" >
+            <span class="post-title" title="JavaScript语法（一）">JavaScript语法（一）</span>
+            <span class="post-date" title="2020-03-08 10:29:30">2020/03/08</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/03/06/React-native-%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-native 高德地图">React-native 高德地图</span>
+            <span class="post-date" title="2020-03-06 10:07:45">2020/03/06</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/03/03/React-16-8-Hooks/"
+           data-tag="React"
+           data-author="" >
+            <span class="post-title" title="React 16.8 Hooks">React 16.8 Hooks</span>
+            <span class="post-date" title="2020-03-03 10:07:02">2020/03/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/01/06/React-Native%E5%8E%9F%E7%94%9F%E9%80%9A%E4%BF%A1/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native原生通信">React-Native原生通信</span>
+            <span class="post-date" title="2020-01-06 16:34:00">2020/01/06</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/27/React-Native%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native原理浅析">React-Native原理浅析</span>
+            <span class="post-date" title="2019-12-27 15:32:08">2019/12/27</span>
+        </a>
+        
+        <a  class="All 正则表达式 "
+           href="/2019/12/18/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
+           data-tag="正则表达式"
+           data-author="" >
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2019-12-18 21:45:36">2019/12/18</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/05/React-Native-%E5%8A%A8%E7%94%BB/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native-动画">React-Native-动画</span>
+            <span class="post-date" title="2019-12-05 16:20:25">2019/12/05</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/03/React-%E8%87%AA%E5%AD%A6%E4%B9%8B%E8%B7%AF%EF%BC%88%E4%BA%8C%EF%BC%89/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="React-自学之路（二）">React-自学之路（二）</span>
+            <span class="post-date" title="2019-12-03 13:06:53">2019/12/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/03/React-%E8%87%AA%E5%AD%A6%E4%B9%8B%E8%B7%AF%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="React"
+           data-author="" >
+            <span class="post-title" title="React-自学之路（一）">React-自学之路（一）</span>
+            <span class="post-date" title="2019-12-03 09:40:28">2019/12/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/10/12/React%E6%96%B0%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"
+           data-tag="react"
+           data-author="" >
+            <span class="post-title" title="React新的生命周期">React新的生命周期</span>
+            <span class="post-date" title="2019-10-12 15:41:02">2019/10/12</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2019/09/18/%E5%88%9B%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE%E6%97%B6%EF%BC%8C%E5%87%BA%E7%8E%B0Could-not-calculate-build-plan%E9%94%99%E8%AF%AF/"
+           data-tag="springboot"
+           data-author="" >
+            <span class="post-title" title="创建maven项目时，出现Could not calculate build plan错误">创建maven项目时，出现Could not calculate build plan错误</span>
+            <span class="post-date" title="2019-09-18 09:25:06">2019/09/18</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2019/09/07/MySQL%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="MySQL常用指令">MySQL常用指令</span>
+            <span class="post-date" title="2019-09-07 21:10:03">2019/09/07</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/07/05/RecycleView%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="RecycleView（一）">RecycleView（一）</span>
+            <span class="post-date" title="2019-07-05 14:03:06">2019/07/05</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/25/Android%E5%8A%A8%E7%94%BB%EF%BC%88%E4%B8%89%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（三）">Android动画（三）</span>
+            <span class="post-date" title="2019-06-25 14:15:26">2019/06/25</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/20/Android%E5%8A%A8%E7%94%BB%EF%BC%88%E4%BA%8C%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（二）">Android动画（二）</span>
+            <span class="post-date" title="2019-06-20 15:10:00">2019/06/20</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/19/Android%E5%8A%A8%E7%94%BB%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（一）">Android动画（一）</span>
+            <span class="post-date" title="2019-06-19 15:15:56">2019/06/19</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/18/Android%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%EF%BC%88%E4%BA%8C%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android自定义控件（二）">Android自定义控件（二）</span>
+            <span class="post-date" title="2019-06-18 13:43:11">2019/06/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/13/%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF/"
+           data-tag="Android,贝塞尔曲线"
+           data-author="" >
+            <span class="post-title" title="贝塞尔曲线">贝塞尔曲线</span>
+            <span class="post-date" title="2019-06-13 10:14:25">2019/06/13</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/04/Java-Binder%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%90%86%E8%A7%A3/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Java Binder进程通信理解">Java Binder进程通信理解</span>
+            <span class="post-date" title="2019-06-04 14:01:43">2019/06/04</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/05/30/arm-neon-h%E6%96%87%E4%BB%B6%E5%8A%9F%E8%83%BD/"
+           data-tag="汇编"
+           data-author="" >
+            <span class="post-title" title="arm-neon.h文件功能">arm-neon.h文件功能</span>
+            <span class="post-date" title="2019-05-30 08:45:08">2019/05/30</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/05/06/Handler%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6/"
+           data-tag="android"
+           data-author="" >
+            <span class="post-title" title="Handler消息机制">Handler消息机制</span>
+            <span class="post-date" title="2019-05-06 14:09:45">2019/05/06</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/05/06/H264%E7%BC%96%E7%A0%81-%E7%86%B5%E7%BC%96%E7%A0%81/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码-熵编码">H264编码-熵编码</span>
+            <span class="post-date" title="2019-05-06 13:42:57">2019/05/06</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/04/08/NDK%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E5%90%88%E9%9B%86/"
+           data-tag="NDK"
+           data-author="" >
+            <span class="post-title" title="NDK开发问题合集">NDK开发问题合集</span>
+            <span class="post-date" title="2019-04-08 10:53:30">2019/04/08</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/04/01/H264%E7%BC%96%E7%A0%81%E5%9F%BA%E7%A1%80/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码基础">H264编码基础</span>
+            <span class="post-date" title="2019-04-01 09:26:11">2019/04/01</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/31/srs%E7%9B%B4%E6%92%AD%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/"
+           data-tag="直播,srs"
+           data-author="" >
+            <span class="post-title" title="srs直播平台搭建">srs直播平台搭建</span>
+            <span class="post-date" title="2019-03-31 10:37:42">2019/03/31</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/27/%E5%9B%BE%E7%89%87RGB%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/"
+           data-tag="图片格式"
+           data-author="" >
+            <span class="post-title" title="图片RGB数据格式">图片RGB数据格式</span>
+            <span class="post-date" title="2019-03-27 22:24:49">2019/03/27</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/14/%E5%9B%BE%E7%89%87YUV%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/"
+           data-tag="图片格式"
+           data-author="" >
+            <span class="post-title" title="图片YUV数据格式">图片YUV数据格式</span>
+            <span class="post-date" title="2019-03-14 11:10:16">2019/03/14</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2019/03/08/libjpeg-turbo%E7%BC%96%E8%AF%91/"
+           data-tag="libjpeg-turbo"
+           data-author="" >
+            <span class="post-title" title="libjpeg-turbo编译">libjpeg-turbo编译</span>
+            <span class="post-date" title="2019-03-08 13:41:20">2019/03/08</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2019/03/07/libYUV%E7%BC%96%E8%AF%91/"
+           data-tag="libyuv"
+           data-author="" >
+            <span class="post-title" title="libYUV编译">libYUV编译</span>
+            <span class="post-date" title="2019-03-07 15:05:11">2019/03/07</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/02/18/Android-camera%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="camera"
+           data-author="" >
+            <span class="post-title" title="Android camera（一）">Android camera（一）</span>
+            <span class="post-date" title="2019-02-18 15:03:27">2019/02/18</span>
+        </a>
+        
+        <a  class="All C/C++ "
+           href="/2019/01/23/Cpp%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Cpp"
+           data-author="" >
+            <span class="post-title" title="Cpp基础（一）">Cpp基础（一）</span>
+            <span class="post-date" title="2019-01-23 10:52:13">2019/01/23</span>
+        </a>
+        
+        <a  class="All C/C++ "
+           href="/2019/01/18/C%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="C"
+           data-author="" >
+            <span class="post-title" title="C基础（一）">C基础（一）</span>
+            <span class="post-date" title="2019-01-18 14:08:23">2019/01/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/12/18/EasyPermission/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="EasyPermission">EasyPermission</span>
+            <span class="post-date" title="2018-12-18 13:20:30">2018/12/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/12/15/Android%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android自定义控件（一）">Android自定义控件（一）</span>
+            <span class="post-date" title="2018-12-15 21:44:34">2018/12/15</span>
+        </a>
+        
+        <a  class="All ssr "
+           href="/2018/12/10/Linux%E9%85%8D%E7%BD%AEShadowSocks-R/"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux配置ShadowSocks-R">Linux配置ShadowSocks-R</span>
+            <span class="post-date" title="2018-12-10 15:58:52">2018/12/10</span>
+        </a>
+        
+        <a  class="All Android 热更新 "
+           href="/2018/10/29/Sophix%E7%83%AD%E6%9B%B4%E6%96%B0/"
+           data-tag="android,热更新"
+           data-author="" >
+            <span class="post-title" title="Sophix热更新">Sophix热更新</span>
+            <span class="post-date" title="2018-10-29 16:50:36">2018/10/29</span>
+        </a>
+        
+        <a  class="All Android 热更新 "
+           href="/2018/10/18/TinkerPatch%E7%83%AD%E6%9B%B4%E6%96%B0/"
+           data-tag="android,热更新"
+           data-author="" >
+            <span class="post-title" title="TinkerPatch热更新">TinkerPatch热更新</span>
+            <span class="post-date" title="2018-10-18 20:11:30">2018/10/18</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2018/06/21/React-native-flex%E5%B8%83%E5%B1%80/"
+           data-tag="react"
+           data-author="" >
+            <span class="post-title" title="React-native flex布局">React-native flex布局</span>
+            <span class="post-date" title="2018-06-21 16:22:47">2018/06/21</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/01/25/Android%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android事件分发">Android事件分发</span>
+            <span class="post-date" title="2018-01-25 16:36:52">2018/01/25</span>
+        </a>
+        
+        <a  class="All Gradle "
+           href="/2018/01/25/Gradle%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="构建工具,Gradle"
+           data-author="" >
+            <span class="post-title" title="Gradle（一）">Gradle（一）</span>
+            <span class="post-date" title="2018-01-25 16:36:52">2018/01/25</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2017/11/24/firstBlod2/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git详细讲解(远程)">Git详细讲解(远程)</span>
+            <span class="post-date" title="2017-11-24 10:18:05">2017/11/24</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2017/10/19/firstBlod/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git详细讲解(本地)">Git详细讲解(本地)</span>
+            <span class="post-date" title="2017-10-19 21:49:28">2017/10/19</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-Rust-结构体" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">Rust-结构体</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="rust">rust</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color5">rust</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2022-02-28 07:10:49'>2021-12-12 22:42</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                Comment:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%AE%9A%E4%B9%89%E5%92%8C%E5%AE%9E%E4%BE%8B%E5%8C%96%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-text">一、定义和实例化结构体</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E4%B8%8E%E5%AD%97%E6%AE%B5%E5%90%8C%E5%90%8D%E6%97%B6%E7%9A%84%E5%AD%97%E6%AE%B5%E5%88%9D%E5%A7%8B%E5%8C%96%E7%AE%80%E5%86%99%E8%AF%AD%E6%B3%95"><span class="toc-text">变量与字段同名时的字段初始化简写语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%BB%93%E6%9E%84%E4%BD%93%E6%9B%B4%E6%96%B0%E8%AF%AD%E6%B3%95%E4%BB%8E%E5%85%B6%E4%BB%96%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1"><span class="toc-text">使用结构体更新语法从其他对象创建对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%B2%A1%E6%9C%89%E5%91%BD%E5%90%8D%E5%AD%97%E6%AE%B5%E7%9A%84%E5%85%83%E7%BB%84%E7%BB%93%E6%9E%84%E4%BD%93%E6%9D%A5%E5%88%9B%E5%BB%BA%E4%B8%8D%E5%90%8C%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="toc-text">使用没有命名字段的元组结构体来创建不同的类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B2%A1%E6%9C%89%E4%BB%BB%E4%BD%95%E5%AD%97%E6%AE%B5%E7%9A%84%E7%B1%BB%E5%8D%95%E5%85%83%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-text">没有任何字段的类单元结构体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93%E6%95%B0%E6%8D%AE%E7%9A%84%E6%89%80%E6%9C%89%E6%9D%83"><span class="toc-text">结构体数据的所有权</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%B8%80%E4%B8%AA%E4%BD%BF%E7%94%A8%E7%BB%93%E6%9E%84%E4%BD%93%E7%9A%84%E7%A4%BA%E4%BE%8B%E7%A8%8B%E5%BA%8F"><span class="toc-text">二、一个使用结构体的示例程序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E5%85%83%E7%BB%84%E9%87%8D%E6%9E%84"><span class="toc-text">用元组重构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%BB%93%E6%9E%84%E4%BD%93%E9%87%8D%E6%9E%84-%E8%B5%8B%E4%BA%88%E6%9B%B4%E5%A4%9A%E6%84%8F%E4%B9%89"><span class="toc-text">使用结构体重构:赋予更多意义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E6%B4%BE%E7%94%9F-trait-%E5%A2%9E%E5%8A%A0%E5%AE%9E%E7%94%A8%E5%8A%9F%E8%83%BD"><span class="toc-text">通过派生 trait 增加实用功能</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%96%B9%E6%B3%95%E8%AF%AD%E6%B3%95"><span class="toc-text">三、方法语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E6%96%B9%E6%B3%95"><span class="toc-text">定义方法</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#gt-%E8%BF%90%E7%AE%97%E7%AC%A6%E5%88%B0%E5%93%AA%E5%8E%BB%E4%BA%86"><span class="toc-text">-&gt; 运算符到哪去了?</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%A6%E6%9C%89%E6%9B%B4%E5%A4%9A%E5%8F%82%E6%95%B0%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">带有更多参数的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E5%8A%9F%E8%83%BD"><span class="toc-text">相关功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E4%B8%AA-impl-%E5%9D%97"><span class="toc-text">多个 impl 块</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、定义和实例化结构体"><a href="#一、定义和实例化结构体" class="headerlink" title="一、定义和实例化结构体"></a>一、定义和实例化结构体</h2><p>结构体与元组类似。就像元组，结构体的每一部分可以是不同类型。 不同于元组，结构体需要命名各部分数据以便能清楚的表明其值的意义。由于有了这些名字 使得结构体比元组更灵活:不需要依赖顺序来指定或访问实例中的值。</p>
+<p>定义结构体，需要使用 struct 关键字并为整个结构体提供一个名字。结构体的名字需要描 述它所组合的数据的意义。接着，在大括号中，定义每一部分数据的名字，它们被称作 字段 (field)，并定义字段类型。<br><figure class="highlight crmsh"><table><tr><td class="code"><pre><code class="hljs crmsh">struct <span class="hljs-keyword">User</span> <span class="hljs-title">&#123;</span><br><span class="hljs-title">    active</span>: bool,<br>    username: <span class="hljs-keyword">String</span>,<br>    email: <span class="hljs-keyword">String</span>,<br>    sign_in_count: u64,<br>&#125;<br></code></pre></td></tr></table></figure><br>一旦定义了结构体后，为了使用它，通过为每个字段指定具体值来创建这个结构体的实例。 创建一个实例需要以结构体的名字开头，接着在大括号中使用 key: value 对的形式提供字段，其中 key 是字段的名字，value 是需要储存在字段中的数据值。</p>
+<p>我们可以声明一个特定的用户:<br><figure class="highlight dts"><table><tr><td class="code"><pre><code class="hljs dts">let user1 = <span class="hljs-class">User </span>&#123;<br><span class="hljs-symbol">    email:</span> String::from(<span class="hljs-string">&quot;someone@example.com&quot;</span>),<br><span class="hljs-symbol">    username:</span> String::from(<span class="hljs-string">&quot;someusername123&quot;</span>),<br><span class="hljs-symbol">    active:</span> true,<br><span class="hljs-symbol">    sign_in_count:</span> <span class="hljs-number">1</span>,<br>&#125;;<br></code></pre></td></tr></table></figure></p>
+<p>要从结构中获取特定值，我们可以使用点表示法。如果我们只想要这个用户的电子邮件地址，我们可以user1.email在任何想要使用这个值的地方使用。如果实例是可变的，我们可以通过使用点表示法并分配到特定字段来更改值。<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> user1 = User &#123;<br>    email: <span class="hljs-built_in">String</span>::from(<span class="hljs-string">&quot;someone@example.com&quot;</span>),<br>    username: <span class="hljs-built_in">String</span>::from(<span class="hljs-string">&quot;someusername123&quot;</span>),<br>    active: <span class="hljs-literal">true</span>,<br>    sign_in_count: <span class="hljs-number">1</span>,<br>&#125;;<br><br>user1.email = <span class="hljs-built_in">String</span>::from(<span class="hljs-string">&quot;anotheremail@example.com&quot;</span>);<br></code></pre></td></tr></table></figure><br>注意整个实例必须是可变的；Rust 不允许我们只将某些字段标记为可变的。与任何表达式一样，我们可以构造一个新的结构实例作为函数体中的最后一个表达式，以隐式返回该新实例。<br><figure class="highlight crmsh"><table><tr><td class="code"><pre><code class="hljs crmsh">fn build_user(email: <span class="hljs-keyword">String</span>, username: <span class="hljs-keyword">String</span>) -&gt; <span class="hljs-keyword">User</span> <span class="hljs-title">&#123;</span><br><span class="hljs-title">    User</span> &#123;<br>        email: email,<br>        username: username,<br>        active: <span class="hljs-literal">true</span>,<br>        sign_in_count: <span class="hljs-number">1</span>,<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>这是有道理的命名具有相同名称与该结构域的功能参数，而不必重复email和username字段名和变量是有点乏味。如果结构体有更多字段，重复每个名称会变得更加烦人。幸运的是，有一个方便的速记！</p>
+<h3 id="变量与字段同名时的字段初始化简写语法"><a href="#变量与字段同名时的字段初始化简写语法" class="headerlink" title="变量与字段同名时的字段初始化简写语法"></a>变量与字段同名时的字段初始化简写语法</h3><p>上面代码中参数名与字段名都完全相同，我们可以使用 字段初始化简写语法(field init shorthand)来重写 build_user ，这样其行为与之前完全相同，不过无需重复 email 和 username 了<br><figure class="highlight crmsh"><table><tr><td class="code"><pre><code class="hljs crmsh">fn build_user(email: <span class="hljs-keyword">String</span>, username: <span class="hljs-keyword">String</span>) -&gt; <span class="hljs-keyword">User</span> <span class="hljs-title">&#123;</span><br><span class="hljs-title">    User</span> &#123;<br>        email,<br>        username,<br>        active: <span class="hljs-literal">true</span>,<br>        sign_in_count: <span class="hljs-number">1</span>,<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>在这里，我们创建了User结构体的一个新实例，它有一个名为 的字段email。我们想将email字段的值 设置email为build_user函数参数中的值。因为email字段和email参数同名，所以我们只需要写email而不是email: email.</p>
+<h3 id="使用结构体更新语法从其他对象创建对象"><a href="#使用结构体更新语法从其他对象创建对象" class="headerlink" title="使用结构体更新语法从其他对象创建对象"></a>使用结构体更新语法从其他对象创建对象</h3><p>创建一个结构的新实例通常很有用，该实例使用大部分旧实例的值但会更改一些值。您可以使用struct update 语法来做到这一点。<br>User在user2没有更新语法的情况下创建一个新实例。我们为 设置了一个新值，email但在其他方面使用了user1：<br><figure class="highlight dts"><table><tr><td class="code"><pre><code class="hljs dts">let user2 = <span class="hljs-class">User </span>&#123;<br><span class="hljs-symbol">    active:</span> user1.active,<br><span class="hljs-symbol">    username:</span> user1.username,<br><span class="hljs-symbol">    email:</span> String::from(<span class="hljs-string">&quot;another@example.com&quot;</span>),<br><span class="hljs-symbol">    sign_in_count:</span> user1.sign_in_count,<br>&#125;;<br></code></pre></td></tr></table></figure><br>使用struct update语法，我们可以用更少的代码实现同样的效果，语法..指定未显式设置的其余字段应与给定实例中的字段具有相同的值。<br><figure class="highlight crmsh"><table><tr><td class="code"><pre><code class="hljs crmsh">let user2 = <span class="hljs-keyword">User</span> <span class="hljs-title">&#123;</span><br><span class="hljs-title">    email</span>: <span class="hljs-keyword">String</span>::from(<span class="hljs-string">&quot;another@example.com&quot;</span>),<br>    ..user1<br>&#125;;<br></code></pre></td></tr></table></figure><br>struct update 语法类似于赋值，移动数据。在这个例子中，我们user1 在创建后不能再使用了，user2因为String的username字段user1 被移到了user2. </p>
+<h3 id="使用没有命名字段的元组结构体来创建不同的类型"><a href="#使用没有命名字段的元组结构体来创建不同的类型" class="headerlink" title="使用没有命名字段的元组结构体来创建不同的类型"></a>使用没有命名字段的元组结构体来创建不同的类型</h3><p>也可以定义与元组类似的结构体，称为 元组结构体(tuple structs)，有着结构体名称提供的含义，但没有具体的字段名，只有字段的类型。元组结构体在你希望命名整个元组并使其与其他(同样的)元组为不同类型时很有用，这时像常规结构体那样为每个字段命名就显得冗余和形式化了。<br>定义元组结构体以 struct 关键字和结构体名开头并后跟元组中的类型。<br><figure class="highlight reasonml"><table><tr><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">struct</span> <span class="hljs-constructor">Color(<span class="hljs-params">i32</span>, <span class="hljs-params">i32</span>, <span class="hljs-params">i32</span>)</span>;<br><span class="hljs-keyword">struct</span> <span class="hljs-constructor">Point(<span class="hljs-params">i32</span>, <span class="hljs-params">i32</span>, <span class="hljs-params">i32</span>)</span>;<br><br><span class="hljs-keyword">let</span> black = <span class="hljs-constructor">Color(0, 0, 0)</span>;<br><span class="hljs-keyword">let</span> origin = <span class="hljs-constructor">Point(0, 0, 0)</span>;<br></code></pre></td></tr></table></figure><br>注意 black 和 origin 值是不同的类型，因为它们是不同的元组结构体的实例。在其他方面，元组结构体实例类似于元组:可以将其解构为单独的部分，也可以使用 . 后跟 索引来访问单独的值，等等。</p>
+<h3 id="没有任何字段的类单元结构体"><a href="#没有任何字段的类单元结构体" class="headerlink" title="没有任何字段的类单元结构体"></a>没有任何字段的类单元结构体</h3><p>我们也可以定义一个没有任何字段的结构体!它们被称为 类单元结构体(unit-like structs) 因为它们类似于 <code>()</code> ，即 unit 类型。类单元结构体常常在你想要在某个类型上实现 trait 但不需要在类型内存储数据的时候发挥作用。<br>下面是一个声明和实例化名为 的单元结构的例子AlwaysEqual：<br><figure class="highlight csharp"><table><tr><td class="code"><pre><code class="hljs csharp"><span class="hljs-function">fn <span class="hljs-title">main</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">struct</span> AlwaysEqual;<br><br>    <span class="hljs-keyword">let</span> subject = AlwaysEqual;<br>&#125;<br></code></pre></td></tr></table></figure><br>要定义AlwaysEqual，我们使用struct关键字，我们想要的名称，然后是分号。不需要大括号或圆括号！然后，我们可以得到的一个实例，AlwaysEqual在subject以类似的方式变量：使用我们定义的名称，没有任何花括号或括号。</p>
+<h3 id="结构体数据的所有权"><a href="#结构体数据的所有权" class="headerlink" title="结构体数据的所有权"></a>结构体数据的所有权</h3><p>在前面代码中，我们使用了拥有的String 类型而不是&amp;str字符串切片类型。这是一个深思熟虑的选择，因为我们希望该结构的实例拥有其所有数据，并且只要整个结构有效，该数据就有效。<br>结构体可以存储对其他事物拥有的数据的引用，但这样做需要使用生命周期，后续将会介绍。生命周期确保结构引用的数据在同样长的时间内有效就像结构一样。假设您尝试在不指定生命周期的情况下将引用存储在结构中，如下所示，这是行不通的：<br><figure class="highlight dts"><table><tr><td class="code"><pre><code class="hljs dts">struct <span class="hljs-class">User </span>&#123;<br><span class="hljs-symbol">    username:</span> <span class="hljs-variable">&amp;str</span>,<br><span class="hljs-symbol">    email:</span> <span class="hljs-variable">&amp;str</span>,<br><span class="hljs-symbol">    sign_in_count:</span> u64,<br><span class="hljs-symbol">    active:</span> bool,<br>&#125;<br><br>fn main() &#123;<br>    let user1 = <span class="hljs-class">User </span>&#123;<br><span class="hljs-symbol">        email:</span> <span class="hljs-string">&quot;someone@example.com&quot;</span>,<br><span class="hljs-symbol">        username:</span> <span class="hljs-string">&quot;someusername123&quot;</span>,<br><span class="hljs-symbol">        active:</span> true,<br><span class="hljs-symbol">        sign_in_count:</span> <span class="hljs-number">1</span>,<br>    &#125;;<br>&#125;<br></code></pre></td></tr></table></figure><br>编译器会抱怨它需要生命周期说明符：<br><figure class="highlight coq"><table><tr><td class="code"><pre><code class="hljs coq">cargo run<br>   Compiling structs v0<span class="hljs-number">.1</span><span class="hljs-number">.0</span> (file:///projects/structs)<br>error[E0106]: missing lifetime specifier<br> --&gt; src/main.rs:<span class="hljs-number">2</span>:<span class="hljs-number">15</span><br>  |<span class="hljs-type"></span><br><span class="hljs-type">2</span> |     <span class="hljs-type">username</span>: &amp;str,<br>  |               <span class="hljs-type">^ expected</span> named lifetime parameter<br>  |<span class="hljs-type"></span><br><span class="hljs-type">help</span>: consider introducing a named lifetime parameter<br>  |<span class="hljs-type"></span><br><span class="hljs-type">1</span> | <span class="hljs-type">struct</span> User&lt;&#x27;a&gt; &#123;<br><span class="hljs-number">2</span> |     <span class="hljs-type">username</span>: &amp;&#x27;a str,<br>  |<span class="hljs-type"></span><br><span class="hljs-type"></span><br><span class="hljs-type">error</span>[E0106]: missing lifetime specifier<br> --&gt; src/main.rs:<span class="hljs-number">3</span>:<span class="hljs-number">12</span><br>  |<span class="hljs-type"></span><br><span class="hljs-type">3</span> |     <span class="hljs-type">email</span>: &amp;str,<br>  |            <span class="hljs-type">^ expected</span> named lifetime parameter<br>  |<span class="hljs-type"></span><br><span class="hljs-type">help</span>: consider introducing a named lifetime parameter<br>  |<span class="hljs-type"></span><br><span class="hljs-type">1</span> | <span class="hljs-type">struct</span> User&lt;&#x27;a&gt; &#123;<br><span class="hljs-number">2</span> |     <span class="hljs-type">username</span>: &amp;str,<br><span class="hljs-number">3</span> |     <span class="hljs-type">email</span>: &amp;&#x27;a str,<br>  |<span class="hljs-type"></span><br><span class="hljs-type"></span><br><span class="hljs-type">error</span>: aborting due to <span class="hljs-number">2</span> previous errors<br><br>For more information about this error, <span class="hljs-built_in">try</span> `rustc --explain E0106`.<br>error: could not compile `structs`<br><br>To learn more, run the command again <span class="hljs-built_in">with</span> --verbose.<br></code></pre></td></tr></table></figure></p>
+<h2 id="二、一个使用结构体的示例程序"><a href="#二、一个使用结构体的示例程序" class="headerlink" title="二、一个使用结构体的示例程序"></a>二、一个使用结构体的示例程序</h2><p>要了解何时可能需要使用结构体，让我们编写一个计算矩形面积的程序。我们将从单个变量开始，然后重构程序直到我们使用结构体。<br>让我们用 Cargo 创建一个名为矩形的新二进制项目，它将获取以像素为单位指定的矩形的宽度和高度并计算矩形的面积。<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() &#123;<br>    <span class="hljs-keyword">let</span> width1 = <span class="hljs-number">30</span>;<br>    <span class="hljs-keyword">let</span> height1 = <span class="hljs-number">50</span>;<br><br>    <span class="hljs-built_in">println!</span>(<br>        <span class="hljs-string">&quot;The area of the rectangle is &#123;&#125; square pixels.&quot;</span>,<br>        area(width1, height1)<br>    );<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">area</span></span>(width: <span class="hljs-built_in">u32</span>, height: <span class="hljs-built_in">u32</span>) -&gt; <span class="hljs-built_in">u32</span> &#123;<br>    width * height<br>&#125;<br></code></pre></td></tr></table></figure><br>此代码的问题在以下签名中很明显area：<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">area</span></span>(width: <span class="hljs-built_in">u32</span>, height: <span class="hljs-built_in">u32</span>) -&gt; <span class="hljs-built_in">u32</span> &#123;<br></code></pre></td></tr></table></figure><br>该area函数应该计算一个矩形的面积，但我们编写的函数有两个参数。参数是相关的，但在我们的程序中没有任何地方表达。将宽度和高度组合在一起会更易读且更易于管理。</p>
+<h3 id="用元组重构"><a href="#用元组重构" class="headerlink" title="用元组重构"></a>用元组重构</h3><p>基于上面的代码，我们给出了元组的版本：<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() &#123;<br>    <span class="hljs-keyword">let</span> rect1 = (<span class="hljs-number">30</span>, <span class="hljs-number">50</span>);<br><br>    <span class="hljs-built_in">println!</span>(<br>        <span class="hljs-string">&quot;The area of the rectangle is &#123;&#125; square pixels.&quot;</span>,<br>        area(rect1)<br>    );<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">area</span></span>(dimensions: (<span class="hljs-built_in">u32</span>, <span class="hljs-built_in">u32</span>)) -&gt; <span class="hljs-built_in">u32</span> &#123;<br>    dimensions.<span class="hljs-number">0</span> * dimensions.<span class="hljs-number">1</span><br>&#125;<br></code></pre></td></tr></table></figure><br>在某种程度上说这个程序更好一点了。元组帮助我们增加了一些结构性，现在在调用 area 的时候只需传递一个参数。不过在另一方面这个方法却更不明确了:元组并没有给出它元素 的名称，所以计算变得更费解了，因为不得不使用索引来获取元组的每一部分:<br>在面积计算时混淆宽高并没有什么问题，不过当在屏幕上绘制长方形时就有问题了!我们将 不得不记住元组索引 0 是 length 而 1 是 width 。如果其他人要使用这些代码，他们也 不得不搞清楚并记住他们。容易忘记或者混淆这些值而造成错误，因为我们没有表明代码中 数据的意义。</p>
+<h3 id="使用结构体重构-赋予更多意义"><a href="#使用结构体重构-赋予更多意义" class="headerlink" title="使用结构体重构:赋予更多意义"></a>使用结构体重构:赋予更多意义</h3><p>我们使用结构体为数据命令来为其赋予意义。我们可以将元组转换为一个有整体名称而且每<br>个部分也有对应名字的数据类型.<br><figure class="highlight maxima"><table><tr><td class="code"><pre><code class="hljs maxima">struct Rectangle &#123;<br>    <span class="hljs-built_in">width</span>: u32,<br>    <span class="hljs-built_in">height</span>: u32,<br>&#125;<br><br>fn main() &#123;<br>    <span class="hljs-built_in">let</span> rect1 = Rectangle &#123;<br>        <span class="hljs-built_in">width</span>: <span class="hljs-number">30</span>,<br>        <span class="hljs-built_in">height</span>: <span class="hljs-number">50</span>,<br>    &#125;;<br><br>    println!(<br>        <span class="hljs-string">&quot;The area of the rectangle is &#123;&#125; square pixels.&quot;</span>,<br>        area(&amp;rect1)<br>    );<br>&#125;<br><br>fn area(<span class="hljs-built_in">rectangle</span>: &amp;Rectangle) -&gt; u32 &#123;<br>    <span class="hljs-built_in">rectangle</span>.<span class="hljs-built_in">width</span> * <span class="hljs-built_in">rectangle</span>.<span class="hljs-built_in">height</span><br>&#125;<br></code></pre></td></tr></table></figure></p>
+<p>这里我们定义了一个结构体并称其为 Rectangle 。在 {} 中定义了字段 length 和width ，都是 u32 类型的。接着在 main 中，我们创建了一个宽度为 30 和高度为 50 的 Rectangle 的具体实例。</p>
+<p>函数 area 现在被定义为接收一个名叫 rectangle 的参数，其类型是一个结构体Rectangle 实例的不可变借用。我们希望借用结构体而不是获取它的所有权，这样 main 函数就可以保持 rect1 的所有权并继续使用它，所以这就是为什么在函数签名和调用的地方会有 <code>&amp;</code>。</p>
+<h3 id="通过派生-trait-增加实用功能"><a href="#通过派生-trait-增加实用功能" class="headerlink" title="通过派生 trait 增加实用功能"></a>通过派生 trait 增加实用功能</h3><p>如果能够在调试程序时打印出 Rectangle 实例来查看其所有字段的值就更好了。<br><figure class="highlight arduino"><table><tr><td class="code"><pre><code class="hljs arduino"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Rectangle</span> &#123;</span><br>    width: u32,<br>    height: u32,<br>&#125;<br><br><span class="hljs-function">fn <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    let rect1 = Rectangle &#123;<br>        width: <span class="hljs-number">30</span>,<br>        height: <span class="hljs-number">50</span>,<br>    &#125;;<br><br>    println!(<span class="hljs-string">&quot;rect1 is &#123;&#125;&quot;</span>, rect1);<br>&#125;<br></code></pre></td></tr></table></figure><br>当我们编译这段代码时，我们会收到一个带有这个核心消息的错误：<br><figure class="highlight cpp"><table><tr><td class="code"><pre><code class="hljs cpp">error[E0277]: `Rectangle` doesn<span class="hljs-number">&#x27;</span>t implement `std::fmt::Display`<br></code></pre></td></tr></table></figure><br><code>println!</code> 宏能处理很多类型的格式，不过， {} 默认告诉 <code>println!</code> 使用被称为 <code>Display</code> 的格式:意在提供给直接终端用户查看的输出。目前为止见过的基本类型都默认实现了 <code>Display</code> ，因为它就是向用户展示 1 或其他任何基本类型的唯一方式。<br>不过对于结构体， <code>println!</code> 应该用来输出的格式是不明确的，因为这有更多显示的可能性:是否需要逗号?需要打印出大括号吗?所有字段都应该显示吗?由于这种不确定性，Rust 不尝试猜测我们的意图所以结构体并没有提供一个 Display 实现。<br>在 <code>&#123;&#125;</code> 中加入 <code>:?</code> 指示符告诉 <code>println!</code> 我们想要使用叫做 <strong>Debug 的输出格式</strong>。 <code>Debug 是 一个 trait</code>，它允许我们在调试代码时以一种对开发者有帮助的方式打印出结构体。<br><figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">println</span>!(<span class="hljs-string">&quot;rect1 is &#123;:?&#125;&quot;</span>, rect<span class="hljs-number">1</span>);<br></code></pre></td></tr></table></figure><br>使用此更改编译代码。天啊！我们仍然得到一个错误：<br><figure class="highlight autohotkey"><table><tr><td class="code"><pre><code class="hljs autohotkey"><span class="hljs-title">error[E0277]:</span> `Rectangle` doesn&#x27;t implement `Debug`<br></code></pre></td></tr></table></figure><br>Rust 确实 包含了打印出调试信息的功能，不过我们必须为结构体显式选择这个功能。为此， 在结构体定义之前加上 <code>#[derive(Debug)]</code> 注解:<br><figure class="highlight arduino"><table><tr><td class="code"><pre><code class="hljs arduino">#[<span class="hljs-built_in">derive</span>(Debug)]<br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Rectangle</span> &#123;</span><br>    width: u32,<br>    height: u32,<br>&#125;<br><br><span class="hljs-function">fn <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    let rect1 = Rectangle &#123;<br>        width: <span class="hljs-number">30</span>,<br>        height: <span class="hljs-number">50</span>,<br>    &#125;;<br><br>    println!(<span class="hljs-string">&quot;rect1 is &#123;:?&#125;&quot;</span>, rect1);<br>&#125;<br></code></pre></td></tr></table></figure><br>现在我们再运行这个程序时，就不会有任何错误并会出现如下输出了:<br><figure class="highlight maxima"><table><tr><td class="code"><pre><code class="hljs maxima">rect1 <span class="hljs-built_in">is</span> Rectangle &#123; <span class="hljs-built_in">width</span>: <span class="hljs-number">30</span>, <span class="hljs-built_in">height</span>: <span class="hljs-number">50</span> &#125;<br></code></pre></td></tr></table></figure><br>当我们有一个更大的结构体时，能有更易读一点的输出就好了，为此可以使用 <code>&#123;:#?&#125;</code> 替 换 <code>println!</code> 字符串中的 <code>&#123;:?&#125;</code> 。如果在这个例子中使用了 <code>&#123;:#?&#125;</code> 风格的话，输出会看起来 像这样:<br><figure class="highlight dts"><table><tr><td class="code"><pre><code class="hljs dts">rect1 is <span class="hljs-class">Rectangle </span>&#123;<br><span class="hljs-symbol">    width:</span> <span class="hljs-number">30</span>,<br><span class="hljs-symbol">    height:</span> <span class="hljs-number">50</span> <br>&#125;<br></code></pre></td></tr></table></figure></p>
+<p>使用Debug格式打印出值的另一种方法是使用 <code>dbg!宏</code> 。该<code>dbg!宏</code>获取表达式的所有权，打印<code>dbg!</code>代码中该宏调用发生位置的文件和行号以及该表达式的结果值，并返回该值的所有权。调用<code>dbg!</code>宏会打印到<code>标准错误控制台流 (stderr)</code>，而不是<code>println!</code>打印到<code>标准输出控制台流 (stdout)</code>。<br><figure class="highlight dts"><table><tr><td class="code"><pre><code class="hljs dts"><span class="hljs-meta">#[derive(Debug)]</span><br>struct <span class="hljs-class">Rectangle </span>&#123;<br><span class="hljs-symbol">    width:</span> u32,<br><span class="hljs-symbol">    height:</span> u32,<br>&#125;<br><br>fn main() &#123;<br>    let scale = <span class="hljs-number">2</span>;<br>    let rect1 = <span class="hljs-class">Rectangle </span>&#123;<br><span class="hljs-symbol">        width:</span> dbg!(<span class="hljs-number">30</span> * scale),<br><span class="hljs-symbol">        height:</span> <span class="hljs-number">50</span>,<br>    &#125;;<br><br>    dbg!(<span class="hljs-variable">&amp;rect1</span>);<br>&#125;<br></code></pre></td></tr></table></figure><br>Rust 还提供了许多 trait 供我们与derive属性一起使用，这些属性可以为我们的自定义类型添加有用的行为。</p>
+<h2 id="三、方法语法"><a href="#三、方法语法" class="headerlink" title="三、方法语法"></a>三、方法语法</h2><p>方法与函数类似: 它们使用 <code>fn</code> 关键字和名称声明，可以拥有参数和返回值，同时包含一段该方法在某处被调用时会执行的代码。不过方法与函数是不同的，因为它们在结构体的上下文中被定义，并且它们第一个参数总是 <code>&amp;self</code> ，它代表调用该方法的结构体实例。</p>
+<h3 id="定义方法"><a href="#定义方法" class="headerlink" title="定义方法"></a>定义方法</h3><p>让我们更改area具有Rectangle实例作为参数的函数，而是area在Rectangle结构上定义一个方法，如下：<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-meta">#[derive(Debug)]</span><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Rectangle</span></span> &#123;<br>    width: <span class="hljs-built_in">u32</span>,<br>    height: <span class="hljs-built_in">u32</span>,<br>&#125;<br><br><span class="hljs-keyword">impl</span> Rectangle &#123;<br>    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">area</span></span>(&amp;<span class="hljs-keyword">self</span>) -&gt; <span class="hljs-built_in">u32</span> &#123;<br>        <span class="hljs-keyword">self</span>.width * <span class="hljs-keyword">self</span>.height<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() &#123;<br>    <span class="hljs-keyword">let</span> rect1 = Rectangle &#123;<br>        width: <span class="hljs-number">30</span>,<br>        height: <span class="hljs-number">50</span>,<br>    &#125;;<br><br>    <span class="hljs-built_in">println!</span>(<br>        <span class="hljs-string">&quot;The area of the rectangle is &#123;&#125; square pixels.&quot;</span>,<br>        rect1.area()<br>    );<br>&#125;<br></code></pre></td></tr></table></figure><br>为了使函数定义于 Rectangle 的上下文中，开始了一个 <code>impl</code> 块。然后在 main 中将我们先前调用 area 方法并传递 rect1 作为参数的地方，改成使用方法语法(method syntax) 在 Rectangle 实例上调用 area 方法。方法语法获取一个实例并加上一个点号，后跟方法名、括号以及任何参数。</p>
+<p>在 area 的签名中，开始使用 <code>&amp;self</code> 来替代 <code>rectangle: &amp;Rectangle</code> ，因为该方法位于impl Rectangle 上下文中所以 Rust 知道 self 的类型是 Rectangle 。注意仍然需要在self 前面加上 <code>&amp;</code> ，就像 <code>&amp;Rectangle</code> 一样。方法可以选择获取 self 的所有权，或者像我们这里一样不可变地借用 self ，或者可变地借用 self ，就跟其他别的参数一样。</p>
+<p>这里选择 <code>&amp;self</code> 跟在函数版本中使用 <code>&amp;Rectangle</code> 出于同样的理由:我们并不想获取所有权，只希望能够读取结构体中的数据，而不是写入。如果想要在方法中改变调用方法的实例，需要将第一个参数改为 <code>&amp;mut self</code> 。通过仅仅使用 self 作为第一个参数来使方法获取 实例的所有权是很少见的;这种技术通常用在当方法将 self 转换成别的实例的时候，这时我们想要防止调用者在转换之后使用原始的实例。</p>
+<p>使用方法替代函数，除了使用了方法语法和不需要在每个函数签名中重复 self 类型之外， 其主要好处在于组织性。我们将某个类型实例能做的所有事情都一起放入 <code>impl</code> 块中，而不是让将来的用户在我们的库中到处寻找 Rectangle 的功能。</p>
+<h6 id="gt-运算符到哪去了"><a href="#gt-运算符到哪去了" class="headerlink" title="-&gt; 运算符到哪去了?"></a>-&gt; 运算符到哪去了?</h6><p>像在 C++ 这样的语言中，有两个不同的运算符来调用方法: <code>.</code> 直接在对象上调用方法，而 <code>-&gt;</code> 在一个对象的指针上调用方法，这时需要先解引用(dereference)指针。换句话说，如果 object 是一个指针，那么 object-&gt;something() 就像(*object).something() 一样。</p>
+<p>Rust 并没有一个与 <code>-&gt;</code> 等效的运算符; 相反，Rust 有一个叫 <strong>自动引用和解引用 (automatic referencing and dereferencing)</strong>的功能。方法调用是 Rust 中少数几个拥有这种行为的地方。</p>
+<p>这是它如何工作的:当使用 object.something() 调用方法时，Rust 会自动增加<code>&amp;</code> 、 <code>&amp;mut</code> 或 <code>*</code> 以便使 object 符合方法的签名。也就是说，这些代码是等价的:<br><figure class="highlight smali"><table><tr><td class="code"><pre><code class="hljs smali">p1.distance(&amp;p2);<br>(&amp;p1).distance(&amp;p2);<br></code></pre></td></tr></table></figure><br>第一行看起来简洁的多。这种自动解引用的行为之所以能行得通是因为方法有一个明确的接收者———— self 类型。在给出接收者和方法名的前提下，Rust 可以明确地计算出方法是仅仅读取<code>&amp;self</code>，做出修改<code>&amp;mut self</code>或者是获取所有权self。 Rust 这种使得借用对方法接收者来说是隐式的做法是其所有权系统程序员友好性实践的一大部分。</p>
+<h3 id="带有更多参数的方法"><a href="#带有更多参数的方法" class="headerlink" title="带有更多参数的方法"></a>带有更多参数的方法</h3><p>让我们更多的实践一下方法，通过为 Rectangle 结构体实现第二个方法。这回，我们让一个 Rectangle 的实例获取另一个 Rectangle 实例并返回 self 能否完全包含第二个长方形，如果能则返回 true ，如果不能则返回 false 。<br><figure class="highlight dts"><table><tr><td class="code"><pre><code class="hljs dts">fn main() &#123;<br>    let rect1 = <span class="hljs-class">Rectangle </span>&#123;<br><span class="hljs-symbol">        width:</span> <span class="hljs-number">30</span>,<br><span class="hljs-symbol">        height:</span> <span class="hljs-number">50</span>,<br>    &#125;;<br>    let rect2 = <span class="hljs-class">Rectangle </span>&#123;<br><span class="hljs-symbol">        width:</span> <span class="hljs-number">10</span>,<br><span class="hljs-symbol">        height:</span> <span class="hljs-number">40</span>,<br>    &#125;;<br>    let rect3 = <span class="hljs-class">Rectangle </span>&#123;<br><span class="hljs-symbol">        width:</span> <span class="hljs-number">60</span>,<br><span class="hljs-symbol">        height:</span> <span class="hljs-number">45</span>,<br>    &#125;;<br><br>    println!(<span class="hljs-string">&quot;Can rect1 hold rect2? &#123;&#125;&quot;</span>, rect1.can_hold(<span class="hljs-variable">&amp;rect2</span>));<br>    println!(<span class="hljs-string">&quot;Can rect1 hold rect3? &#123;&#125;&quot;</span>, rect1.can_hold(<span class="hljs-variable">&amp;rect3</span>));<br>&#125;<br></code></pre></td></tr></table></figure><br>同时我们希望看到如下输出，因为 rect2 的宽高都小于 rect1 ，而 rect3 比 rect1 要宽:<br><figure class="highlight apache"><table><tr><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">Can</span> rect<span class="hljs-number">1</span> hold rect<span class="hljs-number">2</span>? true<br><span class="hljs-attribute">Can</span> rect<span class="hljs-number">1</span> hold rect<span class="hljs-number">3</span>? false<br></code></pre></td></tr></table></figure><br>因为我们想定义一个方法，所以它应该位于 impl Rectangle 块中。方法名是 can_hold ，并 且它会获取另一个 Rectangle 的不可变借用作为参数。通过观察调用位置的代码可以看出参 数是什么类型的: rect1.can_hold(&amp;rect2) 传入了 &amp;rect2 ，它是一个 Rectangle 的实例rect2 的不可变借用。这是可以理解的，因为我们只需要读取 rect2 (而不是写入，这意味着我们需要一个可变借用)而且希望 main 保持 rect2 的所有权这样就可以在调用这个方法后继续使用它。 can_hold 的返回值是一个布尔值，其实现会分别检查 self 的宽高是否都大于另一个 Rectangle 。<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">impl</span> Rectangle &#123;<br>    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">area</span></span>(&amp;<span class="hljs-keyword">self</span>) -&gt; <span class="hljs-built_in">u32</span> &#123;<br>        <span class="hljs-keyword">self</span>.width * <span class="hljs-keyword">self</span>.height<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">can_hold</span></span>(&amp;<span class="hljs-keyword">self</span>, other: &amp;Rectangle) -&gt; <span class="hljs-built_in">bool</span> &#123;<br>        <span class="hljs-keyword">self</span>.width &gt; other.width &amp;&amp; <span class="hljs-keyword">self</span>.height &gt; other.height<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<h3 id="相关功能"><a href="#相关功能" class="headerlink" title="相关功能"></a>相关功能</h3><p>所有在 impl 块中定义的函数被称为 关联函数（associated functions），因为它们与 impl 后面命名的类型相关。我们可以定义不以 self 为第一参数的关联函数（因此不是方法），因为它们并不作用于一个结构体的实例。我们已经使用了一个这样的函数：在 String 类型上定义的 <code>String::from</code> 函数。<br>关联函数经常被用作返回一个结构体新实例的构造函数。<br><figure class="highlight dts"><table><tr><td class="code"><pre><code class="hljs dts">impl <span class="hljs-class">Rectangle </span>&#123;<br>    fn square(size: u32) -&gt; <span class="hljs-class">Rectangle </span>&#123;<br>        <span class="hljs-class">Rectangle </span>&#123;<br><span class="hljs-symbol">            width:</span> size,<br><span class="hljs-symbol">            height:</span> size,<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>要调用此关联函数，我们使用<code>::</code>带有结构名称的语法； <code>let sq = Rectangle::square(3);</code>是一个例子。此函数由结构命名空间：该<code>::</code>语法用于关联函数和模块创建的命名空间。</p>
+<h3 id="多个-impl-块"><a href="#多个-impl-块" class="headerlink" title="多个 impl 块"></a>多个 impl 块</h3><p>每个结构体可以有多个impl块。<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">impl</span> Rectangle &#123;<br>    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">area</span></span>(&amp;<span class="hljs-keyword">self</span>) -&gt; <span class="hljs-built_in">u32</span> &#123;<br>        <span class="hljs-keyword">self</span>.width * <span class="hljs-keyword">self</span>.height<br>    &#125;<br>&#125;<br><br><span class="hljs-keyword">impl</span> Rectangle &#123;<br>    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">can_hold</span></span>(&amp;<span class="hljs-keyword">self</span>, other: &amp;Rectangle) -&gt; <span class="hljs-built_in">bool</span> &#123;<br>        <span class="hljs-keyword">self</span>.width &gt; other.width &amp;&amp; <span class="hljs-keyword">self</span>.height &gt; other.height<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></p>
+
+      
+       
+    </div>
+</article>
+
+
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '07584e1e38d09c739a16',
+            clientSecret: '6a466750b46c76ed9cc8ee0fe0d78e0c33898937',
+            repo: 'yangandmore.github.io',
+            owner: 'Yangandmore',
+            admin: ['Yangandmore'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2016-2020 Yangandmore
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

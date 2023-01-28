@@ -1,0 +1,2359 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Rust-错误处理 | 杨小杨的博客</title>
+  <meta name="keywords" content=" rust ">
+  <meta name="description" content="Rust-错误处理 | 杨小杨的博客">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="整洁代码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="观看Clean Code(整洁代码)记录-1">
+<meta property="og:url" content="http://example.com/2023/01/28/%E9%87%8D%E6%9E%84%E4%BB%A3%E7%A0%811/index.html">
+<meta property="og:site_name" content="杨小杨的博客">
+<meta property="og:description" content="整洁代码">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/CleanCode/0.png">
+<meta property="og:image" content="http://example.com/img/CleanCode/1.png">
+<meta property="article:published_time" content="2023-01-28T08:02:25.000Z">
+<meta property="article:modified_time" content="2023-01-28T09:49:19.837Z">
+<meta property="article:author" content="Yang">
+<meta property="article:tag" content="整洁代码">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/CleanCode/0.png">
+
+
+<link rel="icon" href="/img/header.png">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/header.png"/>
+</a>
+<div class="author">
+    <span>Yang</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="github"
+               href="https://github.com/Yangandmore"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="email"
+               href="mailto:635408602@qq.com"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="qq"
+               href="http://wpa.qq.com/msgrd?v=3&uin=635408602&site=qq&menu=yes"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-qq"></use>
+                    </svg>
+                
+            </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(149)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                <li>
+                    <div data-rel="数据库">
+                        
+                        数据库
+                        <small>(4)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="包管理">
+                        
+                        包管理
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="编译的库">
+                        
+                        编译的库
+                        <small>(5)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="分布式事务">
+                        
+                        分布式事务
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="分布式搜索">
+                        
+                        分布式搜索
+                        <small>(5)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="后台">
+                        
+                        后台
+                        <small>(3)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="机器学习">
+                        
+                        机器学习
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="流程引擎">
+                        
+                        流程引擎
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="数据结构">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        数据结构
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="数据结构<--->算法分析">
+                                        
+                                        算法分析
+                                        
+                                            <small>(2
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="异常问题">
+                        
+                        异常问题
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="音视频">
+                        
+                        音视频
+                        <small>(13)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="整洁代码">
+                        
+                        整洁代码
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="正则表达式">
+                        
+                        正则表达式
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Android">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        Android
+                        <small>(17)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="Android<--->热更新">
+                                        
+                                        热更新
+                                        
+                                            <small>(2
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="C/C++">
+                        
+                        C/C++
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="git">
+                        
+                        git
+                        <small>(3)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Gradle">
+                        
+                        Gradle
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="java">
+                        
+                        java
+                        <small>(9)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="JavaScript">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        JavaScript
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="JavaScript<--->npm">
+                                        
+                                        npm
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="ReactNative">
+                        
+                        ReactNative
+                        <small>(10)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Redis">
+                        
+                        Redis
+                        <small>(4)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="rust">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        rust
+                        <small>(46)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="rust<--->p2p">
+                                        
+                                        p2p
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="spring">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        spring
+                        <small>(9)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="spring<--->java">
+                                        
+                                        java
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="ssr">
+                        
+                        ssr
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="149">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>包管理</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>贝塞尔曲线</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>分布式事务</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>分布式搜索</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>构建工具</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>后台</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>汇编</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>机器学习</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>跨域</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>流程引擎</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>热更新</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>视频格式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>数据结构与算法分析</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>数据库</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>图片格式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>异步</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>异常问题</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>音频</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>音视频</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>整洁代码</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>正则表达式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>直播</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>android</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Android</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>C</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>camera</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Cpp</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>es</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ffmpeg</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>git</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Gradle</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>java</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>javaScript</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libfaac</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libjpeg-turbo</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libx264</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libyuv</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Linux</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>NDK</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>react</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>React</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ReactNative</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Redis</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>RTMP</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>rust</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>seate</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>spring</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>springboot</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>SQL</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>srs</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ssr</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class="All 整洁代码 "
+           href="/2023/01/28/%E9%87%8D%E6%9E%84%E4%BB%A3%E7%A0%811/"
+           data-tag="整洁代码"
+           data-author="" >
+            <span class="post-title" title="观看Clean Code(整洁代码)记录-1">观看Clean Code(整洁代码)记录-1</span>
+            <span class="post-date" title="2023-01-28 08:02:25">2023/01/28</span>
+        </a>
+        
+        <a  class="All 异常问题 "
+           href="/2022/09/27/eclipse-mac-err/"
+           data-tag="异常问题"
+           data-author="" >
+            <span class="post-title" title="eclipse-mac-err">eclipse-mac-err</span>
+            <span class="post-date" title="2022-09-27 22:24:54">2022/09/27</span>
+        </a>
+        
+        <a  class="All 流程引擎 "
+           href="/2022/09/16/activiti7/"
+           data-tag="流程引擎"
+           data-author="" >
+            <span class="post-title" title="流程引擎-activiti7">流程引擎-activiti7</span>
+            <span class="post-date" title="2022-09-16 10:01:11">2022/09/16</span>
+        </a>
+        
+        <a  class="All 分布式事务 "
+           href="/2022/09/04/seate/"
+           data-tag="seate,分布式事务"
+           data-author="" >
+            <span class="post-title" title="配置seate">配置seate</span>
+            <span class="post-date" title="2022-09-04 19:11:24">2022/09/04</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/09/01/es-java/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="es在java环境中使用">es在java环境中使用</span>
+            <span class="post-date" title="2022-09-01 22:11:48">2022/09/01</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/09/01/es-ik/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="es配置ik分词器及热更新">es配置ik分词器及热更新</span>
+            <span class="post-date" title="2022-09-01 16:38:27">2022/09/01</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/06/es-7-change-password/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="es修改密码">es修改密码</span>
+            <span class="post-date" title="2022-08-06 23:37:16">2022/08/06</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/06/es-linux/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="elk在linux上简单安装">elk在linux上简单安装</span>
+            <span class="post-date" title="2022-08-06 21:02:25">2022/08/06</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/02/ELK/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="ELK学习">ELK学习</span>
+            <span class="post-date" title="2022-08-02 15:13:44">2022/08/02</span>
+        </a>
+        
+        <a  class="All 包管理 "
+           href="/2022/07/29/chocolatey/"
+           data-tag="包管理"
+           data-author="" >
+            <span class="post-title" title="chocolatey">chocolatey</span>
+            <span class="post-date" title="2022-07-29 16:56:39">2022/07/29</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/28/Spring-%E5%9F%BA%E7%A1%805/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础5">Spring-基础5</span>
+            <span class="post-date" title="2022-07-28 21:11:57">2022/07/28</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/28/Spring-%E5%9F%BA%E7%A1%804/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(四)">Spring-基础(四)</span>
+            <span class="post-date" title="2022-07-28 15:50:59">2022/07/28</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-%E5%9F%BA%E7%A1%803/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(三)">Spring-基础(三)</span>
+            <span class="post-date" title="2022-07-25 21:51:47">2022/07/25</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-%E5%9F%BA%E7%A1%802/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(二)">Spring-基础(二)</span>
+            <span class="post-date" title="2022-07-25 10:26:06">2022/07/25</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-%E5%9F%BA%E7%A1%801/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(一)">Spring-基础(一)</span>
+            <span class="post-date" title="2022-07-25 09:58:25">2022/07/25</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/07/17/P2P/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="P2P">P2P</span>
+            <span class="post-date" title="2022-07-17 10:46:24">2022/07/17</span>
+        </a>
+        
+        <a  class="All rust p2p "
+           href="/2022/07/16/Rust-libp2p/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-libp2p">Rust-libp2p</span>
+            <span class="post-date" title="2022-07-16 14:04:11">2022/07/16</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/07/06/%E5%8C%BA%E5%9D%97%E9%93%BE-%E8%AE%B0%E8%B4%A6%E6%A8%A1%E5%BC%8F/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="区块链-记账模式">区块链-记账模式</span>
+            <span class="post-date" title="2022-07-06 21:48:04">2022/07/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/06/26/Summer-boot%E4%B8%80%E6%9C%9F%E5%AE%8F%E9%83%A8%E5%88%86%E6%9E%84%E6%80%9D%E5%8F%8A%E5%AE%9E%E7%8E%B0/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Summer-boot一期宏部分构思及实现">Summer-boot一期宏部分构思及实现</span>
+            <span class="post-date" title="2022-06-26 10:12:27">2022/06/26</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2022/06/16/Git-fork%E9%A1%B9%E7%9B%AE%E6%9B%B4%E6%96%B0/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git-fork项目更新">Git-fork项目更新</span>
+            <span class="post-date" title="2022-06-16 15:11:56">2022/06/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/06/12/Rust-%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-编码规范">Rust-编码规范</span>
+            <span class="post-date" title="2022-06-12 09:05:33">2022/06/12</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2022/05/29/MySql-Some%E7%AD%89%E6%8C%87%E4%BB%A4/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="MySql_Some、Any、All的用法">MySql_Some、Any、All的用法</span>
+            <span class="post-date" title="2022-05-29 10:07:14">2022/05/29</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/12/Redis-%E8%81%9A%E5%90%88%E6%93%8D%E4%BD%9C/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-聚合操作">Redis-聚合操作</span>
+            <span class="post-date" title="2022-05-12 14:34:47">2022/05/12</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/11/Redis-%E5%88%87%E7%89%87%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-切片集群配置">Redis-切片集群配置</span>
+            <span class="post-date" title="2022-05-11 15:45:38">2022/05/11</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/10/Redis-%E5%93%A8%E5%85%B5%E6%9C%BA%E5%88%B6%E9%85%8D%E7%BD%AE/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-哨兵机制配置">Redis-哨兵机制配置</span>
+            <span class="post-date" title="2022-05-10 17:02:25">2022/05/10</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/10/Redis-%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%85%B3/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-开启远程访问">Redis-开启远程访问</span>
+            <span class="post-date" title="2022-05-10 14:24:32">2022/05/10</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/05/06/Rust-%E5%B1%9E%E6%80%A7/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-属性">Rust-属性</span>
+            <span class="post-date" title="2022-05-06 10:08:24">2022/05/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/20/Rust-build/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust编译过程图">Rust编译过程图</span>
+            <span class="post-date" title="2022-04-20 14:54:46">2022/04/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/08/Rust-Atomic/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-Atomic">Rust-Atomic</span>
+            <span class="post-date" title="2022-04-08 09:55:50">2022/04/08</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/06/Rust-%E6%AD%BB%E7%81%B5%E6%9C%AF3/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵术3">Rust-死灵术3</span>
+            <span class="post-date" title="2022-04-06 20:48:19">2022/04/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/06/Rust-%E6%AD%BB%E7%81%B5%E6%9C%AF2/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵术2">Rust-死灵术2</span>
+            <span class="post-date" title="2022-04-06 14:54:22">2022/04/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/02/Rust-AnyTrait/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-AnyTrait">Rust-AnyTrait</span>
+            <span class="post-date" title="2022-04-02 14:25:05">2022/04/02</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/02/Rust-Cow%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-Cow智能指针">Rust-Cow智能指针</span>
+            <span class="post-date" title="2022-04-02 10:16:00">2022/04/02</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/01/Rust-%E6%AD%BB%E7%81%B5%E6%9C%AF/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵书（一）">Rust-死灵书（一）</span>
+            <span class="post-date" title="2022-04-01 16:42:36">2022/04/01</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/03/09/Rust-%E5%8F%82%E8%80%83%E6%89%8B%E5%86%8C/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-参考手册">Rust-参考手册</span>
+            <span class="post-date" title="2022-03-09 10:15:21">2022/03/09</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/03/08/Rust-%E5%AE%8F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-小宏书(声明宏)">Rust-高级-小宏书(声明宏)</span>
+            <span class="post-date" title="2022-03-08 20:22:51">2022/03/08</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2022/03/03/Android%E9%9B%86%E6%88%90Rust/"
+           data-tag="Android,rust"
+           data-author="" >
+            <span class="post-title" title="Android集成Rust">Android集成Rust</span>
+            <span class="post-date" title="2022-03-03 10:56:49">2022/03/03</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/02/08/Rust-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-类型转换-From &amp; Into">Rust-类型转换-From &amp; Into</span>
+            <span class="post-date" title="2022-02-08 16:53:33">2022/02/08</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/16/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bbitflags/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之bitflags">Rust-高级-Crate之bitflags</span>
+            <span class="post-date" title="2022-01-16 22:36:28">2022/01/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Brayon/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之rayon">Rust-高级-Crate之rayon</span>
+            <span class="post-date" title="2022-01-12 21:55:30">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Blazy-static/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之lazy_static">Rust-高级-Crate之lazy_static</span>
+            <span class="post-date" title="2022-01-12 21:50:32">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8BWalkdir/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之Walkdir">Rust-高级-Crate之Walkdir</span>
+            <span class="post-date" title="2022-01-12 21:50:15">2022/01/12</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bthreadpool/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之threadpool">Rust-高级-Crate之threadpool</span>
+            <span class="post-date" title="2022-01-12 21:49:50">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Berror-chain/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之error_chain">Rust-高级-Crate之error_chain</span>
+            <span class="post-date" title="2022-01-12 21:49:39">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bcrossbeam/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之crossbeam">Rust-高级-Crate之crossbeam</span>
+            <span class="post-date" title="2022-01-12 21:16:24">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Btar/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之tar">Rust-高级-Crate之tar</span>
+            <span class="post-date" title="2022-01-12 10:29:50">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/11/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Brand/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之rand">Rust-高级-Crate之rand</span>
+            <span class="post-date" title="2022-01-11 14:52:45">2022/01/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/09/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bserde/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之serde">Rust-高级-Crate之serde</span>
+            <span class="post-date" title="2022-01-09 21:10:52">2022/01/09</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/09/Rust%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8%E4%B8%8E%E5%80%9F%E7%94%A8/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust中的引用与借用">Rust中的引用与借用</span>
+            <span class="post-date" title="2022-01-09 19:03:47">2022/01/09</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/09/graphQL/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="graphQL">graphQL</span>
+            <span class="post-date" title="2022-01-09 17:02:35">2022/01/09</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/05/Rust-%E9%AB%98%E7%BA%A7-%E6%9C%8D%E5%8A%A1%E4%B9%8BActix/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-服务之Actix">Rust-高级-服务之Actix</span>
+            <span class="post-date" title="2022-01-05 21:13:56">2022/01/05</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/05/Rust-%E9%AB%98%E7%BA%A7-%E5%BC%82%E6%AD%A5%E4%B9%8Bfutures/"
+           data-tag="rust,异步"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-异步之futures">Rust-高级-异步之futures</span>
+            <span class="post-date" title="2022-01-05 21:13:38">2022/01/05</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/30/Rust-%E6%9C%80%E5%90%8E%E7%9A%84%E9%A1%B9%E7%9B%AE/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-最后的项目">Rust-最后的项目</span>
+            <span class="post-date" title="2021-12-30 14:46:33">2021/12/30</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/21/Rust-%E9%AB%98%E7%BA%A7%E7%89%B9%E5%BE%81/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级特征">Rust-高级特征</span>
+            <span class="post-date" title="2021-12-21 22:22:15">2021/12/21</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-%E6%A8%A1%E5%BC%8F%E7%94%A8%E6%9D%A5%E5%8C%B9%E9%85%8D%E5%80%BC%E7%9A%84%E7%BB%93%E6%9E%84/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-模式与模式匹配">Rust-模式与模式匹配</span>
+            <span class="post-date" title="2021-12-20 20:53:44">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-面向对象">Rust-面向对象</span>
+            <span class="post-date" title="2021-12-20 15:15:04">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-%E6%97%A0%E7%95%8F%E5%B9%B6%E5%8F%91/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-无畏并发">Rust-无畏并发</span>
+            <span class="post-date" title="2021-12-20 09:44:35">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/19/Rust-%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-智能指针">Rust-智能指针</span>
+            <span class="post-date" title="2021-12-19 10:23:23">2021/12/19</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/16/Rust-CargoAndCratesIO/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-CargoAndCratesIO">Rust-CargoAndCratesIO</span>
+            <span class="post-date" title="2021-12-16 22:52:05">2021/12/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/16/Rust-%E5%87%BD%E6%95%B0%E5%BC%8F%E8%AF%AD%E8%A8%80%E5%8A%9F%E8%83%BD-%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E9%97%AD%E5%8C%85/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-函数式语言功能:迭代器与闭包">Rust-函数式语言功能:迭代器与闭包</span>
+            <span class="post-date" title="2021-12-16 16:08:22">2021/12/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/15/Rust-%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%A8%8B%E5%BA%8F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-IO">Rust-IO</span>
+            <span class="post-date" title="2021-12-15 17:07:26">2021/12/15</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/15/Rust-%E6%B5%8B%E8%AF%95/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-测试">Rust-测试</span>
+            <span class="post-date" title="2021-12-15 14:08:29">2021/12/15</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/14/Rust-%E6%B3%9B%E5%9E%8B%E3%80%81trait%E5%92%8C%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-泛型、trait和生命周期">Rust-泛型、trait和生命周期</span>
+            <span class="post-date" title="2021-12-14 20:57:17">2021/12/14</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/14/Rust-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-错误处理">Rust-错误处理</span>
+            <span class="post-date" title="2021-12-14 10:48:51">2021/12/14</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-%E5%B8%B8%E8%A7%81%E9%9B%86%E5%90%88/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-常见集合">Rust-常见集合</span>
+            <span class="post-date" title="2021-12-13 20:55:23">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%9D%97%E7%BB%84%E7%BB%87%E5%92%8C%E5%A4%8D%E7%94%A8%E4%BB%A3%E7%A0%81/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-使用模块组织和复用代码">Rust-使用模块组织和复用代码</span>
+            <span class="post-date" title="2021-12-13 16:26:05">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-枚举和模式匹配">Rust-枚举和模式匹配</span>
+            <span class="post-date" title="2021-12-13 10:44:04">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/12/Rust-%E7%BB%93%E6%9E%84%E4%BD%93/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-结构体">Rust-结构体</span>
+            <span class="post-date" title="2021-12-12 22:42:42">2021/12/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/12/Rust-%E6%89%80%E6%9C%89%E6%9D%83/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-所有权">Rust-所有权</span>
+            <span class="post-date" title="2021-12-12 11:32:16">2021/12/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/11/Rust-%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-基础技术">Rust-基础技术</span>
+            <span class="post-date" title="2021-12-11 20:25:09">2021/12/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/11/Rust-%E7%BC%96%E7%A8%8B%E7%8C%9C%E8%B0%9C%E6%B8%B8%E6%88%8F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-编程猜谜游戏">Rust-编程猜谜游戏</span>
+            <span class="post-date" title="2021-12-11 18:58:04">2021/12/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/10/Rust-%E5%85%A5%E9%97%A8/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-入门">Rust-入门</span>
+            <span class="post-date" title="2021-12-10 11:18:25">2021/12/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/10/Java-%E5%86%85%E9%83%A8%E7%B1%BB/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-内部类">Java-内部类</span>
+            <span class="post-date" title="2021-12-10 08:50:32">2021/12/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/09/Java-%E6%8E%A5%E5%8F%A3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-接口">Java-接口</span>
+            <span class="post-date" title="2021-12-09 14:54:05">2021/12/09</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/09/Java-%E5%A4%9A%E6%80%81/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-多态">Java-多态</span>
+            <span class="post-date" title="2021-12-09 08:42:47">2021/12/09</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/23/JavaNIO/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaNIO">JavaNIO</span>
+            <span class="post-date" title="2021-11-23 10:47:14">2021/11/23</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/23/JavaIO/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaIO">JavaIO</span>
+            <span class="post-date" title="2021-11-23 10:47:07">2021/11/23</span>
+        </a>
+        
+        <a  class="All spring java "
+           href="/2021/11/22/Spring%E5%B7%A5%E4%BD%9C%E5%AF%B9%E8%B1%A1/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring工作对象">Spring工作对象</span>
+            <span class="post-date" title="2021-11-22 09:44:06">2021/11/22</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/18/Java%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java函数式接口">Java函数式接口</span>
+            <span class="post-date" title="2021-11-18 10:50:22">2021/11/18</span>
+        </a>
+        
+        <a  class="All "
+           href="/2021/11/17/SpringBoot%E5%90%AF%E5%8A%A8-%E5%9F%BA%E7%A1%80/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="SpringBoot启动-基础">SpringBoot启动-基础</span>
+            <span class="post-date" title="2021-11-17 17:01:58">2021/11/17</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/16/JRebel/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JRebel">JRebel</span>
+            <span class="post-date" title="2021-11-16 08:58:18">2021/11/16</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/11/Spring%E5%90%AF%E5%8A%A8-%E5%9F%BA%E7%A1%80/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring启动-基础">Spring启动-基础</span>
+            <span class="post-date" title="2021-11-11 15:25:33">2021/11/11</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/10/%E5%8F%8D%E5%B0%84/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="反射">反射</span>
+            <span class="post-date" title="2021-11-10 20:57:08">2021/11/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/10/%E6%B3%A8%E8%A7%A3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="注解">注解</span>
+            <span class="post-date" title="2021-11-10 20:50:55">2021/11/10</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/09/SpringAOP-%E5%9F%BA%E7%A1%80/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="SpringAOP-基础">SpringAOP-基础</span>
+            <span class="post-date" title="2021-11-09 10:31:31">2021/11/09</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/08/SpringIOC-%E5%9F%BA%E7%A1%80/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="SpringIOC-基础">SpringIOC-基础</span>
+            <span class="post-date" title="2021-11-08 10:27:28">2021/11/08</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2021/11/02/%E9%9F%B3%E8%A7%86%E9%A2%91%E7%BC%96%E8%A7%A3%E7%A0%81%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/"
+           data-tag="音视频"
+           data-author="" >
+            <span class="post-title" title="音视频编解码技术基础">音视频编解码技术基础</span>
+            <span class="post-date" title="2021-11-02 12:06:49">2021/11/02</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2021/11/02/MysqlErrHosts/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="mysql安装时，Unable to connect to any of the specified MySQL hosts">mysql安装时，Unable to connect to any of the specified MySQL hosts</span>
+            <span class="post-date" title="2021-11-02 10:58:50">2021/11/02</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2021/10/08/H264%E7%BC%96%E7%A0%81-SPSPPS/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码 SPS &amp; PPS">H264编码 SPS &amp; PPS</span>
+            <span class="post-date" title="2021-10-08 21:20:12">2021/10/08</span>
+        </a>
+        
+        <a  class="All ssr "
+           href="/2021/01/18/centos%E7%BB%88%E7%AB%AFssr%E9%85%8D%E7%BD%AE/"
+           data-tag="ssr"
+           data-author="" >
+            <span class="post-title" title="centos终端ssr配置">centos终端ssr配置</span>
+            <span class="post-date" title="2021-01-18 08:21:35">2021/01/18</span>
+        </a>
+        
+        <a  class="All 数据结构 算法分析 "
+           href="/2020/12/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E5%85%B6%E4%BA%8C/"
+           data-tag="数据结构与算法分析"
+           data-author="" >
+            <span class="post-title" title="数据结构与算法分析阅读笔记其二">数据结构与算法分析阅读笔记其二</span>
+            <span class="post-date" title="2020-12-14 22:34:39">2020/12/14</span>
+        </a>
+        
+        <a  class="All 数据结构 算法分析 "
+           href="/2020/12/09/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"
+           data-tag="数据结构与算法分析"
+           data-author="" >
+            <span class="post-title" title="数据结构与算法分析阅读笔记">数据结构与算法分析阅读笔记</span>
+            <span class="post-date" title="2020-12-09 21:52:40">2020/12/09</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/10/27/FLV%E6%A0%BC%E5%BC%8F/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="FLV格式">FLV格式</span>
+            <span class="post-date" title="2020-10-27 15:33:56">2020/10/27</span>
+        </a>
+        
+        <a  class="All 机器学习 "
+           href="/2020/09/20/Mac%E4%B8%ADPython3-x%E7%BC%96%E8%AF%91Caffe/"
+           data-tag="机器学习"
+           data-author="" >
+            <span class="post-title" title="Mac中Python3.x编译Caffe">Mac中Python3.x编译Caffe</span>
+            <span class="post-date" title="2020-09-20 01:08:09">2020/09/20</span>
+        </a>
+        
+        <a  class="All JavaScript npm "
+           href="/2020/07/17/npm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%93%8D%E4%BD%9C/"
+           data-tag="直播"
+           data-author="" >
+            <span class="post-title" title="npm常用命令操作">npm常用命令操作</span>
+            <span class="post-date" title="2020-07-17 10:14:01">2020/07/17</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/16/MediaExtractorANDMediaMuxer/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="android端的音频处理工具MediaExtractor和MediaMuxer">android端的音频处理工具MediaExtractor和MediaMuxer</span>
+            <span class="post-date" title="2020-07-16 11:55:28">2020/07/16</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/15/AAC%E9%9F%B3%E9%A2%91%E7%A0%81%E6%B5%81/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="AAC音频码流">AAC音频码流</span>
+            <span class="post-date" title="2020-07-15 17:45:10">2020/07/15</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/15/Android-PCM%E5%A4%84%E7%90%86/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="Android-PCM">Android-PCM</span>
+            <span class="post-date" title="2020-07-15 13:29:49">2020/07/15</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/13/yuv-tool%E5%B7%A5%E5%85%B7%E7%B1%BB/"
+           data-tag="android,libyuv"
+           data-author="" >
+            <span class="post-title" title="yuv-tool工具类">yuv-tool工具类</span>
+            <span class="post-date" title="2020-07-13 22:58:21">2020/07/13</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/18/ffmpegforandroid%E7%BC%96%E8%AF%91/"
+           data-tag="ffmpeg"
+           data-author="" >
+            <span class="post-title" title="ffmpegforandroid编译">ffmpegforandroid编译</span>
+            <span class="post-date" title="2020-06-18 13:38:35">2020/06/18</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/11/libfaac%E7%BC%96%E8%AF%91/"
+           data-tag="libfaac"
+           data-author="" >
+            <span class="post-title" title="libfaac编译">libfaac编译</span>
+            <span class="post-date" title="2020-06-11 14:00:57">2020/06/11</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/11/libx264%E7%BC%96%E8%AF%91/"
+           data-tag="libx264"
+           data-author="" >
+            <span class="post-title" title="libx264编译">libx264编译</span>
+            <span class="post-date" title="2020-06-11 13:51:36">2020/06/11</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/06/10/RTMP%E8%A7%84%E8%8C%83%E5%AD%A6%E4%B9%A0/"
+           data-tag="RTMP,直播"
+           data-author="" >
+            <span class="post-title" title="RTMP规范学习">RTMP规范学习</span>
+            <span class="post-date" title="2020-06-10 11:35:52">2020/06/10</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/06/01/React-Native%E7%83%AD%E6%9B%B4%E6%96%B0/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native热更新">React-Native热更新</span>
+            <span class="post-date" title="2020-06-01 16:03:28">2020/06/01</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2020/06/01/JavaWeb/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaWeb">JavaWeb</span>
+            <span class="post-date" title="2020-06-01 11:09:17">2020/06/01</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2020/05/26/JDBC/"
+           data-tag="java,数据库"
+           data-author="" >
+            <span class="post-title" title="JDBC">JDBC</span>
+            <span class="post-date" title="2020-05-26 16:23:01">2020/05/26</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2020/03/29/%E4%BA%86%E8%A7%A3%E8%B7%A8%E5%9F%9F/"
+           data-tag="后台,跨域"
+           data-author="" >
+            <span class="post-title" title="了解跨域">了解跨域</span>
+            <span class="post-date" title="2020-03-29 21:31:15">2020/03/29</span>
+        </a>
+        
+        <a  class="All JavaScript "
+           href="/2020/03/08/JavaScript%E8%AF%AD%E6%B3%95%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="javaScript"
+           data-author="" >
+            <span class="post-title" title="JavaScript语法（一）">JavaScript语法（一）</span>
+            <span class="post-date" title="2020-03-08 10:29:30">2020/03/08</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/03/06/React-native-%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-native 高德地图">React-native 高德地图</span>
+            <span class="post-date" title="2020-03-06 10:07:45">2020/03/06</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/03/03/React-16-8-Hooks/"
+           data-tag="React"
+           data-author="" >
+            <span class="post-title" title="React 16.8 Hooks">React 16.8 Hooks</span>
+            <span class="post-date" title="2020-03-03 10:07:02">2020/03/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/01/06/React-Native%E5%8E%9F%E7%94%9F%E9%80%9A%E4%BF%A1/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native原生通信">React-Native原生通信</span>
+            <span class="post-date" title="2020-01-06 16:34:00">2020/01/06</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/27/React-Native%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native原理浅析">React-Native原理浅析</span>
+            <span class="post-date" title="2019-12-27 15:32:08">2019/12/27</span>
+        </a>
+        
+        <a  class="All 正则表达式 "
+           href="/2019/12/18/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
+           data-tag="正则表达式"
+           data-author="" >
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2019-12-18 21:45:36">2019/12/18</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/05/React-Native-%E5%8A%A8%E7%94%BB/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native-动画">React-Native-动画</span>
+            <span class="post-date" title="2019-12-05 16:20:25">2019/12/05</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/03/React-%E8%87%AA%E5%AD%A6%E4%B9%8B%E8%B7%AF%EF%BC%88%E4%BA%8C%EF%BC%89/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="React-自学之路（二）">React-自学之路（二）</span>
+            <span class="post-date" title="2019-12-03 13:06:53">2019/12/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/03/React-%E8%87%AA%E5%AD%A6%E4%B9%8B%E8%B7%AF%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="React"
+           data-author="" >
+            <span class="post-title" title="React-自学之路（一）">React-自学之路（一）</span>
+            <span class="post-date" title="2019-12-03 09:40:28">2019/12/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/10/12/React%E6%96%B0%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"
+           data-tag="react"
+           data-author="" >
+            <span class="post-title" title="React新的生命周期">React新的生命周期</span>
+            <span class="post-date" title="2019-10-12 15:41:02">2019/10/12</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2019/09/18/%E5%88%9B%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE%E6%97%B6%EF%BC%8C%E5%87%BA%E7%8E%B0Could-not-calculate-build-plan%E9%94%99%E8%AF%AF/"
+           data-tag="springboot"
+           data-author="" >
+            <span class="post-title" title="创建maven项目时，出现Could not calculate build plan错误">创建maven项目时，出现Could not calculate build plan错误</span>
+            <span class="post-date" title="2019-09-18 09:25:06">2019/09/18</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2019/09/07/MySQL%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="MySQL常用指令">MySQL常用指令</span>
+            <span class="post-date" title="2019-09-07 21:10:03">2019/09/07</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/07/05/RecycleView%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="RecycleView（一）">RecycleView（一）</span>
+            <span class="post-date" title="2019-07-05 14:03:06">2019/07/05</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/25/Android%E5%8A%A8%E7%94%BB%EF%BC%88%E4%B8%89%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（三）">Android动画（三）</span>
+            <span class="post-date" title="2019-06-25 14:15:26">2019/06/25</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/20/Android%E5%8A%A8%E7%94%BB%EF%BC%88%E4%BA%8C%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（二）">Android动画（二）</span>
+            <span class="post-date" title="2019-06-20 15:10:00">2019/06/20</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/19/Android%E5%8A%A8%E7%94%BB%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（一）">Android动画（一）</span>
+            <span class="post-date" title="2019-06-19 15:15:56">2019/06/19</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/18/Android%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%EF%BC%88%E4%BA%8C%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android自定义控件（二）">Android自定义控件（二）</span>
+            <span class="post-date" title="2019-06-18 13:43:11">2019/06/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/13/%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF/"
+           data-tag="Android,贝塞尔曲线"
+           data-author="" >
+            <span class="post-title" title="贝塞尔曲线">贝塞尔曲线</span>
+            <span class="post-date" title="2019-06-13 10:14:25">2019/06/13</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/04/Java-Binder%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%90%86%E8%A7%A3/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Java Binder进程通信理解">Java Binder进程通信理解</span>
+            <span class="post-date" title="2019-06-04 14:01:43">2019/06/04</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/05/30/arm-neon-h%E6%96%87%E4%BB%B6%E5%8A%9F%E8%83%BD/"
+           data-tag="汇编"
+           data-author="" >
+            <span class="post-title" title="arm-neon.h文件功能">arm-neon.h文件功能</span>
+            <span class="post-date" title="2019-05-30 08:45:08">2019/05/30</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/05/06/Handler%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6/"
+           data-tag="android"
+           data-author="" >
+            <span class="post-title" title="Handler消息机制">Handler消息机制</span>
+            <span class="post-date" title="2019-05-06 14:09:45">2019/05/06</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/05/06/H264%E7%BC%96%E7%A0%81-%E7%86%B5%E7%BC%96%E7%A0%81/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码-熵编码">H264编码-熵编码</span>
+            <span class="post-date" title="2019-05-06 13:42:57">2019/05/06</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/04/08/NDK%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E5%90%88%E9%9B%86/"
+           data-tag="NDK"
+           data-author="" >
+            <span class="post-title" title="NDK开发问题合集">NDK开发问题合集</span>
+            <span class="post-date" title="2019-04-08 10:53:30">2019/04/08</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/04/01/H264%E7%BC%96%E7%A0%81%E5%9F%BA%E7%A1%80/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码基础">H264编码基础</span>
+            <span class="post-date" title="2019-04-01 09:26:11">2019/04/01</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/31/srs%E7%9B%B4%E6%92%AD%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/"
+           data-tag="直播,srs"
+           data-author="" >
+            <span class="post-title" title="srs直播平台搭建">srs直播平台搭建</span>
+            <span class="post-date" title="2019-03-31 10:37:42">2019/03/31</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/27/%E5%9B%BE%E7%89%87RGB%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/"
+           data-tag="图片格式"
+           data-author="" >
+            <span class="post-title" title="图片RGB数据格式">图片RGB数据格式</span>
+            <span class="post-date" title="2019-03-27 22:24:49">2019/03/27</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/14/%E5%9B%BE%E7%89%87YUV%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/"
+           data-tag="图片格式"
+           data-author="" >
+            <span class="post-title" title="图片YUV数据格式">图片YUV数据格式</span>
+            <span class="post-date" title="2019-03-14 11:10:16">2019/03/14</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2019/03/08/libjpeg-turbo%E7%BC%96%E8%AF%91/"
+           data-tag="libjpeg-turbo"
+           data-author="" >
+            <span class="post-title" title="libjpeg-turbo编译">libjpeg-turbo编译</span>
+            <span class="post-date" title="2019-03-08 13:41:20">2019/03/08</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2019/03/07/libYUV%E7%BC%96%E8%AF%91/"
+           data-tag="libyuv"
+           data-author="" >
+            <span class="post-title" title="libYUV编译">libYUV编译</span>
+            <span class="post-date" title="2019-03-07 15:05:11">2019/03/07</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/02/18/Android-camera%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="camera"
+           data-author="" >
+            <span class="post-title" title="Android camera（一）">Android camera（一）</span>
+            <span class="post-date" title="2019-02-18 15:03:27">2019/02/18</span>
+        </a>
+        
+        <a  class="All C/C++ "
+           href="/2019/01/23/Cpp%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Cpp"
+           data-author="" >
+            <span class="post-title" title="Cpp基础（一）">Cpp基础（一）</span>
+            <span class="post-date" title="2019-01-23 10:52:13">2019/01/23</span>
+        </a>
+        
+        <a  class="All C/C++ "
+           href="/2019/01/18/C%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="C"
+           data-author="" >
+            <span class="post-title" title="C基础（一）">C基础（一）</span>
+            <span class="post-date" title="2019-01-18 14:08:23">2019/01/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/12/18/EasyPermission/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="EasyPermission">EasyPermission</span>
+            <span class="post-date" title="2018-12-18 13:20:30">2018/12/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/12/15/Android%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android自定义控件（一）">Android自定义控件（一）</span>
+            <span class="post-date" title="2018-12-15 21:44:34">2018/12/15</span>
+        </a>
+        
+        <a  class="All ssr "
+           href="/2018/12/10/Linux%E9%85%8D%E7%BD%AEShadowSocks-R/"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux配置ShadowSocks-R">Linux配置ShadowSocks-R</span>
+            <span class="post-date" title="2018-12-10 15:58:52">2018/12/10</span>
+        </a>
+        
+        <a  class="All Android 热更新 "
+           href="/2018/10/29/Sophix%E7%83%AD%E6%9B%B4%E6%96%B0/"
+           data-tag="android,热更新"
+           data-author="" >
+            <span class="post-title" title="Sophix热更新">Sophix热更新</span>
+            <span class="post-date" title="2018-10-29 16:50:36">2018/10/29</span>
+        </a>
+        
+        <a  class="All Android 热更新 "
+           href="/2018/10/18/TinkerPatch%E7%83%AD%E6%9B%B4%E6%96%B0/"
+           data-tag="android,热更新"
+           data-author="" >
+            <span class="post-title" title="TinkerPatch热更新">TinkerPatch热更新</span>
+            <span class="post-date" title="2018-10-18 20:11:30">2018/10/18</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2018/06/21/React-native-flex%E5%B8%83%E5%B1%80/"
+           data-tag="react"
+           data-author="" >
+            <span class="post-title" title="React-native flex布局">React-native flex布局</span>
+            <span class="post-date" title="2018-06-21 16:22:47">2018/06/21</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/01/25/Android%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android事件分发">Android事件分发</span>
+            <span class="post-date" title="2018-01-25 16:36:52">2018/01/25</span>
+        </a>
+        
+        <a  class="All Gradle "
+           href="/2018/01/25/Gradle%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="构建工具,Gradle"
+           data-author="" >
+            <span class="post-title" title="Gradle（一）">Gradle（一）</span>
+            <span class="post-date" title="2018-01-25 16:36:52">2018/01/25</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2017/11/24/firstBlod2/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git详细讲解(远程)">Git详细讲解(远程)</span>
+            <span class="post-date" title="2017-11-24 10:18:05">2017/11/24</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2017/10/19/firstBlod/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git详细讲解(本地)">Git详细讲解(本地)</span>
+            <span class="post-date" title="2017-10-19 21:49:28">2017/10/19</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-Rust-错误处理" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">Rust-错误处理</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="rust">rust</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color5">rust</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2022-03-01 06:06:16'>2021-12-14 10:48</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                Comment:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81panic-%E4%B8%8E%E4%B8%8D%E5%8F%AF%E6%81%A2%E5%A4%8D%E7%9A%84%E9%94%99%E8%AF%AF"><span class="toc-text">一、panic! 与不可恢复的错误</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Panic-%E4%B8%AD%E7%9A%84%E6%A0%88%E5%B1%95%E5%BC%80%E4%B8%8E%E7%BB%88%E6%AD%A2"><span class="toc-text">Panic 中的栈展开与终止</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-panic-%E7%9A%84-backtrace"><span class="toc-text">使用 panic! 的 backtrace</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Result-%E4%B8%8E%E5%8F%AF%E6%81%A2%E5%A4%8D%E7%9A%84%E9%94%99%E8%AF%AF"><span class="toc-text">二、Result 与可恢复的错误</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%B9%E9%85%8D%E4%B8%8D%E5%90%8C%E7%9A%84%E9%94%99%E8%AF%AF"><span class="toc-text">匹配不同的错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%B1%E8%B4%A5%E6%97%B6-panic-%E7%9A%84%E7%AE%80%E5%86%99-unwrap-%E5%92%8C-expect"><span class="toc-text">失败时 panic 的简写: unwrap 和 expect</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E6%92%AD%E9%94%99%E8%AF%AF"><span class="toc-text">传播错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E6%92%AD%E9%94%99%E8%AF%AF%E7%9A%84%E7%AE%80%E5%86%99"><span class="toc-text">传播错误的简写: ?</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8F%AA%E8%83%BD%E8%A2%AB%E7%94%A8%E4%BA%8E%E8%BF%94%E5%9B%9E-Result-%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-text">? 只能被用于返回 Result 的函数</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81panic-%E8%BF%98%E6%98%AF%E4%B8%8D-panic"><span class="toc-text">三、panic! 还是不 panic!</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B%E3%80%81%E4%BB%A3%E7%A0%81%E5%8E%9F%E5%9E%8B%E5%92%8C%E6%B5%8B%E8%AF%95%E9%83%BD%E9%9D%9E%E5%B8%B8%E9%80%82%E5%90%88-panic"><span class="toc-text">示例、代码原型和测试都非常适合 panic</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BD%93%E4%BD%A0%E6%AF%94%E7%BC%96%E8%AF%91%E5%99%A8%E7%9F%A5%E9%81%93%E6%9B%B4%E5%A4%9A%E7%9A%84%E6%83%85%E5%86%B5"><span class="toc-text">当你比编译器知道更多的情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E6%8C%87%E5%AF%BC%E5%8E%9F%E5%88%99"><span class="toc-text">错误处理指导原则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%E4%BD%9C%E4%B8%BA%E9%AA%8C%E8%AF%81"><span class="toc-text">创建自定义类型作为验证</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、panic-与不可恢复的错误"><a href="#一、panic-与不可恢复的错误" class="headerlink" title="一、panic! 与不可恢复的错误"></a>一、panic! 与不可恢复的错误</h2><p>突然有一天，糟糕的事情发生了，而你对此束手无策。对于这种情况，Rust 有 <code>panic!</code> 宏。 当执行这个宏时，程序会打印出一个错误信息，展开并清理栈数据，然后接着退出。出现这 种情况的场景通常是检测到一些类型的 bug ，而且程序员并不清楚该如何处理它。</p>
+<h3 id="Panic-中的栈展开与终止"><a href="#Panic-中的栈展开与终止" class="headerlink" title="Panic 中的栈展开与终止"></a>Panic 中的栈展开与终止</h3><p>当出现 <code>panic!</code> 时，程序默认会开始 <strong><em>展开(unwinding)</em></strong>，这意味着 Rust 会回溯栈并清理它遇到的每一个函数的数据，不过这个回溯并清理的过程有很多工作。另一种选择是直接 <strong><em>终止(abort)</em></strong>，这会不清理数据就退出程序。那么程序所使用的内存需要由操作系统来清理。如果你需要项目的最终二进制文件越小越好，<code>panic</code> 时通过在 <code>Cargo.toml</code> 的 <code>[profile]</code> 部分增加 <code>panic = &#39;abort&#39;</code>，可以由展开切换为终止。<br>例如，如果你想要在release模式中 <code>panic</code> 时直接终止:<br><figure class="highlight ini"><table><tr><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[profile.release]</span><br><span class="hljs-attr">panic</span> = <span class="hljs-string">&#x27;abort&#x27;</span><br></code></pre></td></tr></table></figure></p>
+<p>让我们在一个简单的程序中调用 <code>panic!</code> :<br><figure class="highlight less"><table><tr><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">fn</span> <span class="hljs-selector-tag">main</span>() &#123;<br>    <span class="hljs-selector-tag">panic</span>!(<span class="hljs-string">&quot;crash and burn&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure><br>运行程序时会看到这样的输出：<br><figure class="highlight livecodeserver"><table><tr><td class="code"><pre><code class="hljs livecodeserver">cargo run<br>   Compiling panic v0<span class="hljs-number">.1</span><span class="hljs-number">.0</span> (<span class="hljs-built_in">file</span>:<span class="hljs-comment">///projects/panic)</span><br>    Finished dev [unoptimized + debuginfo] target(s) <span class="hljs-keyword">in</span> <span class="hljs-number">0.25</span>s<br>     Running `target/debug/panic`<br>thread <span class="hljs-string">&#x27;main&#x27;</span> panicked <span class="hljs-keyword">at</span> <span class="hljs-string">&#x27;crash and burn&#x27;</span>, src/main.rs:<span class="hljs-number">2</span>:<span class="hljs-number">5</span><br>note: run <span class="hljs-keyword">with</span> `RUST_BACKTRACE=<span class="hljs-number">1</span>` environment <span class="hljs-built_in">variable</span> <span class="hljs-built_in">to</span> display <span class="hljs-keyword">a</span> backtrace<br></code></pre></td></tr></table></figure><br>最后两行包含 <code>panic!</code> 造成的错误信息。第一行显示了 <code>panic</code> 提供的信息并指明了源码中 <code>panic</code> 出现的位置:<code>src/main.rs:2:5</code> 表明这是 <code>src/main.rs</code> 文件的第二行第五个字符。</p>
+<p>在这个例子中，被指明的那一行是我们代码的一部分，而且查看这一行的话就会发现 <code>panic!</code> 宏的调用。在其他情况下， <code>panic!</code> 可能会出现在我们的代码调用的代码中。错误信息报告的文件名和行号可能指向别人代码中的 <code>panic!</code> 宏调用，而不是我们代码中最终导致 <code>panic!</code> 的那一行。可以使用 <code>panic!</code> 被调用的函数的 <code>backtrace</code> 来寻找(我们代码中出问题的地方)。下面我们会详细介绍 <code>backtrace</code> 是什么。</p>
+<h3 id="使用-panic-的-backtrace"><a href="#使用-panic-的-backtrace" class="headerlink" title="使用 panic! 的 backtrace"></a>使用 panic! 的 backtrace</h3><p>让我们来看看另一个因为我们代码中的 bug 引起的别的库中 <code>Panic!</code> 的例子，而不是直接的宏调用。<br><figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">fn <span class="hljs-function"><span class="hljs-title">main</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">let</span> v = vec![<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];<br><br>    v[<span class="hljs-number">99</span>];<br>&#125;<br></code></pre></td></tr></table></figure><br>这里尝试访问 vector 的第一百个元素，不过它只有三个元素。这种情况下 Rust 会 panic。 <code>[]</code> 应当返回一个元素，不过如果传递了一个无效索引，就没有可供 Rust 返回的正确的元素。</p>
+<p>这种情况下其他像 C 这样语言会尝试直接提供所要求的值，即便这可能不是你期望的:你会得到任何对应 vector 中这个元素的内存位置的值，甚至是这些内存并不属于 vector 的情况。 这被称为缓冲区溢出(buffer overread)，并可能会导致安全漏洞，比如攻击者可以像这样 操作索引来读取储存在数组后面不被允许的数据。</p>
+<p>为了使程序远离这类漏洞，如果尝试读取一个索引不存在的元素，Rust 会停止执行并拒绝继续。尝试运行上面的程序会出现如下:<br><figure class="highlight vhdl"><table><tr><td class="code"><pre><code class="hljs vhdl">cargo run<br>   Compiling panic v0.<span class="hljs-number">1.0</span> (<span class="hljs-keyword">file</span>:///projects/panic)<br>    Finished dev [unoptimized + debuginfo] target(s) <span class="hljs-keyword">in</span> <span class="hljs-number">0.27</span>s<br>     Running `target/debug/panic`<br>thread <span class="hljs-symbol">&#x27;main</span>&#x27; panicked at <span class="hljs-symbol">&#x27;index</span> <span class="hljs-keyword">out</span> <span class="hljs-keyword">of</span> bounds: the len <span class="hljs-keyword">is</span> <span class="hljs-number">3</span> but the index <span class="hljs-keyword">is</span> <span class="hljs-number">99</span>&#x27;, src/main.rs:<span class="hljs-number">4</span>:<span class="hljs-number">5</span><br><span class="hljs-literal">note</span>: run <span class="hljs-keyword">with</span> `RUST_BACKTRACE=<span class="hljs-number">1</span>` environment <span class="hljs-keyword">variable</span> <span class="hljs-keyword">to</span> display a backtrace<br></code></pre></td></tr></table></figure><br>错误指向 main.rs 的第 4 行，这里我们尝试访问索引 99。下面的说明（note）行提醒我们可以设置 <code>RUST_BACKTRACE</code> 环境变量来得到一个 <code>backtrace</code>。<code>backtrace</code> 是一个执行到目前位置所有被调用的函数的列表。Rust 的 backtrace 跟其他语言中的一样：阅读 backtrace 的关键是从头开始读直到发现你编写的文件。这就是问题的发源地。这一行往上是你的代码所调用的代码；往下则是调用你的代码的代码。这些行可能包含核心 Rust 代码，标准库代码或用到的 crate 代码。让我们将 <code>RUST_BACKTRACE</code> 环境变量设置为任何不是 0 的值来获取 backtrace 看看。<br><figure class="highlight awk"><table><tr><td class="code"><pre><code class="hljs awk">$ RUST_BACKTRACE=<span class="hljs-number">1</span> cargo run<br>thread <span class="hljs-string">&#x27;main&#x27;</span> panicked at <span class="hljs-string">&#x27;index out of bounds: the len is 3 but the index is 99&#x27;</span>, src/main.rs:<span class="hljs-number">4</span>:<span class="hljs-number">5</span><br>stack backtrace:<br>   <span class="hljs-number">0</span>: rust_begin_unwind<br>             at <span class="hljs-regexp">/rustc/</span><span class="hljs-number">7</span>eac88abb2e57e752f3302f02be5f3ce3d7adfb4<span class="hljs-regexp">/library/</span>std<span class="hljs-regexp">/src/</span>panicking.rs:<span class="hljs-number">483</span><br>   <span class="hljs-number">1</span>: core::panicking::panic_fmt<br>             at <span class="hljs-regexp">/rustc/</span><span class="hljs-number">7</span>eac88abb2e57e752f3302f02be5f3ce3d7adfb4<span class="hljs-regexp">/library/</span>core<span class="hljs-regexp">/src/</span>panicking.rs:<span class="hljs-number">85</span><br>   <span class="hljs-number">2</span>: core::panicking::panic_bounds_check<br>             at <span class="hljs-regexp">/rustc/</span><span class="hljs-number">7</span>eac88abb2e57e752f3302f02be5f3ce3d7adfb4<span class="hljs-regexp">/library/</span>core<span class="hljs-regexp">/src/</span>panicking.rs:<span class="hljs-number">62</span><br>   <span class="hljs-number">3</span>: &lt;usize as core::slice::index::SliceIndex&lt;[T]&gt;&gt;::index<br>             at <span class="hljs-regexp">/rustc/</span><span class="hljs-number">7</span>eac88abb2e57e752f3302f02be5f3ce3d7adfb4<span class="hljs-regexp">/library/</span>core<span class="hljs-regexp">/src/</span>slice/index.rs:<span class="hljs-number">255</span><br>   <span class="hljs-number">4</span>: core::slice::index::&lt;impl core::ops::index::Index&lt;I&gt; <span class="hljs-keyword">for</span> [T]&gt;::index<br>             at <span class="hljs-regexp">/rustc/</span><span class="hljs-number">7</span>eac88abb2e57e752f3302f02be5f3ce3d7adfb4<span class="hljs-regexp">/library/</span>core<span class="hljs-regexp">/src/</span>slice/index.rs:<span class="hljs-number">15</span><br>   <span class="hljs-number">5</span>: &lt;alloc::vec::Vec&lt;T&gt; as core::ops::index::Index&lt;I&gt;&gt;::index<br>             at <span class="hljs-regexp">/rustc/</span><span class="hljs-number">7</span>eac88abb2e57e752f3302f02be5f3ce3d7adfb4<span class="hljs-regexp">/library/</span>alloc<span class="hljs-regexp">/src/</span>vec.rs:<span class="hljs-number">1982</span><br>   <span class="hljs-number">6</span>: panic::main<br>             at .<span class="hljs-regexp">/src/m</span>ain.rs:<span class="hljs-number">4</span><br>   <span class="hljs-number">7</span>: core::ops::<span class="hljs-keyword">function</span>::FnOnce::call_once<br>             at <span class="hljs-regexp">/rustc/</span><span class="hljs-number">7</span>eac88abb2e57e752f3302f02be5f3ce3d7adfb4<span class="hljs-regexp">/library/</span>core<span class="hljs-regexp">/src/</span>ops/<span class="hljs-keyword">function</span>.rs:<span class="hljs-number">227</span><br>note: Some details are omitted, run with `RUST_BACKTRACE=full` <span class="hljs-keyword">for</span> a verbose backtrace.<br></code></pre></td></tr></table></figure><br>这里有大量的输出!你实际看到的输出可能因不同的操作系统和 Rust 版本而有所不同。为了 获取带有这些信息的 backtrace，必须启用 debug 标识。当不使用 —release 参数运行 cargo build 或 cargo run 时 debug 标识会默认启用，这里便是如此。</p>
+<p>回溯的第 6 行指向我们项目中导致问题的那一行：src/main.rs 的第 4 行。如果我们不希望我们的程序出现混乱，那么第一行提到我们写的文件所指向的位置就是我们应该开始调查的地方。</p>
+<h2 id="二、Result-与可恢复的错误"><a href="#二、Result-与可恢复的错误" class="headerlink" title="二、Result 与可恢复的错误"></a>二、Result 与可恢复的错误</h2><p>大部分错误并没有严重到需要程序完全停止执行。有时，一个函数会因为一个容易理解并做出反应的原因失败。例如，如果尝试打开一个文件不过由于文件并不存在而操作失败，这时我们可能想要创建这个文件而不是终止进程。<br><code>Result</code>枚举被定义为有两个变体，<code>Ok</code>和<code>Err</code>，如下所示：<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">Result</span></span>&lt;T, E&gt; &#123;<br>    <span class="hljs-literal">Ok</span>(T),<br>    <span class="hljs-literal">Err</span>(E),<br>&#125;<br></code></pre></td></tr></table></figure><br><code>T</code> 和 <code>E</code> 是泛型类型参数，<code>T</code> 代表成功时返回的 <code>Ok</code> 成员中的数据的类型，而 <code>E</code> 代表失败时返回的 <code>Err</code> 成员中的错误的类型。因为 <code>Result</code> 有这些泛型类型参数，我们可以将 Result 类型和标准库中为其定义的函数用于很多不同的场景，这些情况中需要返回的成功值和失败值可能会各不相同。</p>
+<p>让我们调用一个返回 <code>Result</code> 的函数，因为它可能会失败:<br><figure class="highlight arduino"><table><tr><td class="code"><pre><code class="hljs arduino">use std::fs::<span class="hljs-built_in">File</span>;<br><br><span class="hljs-function">fn <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    let f = <span class="hljs-built_in">File</span>::<span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;hello.txt&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure><br>如果我们给出f一个我们知道不是函数返回类型的类型注释，然后尝试编译代码，编译器会告诉我们类型不匹配。然后错误消息会告诉我们 的类型f是什么。让我们试试吧！我们知道的返回类型<code>File::open</code> 不是 <code>u32</code>，所以让我们将<code>let f</code>语句更改为：<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">let</span> f: <span class="hljs-built_in">u32</span> = File::open(<span class="hljs-string">&quot;hello.txt&quot;</span>);<br></code></pre></td></tr></table></figure><br>现在尝试编译为我们提供以下输出：<br><figure class="highlight vhdl"><table><tr><td class="code"><pre><code class="hljs vhdl">cargo run<br>   Compiling <span class="hljs-literal">error</span>-handling v0.<span class="hljs-number">1.0</span> (<span class="hljs-keyword">file</span>:///projects/<span class="hljs-literal">error</span>-handling)<br><span class="hljs-literal">error</span>[E0308]: mismatched types<br> <span class="hljs-comment">--&gt; src/main.rs:4:18</span><br>  |<br><span class="hljs-number">4</span> |     let f: u32 = <span class="hljs-keyword">File</span>::<span class="hljs-keyword">open</span>(<span class="hljs-string">&quot;hello.txt&quot;</span>);<br>  |            <span class="hljs-comment">---   ^^^^^^^^^^^^^^^^^^^^^^^ expected `u32`, found enum `Result`</span><br>  |            |<br>  |            expected due <span class="hljs-keyword">to</span> this<br>  |<br>  = <span class="hljs-literal">note</span>: expected <span class="hljs-keyword">type</span> `u32`<br>             found enum `Result&lt;<span class="hljs-keyword">File</span>, std::io::<span class="hljs-literal">Error</span>&gt;`<br><br><span class="hljs-keyword">For</span> more information about this <span class="hljs-literal">error</span>, try `rustc <span class="hljs-comment">--explain E0308`.</span><br><span class="hljs-literal">error</span>: could <span class="hljs-keyword">not</span> compile `<span class="hljs-literal">error</span>-handling` due <span class="hljs-keyword">to</span> previous <span class="hljs-literal">error</span><br></code></pre></td></tr></table></figure><br>这就告诉我们了 <code>File::open</code> 函数的返回值类型是 <code>Result&lt;T, E&gt;</code> 。这里泛型参数 <code>T</code> 放入了成功值的类型 <code>std::fs::File</code> ，它是一个文件句柄。 <code>E</code> 被用在失败值上时 <code>E</code> 的类型是<code>std::io::Error</code> 。<br>这个返回值类型说明 <code>File::open</code> 调用可能会成功并返回一个可以进行读写的文件句柄。这个函数也可能会失败: 例如，文件可能并不存在，或者可能没有访问文件的权限。 <code>File::open</code> 需要一个方式告诉我们是成功还是失败，并同时提供给我们文件句柄或错误信息。而这些信息正是 <code>Result</code> 枚举可以提供的。<br>当 <code>File::open</code> 成功的情况下，变量 <code>f</code> 的值将会是一个包含文件句柄的 <code>Ok</code> 实例。在失败的情况下， <code>f</code> 的值会是一个包含更多关于出现了何种错误信息的 <code>Err</code> 实例。<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">use</span> std::fs::File;<br><br><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() &#123;<br>    <span class="hljs-keyword">let</span> f = File::open(<span class="hljs-string">&quot;hello.txt&quot;</span>);<br><br>    <span class="hljs-keyword">let</span> f = <span class="hljs-keyword">match</span> f &#123;<br>        <span class="hljs-literal">Ok</span>(file) =&gt; file,<br>        <span class="hljs-literal">Err</span>(error) =&gt; <span class="hljs-built_in">panic!</span>(<span class="hljs-string">&quot;Problem opening the file: &#123;:?&#125;&quot;</span>, error),<br>    &#125;;<br>&#125;<br></code></pre></td></tr></table></figure><br>注意与 <code>Option</code> 枚举一样， <code>Result</code> 枚举和其成员也被导入到了 <code>prelude</code> 中，所以就不需要在 <code>match</code> 分支中的 <code>Ok</code> 和 <code>Err</code> 之前指定 <code>Result::</code> 。<br>这里我们告诉 <code>Rust</code> 当结果是 <code>Ok</code> 时，返回 <code>Ok</code> 成员中的 <code>file</code> 值，然后将这个文件句柄赋值给变量 <code>f</code> 。 <code>match</code> 之后，我们可以利用这个文件句柄来进行读写。<br><code>match</code> 的另一个分支处理从 <code>File::open</code> 得到 <code>Err</code> 值的情况。在这种情况下，我们选择调用 <code>panic!</code> 宏。如果当前目录没有一个叫做 hello.txt 的文件，当运行这段代码时会看到如下来自 <code>panic!</code> 宏的输出:<br><figure class="highlight stata"><table><tr><td class="code"><pre><code class="hljs stata">cargo <span class="hljs-keyword">run</span><br>   Compiling <span class="hljs-keyword">error</span>-handling v0.1.0 (<span class="hljs-keyword">file</span>:<span class="hljs-comment">///projects/error-handling)</span><br>    Finished dev [unoptimized + debuginfo] target(s) <span class="hljs-keyword">in</span> 0.73s<br>     Running `target/debug/<span class="hljs-keyword">error</span>-handling`<br>thread &#x27;main&#x27; panicked at &#x27;Problem opening the <span class="hljs-keyword">file</span>: Os &#123; code: 2, kind: NotFound, message: <span class="hljs-string">&quot;No such file or directory&quot;</span> &#125;&#x27;, src/main.rs:8:23<br><span class="hljs-keyword">note</span>: <span class="hljs-keyword">run</span> with `RUST_BACKTRACE=1` environment variable to <span class="hljs-keyword">display</span> a backtrace<br></code></pre></td></tr></table></figure><br>像往常一样，这个输出告诉我们到底出了什么问题。</p>
+<h3 id="匹配不同的错误"><a href="#匹配不同的错误" class="headerlink" title="匹配不同的错误"></a>匹配不同的错误</h3><p>不管 <code>File::open</code> 是因为什么原因失败都会 <code>panic!</code> 。我们真正希望的是对不同的错误原因采取不同的行为: 如果 <code>File::open</code> 因为文件不存在而失败，我们希望创建这个文件并返回新文件的句柄。<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">use</span> std::fs::File;<br><span class="hljs-keyword">use</span> std::io::ErrorKind;<br><br><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() &#123;<br>    <span class="hljs-keyword">let</span> f = File::open(<span class="hljs-string">&quot;hello.txt&quot;</span>);<br><br>    <span class="hljs-keyword">let</span> f = <span class="hljs-keyword">match</span> f &#123;<br>        <span class="hljs-literal">Ok</span>(file) =&gt; file,<br>        <span class="hljs-literal">Err</span>(error) =&gt; <span class="hljs-keyword">match</span> error.kind() &#123;<br>            ErrorKind::NotFound =&gt; <span class="hljs-keyword">match</span> File::create(<span class="hljs-string">&quot;hello.txt&quot;</span>) &#123;<br>                <span class="hljs-literal">Ok</span>(fc) =&gt; fc,<br>                <span class="hljs-literal">Err</span>(e) =&gt; <span class="hljs-built_in">panic!</span>(<span class="hljs-string">&quot;Problem creating the file: &#123;:?&#125;&quot;</span>, e),<br>            &#125;,<br>            other_error =&gt; &#123;<br>                <span class="hljs-built_in">panic!</span>(<span class="hljs-string">&quot;Problem opening the file: &#123;:?&#125;&quot;</span>, other_error)<br>            &#125;<br>        &#125;,<br>    &#125;;<br>&#125;<br></code></pre></td></tr></table></figure><br><code>File::open</code> 返回的 <code>Err</code> 成员中的值类型 <code>io::Error</code> ，它是一个标准库中提供的结构体。这个结构体有一个返回 <code>io::ErrorKind</code> 值的 <code>kind</code> 方法可供调用。 <code>io::ErrorKind</code> 是一个标准库提供的枚举，它的成员对应 <code>io</code> 操作可能导致的不同错误类型。我们感兴趣的成员是<code>ErrorKind::NotFound</code> ，它代表尝试打开的文件并不存在。</p>
+<p>我们希望在内层 <code>match</code> 中检查的条件是 <code>error.kind()</code> 的返回值是否为 <code>ErrorKind</code> 的 <code>NotFound</code> 成员。如果是，则尝试通过 <code>File::create</code> 创建文件。然而因为 <code>File::create</code> 也可能会失败，还需要增加一个内层 <code>match</code> 语句。当文件不能被打开，会打印出一个不同的错误信息。外层 <code>match</code> 的最后一个分支保持不变，这样对任何除了文件不存在的错误会使程序 <code>panic</code>。</p>
+<p>不同于使用 <code>match</code> 和 <code>Result&lt;T, E&gt;</code><br>match 确实很强大，不过也非常的基础。介绍闭包（closure），这可以用于很多 <code>Result&lt;T, E&gt;</code> 上定义的方法。在处理代码中的 <code>Result&lt;T, E&gt;</code> 值时这些方法可能会更加简洁。</p>
+<figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">use</span> std::fs::File;<br><span class="hljs-keyword">use</span> std::io::ErrorKind;<br><br><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() &#123;<br>    <span class="hljs-keyword">let</span> f = File::open(<span class="hljs-string">&quot;hello.txt&quot;</span>).unwrap_or_else(|error| &#123;<br>        <span class="hljs-keyword">if</span> error.kind() == ErrorKind::NotFound &#123;<br>            File::create(<span class="hljs-string">&quot;hello.txt&quot;</span>).unwrap_or_else(|error| &#123;<br>                <span class="hljs-built_in">panic!</span>(<span class="hljs-string">&quot;Problem creating the file: &#123;:?&#125;&quot;</span>, error);<br>            &#125;)<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-built_in">panic!</span>(<span class="hljs-string">&quot;Problem opening the file: &#123;:?&#125;&quot;</span>, error);<br>        &#125;<br>    &#125;);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>尽管这段代码的行为与之前相同，但它不包含任何 match表达式并且更易于阅读。</p>
+<h3 id="失败时-panic-的简写-unwrap-和-expect"><a href="#失败时-panic-的简写-unwrap-和-expect" class="headerlink" title="失败时 panic 的简写: unwrap 和 expect"></a>失败时 panic 的简写: unwrap 和 expect</h3><p><code>match</code> 能够胜任它的工作，不过它可能有点冗长并且不总是能很好的表明其意图。 <code>Result&lt;T, E&gt;</code> 类型定义了很多辅助方法来处理各种情况。其中之一叫做 <code>unwrap</code> ，它的实现就类似于之前的 <code>match</code> 语句。如果 <code>Result</code> 值是成员 <code>Ok</code> ， <code>unwrap</code> 会返回 <code>Ok</code> 中的值。如果<code>Result</code> 是成员 <code>Err</code> ， <code>unwrap</code> 会为我们调用 <code>panic!</code><br><figure class="highlight arduino"><table><tr><td class="code"><pre><code class="hljs arduino">use std::fs::<span class="hljs-built_in">File</span>;<br><br><span class="hljs-function">fn <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    let f = <span class="hljs-built_in">File</span>::<span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;hello.txt&quot;</span>).<span class="hljs-built_in">unwrap</span>();<br>&#125;<br></code></pre></td></tr></table></figure><br>如果调用这段代码时不存在 hello.txt 文件，我们将会看到一个 <code>unwrap</code> 调用 <code>panic!</code> 时提供的错误信息:<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust">thread <span class="hljs-symbol">&#x27;main</span>&#x27; panicked at <span class="hljs-symbol">&#x27;called</span> `<span class="hljs-built_in">Result</span>::unwrap()` on an `<span class="hljs-literal">Err</span>` value: Error &#123;<br>repr: Os &#123; code: <span class="hljs-number">2</span>, message: <span class="hljs-string">&quot;No such file or directory&quot;</span> &#125; &#125;&#x27;,<br>src/libcore/result.rs:<span class="hljs-number">906</span>:<span class="hljs-number">4</span><br></code></pre></td></tr></table></figure><br>还有另一个类似于 <code>unwrap</code> 的方法它还允许我们选择 <code>panic!</code> 的错误信息: <code>expect</code> 。使用 <code>expect</code> 而不是 <code>unwrap</code> 并提供一个好的错误信息可以表明你的意图并更易于追踪 <code>panic</code> 的根源。 <code>expect</code> 的语法看起来像这样:<br><figure class="highlight arduino"><table><tr><td class="code"><pre><code class="hljs arduino">use std::fs::<span class="hljs-built_in">File</span>;<br><br><span class="hljs-function">fn <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    let f = <span class="hljs-built_in">File</span>::<span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;hello.txt&quot;</span>).<span class="hljs-built_in">expect</span>(<span class="hljs-string">&quot;Failed to open hello.txt&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure><br><code>expect</code> 与 <code>unwrap</code> 的使用方式一样:返回文件句柄或调用 <code>panic!</code> 宏。 <code>expect</code> 用来调用<code>panic!</code> 的错误信息将会作为参数传递给 <code>expect</code> ，而不像 <code>unwrap</code> 那样使用默认的 panic! 信息。它看起来像这样:<br><figure class="highlight ocaml"><table><tr><td class="code"><pre><code class="hljs ocaml">thread <span class="hljs-symbol">&#x27;main&#x27;</span> panicked at <span class="hljs-symbol">&#x27;Failed</span> <span class="hljs-keyword">to</span> <span class="hljs-keyword">open</span> hello.txt: <span class="hljs-type">Error</span> &#123; repr: <span class="hljs-type">Os</span> &#123; code:<br><span class="hljs-number">2</span>, message: <span class="hljs-string">&quot;No such file or directory&quot;</span> &#125; &#125;<span class="hljs-string">&#x27;, src/libcore/result.rs:906:4</span><br></code></pre></td></tr></table></figure><br>因为这个错误信息以我们指定的文本开始， Failed to open hello.txt ，将会更容易找到代码 中的错误信息来自何处。如果在多处使用 <code>unwrap</code> ，则需要花更多的时间来分析到底是哪一个<code>unwrap</code> 造成了 <code>panic</code>，因为所有的 <code>unwrap</code> 调用都打印相同的信息。</p>
+<h3 id="传播错误"><a href="#传播错误" class="headerlink" title="传播错误"></a>传播错误</h3><p>当编写一个其实现会调用一些可能会失败的操作的函数时，除了在这个函数中处理错误外，还可以选择让调用者知道这个错误并决定该如何处理。这被称为 <strong>传播(propagating)</strong> 错误，这样能更好的控制代码调用，因为比起你代码所拥有的上下文，调用者可能拥有更多信息或逻辑来决定应该如何处理错误。<br>示例展示了一个从文件中读取用户名的函数。如果文件不存在或不能读取，这个函数会将这些错误返回给调用它的代码:<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">use</span> std::fs::File;<br><span class="hljs-keyword">use</span> std::io::&#123;<span class="hljs-keyword">self</span>, Read&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">read_username_from_file</span></span>() -&gt; <span class="hljs-built_in">Result</span>&lt;<span class="hljs-built_in">String</span>, io::Error&gt; &#123;<br>    <span class="hljs-keyword">let</span> f = File::open(<span class="hljs-string">&quot;hello.txt&quot;</span>);<br><br>    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> f = <span class="hljs-keyword">match</span> f &#123;<br>        <span class="hljs-literal">Ok</span>(file) =&gt; file,<br>        <span class="hljs-literal">Err</span>(e) =&gt; <span class="hljs-keyword">return</span> <span class="hljs-literal">Err</span>(e),<br>    &#125;;<br><br>    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> s = <span class="hljs-built_in">String</span>::new();<br><br>    <span class="hljs-keyword">match</span> f.read_to_string(&amp;<span class="hljs-keyword">mut</span> s) &#123;<br>        <span class="hljs-literal">Ok</span>(_) =&gt; <span class="hljs-literal">Ok</span>(s),<br>        <span class="hljs-literal">Err</span>(e) =&gt; <span class="hljs-literal">Err</span>(e),<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>首先让我们看看函数的返回值: <code>Result&lt;String, io::Error&gt;</code> 。这意味着函数返回一个 <code>Result&lt;T, E&gt;</code> 类型的值，其中泛型参数 <code>T</code> 的具体类型是 <code>String</code> ，而 <code>E</code> 的具体类型是 <code>io::Error</code> 。如果这个函数没有出任何错误成功返回，函数的调用者会收到一个包含 <code>String</code>的 <code>Ok</code> 值-函数从文件中读取到的用户名。</p>
+<p>如果函数遇到任何错误，函数的调用者会收到一个 <code>Err</code> 值，它储存了一个包含更多这个问题相关信息的 <code>io::Error</code> 实例。这里选择 <code>io::Error</code> 作为函数的返回值是因为它正好是函数体中那两个可能会失败的操作的错误返回值: <code>File::open</code> 函数和 <code>read_to_string</code> 方法。</p>
+<p>函数体以 <code>File::open</code> 函数开头。接着使用 <code>match</code> 处理返回值 <code>Result</code> ，当 <code>Err</code> 时不再调用 <code>panic!</code> ，而是提早返回并将 <code>File::open</code> 返回的错误值作为函数的错误返回值传递给调用者。如果 <code>File::open</code> 成功了，我们将文件句柄储存在变量 f 中并继续。</p>
+<p>接着我们在变量 s 中创建了一个新 String 并调用文件句柄 f 的 read_to_string 方法来将文件的内容读取到 s 中。 read_to_string 方法也返回一个 Result 因为它也可能会失败:哪怕是 File::open 已经成功了。所以我们需要另一个 match 来处理这个 Result :如果 read_to_string 成功了，那么这个函数就成功了，并返回文件中的用户名，它现在位于被封装进 Ok 的 s 中。如果 read_to_string 失败了，则像之前处理 File::open 的返回值的match 那样返回错误值。不过并不需要显式的调用 return ，因为这是函数的最后一个表达式。</p>
+<p>调用这个函数的代码最终会得到一个包含用户名的 <code>Ok</code> 值，或者一个包含 <code>io::Error</code> 的 <code>Err</code> 值。我们无从得知调用者会如何处理这些值。例如，如果他们得到了一个 <code>Err</code> 值，他们可能会选择 <code>panic!</code> 并使程序崩溃、使用一个默认的用户名或者从文件之外的地方寻找用户名。我们没有足够的信息知晓调用者具体会如何尝试，所以将所有的成功或失败信息向上传播，让他们选择合适的处理方法。</p>
+<p>这种传播错误的模式在 Rust 是如此的常见，以至于有一个更简便的专用语法: <code>?</code> 。</p>
+<h3 id="传播错误的简写"><a href="#传播错误的简写" class="headerlink" title="传播错误的简写: ?"></a>传播错误的简写: ?</h3><p>下面展示了一个 read_username_from_file 的实现，不过这个实现使用了问号运算符:<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">use</span> std::fs::File;<br><span class="hljs-keyword">use</span> std::io;<br><span class="hljs-keyword">use</span> std::io::Read;<br><br><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">read_username_from_file</span></span>() -&gt; <span class="hljs-built_in">Result</span>&lt;<span class="hljs-built_in">String</span>, io::Error&gt; &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> f = File::open(<span class="hljs-string">&quot;hello.txt&quot;</span>)?;<br>    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> s = <span class="hljs-built_in">String</span>::new();<br>    f.read_to_string(&amp;<span class="hljs-keyword">mut</span> s)?;<br>    <span class="hljs-literal">Ok</span>(s)<br>&#125;<br></code></pre></td></tr></table></figure><br><code>Result</code> 值之后的 <code>?</code> 被定义为与处理 <code>Result</code> 值的 <code>match</code> 表达式有着完全相同的工作方式。如果 <code>Result</code> 的值是 <code>Ok</code> ，这个表达式将会返回 <code>Ok</code> 中的值而程序将继续执行。如果值是 <code>Err</code> ， <code>Err</code> 中的值将作为整个函数的返回值，就好像使用了 <code>return</code> 关键字一样，这样错误值就被传播给了调用者。</p>
+<p><code>match</code> 表达式与问号运算符所做的有一点不同: <code>?</code> 所使用的错误值被传递给了 <code>from</code> 函数，它定义于标准库的 <code>From trait</code> 中，其用来将错误从一种类型转换为另一种类型。当<code>?</code>运算符调用 <code>from</code> 函数时，收到的错误类型被转换为定义为当前函数返回的错误类型。这在当一个函数返回一个错误类型来代表所有可能失败的方式时很有用，即使其可能会因很多种原因失败。只要每一个错误类型都实现了 <code>from</code> 函数来定义如将其转换为返回的错误类型，<code>?</code>运算符会自动处理这些转换。</p>
+<p><code>File::open</code> 调用结尾的 <code>?</code> 将会把 <code>Ok</code> 中的值返回给变量 <code>f</code> 。如果出现了错误， <code>?</code> 会提早返回整个函数并将一些 <code>Err</code> 值传播给调用者。同理也适用于<code>read_to_string</code> 调用结尾的 <code>?</code> 。</p>
+<p><code>?</code> 消除了大量样板代码并使得函数的实现更简单。我们甚至可以在 <code>?</code> 之后直接使用链式方法调用来进一步缩短代码，<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">use</span> std::fs::File;<br><span class="hljs-keyword">use</span> std::io;<br><span class="hljs-keyword">use</span> std::io::Read;<br><br><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">read_username_from_file</span></span>() -&gt; <span class="hljs-built_in">Result</span>&lt;<span class="hljs-built_in">String</span>, io::Error&gt; &#123;<br>    <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> s = <span class="hljs-built_in">String</span>::new();<br><br>    File::open(<span class="hljs-string">&quot;hello.txt&quot;</span>)?.read_to_string(&amp;<span class="hljs-keyword">mut</span> s)?;<br><br>    <span class="hljs-literal">Ok</span>(s)<br>&#125;<br></code></pre></td></tr></table></figure><br>在 <code>s</code> 中创建新的 <code>String</code> 被放到了函数开头这一部分没有变化。我们对 <code>File::open(&quot;hello.txt&quot;)?</code> 的结果直接链式调用了 <code>read_to_string</code> ，而不再创建变量 <code>f</code> 。仍然需要 <code>read_to_string</code> 调用结尾的 <code>?</code> ，而且当 <code>File::open</code> 和 <code>read_to_string</code> 都成功没有失败时返回包含用户名 <code>s</code> 的 <code>Ok</code> 值。</p>
+<h6 id="只能被用于返回-Result-的函数"><a href="#只能被用于返回-Result-的函数" class="headerlink" title="? 只能被用于返回 Result 的函数"></a>? 只能被用于返回 Result 的函数</h6><p><code>?</code> 只能被用于返回值类型为 <code>Result</code> 的函数，因为他被定义为与 <code>match</code> 表达式有着完全相同的工作方式。 <code>match</code> 的 <code>return Err(e)</code> 部分要求返回值类型是 <code>Result</code> ，所以函数的返回值必须是 <code>Result</code> 才能与这个 <code>return</code> 相兼容。<br>让我们看看在 <code>main</code> 函数中使用 <code>?</code> 会发生什么，如果你还记得的话其返回值类型是 <code>()</code> :<br><figure class="highlight arduino"><table><tr><td class="code"><pre><code class="hljs arduino">use std::fs::<span class="hljs-built_in">File</span>;<br><br><span class="hljs-function">fn <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    let f = <span class="hljs-built_in">File</span>::<span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;hello.txt&quot;</span>)?;<br>&#125;<br></code></pre></td></tr></table></figure><br>当我们编译这段代码时，我们得到以下错误信息：<br><figure class="highlight autohotkey"><table><tr><td class="code"><pre><code class="hljs autohotkey">$ cargo run<br><span class="hljs-title">   Compiling error-handling v0.1.0 (file:</span>///projects/error-handling)<br><span class="hljs-title">error[E0277]:</span> the `?` operator can only be used in a function that returns `Result` <span class="hljs-literal">or</span> `Option` (<span class="hljs-literal">or</span> another type that implements `FromResidual`)<br><span class="hljs-title">   --&gt; src/main.rs:4:</span><span class="hljs-number">36</span><br>    |<br><span class="hljs-number">3</span>   | / fn main() &#123;<br><span class="hljs-number">4</span>   | |     let f = File::open(<span class="hljs-string">&quot;hello.txt&quot;</span>)?<span class="hljs-comment">;</span><br>    | |                                    ^ cannot use the `?` operator in a function that returns `()`<br><span class="hljs-number">5</span>   | | &#125;<br>    | |_- this function should <span class="hljs-keyword">return</span> `Result` <span class="hljs-literal">or</span> `Option` to accept `?`<br>    |<br><span class="hljs-title">    = help: the trait `FromResidual&lt;Result&lt;Infallible, std::io::</span>Error&gt;&gt;` is <span class="hljs-literal">not</span> implemented for `()`<br><span class="hljs-title">note:</span> required by `from_residual`<br><br>For more information about this error, try `rustc --explain E0277`.<br><span class="hljs-title">error:</span> could <span class="hljs-literal">not</span> compile `error-handling` due to previous error<br></code></pre></td></tr></table></figure><br>错误指出只能在返回 <code>Result</code> 的函数中使用<code>?</code>运算符。在不返回 <code>Result</code> 的函数中，当调用其他返回 <code>Result</code> 的函数时，需要使用 <code>match</code> 或 <code>Result</code> 的方法之一来处理，而不能用<code>?</code> 将潜在的错误传播给调用者。</p>
+<ul>
+<li>只能返回<code>Result</code></li>
+<li>实现了 <code>FromResidual</code> 的类型的函数中使用 <code>?</code> 运算符</li>
+</ul>
+<p>该<code>main</code>函数是特殊的，它的返回类型必须是什么是有限制的。<code>main</code> 的一种有效返回类型是<code>()</code>，方便的是，另一种有效返回类型是<code>Result&lt;T, E&gt;</code>，如下所示：<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">use</span> std::error::Error;<br><span class="hljs-keyword">use</span> std::fs::File;<br><br><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() -&gt; <span class="hljs-built_in">Result</span>&lt;(), <span class="hljs-built_in">Box</span>&lt;<span class="hljs-keyword">dyn</span> Error&gt;&gt; &#123;<br>    <span class="hljs-keyword">let</span> f = File::open(<span class="hljs-string">&quot;hello.txt&quot;</span>)?;<br><br>    <span class="hljs-literal">Ok</span>(())<br>&#125;<br></code></pre></td></tr></table></figure><br>该<code>Box&lt;dyn Error&gt;</code>类型称为 trait 对象。现在，可以理解<code>Box&lt;dyn Error&gt;</code>为“任何类型的错误”。使用<code>?</code>在<code>main</code> 这个返回类型的功能是允许的。</p>
+<p>错误信息也提到 <code>?</code> 也可用于 <code>Option&lt;T&gt;</code> 值。如同对 <code>Result</code> 使用 <code>?</code> 一样，只能在返回 <code>Option</code> 的函数中对 <code>Option</code> 使用 <code>?</code>。在 <code>Option&lt;T&gt;</code> 上调用 <code>?</code> 运算符的行为与 <code>Result&lt;T, E&gt;</code> 类似：如果值是 <code>None</code>，此时 <code>None</code> 会从函数中提前返回。如果值是 <code>Some</code>，<code>Some</code> 中的值作为表达式的返回值同时函数继续。<br><figure class="highlight scss"><table><tr><td class="code"><pre><code class="hljs scss">fn last_char_of_first_line(text: &amp;str) -&gt; Option&lt;char&gt; &#123;<br>    text<span class="hljs-selector-class">.lines</span>()<span class="hljs-selector-class">.next</span>()?<span class="hljs-selector-class">.chars</span>()<span class="hljs-selector-class">.last</span>()<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<h2 id="三、panic-还是不-panic"><a href="#三、panic-还是不-panic" class="headerlink" title="三、panic! 还是不 panic!"></a>三、panic! 还是不 panic!</h2><p>那么，该如何决定何时应该 <code>panic!</code> 以及何时应该返回 <code>Result</code> 呢? 如果代码 <code>panic</code>，就没有恢复的可能。你可以选择对任何错误场景都调用 <code>panic!</code> ，不管是否有可能恢复，不过这样就是你代替调用者决定了这是不可恢复的。选择返回 <code>Result</code> 值的话，就将选择权交给了调用者，而不是代替他们做出决定。调用者可能会选择以符合他们场景的方式尝试恢复，或者也可能干脆就认为 <code>Err</code> 是不可恢复的，所以他们也可能会调用 <code>panic!</code> 并将可恢复的错误变成了不可恢复的错误。因此返回 <code>Result</code> 是定义可能会失败的函数的一个好的默认选择。</p>
+<p>有一些情况 <code>panic</code> 比返回 <code>Result</code> 更为合适，不过他们并不常见。让我们讨论一下为何在示例、代码原型和测试中，以及那些人们认为不会失败而编译器不这么看的情况下， <code>panic</code> 是合适的，最后会总结一些在库代码中如何决定是否要 <code>panic</code> 的通用指导原则。</p>
+<h3 id="示例、代码原型和测试都非常适合-panic"><a href="#示例、代码原型和测试都非常适合-panic" class="headerlink" title="示例、代码原型和测试都非常适合 panic"></a>示例、代码原型和测试都非常适合 panic</h3><p>当你编写一个示例来展示一些概念时，在拥有健壮的错误处理代码的同时也会使得例子不那么明确。例如，调用一个类似 <code>unwrap</code> 这样可能 <code>panic!</code> 的方法可以被理解为一个你实际希望程序处理错误方式的占位符，它根据其余代码运行方式可能会各不相同。</p>
+<p>类似的， <code>unwrap</code> 和 <code>expect</code> 方法在原型设计时非常方便，在你决定该如何处理错误之前。 他们在代码中留下了明显的记号，以便你准备使程序变得更健壮时作为参考。</p>
+<p>如果方法调用在测试中失败了，我们希望这个测试都失败，即便这个方法并不是需要测试的功能。因为 <code>panic!</code> 是测试如何被标记为失败的，调用 <code>unwrap</code> 或 <code>expect</code> 都是非常有道理的。</p>
+<h3 id="当你比编译器知道更多的情况"><a href="#当你比编译器知道更多的情况" class="headerlink" title="当你比编译器知道更多的情况"></a>当你比编译器知道更多的情况</h3><p>当你有一些其他的逻辑来确保 <code>Result</code> 会是 <code>Ok</code> 值的时候调用 <code>unwrap</code> 也是合适的，虽然编译器无法理解这种逻辑。仍然会有一个 <code>Result</code> 值等着你处理:总的来说你调用的任何操作都有失败的可能性，即便在特定情况下逻辑上是不可能的。如果通过人工检查代码来确保永远也不会出现 <code>Err</code> 值，那么调用 <code>unwrap</code> 也是完全可以接受的，这里是一个例子:<br><figure class="highlight arduino"><table><tr><td class="code"><pre><code class="hljs arduino">use std::net::IpAddr;<br><br>let home: IpAddr = <span class="hljs-string">&quot;127.0.0.1&quot;</span>.<span class="hljs-built_in">parse</span>().<span class="hljs-built_in">unwrap</span>();<br></code></pre></td></tr></table></figure><br>我们通过解析一个硬编码的字符来创建一个 <code>IpAddr</code> 实例。可以看出 <code>127.0.0.1</code> 是一个有效的 IP 地址，所以这里使用 <code>unwrap</code> 是可以接受的。然而，拥有一个硬编码的有效的字符串也不能改变 <code>parse</code> 方法的返回值类型:它仍然是一个 <code>Result</code> 值，而编译器仍然就好像还是有可能出现 <code>Err</code> 成员那样要求我们处理 <code>Result</code> ，因为编译器还没有智能到可以识别出这个字符串总是一个有效的 IP 地址。如果 IP 地址字符串来源于用户而不是硬编码进程序中的话， 那么就确实有失败的可能性，这时就绝对需要我们以一种更健壮的方式处理 <code>Result</code> 了。</p>
+<h3 id="错误处理指导原则"><a href="#错误处理指导原则" class="headerlink" title="错误处理指导原则"></a>错误处理指导原则</h3><p>在当有可能会导致有害状态的情况下建议使用 <code>panic!</code><br>在这里，有害状态是指当一些假设、保证、协议或不可变性被打破的状态，例如无效的值、自相矛盾的值或者被传递了不存在的值。<br>外加如下几种情况:</p>
+<ul>
+<li>有害状态是非预期的行为，与偶尔会发生的行为相对，比如用户输入了错误格式的数据。</li>
+<li>在此之后代码的运行依赖于不处于这种有害状态，而不是在每一步都检查是否有问题。</li>
+<li>没有可行的手段来将有害状态信息编码进所使用的类型中的情况。</li>
+</ul>
+<p>如果别人调用你的代码并传递了一个没有意义的值，最好的情况也许就是 <code>panic!</code> 并警告使用你的库的人他的代码中有 bug 以便他能在开发时就修复它。类似的， <code>panic!</code> 通常适合调用不能够控制的外部代码时，这时无法修复其返回的无效状态。</p>
+<p>然而当错误预期会出现时，返回 <code>Result</code> 仍要比调用 <code>panic!</code> 更为合适。这样的例子包括解析器接收到格式错误的数据，或者 HTTP 请求返回了一个表明触发了限流的状态。在这些例子中，应该通过返回 <code>Result</code> 来表明失败预期是可能的，这样将有害状态向上传播，调用者就可以决定该如何处理这个问题。使用 <code>panic!</code> 来处理这些情况就不是最好的选择。</p>
+<p>当代码对值进行操作时，应该首先验证值是有效的，并在其无效时 <code>panic!</code>。这主要是出于安全的原因：尝试操作无效数据会暴露代码漏洞，这就是标准库在尝试越界访问数组时会 <code>panic!</code> 的主要原因：尝试访问不属于当前数据结构的内存是一个常见的安全隐患。函数通常都遵循 <strong>契约（contracts）</strong>：他们的行为只有在输入满足特定条件时才能得到保证。当违反契约时 <code>panic</code> 是有道理的，因为这通常代表调用方的 bug，而且这也不是那种你希望所调用的代码必须处理的错误。事实上所调用的代码也没有合理的方式来恢复，而是需要调用方的 程序员修复其代码。函数的契约，尤其是当违反它会造成 <code>panic</code> 的契约，应该在函数的 API 文档中得到解释。</p>
+<p>虽然在所有函数中都拥有许多错误检查是冗长而烦人的。幸运的是，可以利用 Rust 的类型系统（以及编译器的类型检查）为你进行很多检查。如果函数有一个特定类型的参数，可以在知晓编译器已经确保其拥有一个有效值的前提下进行你的代码逻辑。例如，如果你使用了一个并不是 <code>Option</code> 的类型，则程序期望它是 <strong>有值</strong> 的并且不是 <strong>空值</strong>。你的代码无需处理 <code>Some</code> 和 <code>None</code> 这两种情况，它只会有一种情况就是绝对会有一个值。尝试向函数传递空值的代码甚至根本不能编译，所以你的函数在运行时没有必要判空。另外一个例子是使用像 u32 这样的无符号整型，也会确保它永远不为负。</p>
+<h3 id="创建自定义类型作为验证"><a href="#创建自定义类型作为验证" class="headerlink" title="创建自定义类型作为验证"></a>创建自定义类型作为验证</h3><p>让我们使用 Rust 类型系统的思想来进一步确保值的有效性，并尝试创建一个自定义类型以进行验证。回忆一下第二章的猜猜看游戏，我们的代码要求用户猜测一个 1 到 100 之间的数字，在将其与秘密数字做比较之前我们从未验证用户的猜测是位于这两个数字之间的，我们只验证它是否为正。在这种情况下，其影响并不是很严重：“Too high” 或 “Too low” 的输出仍然是正确的。但是这是一个很好的引导用户得出有效猜测的辅助，例如当用户猜测一个超出范围的数字或者输入字母时采取不同的行为。</p>
+<p>一种实现方式是将猜测解析成 i32 而不仅仅是 u32，来默许输入负数，接着检查数字是否在范围内：<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">use</span> rand::Rng;<br><span class="hljs-keyword">use</span> std::cmp::Ordering;<br><span class="hljs-keyword">use</span> std::io;<br><br><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() &#123;<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Guess the number!&quot;</span>);<br><br>    <span class="hljs-keyword">let</span> secret_number = rand::thread_rng().gen_range(<span class="hljs-number">1</span>..<span class="hljs-number">101</span>);<br><br>    <span class="hljs-keyword">loop</span> &#123;<br>        <span class="hljs-comment">// --snip--</span><br><br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Please input your guess.&quot;</span>);<br><br>        <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> guess = <span class="hljs-built_in">String</span>::new();<br><br>        io::stdin()<br>            .read_line(&amp;<span class="hljs-keyword">mut</span> guess)<br>            .expect(<span class="hljs-string">&quot;Failed to read line&quot;</span>);<br><br>        <span class="hljs-keyword">let</span> guess: <span class="hljs-built_in">i32</span> = <span class="hljs-keyword">match</span> guess.trim().parse() &#123;<br>            <span class="hljs-literal">Ok</span>(num) =&gt; num,<br>            <span class="hljs-literal">Err</span>(_) =&gt; <span class="hljs-keyword">continue</span>,<br>        &#125;;<br><br>        <span class="hljs-keyword">if</span> guess &lt; <span class="hljs-number">1</span> || guess &gt; <span class="hljs-number">100</span> &#123;<br>            <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;The secret number will be between 1 and 100.&quot;</span>);<br>            <span class="hljs-keyword">continue</span>;<br>        &#125;<br><br>        <span class="hljs-keyword">match</span> guess.cmp(&amp;secret_number) &#123;<br>            <span class="hljs-comment">// --snip--</span><br>            Ordering::Less =&gt; <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Too small!&quot;</span>),<br>            Ordering::Greater =&gt; <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Too big!&quot;</span>),<br>            Ordering::Equal =&gt; &#123;<br>                <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;You win!&quot;</span>);<br>                <span class="hljs-keyword">break</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>if 表达式检查了值是否超出范围，告诉用户出了什么问题，并调用 continue 开始下一次 循环，请求另一个猜测。 if 表达式之后，就可以在知道 guess 在 1 到 100 之间的情况下 与秘密数字作比较了。</p>
+<p>然而，这并不是一个理想的解决方案:程序只处理 1 到 100 之间的值是绝对不可取的，而且 如果有很多函数都有这样的要求，在每个函数中都有这样的检查将是非常冗余的(并可能潜 在的影响性能)。</p>
+<p>相反我们可以创建一个新类型来将验证放入创建其实例的函数中，而不是到处重复这些检查。这样就可以安全的在函数签名中使用新类型并相信他们接收到的值。下面展示了 一个定义 Guess 类型的方法，只有在 new 函数接收到 1 到 100 之间的值时才会创建Guess 的实例:<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">pub</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Guess</span></span> &#123;<br>    value: <span class="hljs-built_in">i32</span>,<br>&#125;<br><br><span class="hljs-keyword">impl</span> Guess &#123;<br>    <span class="hljs-keyword">pub</span> <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">new</span></span>(value: <span class="hljs-built_in">i32</span>) -&gt; Guess &#123;<br>        <span class="hljs-keyword">if</span> value &lt; <span class="hljs-number">1</span> || value &gt; <span class="hljs-number">100</span> &#123;<br>            <span class="hljs-built_in">panic!</span>(<span class="hljs-string">&quot;Guess value must be between 1 and 100, got &#123;&#125;.&quot;</span>, value);<br>        &#125;<br><br>        Guess &#123; value &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">pub</span> <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">value</span></span>(&amp;<span class="hljs-keyword">self</span>) -&gt; <span class="hljs-built_in">i32</span> &#123;<br>        <span class="hljs-keyword">self</span>.value<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>首先，我们定义了一个包含 u32 类型字段 value 的结构体 Guess 。这里是储存猜测值的地方。</p>
+<p>接着在 Guess 上实现了一个叫做 new 的关联函数来创建 Guess 的实例。 new 定义为接收 一个 u32 类型的参数 value 并返回一个 Guess 。 new 函数中代码的测试确保了其值是在 1 到 100 之间的。如果 value 没有通过测试则调用 panic! ，这会警告调用这个函数的程序 员有一个需要修改的 bug，因为创建一个 value 超出范围的 Guess 将会违反 Guess::new 所遵循的契约。 </p>
+<p>接着，我们实现了一个借用了 self 的方法 value ，它没有任何其他参数并返回一个u32 。这类方法有时被称为 getter，因为它的目的就是返回对应字段的数据。这样的公有方法是必要的，因为 Guess 结构体的 value 字段是私有的。私有的字段 value 是很重要的，这样使用 Guess 结构体的代码将不允许直接设置 value 的值:调用者必须使用Guess::new 方法来创建一个 Guess 的实例，这就确保了不会存在一个 value 没有通过 Guess::new 函数的条件检查的 Guess 。</p>
+<p>如此获取一个参数并只返回 1 到 100 之间数字的函数就可以声明为获取或返回一个 Guess ， 而不是 u32 ，同时其函数体中也无需进行任何额外的检查。</p>
+
+      
+       
+    </div>
+</article>
+
+
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '07584e1e38d09c739a16',
+            clientSecret: '6a466750b46c76ed9cc8ee0fe0d78e0c33898937',
+            repo: 'yangandmore.github.io',
+            owner: 'Yangandmore',
+            admin: ['Yangandmore'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2016-2020 Yangandmore
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

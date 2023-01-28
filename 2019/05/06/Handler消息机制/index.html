@@ -1,0 +1,2379 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Handler消息机制 | 杨小杨的博客</title>
+  <meta name="keywords" content=" android ">
+  <meta name="description" content="Handler消息机制 | 杨小杨的博客">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="整洁代码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="观看Clean Code(整洁代码)记录-1">
+<meta property="og:url" content="http://example.com/2023/01/28/%E9%87%8D%E6%9E%84%E4%BB%A3%E7%A0%811/index.html">
+<meta property="og:site_name" content="杨小杨的博客">
+<meta property="og:description" content="整洁代码">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/CleanCode/0.png">
+<meta property="og:image" content="http://example.com/img/CleanCode/1.png">
+<meta property="article:published_time" content="2023-01-28T08:02:25.000Z">
+<meta property="article:modified_time" content="2023-01-28T09:49:19.837Z">
+<meta property="article:author" content="Yang">
+<meta property="article:tag" content="整洁代码">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/CleanCode/0.png">
+
+
+<link rel="icon" href="/img/header.png">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/header.png"/>
+</a>
+<div class="author">
+    <span>Yang</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="github"
+               href="https://github.com/Yangandmore"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="email"
+               href="mailto:635408602@qq.com"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="qq"
+               href="http://wpa.qq.com/msgrd?v=3&uin=635408602&site=qq&menu=yes"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-qq"></use>
+                    </svg>
+                
+            </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(149)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                <li>
+                    <div data-rel="数据库">
+                        
+                        数据库
+                        <small>(4)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="包管理">
+                        
+                        包管理
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="编译的库">
+                        
+                        编译的库
+                        <small>(5)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="分布式事务">
+                        
+                        分布式事务
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="分布式搜索">
+                        
+                        分布式搜索
+                        <small>(5)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="后台">
+                        
+                        后台
+                        <small>(3)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="机器学习">
+                        
+                        机器学习
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="流程引擎">
+                        
+                        流程引擎
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="数据结构">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        数据结构
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="数据结构<--->算法分析">
+                                        
+                                        算法分析
+                                        
+                                            <small>(2
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="异常问题">
+                        
+                        异常问题
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="音视频">
+                        
+                        音视频
+                        <small>(13)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="整洁代码">
+                        
+                        整洁代码
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="正则表达式">
+                        
+                        正则表达式
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Android">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        Android
+                        <small>(17)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="Android<--->热更新">
+                                        
+                                        热更新
+                                        
+                                            <small>(2
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="C/C++">
+                        
+                        C/C++
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="git">
+                        
+                        git
+                        <small>(3)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Gradle">
+                        
+                        Gradle
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="java">
+                        
+                        java
+                        <small>(9)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="JavaScript">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        JavaScript
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="JavaScript<--->npm">
+                                        
+                                        npm
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="ReactNative">
+                        
+                        ReactNative
+                        <small>(10)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Redis">
+                        
+                        Redis
+                        <small>(4)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="rust">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        rust
+                        <small>(46)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="rust<--->p2p">
+                                        
+                                        p2p
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="spring">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        spring
+                        <small>(9)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="spring<--->java">
+                                        
+                                        java
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="ssr">
+                        
+                        ssr
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="149">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>包管理</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>贝塞尔曲线</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>分布式事务</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>分布式搜索</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>构建工具</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>后台</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>汇编</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>机器学习</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>跨域</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>流程引擎</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>热更新</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>视频格式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>数据结构与算法分析</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>数据库</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>图片格式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>异步</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>异常问题</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>音频</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>音视频</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>整洁代码</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>正则表达式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>直播</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>android</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Android</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>C</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>camera</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Cpp</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>es</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ffmpeg</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>git</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Gradle</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>java</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>javaScript</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libfaac</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libjpeg-turbo</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libx264</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libyuv</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Linux</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>NDK</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>react</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>React</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ReactNative</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Redis</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>RTMP</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>rust</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>seate</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>spring</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>springboot</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>SQL</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>srs</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ssr</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class="All 整洁代码 "
+           href="/2023/01/28/%E9%87%8D%E6%9E%84%E4%BB%A3%E7%A0%811/"
+           data-tag="整洁代码"
+           data-author="" >
+            <span class="post-title" title="观看Clean Code(整洁代码)记录-1">观看Clean Code(整洁代码)记录-1</span>
+            <span class="post-date" title="2023-01-28 08:02:25">2023/01/28</span>
+        </a>
+        
+        <a  class="All 异常问题 "
+           href="/2022/09/27/eclipse-mac-err/"
+           data-tag="异常问题"
+           data-author="" >
+            <span class="post-title" title="eclipse-mac-err">eclipse-mac-err</span>
+            <span class="post-date" title="2022-09-27 22:24:54">2022/09/27</span>
+        </a>
+        
+        <a  class="All 流程引擎 "
+           href="/2022/09/16/activiti7/"
+           data-tag="流程引擎"
+           data-author="" >
+            <span class="post-title" title="流程引擎-activiti7">流程引擎-activiti7</span>
+            <span class="post-date" title="2022-09-16 10:01:11">2022/09/16</span>
+        </a>
+        
+        <a  class="All 分布式事务 "
+           href="/2022/09/04/seate/"
+           data-tag="seate,分布式事务"
+           data-author="" >
+            <span class="post-title" title="配置seate">配置seate</span>
+            <span class="post-date" title="2022-09-04 19:11:24">2022/09/04</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/09/01/es-java/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="es在java环境中使用">es在java环境中使用</span>
+            <span class="post-date" title="2022-09-01 22:11:48">2022/09/01</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/09/01/es-ik/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="es配置ik分词器及热更新">es配置ik分词器及热更新</span>
+            <span class="post-date" title="2022-09-01 16:38:27">2022/09/01</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/06/es-7-change-password/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="es修改密码">es修改密码</span>
+            <span class="post-date" title="2022-08-06 23:37:16">2022/08/06</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/06/es-linux/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="elk在linux上简单安装">elk在linux上简单安装</span>
+            <span class="post-date" title="2022-08-06 21:02:25">2022/08/06</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/02/ELK/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="ELK学习">ELK学习</span>
+            <span class="post-date" title="2022-08-02 15:13:44">2022/08/02</span>
+        </a>
+        
+        <a  class="All 包管理 "
+           href="/2022/07/29/chocolatey/"
+           data-tag="包管理"
+           data-author="" >
+            <span class="post-title" title="chocolatey">chocolatey</span>
+            <span class="post-date" title="2022-07-29 16:56:39">2022/07/29</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/28/Spring-%E5%9F%BA%E7%A1%805/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础5">Spring-基础5</span>
+            <span class="post-date" title="2022-07-28 21:11:57">2022/07/28</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/28/Spring-%E5%9F%BA%E7%A1%804/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(四)">Spring-基础(四)</span>
+            <span class="post-date" title="2022-07-28 15:50:59">2022/07/28</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-%E5%9F%BA%E7%A1%803/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(三)">Spring-基础(三)</span>
+            <span class="post-date" title="2022-07-25 21:51:47">2022/07/25</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-%E5%9F%BA%E7%A1%802/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(二)">Spring-基础(二)</span>
+            <span class="post-date" title="2022-07-25 10:26:06">2022/07/25</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-%E5%9F%BA%E7%A1%801/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(一)">Spring-基础(一)</span>
+            <span class="post-date" title="2022-07-25 09:58:25">2022/07/25</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/07/17/P2P/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="P2P">P2P</span>
+            <span class="post-date" title="2022-07-17 10:46:24">2022/07/17</span>
+        </a>
+        
+        <a  class="All rust p2p "
+           href="/2022/07/16/Rust-libp2p/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-libp2p">Rust-libp2p</span>
+            <span class="post-date" title="2022-07-16 14:04:11">2022/07/16</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/07/06/%E5%8C%BA%E5%9D%97%E9%93%BE-%E8%AE%B0%E8%B4%A6%E6%A8%A1%E5%BC%8F/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="区块链-记账模式">区块链-记账模式</span>
+            <span class="post-date" title="2022-07-06 21:48:04">2022/07/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/06/26/Summer-boot%E4%B8%80%E6%9C%9F%E5%AE%8F%E9%83%A8%E5%88%86%E6%9E%84%E6%80%9D%E5%8F%8A%E5%AE%9E%E7%8E%B0/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Summer-boot一期宏部分构思及实现">Summer-boot一期宏部分构思及实现</span>
+            <span class="post-date" title="2022-06-26 10:12:27">2022/06/26</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2022/06/16/Git-fork%E9%A1%B9%E7%9B%AE%E6%9B%B4%E6%96%B0/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git-fork项目更新">Git-fork项目更新</span>
+            <span class="post-date" title="2022-06-16 15:11:56">2022/06/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/06/12/Rust-%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-编码规范">Rust-编码规范</span>
+            <span class="post-date" title="2022-06-12 09:05:33">2022/06/12</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2022/05/29/MySql-Some%E7%AD%89%E6%8C%87%E4%BB%A4/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="MySql_Some、Any、All的用法">MySql_Some、Any、All的用法</span>
+            <span class="post-date" title="2022-05-29 10:07:14">2022/05/29</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/12/Redis-%E8%81%9A%E5%90%88%E6%93%8D%E4%BD%9C/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-聚合操作">Redis-聚合操作</span>
+            <span class="post-date" title="2022-05-12 14:34:47">2022/05/12</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/11/Redis-%E5%88%87%E7%89%87%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-切片集群配置">Redis-切片集群配置</span>
+            <span class="post-date" title="2022-05-11 15:45:38">2022/05/11</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/10/Redis-%E5%93%A8%E5%85%B5%E6%9C%BA%E5%88%B6%E9%85%8D%E7%BD%AE/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-哨兵机制配置">Redis-哨兵机制配置</span>
+            <span class="post-date" title="2022-05-10 17:02:25">2022/05/10</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/10/Redis-%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%85%B3/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-开启远程访问">Redis-开启远程访问</span>
+            <span class="post-date" title="2022-05-10 14:24:32">2022/05/10</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/05/06/Rust-%E5%B1%9E%E6%80%A7/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-属性">Rust-属性</span>
+            <span class="post-date" title="2022-05-06 10:08:24">2022/05/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/20/Rust-build/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust编译过程图">Rust编译过程图</span>
+            <span class="post-date" title="2022-04-20 14:54:46">2022/04/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/08/Rust-Atomic/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-Atomic">Rust-Atomic</span>
+            <span class="post-date" title="2022-04-08 09:55:50">2022/04/08</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/06/Rust-%E6%AD%BB%E7%81%B5%E6%9C%AF3/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵术3">Rust-死灵术3</span>
+            <span class="post-date" title="2022-04-06 20:48:19">2022/04/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/06/Rust-%E6%AD%BB%E7%81%B5%E6%9C%AF2/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵术2">Rust-死灵术2</span>
+            <span class="post-date" title="2022-04-06 14:54:22">2022/04/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/02/Rust-AnyTrait/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-AnyTrait">Rust-AnyTrait</span>
+            <span class="post-date" title="2022-04-02 14:25:05">2022/04/02</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/02/Rust-Cow%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-Cow智能指针">Rust-Cow智能指针</span>
+            <span class="post-date" title="2022-04-02 10:16:00">2022/04/02</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/01/Rust-%E6%AD%BB%E7%81%B5%E6%9C%AF/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵书（一）">Rust-死灵书（一）</span>
+            <span class="post-date" title="2022-04-01 16:42:36">2022/04/01</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/03/09/Rust-%E5%8F%82%E8%80%83%E6%89%8B%E5%86%8C/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-参考手册">Rust-参考手册</span>
+            <span class="post-date" title="2022-03-09 10:15:21">2022/03/09</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/03/08/Rust-%E5%AE%8F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-小宏书(声明宏)">Rust-高级-小宏书(声明宏)</span>
+            <span class="post-date" title="2022-03-08 20:22:51">2022/03/08</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2022/03/03/Android%E9%9B%86%E6%88%90Rust/"
+           data-tag="Android,rust"
+           data-author="" >
+            <span class="post-title" title="Android集成Rust">Android集成Rust</span>
+            <span class="post-date" title="2022-03-03 10:56:49">2022/03/03</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/02/08/Rust-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-类型转换-From &amp; Into">Rust-类型转换-From &amp; Into</span>
+            <span class="post-date" title="2022-02-08 16:53:33">2022/02/08</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/16/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bbitflags/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之bitflags">Rust-高级-Crate之bitflags</span>
+            <span class="post-date" title="2022-01-16 22:36:28">2022/01/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Brayon/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之rayon">Rust-高级-Crate之rayon</span>
+            <span class="post-date" title="2022-01-12 21:55:30">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Blazy-static/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之lazy_static">Rust-高级-Crate之lazy_static</span>
+            <span class="post-date" title="2022-01-12 21:50:32">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8BWalkdir/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之Walkdir">Rust-高级-Crate之Walkdir</span>
+            <span class="post-date" title="2022-01-12 21:50:15">2022/01/12</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bthreadpool/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之threadpool">Rust-高级-Crate之threadpool</span>
+            <span class="post-date" title="2022-01-12 21:49:50">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Berror-chain/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之error_chain">Rust-高级-Crate之error_chain</span>
+            <span class="post-date" title="2022-01-12 21:49:39">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bcrossbeam/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之crossbeam">Rust-高级-Crate之crossbeam</span>
+            <span class="post-date" title="2022-01-12 21:16:24">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Btar/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之tar">Rust-高级-Crate之tar</span>
+            <span class="post-date" title="2022-01-12 10:29:50">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/11/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Brand/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之rand">Rust-高级-Crate之rand</span>
+            <span class="post-date" title="2022-01-11 14:52:45">2022/01/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/09/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bserde/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之serde">Rust-高级-Crate之serde</span>
+            <span class="post-date" title="2022-01-09 21:10:52">2022/01/09</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/09/Rust%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8%E4%B8%8E%E5%80%9F%E7%94%A8/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust中的引用与借用">Rust中的引用与借用</span>
+            <span class="post-date" title="2022-01-09 19:03:47">2022/01/09</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/09/graphQL/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="graphQL">graphQL</span>
+            <span class="post-date" title="2022-01-09 17:02:35">2022/01/09</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/05/Rust-%E9%AB%98%E7%BA%A7-%E6%9C%8D%E5%8A%A1%E4%B9%8BActix/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-服务之Actix">Rust-高级-服务之Actix</span>
+            <span class="post-date" title="2022-01-05 21:13:56">2022/01/05</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/05/Rust-%E9%AB%98%E7%BA%A7-%E5%BC%82%E6%AD%A5%E4%B9%8Bfutures/"
+           data-tag="rust,异步"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-异步之futures">Rust-高级-异步之futures</span>
+            <span class="post-date" title="2022-01-05 21:13:38">2022/01/05</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/30/Rust-%E6%9C%80%E5%90%8E%E7%9A%84%E9%A1%B9%E7%9B%AE/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-最后的项目">Rust-最后的项目</span>
+            <span class="post-date" title="2021-12-30 14:46:33">2021/12/30</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/21/Rust-%E9%AB%98%E7%BA%A7%E7%89%B9%E5%BE%81/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级特征">Rust-高级特征</span>
+            <span class="post-date" title="2021-12-21 22:22:15">2021/12/21</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-%E6%A8%A1%E5%BC%8F%E7%94%A8%E6%9D%A5%E5%8C%B9%E9%85%8D%E5%80%BC%E7%9A%84%E7%BB%93%E6%9E%84/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-模式与模式匹配">Rust-模式与模式匹配</span>
+            <span class="post-date" title="2021-12-20 20:53:44">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-面向对象">Rust-面向对象</span>
+            <span class="post-date" title="2021-12-20 15:15:04">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-%E6%97%A0%E7%95%8F%E5%B9%B6%E5%8F%91/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-无畏并发">Rust-无畏并发</span>
+            <span class="post-date" title="2021-12-20 09:44:35">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/19/Rust-%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-智能指针">Rust-智能指针</span>
+            <span class="post-date" title="2021-12-19 10:23:23">2021/12/19</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/16/Rust-CargoAndCratesIO/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-CargoAndCratesIO">Rust-CargoAndCratesIO</span>
+            <span class="post-date" title="2021-12-16 22:52:05">2021/12/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/16/Rust-%E5%87%BD%E6%95%B0%E5%BC%8F%E8%AF%AD%E8%A8%80%E5%8A%9F%E8%83%BD-%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E9%97%AD%E5%8C%85/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-函数式语言功能:迭代器与闭包">Rust-函数式语言功能:迭代器与闭包</span>
+            <span class="post-date" title="2021-12-16 16:08:22">2021/12/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/15/Rust-%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%A8%8B%E5%BA%8F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-IO">Rust-IO</span>
+            <span class="post-date" title="2021-12-15 17:07:26">2021/12/15</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/15/Rust-%E6%B5%8B%E8%AF%95/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-测试">Rust-测试</span>
+            <span class="post-date" title="2021-12-15 14:08:29">2021/12/15</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/14/Rust-%E6%B3%9B%E5%9E%8B%E3%80%81trait%E5%92%8C%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-泛型、trait和生命周期">Rust-泛型、trait和生命周期</span>
+            <span class="post-date" title="2021-12-14 20:57:17">2021/12/14</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/14/Rust-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-错误处理">Rust-错误处理</span>
+            <span class="post-date" title="2021-12-14 10:48:51">2021/12/14</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-%E5%B8%B8%E8%A7%81%E9%9B%86%E5%90%88/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-常见集合">Rust-常见集合</span>
+            <span class="post-date" title="2021-12-13 20:55:23">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%9D%97%E7%BB%84%E7%BB%87%E5%92%8C%E5%A4%8D%E7%94%A8%E4%BB%A3%E7%A0%81/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-使用模块组织和复用代码">Rust-使用模块组织和复用代码</span>
+            <span class="post-date" title="2021-12-13 16:26:05">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-枚举和模式匹配">Rust-枚举和模式匹配</span>
+            <span class="post-date" title="2021-12-13 10:44:04">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/12/Rust-%E7%BB%93%E6%9E%84%E4%BD%93/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-结构体">Rust-结构体</span>
+            <span class="post-date" title="2021-12-12 22:42:42">2021/12/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/12/Rust-%E6%89%80%E6%9C%89%E6%9D%83/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-所有权">Rust-所有权</span>
+            <span class="post-date" title="2021-12-12 11:32:16">2021/12/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/11/Rust-%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-基础技术">Rust-基础技术</span>
+            <span class="post-date" title="2021-12-11 20:25:09">2021/12/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/11/Rust-%E7%BC%96%E7%A8%8B%E7%8C%9C%E8%B0%9C%E6%B8%B8%E6%88%8F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-编程猜谜游戏">Rust-编程猜谜游戏</span>
+            <span class="post-date" title="2021-12-11 18:58:04">2021/12/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/10/Rust-%E5%85%A5%E9%97%A8/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-入门">Rust-入门</span>
+            <span class="post-date" title="2021-12-10 11:18:25">2021/12/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/10/Java-%E5%86%85%E9%83%A8%E7%B1%BB/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-内部类">Java-内部类</span>
+            <span class="post-date" title="2021-12-10 08:50:32">2021/12/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/09/Java-%E6%8E%A5%E5%8F%A3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-接口">Java-接口</span>
+            <span class="post-date" title="2021-12-09 14:54:05">2021/12/09</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/09/Java-%E5%A4%9A%E6%80%81/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-多态">Java-多态</span>
+            <span class="post-date" title="2021-12-09 08:42:47">2021/12/09</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/23/JavaNIO/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaNIO">JavaNIO</span>
+            <span class="post-date" title="2021-11-23 10:47:14">2021/11/23</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/23/JavaIO/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaIO">JavaIO</span>
+            <span class="post-date" title="2021-11-23 10:47:07">2021/11/23</span>
+        </a>
+        
+        <a  class="All spring java "
+           href="/2021/11/22/Spring%E5%B7%A5%E4%BD%9C%E5%AF%B9%E8%B1%A1/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring工作对象">Spring工作对象</span>
+            <span class="post-date" title="2021-11-22 09:44:06">2021/11/22</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/18/Java%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java函数式接口">Java函数式接口</span>
+            <span class="post-date" title="2021-11-18 10:50:22">2021/11/18</span>
+        </a>
+        
+        <a  class="All "
+           href="/2021/11/17/SpringBoot%E5%90%AF%E5%8A%A8-%E5%9F%BA%E7%A1%80/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="SpringBoot启动-基础">SpringBoot启动-基础</span>
+            <span class="post-date" title="2021-11-17 17:01:58">2021/11/17</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/16/JRebel/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JRebel">JRebel</span>
+            <span class="post-date" title="2021-11-16 08:58:18">2021/11/16</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/11/Spring%E5%90%AF%E5%8A%A8-%E5%9F%BA%E7%A1%80/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring启动-基础">Spring启动-基础</span>
+            <span class="post-date" title="2021-11-11 15:25:33">2021/11/11</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/10/%E5%8F%8D%E5%B0%84/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="反射">反射</span>
+            <span class="post-date" title="2021-11-10 20:57:08">2021/11/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/10/%E6%B3%A8%E8%A7%A3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="注解">注解</span>
+            <span class="post-date" title="2021-11-10 20:50:55">2021/11/10</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/09/SpringAOP-%E5%9F%BA%E7%A1%80/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="SpringAOP-基础">SpringAOP-基础</span>
+            <span class="post-date" title="2021-11-09 10:31:31">2021/11/09</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/08/SpringIOC-%E5%9F%BA%E7%A1%80/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="SpringIOC-基础">SpringIOC-基础</span>
+            <span class="post-date" title="2021-11-08 10:27:28">2021/11/08</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2021/11/02/%E9%9F%B3%E8%A7%86%E9%A2%91%E7%BC%96%E8%A7%A3%E7%A0%81%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/"
+           data-tag="音视频"
+           data-author="" >
+            <span class="post-title" title="音视频编解码技术基础">音视频编解码技术基础</span>
+            <span class="post-date" title="2021-11-02 12:06:49">2021/11/02</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2021/11/02/MysqlErrHosts/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="mysql安装时，Unable to connect to any of the specified MySQL hosts">mysql安装时，Unable to connect to any of the specified MySQL hosts</span>
+            <span class="post-date" title="2021-11-02 10:58:50">2021/11/02</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2021/10/08/H264%E7%BC%96%E7%A0%81-SPSPPS/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码 SPS &amp; PPS">H264编码 SPS &amp; PPS</span>
+            <span class="post-date" title="2021-10-08 21:20:12">2021/10/08</span>
+        </a>
+        
+        <a  class="All ssr "
+           href="/2021/01/18/centos%E7%BB%88%E7%AB%AFssr%E9%85%8D%E7%BD%AE/"
+           data-tag="ssr"
+           data-author="" >
+            <span class="post-title" title="centos终端ssr配置">centos终端ssr配置</span>
+            <span class="post-date" title="2021-01-18 08:21:35">2021/01/18</span>
+        </a>
+        
+        <a  class="All 数据结构 算法分析 "
+           href="/2020/12/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E5%85%B6%E4%BA%8C/"
+           data-tag="数据结构与算法分析"
+           data-author="" >
+            <span class="post-title" title="数据结构与算法分析阅读笔记其二">数据结构与算法分析阅读笔记其二</span>
+            <span class="post-date" title="2020-12-14 22:34:39">2020/12/14</span>
+        </a>
+        
+        <a  class="All 数据结构 算法分析 "
+           href="/2020/12/09/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"
+           data-tag="数据结构与算法分析"
+           data-author="" >
+            <span class="post-title" title="数据结构与算法分析阅读笔记">数据结构与算法分析阅读笔记</span>
+            <span class="post-date" title="2020-12-09 21:52:40">2020/12/09</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/10/27/FLV%E6%A0%BC%E5%BC%8F/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="FLV格式">FLV格式</span>
+            <span class="post-date" title="2020-10-27 15:33:56">2020/10/27</span>
+        </a>
+        
+        <a  class="All 机器学习 "
+           href="/2020/09/20/Mac%E4%B8%ADPython3-x%E7%BC%96%E8%AF%91Caffe/"
+           data-tag="机器学习"
+           data-author="" >
+            <span class="post-title" title="Mac中Python3.x编译Caffe">Mac中Python3.x编译Caffe</span>
+            <span class="post-date" title="2020-09-20 01:08:09">2020/09/20</span>
+        </a>
+        
+        <a  class="All JavaScript npm "
+           href="/2020/07/17/npm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%93%8D%E4%BD%9C/"
+           data-tag="直播"
+           data-author="" >
+            <span class="post-title" title="npm常用命令操作">npm常用命令操作</span>
+            <span class="post-date" title="2020-07-17 10:14:01">2020/07/17</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/16/MediaExtractorANDMediaMuxer/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="android端的音频处理工具MediaExtractor和MediaMuxer">android端的音频处理工具MediaExtractor和MediaMuxer</span>
+            <span class="post-date" title="2020-07-16 11:55:28">2020/07/16</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/15/AAC%E9%9F%B3%E9%A2%91%E7%A0%81%E6%B5%81/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="AAC音频码流">AAC音频码流</span>
+            <span class="post-date" title="2020-07-15 17:45:10">2020/07/15</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/15/Android-PCM%E5%A4%84%E7%90%86/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="Android-PCM">Android-PCM</span>
+            <span class="post-date" title="2020-07-15 13:29:49">2020/07/15</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/13/yuv-tool%E5%B7%A5%E5%85%B7%E7%B1%BB/"
+           data-tag="android,libyuv"
+           data-author="" >
+            <span class="post-title" title="yuv-tool工具类">yuv-tool工具类</span>
+            <span class="post-date" title="2020-07-13 22:58:21">2020/07/13</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/18/ffmpegforandroid%E7%BC%96%E8%AF%91/"
+           data-tag="ffmpeg"
+           data-author="" >
+            <span class="post-title" title="ffmpegforandroid编译">ffmpegforandroid编译</span>
+            <span class="post-date" title="2020-06-18 13:38:35">2020/06/18</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/11/libfaac%E7%BC%96%E8%AF%91/"
+           data-tag="libfaac"
+           data-author="" >
+            <span class="post-title" title="libfaac编译">libfaac编译</span>
+            <span class="post-date" title="2020-06-11 14:00:57">2020/06/11</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/11/libx264%E7%BC%96%E8%AF%91/"
+           data-tag="libx264"
+           data-author="" >
+            <span class="post-title" title="libx264编译">libx264编译</span>
+            <span class="post-date" title="2020-06-11 13:51:36">2020/06/11</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/06/10/RTMP%E8%A7%84%E8%8C%83%E5%AD%A6%E4%B9%A0/"
+           data-tag="RTMP,直播"
+           data-author="" >
+            <span class="post-title" title="RTMP规范学习">RTMP规范学习</span>
+            <span class="post-date" title="2020-06-10 11:35:52">2020/06/10</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/06/01/React-Native%E7%83%AD%E6%9B%B4%E6%96%B0/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native热更新">React-Native热更新</span>
+            <span class="post-date" title="2020-06-01 16:03:28">2020/06/01</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2020/06/01/JavaWeb/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaWeb">JavaWeb</span>
+            <span class="post-date" title="2020-06-01 11:09:17">2020/06/01</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2020/05/26/JDBC/"
+           data-tag="java,数据库"
+           data-author="" >
+            <span class="post-title" title="JDBC">JDBC</span>
+            <span class="post-date" title="2020-05-26 16:23:01">2020/05/26</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2020/03/29/%E4%BA%86%E8%A7%A3%E8%B7%A8%E5%9F%9F/"
+           data-tag="后台,跨域"
+           data-author="" >
+            <span class="post-title" title="了解跨域">了解跨域</span>
+            <span class="post-date" title="2020-03-29 21:31:15">2020/03/29</span>
+        </a>
+        
+        <a  class="All JavaScript "
+           href="/2020/03/08/JavaScript%E8%AF%AD%E6%B3%95%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="javaScript"
+           data-author="" >
+            <span class="post-title" title="JavaScript语法（一）">JavaScript语法（一）</span>
+            <span class="post-date" title="2020-03-08 10:29:30">2020/03/08</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/03/06/React-native-%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-native 高德地图">React-native 高德地图</span>
+            <span class="post-date" title="2020-03-06 10:07:45">2020/03/06</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/03/03/React-16-8-Hooks/"
+           data-tag="React"
+           data-author="" >
+            <span class="post-title" title="React 16.8 Hooks">React 16.8 Hooks</span>
+            <span class="post-date" title="2020-03-03 10:07:02">2020/03/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/01/06/React-Native%E5%8E%9F%E7%94%9F%E9%80%9A%E4%BF%A1/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native原生通信">React-Native原生通信</span>
+            <span class="post-date" title="2020-01-06 16:34:00">2020/01/06</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/27/React-Native%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native原理浅析">React-Native原理浅析</span>
+            <span class="post-date" title="2019-12-27 15:32:08">2019/12/27</span>
+        </a>
+        
+        <a  class="All 正则表达式 "
+           href="/2019/12/18/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
+           data-tag="正则表达式"
+           data-author="" >
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2019-12-18 21:45:36">2019/12/18</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/05/React-Native-%E5%8A%A8%E7%94%BB/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native-动画">React-Native-动画</span>
+            <span class="post-date" title="2019-12-05 16:20:25">2019/12/05</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/03/React-%E8%87%AA%E5%AD%A6%E4%B9%8B%E8%B7%AF%EF%BC%88%E4%BA%8C%EF%BC%89/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="React-自学之路（二）">React-自学之路（二）</span>
+            <span class="post-date" title="2019-12-03 13:06:53">2019/12/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/03/React-%E8%87%AA%E5%AD%A6%E4%B9%8B%E8%B7%AF%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="React"
+           data-author="" >
+            <span class="post-title" title="React-自学之路（一）">React-自学之路（一）</span>
+            <span class="post-date" title="2019-12-03 09:40:28">2019/12/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/10/12/React%E6%96%B0%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"
+           data-tag="react"
+           data-author="" >
+            <span class="post-title" title="React新的生命周期">React新的生命周期</span>
+            <span class="post-date" title="2019-10-12 15:41:02">2019/10/12</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2019/09/18/%E5%88%9B%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE%E6%97%B6%EF%BC%8C%E5%87%BA%E7%8E%B0Could-not-calculate-build-plan%E9%94%99%E8%AF%AF/"
+           data-tag="springboot"
+           data-author="" >
+            <span class="post-title" title="创建maven项目时，出现Could not calculate build plan错误">创建maven项目时，出现Could not calculate build plan错误</span>
+            <span class="post-date" title="2019-09-18 09:25:06">2019/09/18</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2019/09/07/MySQL%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="MySQL常用指令">MySQL常用指令</span>
+            <span class="post-date" title="2019-09-07 21:10:03">2019/09/07</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/07/05/RecycleView%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="RecycleView（一）">RecycleView（一）</span>
+            <span class="post-date" title="2019-07-05 14:03:06">2019/07/05</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/25/Android%E5%8A%A8%E7%94%BB%EF%BC%88%E4%B8%89%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（三）">Android动画（三）</span>
+            <span class="post-date" title="2019-06-25 14:15:26">2019/06/25</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/20/Android%E5%8A%A8%E7%94%BB%EF%BC%88%E4%BA%8C%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（二）">Android动画（二）</span>
+            <span class="post-date" title="2019-06-20 15:10:00">2019/06/20</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/19/Android%E5%8A%A8%E7%94%BB%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（一）">Android动画（一）</span>
+            <span class="post-date" title="2019-06-19 15:15:56">2019/06/19</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/18/Android%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%EF%BC%88%E4%BA%8C%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android自定义控件（二）">Android自定义控件（二）</span>
+            <span class="post-date" title="2019-06-18 13:43:11">2019/06/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/13/%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF/"
+           data-tag="Android,贝塞尔曲线"
+           data-author="" >
+            <span class="post-title" title="贝塞尔曲线">贝塞尔曲线</span>
+            <span class="post-date" title="2019-06-13 10:14:25">2019/06/13</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/04/Java-Binder%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%90%86%E8%A7%A3/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Java Binder进程通信理解">Java Binder进程通信理解</span>
+            <span class="post-date" title="2019-06-04 14:01:43">2019/06/04</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/05/30/arm-neon-h%E6%96%87%E4%BB%B6%E5%8A%9F%E8%83%BD/"
+           data-tag="汇编"
+           data-author="" >
+            <span class="post-title" title="arm-neon.h文件功能">arm-neon.h文件功能</span>
+            <span class="post-date" title="2019-05-30 08:45:08">2019/05/30</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/05/06/Handler%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6/"
+           data-tag="android"
+           data-author="" >
+            <span class="post-title" title="Handler消息机制">Handler消息机制</span>
+            <span class="post-date" title="2019-05-06 14:09:45">2019/05/06</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/05/06/H264%E7%BC%96%E7%A0%81-%E7%86%B5%E7%BC%96%E7%A0%81/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码-熵编码">H264编码-熵编码</span>
+            <span class="post-date" title="2019-05-06 13:42:57">2019/05/06</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/04/08/NDK%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E5%90%88%E9%9B%86/"
+           data-tag="NDK"
+           data-author="" >
+            <span class="post-title" title="NDK开发问题合集">NDK开发问题合集</span>
+            <span class="post-date" title="2019-04-08 10:53:30">2019/04/08</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/04/01/H264%E7%BC%96%E7%A0%81%E5%9F%BA%E7%A1%80/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码基础">H264编码基础</span>
+            <span class="post-date" title="2019-04-01 09:26:11">2019/04/01</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/31/srs%E7%9B%B4%E6%92%AD%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/"
+           data-tag="直播,srs"
+           data-author="" >
+            <span class="post-title" title="srs直播平台搭建">srs直播平台搭建</span>
+            <span class="post-date" title="2019-03-31 10:37:42">2019/03/31</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/27/%E5%9B%BE%E7%89%87RGB%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/"
+           data-tag="图片格式"
+           data-author="" >
+            <span class="post-title" title="图片RGB数据格式">图片RGB数据格式</span>
+            <span class="post-date" title="2019-03-27 22:24:49">2019/03/27</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/14/%E5%9B%BE%E7%89%87YUV%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/"
+           data-tag="图片格式"
+           data-author="" >
+            <span class="post-title" title="图片YUV数据格式">图片YUV数据格式</span>
+            <span class="post-date" title="2019-03-14 11:10:16">2019/03/14</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2019/03/08/libjpeg-turbo%E7%BC%96%E8%AF%91/"
+           data-tag="libjpeg-turbo"
+           data-author="" >
+            <span class="post-title" title="libjpeg-turbo编译">libjpeg-turbo编译</span>
+            <span class="post-date" title="2019-03-08 13:41:20">2019/03/08</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2019/03/07/libYUV%E7%BC%96%E8%AF%91/"
+           data-tag="libyuv"
+           data-author="" >
+            <span class="post-title" title="libYUV编译">libYUV编译</span>
+            <span class="post-date" title="2019-03-07 15:05:11">2019/03/07</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/02/18/Android-camera%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="camera"
+           data-author="" >
+            <span class="post-title" title="Android camera（一）">Android camera（一）</span>
+            <span class="post-date" title="2019-02-18 15:03:27">2019/02/18</span>
+        </a>
+        
+        <a  class="All C/C++ "
+           href="/2019/01/23/Cpp%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Cpp"
+           data-author="" >
+            <span class="post-title" title="Cpp基础（一）">Cpp基础（一）</span>
+            <span class="post-date" title="2019-01-23 10:52:13">2019/01/23</span>
+        </a>
+        
+        <a  class="All C/C++ "
+           href="/2019/01/18/C%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="C"
+           data-author="" >
+            <span class="post-title" title="C基础（一）">C基础（一）</span>
+            <span class="post-date" title="2019-01-18 14:08:23">2019/01/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/12/18/EasyPermission/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="EasyPermission">EasyPermission</span>
+            <span class="post-date" title="2018-12-18 13:20:30">2018/12/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/12/15/Android%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android自定义控件（一）">Android自定义控件（一）</span>
+            <span class="post-date" title="2018-12-15 21:44:34">2018/12/15</span>
+        </a>
+        
+        <a  class="All ssr "
+           href="/2018/12/10/Linux%E9%85%8D%E7%BD%AEShadowSocks-R/"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux配置ShadowSocks-R">Linux配置ShadowSocks-R</span>
+            <span class="post-date" title="2018-12-10 15:58:52">2018/12/10</span>
+        </a>
+        
+        <a  class="All Android 热更新 "
+           href="/2018/10/29/Sophix%E7%83%AD%E6%9B%B4%E6%96%B0/"
+           data-tag="android,热更新"
+           data-author="" >
+            <span class="post-title" title="Sophix热更新">Sophix热更新</span>
+            <span class="post-date" title="2018-10-29 16:50:36">2018/10/29</span>
+        </a>
+        
+        <a  class="All Android 热更新 "
+           href="/2018/10/18/TinkerPatch%E7%83%AD%E6%9B%B4%E6%96%B0/"
+           data-tag="android,热更新"
+           data-author="" >
+            <span class="post-title" title="TinkerPatch热更新">TinkerPatch热更新</span>
+            <span class="post-date" title="2018-10-18 20:11:30">2018/10/18</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2018/06/21/React-native-flex%E5%B8%83%E5%B1%80/"
+           data-tag="react"
+           data-author="" >
+            <span class="post-title" title="React-native flex布局">React-native flex布局</span>
+            <span class="post-date" title="2018-06-21 16:22:47">2018/06/21</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/01/25/Android%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android事件分发">Android事件分发</span>
+            <span class="post-date" title="2018-01-25 16:36:52">2018/01/25</span>
+        </a>
+        
+        <a  class="All Gradle "
+           href="/2018/01/25/Gradle%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="构建工具,Gradle"
+           data-author="" >
+            <span class="post-title" title="Gradle（一）">Gradle（一）</span>
+            <span class="post-date" title="2018-01-25 16:36:52">2018/01/25</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2017/11/24/firstBlod2/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git详细讲解(远程)">Git详细讲解(远程)</span>
+            <span class="post-date" title="2017-11-24 10:18:05">2017/11/24</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2017/10/19/firstBlod/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git详细讲解(本地)">Git详细讲解(本地)</span>
+            <span class="post-date" title="2017-10-19 21:49:28">2017/10/19</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-Handler消息机制" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">Handler消息机制</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="Android">Android</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color3">android</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2021-04-17 07:10:38'>2019-05-06 14:09</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                Comment:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%BB%8D"><span class="toc-text">一、基本介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%87%A0%E5%A4%A7%E4%B8%BB%E8%A6%81%E7%B1%BB"><span class="toc-text">二、几大主要类</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-Handler"><span class="toc-text">1.Handler</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF-SendMessage-Message-msg"><span class="toc-text">1.发送消息 SendMessage(Message msg)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%8E%A5%E6%94%B6%E6%B6%88%E6%81%AFloop"><span class="toc-text">2.接收消息loop()</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Handler%E6%80%BB%E7%BB%93"><span class="toc-text">Handler总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Looper"><span class="toc-text">Looper</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA"><span class="toc-text">1.创建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#prepareMainLooper-prepare-boolean-quitAllowed-prepare"><span class="toc-text">prepareMainLooper(),prepare(boolean quitAllowed),prepare()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ThreadLocal-%E6%9C%AC%E5%9C%B0%E7%BA%BF%E7%A8%8B%E7%BC%93%E5%AD%98"><span class="toc-text">ThreadLocal 本地线程缓存</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-text">2.构造函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%BC%80%E5%90%AF%E5%BE%AA%E7%8E%AFloop"><span class="toc-text">3.开启循环loop()</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MessageQueue"><span class="toc-text">MessageQueue</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A5%E9%98%9F%E5%88%97-enqueueMessge"><span class="toc-text">入队列 enqueueMessge</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BA%E9%98%9F%E5%88%97-next"><span class="toc-text">出队列 next</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Message"><span class="toc-text">Message</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%82%A8"><span class="toc-text">存储</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81native%E5%B1%82"><span class="toc-text">三、native层</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MessageQueue%EF%BC%9AMessage%E7%9A%84%E5%85%A5%E5%8F%A3"><span class="toc-text">MessageQueue：Message的入口</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#NativeMessageQueue"><span class="toc-text">NativeMessageQueue</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Native%E5%B1%82%E7%9A%84Looper"><span class="toc-text">Native层的Looper</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%98%BB%E5%A1%9E%E4%B8%8E%E5%94%A4%E9%86%92%EF%BC%9AnativePollOnce%E4%B8%8EnativeWake"><span class="toc-text">阻塞与唤醒：nativePollOnce与nativeWake</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#epoll"><span class="toc-text">epoll</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%98%E7%82%B9"><span class="toc-text">优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="toc-text">工作模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3"><span class="toc-text">接口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9E%E5%88%B0%E9%97%AE%E9%A2%98%EF%BC%9ALooper%E4%B8%8Eepoll"><span class="toc-text">回到问题：Looper与epoll</span></a></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、基本介绍"><a href="#一、基本介绍" class="headerlink" title="一、基本介绍"></a>一、基本介绍</h2><p>所有线程的消息队列管理<br><a href="/img/Handler/0.png">github</a></p>
+<h2 id="二、几大主要类"><a href="#二、几大主要类" class="headerlink" title="二、几大主要类"></a>二、几大主要类</h2><h1 id="1-Handler"><a href="#1-Handler" class="headerlink" title="1.Handler"></a>1.Handler</h1><p>我们在使用的时候基本都是和Handler做接触，消息发送、消息接收处理等。都是从Handler开始的。</p>
+<h2 id="1-发送消息-SendMessage-Message-msg"><a href="#1-发送消息-SendMessage-Message-msg" class="headerlink" title="1.发送消息 SendMessage(Message msg)"></a>1.发送消息 SendMessage(Message msg)</h2><p>可以看到所有的消息发送方法都会汇聚到一点</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">  ...<br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">sendMessageAtTime</span><span class="hljs-params">(Message msg, <span class="hljs-keyword">long</span> uptimeMillis)</span> </span>&#123;<br>      MessageQueue queue = mQueue;<br>      <span class="hljs-keyword">if</span> (queue == <span class="hljs-keyword">null</span>) &#123;<br>          RuntimeException e = <span class="hljs-keyword">new</span> RuntimeException(<br>                  <span class="hljs-keyword">this</span> + <span class="hljs-string">&quot; sendMessageAtTime() called with no mQueue&quot;</span>);<br>          Log.w(<span class="hljs-string">&quot;Looper&quot;</span>, e.getMessage(), e);<br>          <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>      &#125;<br>      <span class="hljs-keyword">return</span> enqueueMessage(queue, msg, uptimeMillis);<br>  &#125;<br><br>  <span class="hljs-comment">/**</span><br><span class="hljs-comment">   * Enqueue a message at the front of the message queue, to be processed on</span><br><span class="hljs-comment">   * the next iteration of the message loop.  You will receive it in</span><br><span class="hljs-comment">   * &#123;<span class="hljs-doctag">@link</span> #handleMessage&#125;, in the thread attached to this handler.</span><br><span class="hljs-comment">   * &lt;b&gt;This method is only for use in very special circumstances -- it</span><br><span class="hljs-comment">   * can easily starve the message queue, cause ordering problems, or have</span><br><span class="hljs-comment">   * other unexpected side-effects.&lt;/b&gt;</span><br><span class="hljs-comment">   *  </span><br><span class="hljs-comment">   * <span class="hljs-doctag">@return</span> Returns true if the message was successfully placed in to the </span><br><span class="hljs-comment">   *         message queue.  Returns false on failure, usually because the</span><br><span class="hljs-comment">   *         looper processing the message queue is exiting.</span><br><span class="hljs-comment">   */</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">sendMessageAtFrontOfQueue</span><span class="hljs-params">(Message msg)</span> </span>&#123;<br>      MessageQueue queue = mQueue;<br>      <span class="hljs-keyword">if</span> (queue == <span class="hljs-keyword">null</span>) &#123;<br>          RuntimeException e = <span class="hljs-keyword">new</span> RuntimeException(<br>              <span class="hljs-keyword">this</span> + <span class="hljs-string">&quot; sendMessageAtTime() called with no mQueue&quot;</span>);<br>          Log.w(<span class="hljs-string">&quot;Looper&quot;</span>, e.getMessage(), e);<br>          <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;<br>      &#125;<br>      <span class="hljs-keyword">return</span> enqueueMessage(queue, msg, <span class="hljs-number">0</span>);<br>  &#125;<br>...<br></code></pre></td></tr></table></figure>
+<p>也就是这个<code>enqueueMessage</code>的方法，进入这个方法看一下：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">...<br><span class="hljs-comment">// 从Handler中将Message推送给MessageQueue</span><br>  <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">enqueueMessage</span><span class="hljs-params">(MessageQueue queue, Message msg, <span class="hljs-keyword">long</span> uptimeMillis)</span> </span>&#123;<br>		<span class="hljs-comment">// 设置这个 message 的target = Handler.this，以后在looper读取分发后需要确定哪个handler分发</span><br>      msg.target = <span class="hljs-keyword">this</span>;<br>      <span class="hljs-keyword">if</span> (mAsynchronous) &#123;<br>          msg.setAsynchronous(<span class="hljs-keyword">true</span>);<br>      &#125;<br>      <span class="hljs-keyword">return</span> queue.enqueueMessage(msg, uptimeMillis);<br>  &#125;<br>...<br></code></pre></td></tr></table></figure><br>可以看到，在得到消息后首先将此时的<code>Handler对象保存在msg的target参数中</code>，也是为了后续在分发Message消息的时候找到对应的Handler。<br>第二个是这里的<code>mAsynchronous</code>参数，会根据这个参数来设定该消息的类型：true为异步，false为同步。</p>
+<p>这里的queue则是MessageQueue的对象，在一般使用的情况下，都是从Looper类中创建并获取的：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">...<br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Handler</span><span class="hljs-params">(Callback callback, <span class="hljs-keyword">boolean</span> async)</span> </span>&#123;<br>	...<br>		<span class="hljs-comment">// 获取 Looper</span><br>      mLooper = Looper.myLooper();<br>      <span class="hljs-keyword">if</span> (mLooper == <span class="hljs-keyword">null</span>) &#123;<br>          <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<br>              <span class="hljs-string">&quot;Can&#x27;t create handler inside thread that has not called Looper.prepare()&quot;</span>);<br>      &#125;<br>      mQueue = mLooper.mQueue;<br>      mCallback = callback;<br>      mAsynchronous = async;<br>  &#125;<br>...<br></code></pre></td></tr></table></figure><br>可以看到<code>Looper.myLooper()</code>是获取Looper对象的一个方法，Looper是一个工厂模式。获取后就可以得到内部的MessageQueue了。<br>那么Looper是在哪里被创建呢？ActivityThread：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">...<br><span class="hljs-comment">// 主要的启动点，Activity的启动方法</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> </span>&#123;<br>...<br><span class="hljs-comment">// 创建 MainLooper 就是我们需要的主进程的Handler所对应的Looper</span><br>      Looper.prepareMainLooper();<br><br>      ActivityThread thread = <span class="hljs-keyword">new</span> ActivityThread();<br>      thread.attach(<span class="hljs-keyword">false</span>);<br><br>      <span class="hljs-keyword">if</span> (sMainThreadHandler == <span class="hljs-keyword">null</span>) &#123;<br>          sMainThreadHandler = thread.getHandler();<br>      &#125;<br><br>      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">false</span>) &#123;<br>          Looper.myLooper().setMessageLogging(<span class="hljs-keyword">new</span><br>                  LogPrinter(Log.DEBUG, <span class="hljs-string">&quot;ActivityThread&quot;</span>));<br>      &#125;<br><br>      <span class="hljs-comment">// End of event ActivityThreadMain.</span><br>      Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);<br><br>		<span class="hljs-comment">// 打开这个Looper功能，也就是开启for循环</span><br>      Looper.loop();<br><br>      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">&quot;Main thread loop unexpectedly exited&quot;</span>);<br>  &#125;<br></code></pre></td></tr></table></figure><br>可以看到这里使用了Looper的两个方法：prepareMainLooper()和loop()。前者为Looper对象的创建，后者为开启Looper分发的功能开关。</p>
+<p>那么整个过程其实是先通过prepareXXXX()方法创建Looper，然后使用loop()方法进行分发。</p>
+<p>从刚刚我们看到了Handler类中的enqueueMessage()方法中调用了MessageQueue中的enqueueMessage()方法发送Message，看一下MessageQueue中：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">	...<br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 入队列方法，Message从Handler进入MessageQueue的入口点</span><br><span class="hljs-comment"> */</span><br>   <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">enqueueMessage</span><span class="hljs-params">(Message msg, <span class="hljs-keyword">long</span> when)</span> </span>&#123;<br>	<span class="hljs-comment">// 加入链表的时候按时间顺序从小到大排序，然后判读是否需要唤醒，nativeWake() 用来唤醒之前等待的线程</span><br>       <span class="hljs-keyword">synchronized</span> (<span class="hljs-keyword">this</span>) &#123;<br>           Message p = mMessages;<span class="hljs-comment">//头部消息</span><br>           <span class="hljs-keyword">boolean</span> needWake;<br>					<span class="hljs-comment">//如果队列中没有消息，或者当前进入的消息比消息队列中的消息等待时间短，那么就放在消息队列的头部</span><br>           <span class="hljs-keyword">if</span> (p == <span class="hljs-keyword">null</span> || when == <span class="hljs-number">0</span> || when &lt; p.when) &#123;<br>               msg.next = p;<br>               mMessages = msg;<br>               needWake = mBlocked;<br>           &#125; <span class="hljs-keyword">else</span> &#123;<br>							<span class="hljs-comment">// 判断唤醒条件</span><br>							needWake = mBlocked &amp;&amp; p.target == <span class="hljs-keyword">null</span> &amp;&amp; msg.isAsynchronous();<br>							<span class="hljs-comment">// 提交至native层，需要 nextPollTimeoutMillis 时间阻塞</span><br>               Message prev;<br>							<span class="hljs-comment">// 根据时间顺序插入该条消息Message</span><br>               <span class="hljs-keyword">for</span> (;;) &#123;<br>                   prev = p;<br>                   p = p.next;<br>                   <span class="hljs-keyword">if</span> (p == <span class="hljs-keyword">null</span> || when &lt; p.when) &#123;<br>                       <span class="hljs-keyword">break</span>;<br>                   &#125;<br>                   <span class="hljs-keyword">if</span> (needWake &amp;&amp; p.isAsynchronous()) &#123;<br>                       needWake = <span class="hljs-keyword">false</span>;<br>                   &#125;<br>               &#125;<br>							<span class="hljs-comment">//将消息插入合适的位置</span><br>               msg.next = p; <span class="hljs-comment">// invariant: p == prev.next</span><br>               prev.next = msg;<br>           &#125;<br>           <span class="hljs-comment">// We can assume mPtr != 0 because mQuitting is false.</span><br>		<span class="hljs-comment">// 唤醒代码</span><br>           <span class="hljs-keyword">if</span> (needWake) &#123;<br>               nativeWake(mPtr);<br>           &#125;<br>       &#125;<br>       <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<br>   &#125;<br>	...<br></code></pre></td></tr></table></figure><br>这里是将Message数据添入队列中的重要位置，从MessageQueue来看，Message从这里进入队列中。队列使用链表的形式。<br>when为Message执行时间，这个队列的排列顺序就是根据执行顺序排列的。<br>当我们拿到待处理消息Message和队列头Message的时候，首先需要判断，待处理消息是否需要即可处理，即when为0或者when值小于队列头Message的时间。是，则插入到队列头部;否，则使用for循环去查找到响应位置，后插入队列中。</p>
+<p><strong><em>需要注意：<code>nativeWake()</code>函数，牵扯至Native层的阻塞和唤醒，后续描述。</em></strong></p>
+<h2 id="2-接收消息loop"><a href="#2-接收消息loop" class="headerlink" title="2.接收消息loop()"></a>2.接收消息loop()</h2><p>正如上述所讲，Looper.loop()就是打开这个消息分发的开关。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">..<br>  <span class="hljs-comment">/**</span><br><span class="hljs-comment">* 轮询这个线程中的MessageQueue</span><br><span class="hljs-comment">   */</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">loop</span><span class="hljs-params">()</span> </span>&#123;<br>      <span class="hljs-keyword">final</span> Looper me = myLooper();<br><span class="hljs-comment">// 获取 Queue 队列</span><br>      <span class="hljs-keyword">final</span> MessageQueue queue = me.mQueue;<br><br><span class="hljs-comment">// 确保这个线程的标识是本地进程的标识，并跟踪这个标识的符号</span><br>      Binder.clearCallingIdentity();<br>      <span class="hljs-keyword">final</span> <span class="hljs-keyword">long</span> ident = Binder.clearCallingIdentity();<br><br>      <span class="hljs-keyword">for</span> (;;) &#123;<br>	<span class="hljs-comment">// 获取下一个消息 message</span><br>          Message msg = queue.next(); <span class="hljs-comment">// might block</span><br><br>	<span class="hljs-comment">// 调用 message 中存储的 handler 对象来调用其 dispatchMessage 方法</span><br>          msg.target.dispatchMessage(msg);<br><br>          <span class="hljs-comment">// Make sure that during the course of dispatching the</span><br>          <span class="hljs-comment">// identity of the thread wasn&#x27;t corrupted.</span><br>	<span class="hljs-comment">// 确保在调度过程中，线程的标识没有被破坏</span><br>          <span class="hljs-keyword">final</span> <span class="hljs-keyword">long</span> newIdent = Binder.clearCallingIdentity();<br><br>          msg.recycleUnchecked();<br>      &#125;<br>  &#125;<br>...<br></code></pre></td></tr></table></figure><br>开启loop()后就会打开一个for的死循环，该循环通过MessageQueue的next()方法获取下一个Message消息。<br>首先看一下MessageQueue的next()方法：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">	...<br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 获取下一个消息，Message从MessageQueue推出的出口点</span><br><span class="hljs-comment"> */</span><br>   <span class="hljs-function">Message <span class="hljs-title">next</span><span class="hljs-params">()</span> </span>&#123;<br>       <span class="hljs-keyword">final</span> <span class="hljs-keyword">long</span> ptr = mPtr;<br>       <span class="hljs-keyword">if</span> (ptr == <span class="hljs-number">0</span>) &#123;<br>           <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>       &#125;<br><br>       <span class="hljs-keyword">int</span> pendingIdleHandlerCount = -<span class="hljs-number">1</span>; <span class="hljs-comment">// -1 only during first iteration</span><br>       <span class="hljs-keyword">int</span> nextPollTimeoutMillis = <span class="hljs-number">0</span>;<br>       <span class="hljs-keyword">for</span> (;;) &#123;<br><br>		<span class="hljs-comment">// 操作 native 层的 MessageQueue 阻塞 nextPollTimeoutMills 毫秒时间。</span><br>		<span class="hljs-comment">// nextPollTimeoutMills = -1，一直阻塞不会超时</span><br>		<span class="hljs-comment">// nextPollTimeoutMills = 0，不会阻塞，立即返回</span><br>		<span class="hljs-comment">// nextPollTimeoutMills &gt; 0，最长阻塞 nextPollTimeoutMillis 毫秒，如果期间有程序唤醒会立即返回。</span><br>           <span class="hljs-keyword">if</span> (nextPollTimeoutMillis != <span class="hljs-number">0</span>) &#123;<br>               Binder.flushPendingCommands();<br>           &#125;<br><br>					<span class="hljs-comment">// 提交至native层，需要 nextPollTimeoutMillis 时间阻塞</span><br>           nativePollOnce(ptr, nextPollTimeoutMillis);<br><br>           <span class="hljs-keyword">synchronized</span> (<span class="hljs-keyword">this</span>) &#123;<br>							<span class="hljs-comment">// 获取系统开机到现在的时间，如果使用System.currentMillis()会有误差</span><br>               <span class="hljs-keyword">final</span> <span class="hljs-keyword">long</span> now = SystemClock.uptimeMillis();<br>               Message prevMsg = <span class="hljs-keyword">null</span>;<br>               Message msg = mMessages;<br>			<span class="hljs-comment">// 当 msg.target == null 时是在调用 postSyncBarrier 函数时阻塞，具体场景有 ViewRootImpl 中的 scheduleTraversals() 函数和 unscheduleTraversals() 函数</span><br>			<span class="hljs-comment">// 他会使所有的同步消息忽略，循环找出第一个异步消息</span><br>			<span class="hljs-comment">// 可以通过 setAsynchronous 设置为异步消息</span><br>               <span class="hljs-keyword">if</span> (msg != <span class="hljs-keyword">null</span> &amp;&amp; msg.target == <span class="hljs-keyword">null</span>) &#123;<br>									<span class="hljs-comment">// do while 循环，得到下一个message</span><br>                   <span class="hljs-keyword">do</span> &#123;<br>                       prevMsg = msg;<br>                       msg = msg.next;<br>                   &#125; <span class="hljs-keyword">while</span> (msg != <span class="hljs-keyword">null</span> &amp;&amp; !msg.isAsynchronous());<br>               &#125;<br>							<span class="hljs-comment">// 得到消息后比较时间</span><br>               <span class="hljs-keyword">if</span> (msg != <span class="hljs-keyword">null</span>) &#123;<br>								<span class="hljs-comment">// 当前消息比某个时间要小</span><br>                   <span class="hljs-keyword">if</span> (now &lt; msg.when) &#123;<br>                       <span class="hljs-comment">// Next message is not ready.  Set a timeout to wake up when it is ready.</span><br>											<span class="hljs-comment">// 下一条消息的等待时间</span><br>                       nextPollTimeoutMillis = (<span class="hljs-keyword">int</span>) Math.min(msg.when - now, Integer.MAX_VALUE);<br>                   &#125; <span class="hljs-keyword">else</span> &#123;<br>											<span class="hljs-comment">// 不需要等待，直接返回消息</span><br>                       mBlocked = <span class="hljs-keyword">false</span>;<br>                       <span class="hljs-keyword">if</span> (prevMsg != <span class="hljs-keyword">null</span>) &#123;<br>                           prevMsg.next = msg.next;<br>                       &#125; <span class="hljs-keyword">else</span> &#123;<br>                           mMessages = msg.next;<br>                       &#125;<br>                       msg.next = <span class="hljs-keyword">null</span>;<br>                       <span class="hljs-keyword">if</span> (DEBUG) Log.v(TAG, <span class="hljs-string">&quot;Returning message: &quot;</span> + msg);<br>                       msg.markInUse();<br>                       <span class="hljs-keyword">return</span> msg;<br>                   &#125;<br>               &#125; <span class="hljs-keyword">else</span> &#123;<br>									<span class="hljs-comment">// 没有消息</span><br>                   nextPollTimeoutMillis = -<span class="hljs-number">1</span>;<br>               &#125;<br><br>							<span class="hljs-comment">// 获取空闲时处理任务的handler 用于发现线程何时阻塞等待更多消息的回调接口。</span><br>               <span class="hljs-keyword">if</span> (pendingIdleHandlerCount &lt; <span class="hljs-number">0</span><br>                       &amp;&amp; (mMessages == <span class="hljs-keyword">null</span> || now &lt; mMessages.when)) &#123;<br>                   pendingIdleHandlerCount = mIdleHandlers.size();<br>               &#125;<br>							<span class="hljs-comment">// 如果空闲时处理任务的handler个数为0，继续让线程阻塞</span><br>               <span class="hljs-keyword">if</span> (pendingIdleHandlerCount &lt;= <span class="hljs-number">0</span>) &#123;<br>                   <span class="hljs-comment">// No idle handlers to run.  Loop and wait some more.</span><br>                   mBlocked = <span class="hljs-keyword">true</span>;<br>                   <span class="hljs-keyword">continue</span>;<br>               &#125;<br><br>							<span class="hljs-comment">// 判断当前空闲时处理任务的handler是否是为空</span><br>               <span class="hljs-keyword">if</span> (mPendingIdleHandlers == <span class="hljs-keyword">null</span>) &#123;<br>                   mPendingIdleHandlers = <span class="hljs-keyword">new</span> IdleHandler[Math.max(pendingIdleHandlerCount, <span class="hljs-number">4</span>)];<br>               &#125;<br>               mPendingIdleHandlers = mIdleHandlers.toArray(mPendingIdleHandlers);<br>           &#125;<br><br>					<span class="hljs-comment">// </span><br>           <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; pendingIdleHandlerCount; i++) &#123;<br>               <span class="hljs-keyword">final</span> IdleHandler idler = mPendingIdleHandlers[i];<br>               mPendingIdleHandlers[i] = <span class="hljs-keyword">null</span>; <span class="hljs-comment">// release the reference to the handler</span><br><br>               <span class="hljs-keyword">boolean</span> keep = <span class="hljs-keyword">false</span>;<br>               <span class="hljs-keyword">try</span> &#123;<br>                   keep = idler.queueIdle();<br>               &#125; <span class="hljs-keyword">catch</span> (Throwable t) &#123;<br>                   Log.wtf(TAG, <span class="hljs-string">&quot;IdleHandler threw exception&quot;</span>, t);<br>               &#125;<br><br>               <span class="hljs-keyword">if</span> (!keep) &#123;<br>                   <span class="hljs-keyword">synchronized</span> (<span class="hljs-keyword">this</span>) &#123;<br>                       mIdleHandlers.remove(idler);<br>                   &#125;<br>               &#125;<br>           &#125;<br><br>           pendingIdleHandlerCount = <span class="hljs-number">0</span>;<br><br>           nextPollTimeoutMillis = <span class="hljs-number">0</span>;<br>       &#125;<br>   &#125;<br>	...<br></code></pre></td></tr></table></figure><br>此时MessageQueue会去寻找下一个Message给Looper，当队列中没有下一条消息时，它会是线程进入等待状态；在有消息的时候，如果消息的执行时间没有到(未到执行时间)，线程也会进入等待状态，否则就会返回消息Message给Looper。</p>
+<p><strong><em>需要注意：<code>nativePollOnce()</code>函数牵扯到Native层的阻塞和唤醒，后续描述。</em></strong><br>注释中可以看到<code>nextPollTimeoutMillis</code>：</p>
+<blockquote>
+<p>-1：表示一直阻塞不会超时<br>n(n&gt;0)：最长阻塞 nextPollTimeoutMillis 毫秒，如果期间有程序唤醒会立即返回。<br>0：不会阻塞，立即返回</p>
+</blockquote>
+<p>返回消息后Looper.loop()就会处理进来的消息，<code>msg.target.dispatchMessage(msg);</code>这里就会通过消息中的target(handler)发送给<code>dispatchMessage(msg)</code><br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><br><span class="hljs-comment">/**</span><br><span class="hljs-comment">   * Handle system messages here.</span><br><span class="hljs-comment">*</span><br><span class="hljs-comment">* handler消息分发</span><br><span class="hljs-comment">   */</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dispatchMessage</span><span class="hljs-params">(Message msg)</span> </span>&#123;<br>      <span class="hljs-keyword">if</span> (msg.callback != <span class="hljs-keyword">null</span>) &#123;<br>	<span class="hljs-comment">// 如果有 Runable，则直接执行他的 run 方法</span><br>          handleCallback(msg);<br>      &#125; <span class="hljs-keyword">else</span> &#123;<br>          <span class="hljs-keyword">if</span> (mCallback != <span class="hljs-keyword">null</span>) &#123;<br>              <span class="hljs-keyword">if</span> (mCallback.handleMessage(msg)) &#123;<br>			<span class="hljs-comment">// 如果有实现 Callback 接口，则直接使用</span><br>                  <span class="hljs-keyword">return</span>;<br>              &#125;<br>          &#125;<br>	<span class="hljs-comment">// 如果没有实现则使用自己的 handleMessage</span><br>          handleMessage(msg);<br>      &#125;<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">handleMessage</span><span class="hljs-params">(Message msg)</span> </span>&#123;<br>  &#125;<br><br></code></pre></td></tr></table></figure><br>可以看到，在Message没有定义callback的时候就会调用<code>handlerMessage(msg)</code>，而这个方法我们很常见，也即在使用handler的时候重写的方法。</p>
+<h3 id="Handler总结"><a href="#Handler总结" class="headerlink" title="Handler总结"></a>Handler总结</h3><p>这样整个就完成了一个从消息发送，到消息接收的一个主路线。但是这样仅仅是主路线，支撑主路线的也很重要。<br>在这里Handler主要完成数据的接收，数据的发送的对外总节点。隐藏其他类的细节。也大致知道了Looper和MessageQueue的主要部分代码。</p>
+<h1 id="Looper"><a href="#Looper" class="headerlink" title="Looper"></a>Looper</h1><p>Looper主要完成Handler在多线程中的线程隔离和消息分发的关键作用，他会创建MessageQueue，用来管理消息。</p>
+<h2 id="1-创建"><a href="#1-创建" class="headerlink" title="1.创建"></a>1.创建</h2><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><br>    <span class="hljs-comment">/** </span><br><span class="hljs-comment">  * 创建一个可以退出的 Looper</span><br><span class="hljs-comment">     */</span><br>   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">prepare</span><span class="hljs-params">()</span> </span>&#123;<br>       prepare(<span class="hljs-keyword">true</span>);<br>   &#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * quitAllowed 为该 MessageQueue 为可退出</span><br><span class="hljs-comment"> * 创建一个 Looper</span><br><span class="hljs-comment"> */</span><br>   <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">prepare</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span> quitAllowed)</span> </span>&#123;<br>       <span class="hljs-keyword">if</span> (sThreadLocal.get() != <span class="hljs-keyword">null</span>) &#123;<br>           <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> RuntimeException(<span class="hljs-string">&quot;Only one Looper may be created per thread&quot;</span>);<br>       &#125;<br>       sThreadLocal.set(<span class="hljs-keyword">new</span> Looper(quitAllowed));<br>   &#125;<br><br>   <span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 创建 MainLooper， 在 ActivityThread 中调用</span><br><span class="hljs-comment">    */</span><br>   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">prepareMainLooper</span><span class="hljs-params">()</span> </span>&#123;<br>       prepare(<span class="hljs-keyword">false</span>);<br>       <span class="hljs-keyword">synchronized</span> (Looper.class) &#123;<br>           <span class="hljs-keyword">if</span> (sMainLooper != <span class="hljs-keyword">null</span>) &#123;<br>               <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> IllegalStateException(<span class="hljs-string">&quot;The main Looper has already been prepared.&quot;</span>);<br>           &#125;<br>           sMainLooper = myLooper();<br>       &#125;<br>   &#125;<br><br>   <span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 返回 MainLooper</span><br><span class="hljs-comment">    */</span><br>   <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Looper <span class="hljs-title">getMainLooper</span><span class="hljs-params">()</span> </span>&#123;<br>       <span class="hljs-keyword">synchronized</span> (Looper.class) &#123;<br>           <span class="hljs-keyword">return</span> sMainLooper;<br>       &#125;<br>   &#125;<br><br><br></code></pre></td></tr></table></figure>
+<h3 id="prepareMainLooper-prepare-boolean-quitAllowed-prepare"><a href="#prepareMainLooper-prepare-boolean-quitAllowed-prepare" class="headerlink" title="prepareMainLooper(),prepare(boolean quitAllowed),prepare()"></a>prepareMainLooper(),prepare(boolean quitAllowed),prepare()</h3><p>可以看到这里有一个Main单词，就知道他是和主启动有关。在上述也看到了这个方法，即开启App的时候会调用，来初始化这个Looper对象。<br>代码中可以看到他调用了prepare(boolean quit)方法，然后将这个Looper对象赋值到Looper类中，也就是<code>sMainLooper</code>。</p>
+<p>这里需要注意的是,<code>sThreadLocal</code>属性：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// 管理 Looper 中的所有 Looper 对象，保存在一个 ThreadLocal 中，使其具有线程域</span><br>   <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> ThreadLocal&lt;Looper&gt; sThreadLocal = <span class="hljs-keyword">new</span> ThreadLocal&lt;Looper&gt;();<br></code></pre></td></tr></table></figure></p>
+<p>使用<code>ThreadLocal</code>来保存我们所有的Looper对象。因为在创建好Looper之后，他们都会存放在<code>sThreadLocal</code>的一个Key-Value结构中：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">sThreadLocal.set(<span class="hljs-keyword">new</span> Looper(quitAllowed));<br></code></pre></td></tr></table></figure></p>
+<h3 id="ThreadLocal-本地线程缓存"><a href="#ThreadLocal-本地线程缓存" class="headerlink" title="ThreadLocal 本地线程缓存"></a>ThreadLocal 本地线程缓存</h3><p>位置：…/libcore/luni/src/main/java/java/lang/ThreadLocal.javal<br>功能：解决线程上下文中变量的传递<br>在源码上，不知道是因为下载版本的问题，有点不同：</p>
+<blockquote>
+<p>1.ThreadLocal -> ThreadLocalMap -> Entry -> Object<br>2.ThreadLocal -> Values -> Object</p>
+</blockquote>
+<p>很奇怪我竟然会是第二种情况的源码… 不过从原理上都差不多。<br>他们都会很像一个Map，存储一个线程对象，和对应与该对象的泛型结构<code>T</code>，也即上述的<code>Object</code>类型对象。这个泛型结构<code>T</code>会被层层封装成一个统一结构ThreadLocalMap(Values)。继而有了该数据对象，有了存储位置Thread对象，那么可以发现会将该数据传入thread对象中的<code>threadLocals(localValues)</code>，进入Thread源码中发现，原来Thread类中已经准备好了该属性<code>threadLocals(localValues)</code>。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">ThreadLocal.ThreadLocalMap threadLocals = <span class="hljs-keyword">null</span>;<br></code></pre></td></tr></table></figure>
+<p>此时就知道了ThreadLocal的大致走向：</p>
+<blockquote>
+<p>1.Thread存在ThreadLocalMap的属性，用于存储我们需要保存的该类型对象。<br>2.Looper在调用ThreadLocal的时候会通过Thread中的threadLocals属性去寻找Entry数据<br>3.ThreadLocalMap内部会有一个Entry数组，用于存储我们真正保存的数据<br>4.Entry继承WeakReference，因此具有Key-Value的结构，这里也即：ThreadLocal-Object</p>
+</blockquote>
+<p><a href="/img/Handler/1.png">github</a></p>
+<p>当然这只是整体的大致流程，存储部分细节牵扯值Hash算法。<br>每个ThreadLocal对象都有一个<code>threadLocalHashCode</code>，用于生成指定的数组下标。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ThreadLocal</span> </span>&#123;<br>	<span class="hljs-comment">// 当前的HashCode</span><br>	<span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> threadLocalHashCode = nextHashCode();<br>	<span class="hljs-comment">// Integer的原子性管理类</span><br>	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> AtomicInteger nextHashCode = <span class="hljs-keyword">new</span> AtomicInteger();<br>	<span class="hljs-comment">// 让Hash码能均匀分布在2的n次方的数组里</span><br>	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> HASH_INCREMENT = <span class="hljs-number">0x61c88647</span>;<br>	<span class="hljs-comment">// 获取下一个HashCode</span><br>	<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">nextHashCode</span><span class="hljs-params">()</span> </span>&#123;<br>		<span class="hljs-keyword">return</span> nextHashCode.getAndAdd(HASH_INCREMENT);<br>	&#125;<br><br>	<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ThreadLocalMap</span> </span>&#123;<br>		<span class="hljs-comment">// 初识容量，必须是2的幂</span><br>		<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> INITIAL_CAPACITY = <span class="hljs-number">16</span>;<br>		<span class="hljs-comment">// 存放table，长度必须是2的幂</span><br>		<span class="hljs-keyword">private</span> Entry[] table;<br>		<span class="hljs-comment">// entry个数</span><br>		<span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> size = <span class="hljs-number">0</span>;<br>		<span class="hljs-comment">// 容量阀值</span><br>		<span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> threshold;<br><br>		ThreadLocalMap(ThreadLocal&lt;?&gt; firstKey, Object firstValue) &#123;<br>			<span class="hljs-comment">// 新建tables</span><br>			table = <span class="hljs-keyword">new</span> Entry[INITIAL_CAPACITY];<br>			<span class="hljs-comment">// 新建下标索引</span><br>			<span class="hljs-keyword">int</span> i = firstKey.threadLocalHashCode &amp; (INITIAL_CAPACITY - <span class="hljs-number">1</span>);<br>			<span class="hljs-comment">// 添加值table至数组中</span><br>			table[i] = <span class="hljs-keyword">new</span> Entry(firstKey, firstValue);<br>			<span class="hljs-comment">// 初始化个数为1</span><br>			size = <span class="hljs-number">1</span>;<br>			<span class="hljs-comment">// 获得阀值</span><br>			setThreshold(INITIAL_CAPACITY);<br>		&#125;<br>		<br>		<span class="hljs-comment">// 容量阀值限定在 长度的2/3</span><br>		<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setThreshold</span><span class="hljs-params">(<span class="hljs-keyword">int</span> len)</span> </span>&#123;<br>			threshold = len * <span class="hljs-number">2</span> / <span class="hljs-number">3</span>;<br>    &#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>即代码中<code>int i = firstKey.threadLocalHashCode &amp; (INITIAL_CAPACITY - 1);</code>来获取下标，需要注意这里的<code>INITIAL_CAPACITY</code>必须是2的幂，进而table的长度也必须是2的幂，才可以使用这个方法来获取下标索引。</p>
+<h2 id="2-构造函数"><a href="#2-构造函数" class="headerlink" title="2.构造函数"></a>2.构造函数</h2><p>在构造函数中我们会看到，此时将创建消息队列MessageQueue和保存当前所在的线程环境mThread。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Looper 的构造函数，这里创建了此 Looper 下的 MessageQueue 和</span><br><span class="hljs-comment"> */</span><br>   <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">Looper</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span> quitAllowed)</span> </span>&#123;<br>       mQueue = <span class="hljs-keyword">new</span> MessageQueue(quitAllowed);<br>       mThread = Thread.currentThread();<br>   &#125;<br></code></pre></td></tr></table></figure></p>
+<p>而在我们需要得到这个Looper对象时，就可以通过<code>myLooper</code>获取当前线程的当去Looper对象，也即Looper对象中的MessageQueue：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">  <span class="hljs-comment">/**</span><br><span class="hljs-comment">* 返回与当前线程有关联的 Looper 对象，没有则为 null。</span><br><span class="hljs-comment">   */</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-meta">@Nullable</span> <span class="hljs-function">Looper <span class="hljs-title">myLooper</span><span class="hljs-params">()</span> </span>&#123;<br>      <span class="hljs-keyword">return</span> sThreadLocal.get();<br>  &#125;<br></code></pre></td></tr></table></figure></p>
+<h2 id="3-开启循环loop"><a href="#3-开启循环loop" class="headerlink" title="3.开启循环loop()"></a>3.开启循环loop()</h2><p>在Looper中最重要的就是loop()方法了，上面也说过，消息机制会通过这个方法开启一个读取MessageQueue队列的循环，取出Message，分发Message的功能。</p>
+<h1 id="MessageQueue"><a href="#MessageQueue" class="headerlink" title="MessageQueue"></a>MessageQueue</h1><p>MessageQueue主要完成消息队列的职责，做好入队列和出队列，队列管理的作用。</p>
+<h2 id="入队列-enqueueMessge"><a href="#入队列-enqueueMessge" class="headerlink" title="入队列 enqueueMessge"></a>入队列 enqueueMessge</h2><p>上面讲解Handler中也大致提了入队列时会调用MessageQueue的enqueueMessage方法，使Message根据策略添加至MessageQueue中。</p>
+<h2 id="出队列-next"><a href="#出队列-next" class="headerlink" title="出队列 next"></a>出队列 next</h2><p>在获取下一个Message时，loop()方法会调用MessageQueue的next方法，获取下一条Message消息</p>
+<h1 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h1><p>消息对象，由于消息队列是以链表的形式，所以内部会有一个<code>next</code>参数来指向下一条Message。</p>
+<h2 id="存储"><a href="#存储" class="headerlink" title="存储"></a>存储</h2><blockquote>
+<p>一般我们会使用arg1、arg2来存储int数据<br>而一些对象类型需要使用obj来存储<br>what可以对消息进行分类等<br>when则是上述所说的当前消息应该何时处理的时间值<br>target则会在Handler对象接收到Message时将自身赋值给他<br>而Message的队列，就是一个链表结构 <a href="/img/Handler/2.png">github</a></p>
+</blockquote>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>大致讲解重要的几个大类：Handler、Looper、ThreadLocal、MessageQueue、Message<br><a href="/img/Handler/3.png">github</a></p>
+<h2 id="三、native层"><a href="#三、native层" class="headerlink" title="三、native层"></a>三、native层</h2><p>可以从源码中看出在Java层的下面还隐含这C++的jni层调用。<br><a href="/img/Handler/4.png">github</a></p>
+<h1 id="MessageQueue：Message的入口"><a href="#MessageQueue：Message的入口" class="headerlink" title="MessageQueue：Message的入口"></a>MessageQueue：Message的入口</h1><p>MessageQueue.java文件中的jni函数列表：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MessageQueue</span> </span>&#123;<br>		<span class="hljs-comment">// 在android_os_MessageQueue.cpp文件下</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">native</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">long</span> <span class="hljs-title">nativeInit</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">native</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">nativeDestroy</span><span class="hljs-params">(<span class="hljs-keyword">long</span> ptr)</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">native</span> <span class="hljs-keyword">void</span> <span class="hljs-title">nativePollOnce</span><span class="hljs-params">(<span class="hljs-keyword">long</span> ptr, <span class="hljs-keyword">int</span> timeoutMillis)</span></span>; <span class="hljs-comment">/*non-static for callbacks*/</span><br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">native</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">nativeWake</span><span class="hljs-params">(<span class="hljs-keyword">long</span> ptr)</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">native</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">nativeIsPolling</span><span class="hljs-params">(<span class="hljs-keyword">long</span> ptr)</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">native</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">nativeSetFileDescriptorEvents</span><span class="hljs-params">(<span class="hljs-keyword">long</span> ptr, <span class="hljs-keyword">int</span> fd, <span class="hljs-keyword">int</span> events)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<p>文件：android_os_MessageQueue.cpp<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">static</span> jlong <span class="hljs-title">android_os_MessageQueue_nativeInit</span><span class="hljs-params">(JNIEnv* env, jclass clazz)</span> </span>&#123;<br>	<span class="hljs-comment">// 创建NativeMessageQueue</span><br>	NativeMessageQueue* nativeMessageQueue = <span class="hljs-keyword">new</span> NativeMessageQueue();<br>	<span class="hljs-keyword">if</span> (!nativeMessageQueue) &#123;<br>		jniThrowRuntimeException(env, <span class="hljs-string">&quot;Unable to allocate native queue&quot;</span>);<br>		<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>	&#125;<br><br>	nativeMessageQueue-&gt;incStrong(env);<br>	<span class="hljs-comment">// 将指针返回给Java层的mPtr</span><br>	<span class="hljs-keyword">return</span> <span class="hljs-keyword">reinterpret_cast</span>&lt;jlong&gt;(nativeMessageQueue);<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<h2 id="NativeMessageQueue"><a href="#NativeMessageQueue" class="headerlink" title="NativeMessageQueue"></a>NativeMessageQueue</h2><p>在创建<code>NativeMessageQueue</code>后，将指针返回给Java层的mPtr，可以看到，这里已经将引用传给了Java层的mPtr:<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * MessageQueue 的构造函数</span><br><span class="hljs-comment"> */</span><br>   MessageQueue(<span class="hljs-keyword">boolean</span> quitAllowed) &#123;<br>       mQuitAllowed = quitAllowed;<br>	<br>			<span class="hljs-comment">// 使用 native 层创建 MessageQueue，并返回其引用地址</span><br>       mPtr = nativeInit();<br>   &#125;<br></code></pre></td></tr></table></figure></p>
+<p>那么接着看到Native层MessageQueue中创建了NativeMessageQueue：<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c">NativeMessageQueue::NativeMessageQueue() : mPollEnv(<span class="hljs-literal">NULL</span>), mPollObj(<span class="hljs-literal">NULL</span>), mExceptionObj(<span class="hljs-literal">NULL</span>) &#123;<br>	<span class="hljs-comment">// 通过tls，类似java的ThreadLocal获取looper</span><br>	mLooper = Looper::getForThread();<br>	<span class="hljs-keyword">if</span> (mLooper == <span class="hljs-literal">NULL</span>) &#123;<br>		mLooper = <span class="hljs-keyword">new</span> Looper(<span class="hljs-literal">false</span>);<br>		<span class="hljs-comment">// 把looper放入线程中</span><br>		Looper::setForThread(mLooper);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>可以看到熟悉的<code>Looper</code>类，这里调用<code>getForThread()</code>方法，来获取当前线程下的Looper对象。如果不存在，则创建新的Looper并使用<code>setForThread()</code>传递给Looper保存。</p>
+<h2 id="Native层的Looper"><a href="#Native层的Looper" class="headerlink" title="Native层的Looper"></a>Native层的Looper</h2><p>那么我们看一下在Looper中如何处理这些对象：<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Looper::setForThread</span><span class="hljs-params">(<span class="hljs-keyword">const</span> sp&lt;Looper&gt;&amp; looper)</span> </span>&#123;<br>    sp&lt;Looper&gt; old = getForThread(); <span class="hljs-comment">// also has side-effect of initializing TLS</span><br><br>    <span class="hljs-keyword">if</span> (looper != <span class="hljs-literal">NULL</span>) &#123;<br>        looper-&gt;incStrong((<span class="hljs-keyword">void</span>*)threadDestructor);<br>    &#125;<br><br>    pthread_setspecific(gTLSKey, looper.get());<br><br>    <span class="hljs-keyword">if</span> (old != <span class="hljs-literal">NULL</span>) &#123;<br>        old-&gt;decStrong((<span class="hljs-keyword">void</span>*)threadDestructor);<br>    &#125;<br>&#125;<br><br><span class="hljs-function">sp&lt;Looper&gt; <span class="hljs-title">Looper::getForThread</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> result = pthread_once(&amp; gTLSOnce, initTLSKey);<br><br>    <span class="hljs-keyword">return</span> (Looper*)pthread_getspecific(gTLSKey);<br>&#125;<br></code></pre></td></tr></table></figure><br>可以看到，在get和set中存在两个函数：<code>pthread_getspecific</code>和<code>pthread_setspecific</code>。两个函数和ThreadLocal类的set、get很像。都是使Looper和Thread进行绑定，达到类似key-value的存储结构。</p>
+<h2 id="阻塞与唤醒：nativePollOnce与nativeWake"><a href="#阻塞与唤醒：nativePollOnce与nativeWake" class="headerlink" title="阻塞与唤醒：nativePollOnce与nativeWake"></a>阻塞与唤醒：nativePollOnce与nativeWake</h2><p>在之前的MessageQueue的<code>next()</code>函数中会通过<code>nativePollOnce(ptr, nextPollTimeoutMillis);</code>函数通过native层调用进行阻塞。<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">android_os_MessageQueue_nativePollOnce</span><span class="hljs-params">(JNIEnv* env, jobject obj, jlong ptr, jint timeoutMillis)</span> </span>&#123;<br>	NativeMessageQueue* nativeMessageQueue = <span class="hljs-keyword">reinterpret_cast</span>&lt;NativeMessageQueue*&gt;(ptr);<br>	nativeMessageQueue-&gt;pollOnce(env, obj, timeoutMillis);<br>&#125;<br></code></pre></td></tr></table></figure><br>可以看到调用的是<code>NativeMessageQueue的pollOnce</code>函数：<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">NativeMessageQueue::pollOnce</span><span class="hljs-params">(JNIEnv* env, jobject pollObj, <span class="hljs-keyword">int</span> timeoutMillis)</span> </span>&#123;<br>	mPollEnv = env;<br>	mPollObj = pollObj;<br>	mLooper-&gt;pollOnce(timeoutMillis);<br>	mPollObj = <span class="hljs-literal">NULL</span>;<br>	mPollEnv = <span class="hljs-literal">NULL</span>;<br><br>	<span class="hljs-keyword">if</span> (mExceptionObj) &#123;<br>		env-&gt;Throw(mExceptionObj);<br>		env-&gt;DeleteLocalRef(mExceptionObj);<br>		mExceptionObj = <span class="hljs-literal">NULL</span>;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>发现调用的是<code>Looper的pollOnce</code>函数：<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">Looper::pollOnce</span><span class="hljs-params">(<span class="hljs-keyword">int</span> timeoutMillis, <span class="hljs-keyword">int</span>* outFd, <span class="hljs-keyword">int</span>* outEvents, <span class="hljs-keyword">void</span>** outData)</span> </span>&#123;<br>    <span class="hljs-keyword">int</span> result = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (;;) &#123;<br>        <span class="hljs-keyword">while</span> (mResponseIndex &lt; mResponses.size()) &#123;<br>            <span class="hljs-keyword">const</span> Response&amp; response = mResponses.itemAt(mResponseIndex++);<br>            <span class="hljs-keyword">int</span> ident = response.request.ident;<br>            <span class="hljs-keyword">if</span> (ident &gt;= <span class="hljs-number">0</span>) &#123;<br>                <span class="hljs-keyword">int</span> fd = response.request.fd;<br>                <span class="hljs-keyword">int</span> events = response.events;<br>                <span class="hljs-keyword">void</span>* data = response.request.data;<br><span class="hljs-meta">#<span class="hljs-meta-keyword">if</span> DEBUG_POLL_AND_WAKE</span><br>                ALOGD(<span class="hljs-string">&quot;%p ~ pollOnce - returning signalled identifier %d: &quot;</span><br>                        <span class="hljs-string">&quot;fd=%d, events=0x%x, data=%p&quot;</span>,<br>                        <span class="hljs-keyword">this</span>, ident, fd, events, data);<br><span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span><br>                <span class="hljs-keyword">if</span> (outFd != <span class="hljs-literal">NULL</span>) *outFd = fd;<br>                <span class="hljs-keyword">if</span> (outEvents != <span class="hljs-literal">NULL</span>) *outEvents = events;<br>                <span class="hljs-keyword">if</span> (outData != <span class="hljs-literal">NULL</span>) *outData = data;<br>                <span class="hljs-keyword">return</span> ident;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-keyword">if</span> (result != <span class="hljs-number">0</span>) &#123;<br><span class="hljs-meta">#<span class="hljs-meta-keyword">if</span> DEBUG_POLL_AND_WAKE</span><br>            ALOGD(<span class="hljs-string">&quot;%p ~ pollOnce - returning result %d&quot;</span>, <span class="hljs-keyword">this</span>, result);<br><span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span><br>            <span class="hljs-keyword">if</span> (outFd != <span class="hljs-literal">NULL</span>) *outFd = <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">if</span> (outEvents != <span class="hljs-literal">NULL</span>) *outEvents = <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">if</span> (outData != <span class="hljs-literal">NULL</span>) *outData = <span class="hljs-literal">NULL</span>;<br>            <span class="hljs-keyword">return</span> result;<br>        &#125;<br><br>        result = pollInner(timeoutMillis);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<p>最后我们看到<code>timeoutMillis</code>参数被<code>pollInner</code>函数调用了：<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">Looper::pollInner</span><span class="hljs-params">(<span class="hljs-keyword">int</span> timeoutMillis)</span> </span>&#123;<br>    <span class="hljs-comment">// Adjust the timeout based on when the next message is due.</span><br>    <span class="hljs-keyword">if</span> (timeoutMillis != <span class="hljs-number">0</span> &amp;&amp; mNextMessageUptime != LLONG_MAX) &#123;<br>        <span class="hljs-keyword">nsecs_t</span> now = systemTime(SYSTEM_TIME_MONOTONIC);<br>        <span class="hljs-keyword">int</span> messageTimeoutMillis = toMillisecondTimeoutDelay(now, mNextMessageUptime);<br>        <span class="hljs-keyword">if</span> (messageTimeoutMillis &gt;= <span class="hljs-number">0</span><br>                &amp;&amp; (timeoutMillis &lt; <span class="hljs-number">0</span> || messageTimeoutMillis &lt; timeoutMillis)) &#123;<br>            timeoutMillis = messageTimeoutMillis;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// Poll.</span><br>    <span class="hljs-keyword">int</span> result = POLL_WAKE;<br>    mResponses.clear();<br>    mResponseIndex = <span class="hljs-number">0</span>;<br><br>    <span class="hljs-comment">// We are about to idle.</span><br>    mPolling = <span class="hljs-literal">true</span>;<br><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">epoll_event</span> <span class="hljs-title">eventItems</span>[<span class="hljs-title">EPOLL_MAX_EVENTS</span>];</span><br>    <span class="hljs-keyword">int</span> eventCount = epoll_wait(mEpollFd, eventItems, EPOLL_MAX_EVENTS, timeoutMillis);<br><br>    <span class="hljs-comment">// No longer idling.</span><br>    mPolling = <span class="hljs-literal">false</span>;<br><br>    <span class="hljs-comment">// Acquire lock.</span><br>    mLock.lock();<br><br>    <span class="hljs-comment">// Rebuild epoll set if needed.</span><br>    <span class="hljs-keyword">if</span> (mEpollRebuildRequired) &#123;<br>        mEpollRebuildRequired = <span class="hljs-literal">false</span>;<br>        rebuildEpollLocked();<br>        <span class="hljs-keyword">goto</span> Done;<br>    &#125;<br><br>    <span class="hljs-comment">// Check for poll error.</span><br>    <span class="hljs-keyword">if</span> (eventCount &lt; <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">if</span> (errno == EINTR) &#123;<br>            <span class="hljs-keyword">goto</span> Done;<br>        &#125;<br>        ALOGW(<span class="hljs-string">&quot;Poll failed with an unexpected error, errno=%d&quot;</span>, errno);<br>        result = POLL_ERROR;<br>        <span class="hljs-keyword">goto</span> Done;<br>    &#125;<br><br>    <span class="hljs-comment">// Check for poll timeout.</span><br>    <span class="hljs-keyword">if</span> (eventCount == <span class="hljs-number">0</span>) &#123;<br>        result = POLL_TIMEOUT;<br>        <span class="hljs-keyword">goto</span> Done;<br>    &#125;<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; eventCount; i++) &#123;<br>        <span class="hljs-keyword">int</span> fd = eventItems[i].data.fd;<br>        <span class="hljs-keyword">uint32_t</span> epollEvents = eventItems[i].events;<br>        <span class="hljs-keyword">if</span> (fd == mWakeEventFd) &#123;<br>            <span class="hljs-keyword">if</span> (epollEvents &amp; EPOLLIN) &#123;<br>                awoken();<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                ALOGW(<span class="hljs-string">&quot;Ignoring unexpected epoll events 0x%x on wake event fd.&quot;</span>, epollEvents);<br>            &#125;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">ssize_t</span> requestIndex = mRequests.indexOfKey(fd);<br>            <span class="hljs-keyword">if</span> (requestIndex &gt;= <span class="hljs-number">0</span>) &#123;<br>                <span class="hljs-keyword">int</span> events = <span class="hljs-number">0</span>;<br>                <span class="hljs-keyword">if</span> (epollEvents &amp; EPOLLIN) events |= EVENT_INPUT;<br>                <span class="hljs-keyword">if</span> (epollEvents &amp; EPOLLOUT) events |= EVENT_OUTPUT;<br>                <span class="hljs-keyword">if</span> (epollEvents &amp; EPOLLERR) events |= EVENT_ERROR;<br>                <span class="hljs-keyword">if</span> (epollEvents &amp; EPOLLHUP) events |= EVENT_HANGUP;<br>                pushResponse(events, mRequests.valueAt(requestIndex));<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                ALOGW(<span class="hljs-string">&quot;Ignoring unexpected epoll events 0x%x on fd %d that is &quot;</span><br>                        <span class="hljs-string">&quot;no longer registered.&quot;</span>, epollEvents, fd);<br>            &#125;<br>        &#125;<br>    &#125;<br>Done: ;<br><br>    <span class="hljs-comment">// Invoke pending message callbacks.</span><br>    mNextMessageUptime = LLONG_MAX;<br>    <span class="hljs-keyword">while</span> (mMessageEnvelopes.size() != <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">nsecs_t</span> now = systemTime(SYSTEM_TIME_MONOTONIC);<br>        <span class="hljs-keyword">const</span> MessageEnvelope&amp; messageEnvelope = mMessageEnvelopes.itemAt(<span class="hljs-number">0</span>);<br>        <span class="hljs-keyword">if</span> (messageEnvelope.uptime &lt;= now) &#123;<br>            &#123;<br>                sp&lt;MessageHandler&gt; handler = messageEnvelope.handler;<br>                Message message = messageEnvelope.message;<br>                mMessageEnvelopes.removeAt(<span class="hljs-number">0</span>);<br>                mSendingMessage = <span class="hljs-literal">true</span>;<br>                mLock.unlock();<br><br>                handler-&gt;handleMessage(message);<br>            &#125;<br><br>            mLock.lock();<br>            mSendingMessage = <span class="hljs-literal">false</span>;<br>            result = POLL_CALLBACK;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">// The last message left at the head of the queue determines the next wakeup time.</span><br>            mNextMessageUptime = messageEnvelope.uptime;<br>            <span class="hljs-keyword">break</span>;<br>        &#125;<br>    &#125;<br><br>    mLock.unlock();<br><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">size_t</span> i = <span class="hljs-number">0</span>; i &lt; mResponses.size(); i++) &#123;<br>        Response&amp; response = mResponses.editItemAt(i);<br>        <span class="hljs-keyword">if</span> (response.request.ident == POLL_CALLBACK) &#123;<br>            <span class="hljs-keyword">int</span> fd = response.request.fd;<br>            <span class="hljs-keyword">int</span> events = response.events;<br>            <span class="hljs-keyword">void</span>* data = response.request.data;<br>            <span class="hljs-keyword">int</span> callbackResult = response.request.callback-&gt;handleEvent(fd, events, data);<br>            <span class="hljs-keyword">if</span> (callbackResult == <span class="hljs-number">0</span>) &#123;<br>                removeFd(fd, response.request.seq);<br>            &#125;<br><br>            response.request.callback.clear();<br>            result = POLL_CALLBACK;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> result;<br>&#125;<br></code></pre></td></tr></table></figure><br>在java层的MessageQueue中<code>mMessage</code>保存这Message链表的第一个引用，而Native层保存在Looper中<code>mMessageEnvelopes</code>。可以说这里有两个Message队列，并且他们都是通过时间顺序排列。timeOutMillis表示Java层下个 要执行的消息还要多久执行，mNextMessageUpdate表示Native层下个要执行的消息还要多久执行。<br>其次就是关于<code>epoll_wait()</code>函数的细节，关于epoll的运作。</p>
+<h2 id="epoll"><a href="#epoll" class="headerlink" title="epoll"></a>epoll</h2><p>在Unix进程间通信中，管道就是一个文件，在管道两端，分别是两个打开文件文件描述符，这两个打开文件描述符都是对应同一个文件，其中一个是用来读的，别一个是用来写的，一般的使用方式就是，一个线程通过读文件描述符中来读管道的内容，当管道没有内容时，这个线程就会进入等待状态，而另外一个线程通过写文件描述符来向管道中写入内容，写入内容的时候，如果另一端正有线程正在等待管道中的内容，那么这个线程就会被唤醒。等待和唤醒的操作就是借助epoll机制。</p>
+<h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>epoll是Linux下多路复用IO接口select/poll的增强版本，能显著减少程序在大量并发连接中只有少量活跃的情况下的系统CPU利用率，因为它不会复用文件描述符集合来传递结果而迫使开发者每次等待事件之前都必须重新准备要被侦听的文件描述符集合，另一点原因就是获取事件的时候，它无须遍历整个被侦听的描述符集，只要遍历那些被内核IO事件异步唤醒而加入Ready队列的描述符集合就行了。epoll除了提供select/poll 那种IO事件的电平触发（Level Triggered）外，还提供了边沿触发（Edge Triggered），这就使得用户空间程序有可能缓存IO状态，减少epoll_wait/epoll_pwait的调用，提高应用程序效率。</p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><blockquote>
+<p>支持一个进程打开大数目的Socket<br>效率高</p>
+</blockquote>
+<h3 id="工作模式"><a href="#工作模式" class="headerlink" title="工作模式"></a>工作模式</h3><p>模式分为LT和ET</p>
+<blockquote>
+<p>LT(level-triggered)：是缺省的工作方式，并且同时支持block和no-block socket。在这种做法中，内核告诉你一个文件描述符是否就绪了，然后你可以对这个就绪的fd进行IO操作。如果你不作任何操作，内核还是会继续通知你的。所以，这种模式编程出错误可能性要小一点。传统的select/poll都是这种模型的代表。<br>ET(edge-triggered)：在这种模式下，当描述符从未就绪变为就绪时，内核通过epoll告诉你。然后它会假设你知道文件描述符已经就绪，并且不会再为那个文件描述符发送更多的就绪通知，直到你做了某些操作导致那个文件描述符不再为就绪状态了（比如，你在发送，接收或者接收请求，或者发送接收的数据少于一定量时导致了一个EWOULDBLOCK 错误）。但是请注意，如果一直不对这个fd作IO操作（从而导致它再次变成未就绪），内核不会发送更多的通知（only once），不过在TCP协议中，ET模式的加速效用仍需要更多的benchmark确认。</p>
+</blockquote>
+<h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><p>1.int epoll_create(int size)<br>创建一个epoll的句柄，size为监听的数目一共有多大。他会占用一个fd值，在使用完epoll后，必须调用close()关闭，否则可能会导致fd被耗尽。</p>
+<p>2.int epoll_ctl(int epfd, int op, int fd, struct epoll_event* event)<br>epoll的事件注册函数，他会注册要监听的事件类型。第一个参数是epoll_create()的返回值，第二个参数表示动作类型：</p>
+<blockquote>
+<p>EPOLL_CTL_ADD：注册新的fd到epfd中<br>EPOLL_CTL_MOD：修改已经注册的fd的监听事件<br>EPOLL_CTL_DEL：从epfd中删除一个fd</p>
+</blockquote>
+<p>第三个参数是需要监听的fd，第四个参数是告诉内核需要监听什么事件：<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">union</span> <span class="hljs-title">epoll_data</span> &#123;</span><br>	<span class="hljs-keyword">void</span>* ptr;<br>	<span class="hljs-keyword">int</span> fd;<br>	<span class="hljs-keyword">__uint32_t</span> u32;<br>	<span class="hljs-keyword">__uint64_t</span> u64;<br>&#125; <span class="hljs-keyword">epoll_data_t</span>;<br><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">epoll_event</span> &#123;</span><br>	<span class="hljs-keyword">__uint32_t</span> events;<br>	<span class="hljs-keyword">epoll_data_t</span> data<br>&#125;;<br></code></pre></td></tr></table></figure><br>events可以是以下几个宏的集合：</p>
+<blockquote>
+<p>EPOLLIN ：表示对应的文件描述符可以读（包括对端SOCKET正常关闭）<br>EPOLLOUT：表示对应的文件描述符可以写<br>EPOLLPRI：表示对应的文件描述符有紧急的数据可读（这里应该表示有带外数据到来）<br>EPOLLERR：表示对应的文件描述符发生错误<br>EPOLLHUP：表示对应的文件描述符被挂断<br>EPOLLET： 将EPOLL设为边缘触发(Edge Triggered)模式，这是相对于水平触发(Level Triggered)来说的<br>EPOLLONESHOT：只监听一次事件，当监听完这次事件之后，如果还需要继续监听这个socket的话，需要再次把这个socket加入到EPOLL队列里</p>
+</blockquote>
+<p>3.int epoll_wait(int epfd, struct epoll_event* events, int maxevents, int timeout)<br>等待事件的产生。参数events用来从内核得到事件的集合，maxevents告之内核这个events有多大，这个 maxevents的值不能大于创建epoll_create()时的size，参数timeout是超时时间（毫秒，0会立即返回，-1永久阻塞）。该函数返回需要处理的事件数目，如返回0表示已超时。</p>
+<h2 id="回到问题：Looper与epoll"><a href="#回到问题：Looper与epoll" class="headerlink" title="回到问题：Looper与epoll"></a>回到问题：Looper与epoll</h2><p>上面说了这么多，就是知道了几个函数和epoll的原理。<br>那么这些在Looper这里是如何使用的呢？<br>首先需要看一下Native的Looper的构造函数：<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c">Looper::Looper(<span class="hljs-keyword">bool</span> allowNonCallbacks) : mAllowNonCallbacks(allowNonCallbacks), mSendingMessage(<span class="hljs-literal">false</span>), mResponseIndex(<span class="hljs-number">0</span>), mNextMessageUptime(LLONG_MAX) &#123;<br><br>    <span class="hljs-keyword">int</span> wakeFds[<span class="hljs-number">2</span>];<br>    <span class="hljs-keyword">int</span> result = pipe(wakeFds);<br>        <br>    mWakeReadPipeFd = wakeFds[<span class="hljs-number">0</span>];<br>    mWakeWritePipeFd = wakeFds[<span class="hljs-number">1</span>];<br>    result = fcntl(mWakeReadPipeFd, F_SETFL, O_NONBLOCK);<br>        <br>    result = fcntl(mWakeWritePipeFd, F_SETFL, O_NONBLOCK);<br>        <br>    <span class="hljs-comment">// Allocate the epoll instance and register the wake pipe.</span><br>    mEpollFd = epoll_create(EPOLL_SIZE_HINT);<br>        <br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">epoll_event</span> <span class="hljs-title">eventItem</span>;</span><br>    <span class="hljs-comment">// zero out unused members of data field union</span><br>    <span class="hljs-built_in">memset</span>(&amp; eventItem, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(epoll_event));  <br>    eventItem.events = EPOLLIN;<br>    eventItem.data.fd = mWakeReadPipeFd;<br>    result = epoll_ctl(mEpollFd, EPOLL_CTL_ADD, mWakeReadPipeFd, &amp; eventItem);  <br>&#125;<br></code></pre></td></tr></table></figure><br>首先通过管道<code>pipe</code>创建了读端与写端两个文件描述符，最后通过epoll_create创建epoll专用文件描述符，最后通过epoll_ctl告诉mEpollFd需要监控mWakeReadPipeFd描述符的EPOLLIN事件。当管道中有内容可读时，就唤醒当前正在管道中的内容线程。<br>然后，在pollInner通过epoll_wait函数来看epoll专用文件描述符mEpollFd所监控的文件描述符是否有IO事件发生，超时时间为timeOutMillis(-1则永久阻塞)。</p>
+<p>最后，当我们需要唤醒epoll阻塞时，调用<code>nativeWake</code>函数来唤醒线程，看到最后还是通过NativeMessageQueue来调用Looper下的wake函数。<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">android_os_MessageQueue_nativeWake</span><span class="hljs-params">(JNIEnv* env, jobject obj, jint ptr)</span> </span>&#123;  <br>    NativeMessageQueue* nativeMessageQueue = <span class="hljs-keyword">reinterpret_cast</span>&lt;NativeMessageQueue*&gt;(ptr);  <br>    <span class="hljs-keyword">return</span> nativeMessageQueue-&gt;wake();  <br>&#125;<br><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NativeMessageQueue</span> :</span> <span class="hljs-keyword">public</span> MessageQueue, <span class="hljs-keyword">public</span> LooperCallback &#123;<br>	<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">NativeMessageQueue::wake</span><span class="hljs-params">()</span> </span>&#123;<br> 	   mLooper-&gt;wake();<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<p>wake函数下可以看到，通过打开文件描述符mWakeWritePipeFd向管道中写入一个<code>W</code>字符串，这里向管道里写入内容的目的就是为了唤醒应用的主程序：<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Looper::wake</span><span class="hljs-params">()</span> </span>&#123;  <br>  <br>    <span class="hljs-keyword">ssize_t</span> nWrite;  <br>    <span class="hljs-keyword">do</span> &#123;  <br>        nWrite = write(mWakeWritePipeFd, <span class="hljs-string">&quot;W&quot;</span>, <span class="hljs-number">1</span>);  <br>    &#125; <span class="hljs-keyword">while</span> (nWrite == <span class="hljs-number">-1</span> &amp;&amp; errno == EINTR);  <br>  <br>&#125;<br></code></pre></td></tr></table></figure></p>
+<p>这里还有一个<code>awoken</code>方法，该方法将管道中的内容清空：<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Looper::awoken</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">char</span> buffer[<span class="hljs-number">16</span>];<br>    <span class="hljs-keyword">ssize_t</span> nRead;<br>    <span class="hljs-keyword">do</span> &#123;<br>        nRead = read(mWakeReadPipeFd, buffer, <span class="hljs-keyword">sizeof</span>(buffer));<br>    &#125; <span class="hljs-keyword">while</span> ((nRead == <span class="hljs-number">-1</span> &amp;&amp; errno == EINTR) || nRead == <span class="hljs-keyword">sizeof</span>(buffer));<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<p>这里为什么要引入epoll的机制来完成一个同步阻塞的功能呢？实际上Looper的功能是强大的，它提供了addfd的方法，外部可调用该方法动态添加需要监控的描述符与回调。</p>
+
+      
+       
+    </div>
+</article>
+
+
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '07584e1e38d09c739a16',
+            clientSecret: '6a466750b46c76ed9cc8ee0fe0d78e0c33898937',
+            repo: 'yangandmore.github.io',
+            owner: 'Yangandmore',
+            admin: ['Yangandmore'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2016-2020 Yangandmore
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

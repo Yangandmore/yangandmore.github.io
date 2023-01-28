@@ -1,0 +1,2396 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Android自定义控件（一） | 杨小杨的博客</title>
+  <meta name="keywords" content=" Android ">
+  <meta name="description" content="Android自定义控件（一） | 杨小杨的博客">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="整洁代码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="观看Clean Code(整洁代码)记录-1">
+<meta property="og:url" content="http://example.com/2023/01/28/%E9%87%8D%E6%9E%84%E4%BB%A3%E7%A0%811/index.html">
+<meta property="og:site_name" content="杨小杨的博客">
+<meta property="og:description" content="整洁代码">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/CleanCode/0.png">
+<meta property="og:image" content="http://example.com/img/CleanCode/1.png">
+<meta property="article:published_time" content="2023-01-28T08:02:25.000Z">
+<meta property="article:modified_time" content="2023-01-28T09:49:19.837Z">
+<meta property="article:author" content="Yang">
+<meta property="article:tag" content="整洁代码">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/CleanCode/0.png">
+
+
+<link rel="icon" href="/img/header.png">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/header.png"/>
+</a>
+<div class="author">
+    <span>Yang</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="github"
+               href="https://github.com/Yangandmore"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="email"
+               href="mailto:635408602@qq.com"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="qq"
+               href="http://wpa.qq.com/msgrd?v=3&uin=635408602&site=qq&menu=yes"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-qq"></use>
+                    </svg>
+                
+            </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(149)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                <li>
+                    <div data-rel="数据库">
+                        
+                        数据库
+                        <small>(4)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="包管理">
+                        
+                        包管理
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="编译的库">
+                        
+                        编译的库
+                        <small>(5)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="分布式事务">
+                        
+                        分布式事务
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="分布式搜索">
+                        
+                        分布式搜索
+                        <small>(5)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="后台">
+                        
+                        后台
+                        <small>(3)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="机器学习">
+                        
+                        机器学习
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="流程引擎">
+                        
+                        流程引擎
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="数据结构">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        数据结构
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="数据结构<--->算法分析">
+                                        
+                                        算法分析
+                                        
+                                            <small>(2
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="异常问题">
+                        
+                        异常问题
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="音视频">
+                        
+                        音视频
+                        <small>(13)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="整洁代码">
+                        
+                        整洁代码
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="正则表达式">
+                        
+                        正则表达式
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Android">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        Android
+                        <small>(17)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="Android<--->热更新">
+                                        
+                                        热更新
+                                        
+                                            <small>(2
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="C/C++">
+                        
+                        C/C++
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="git">
+                        
+                        git
+                        <small>(3)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Gradle">
+                        
+                        Gradle
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="java">
+                        
+                        java
+                        <small>(9)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="JavaScript">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        JavaScript
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="JavaScript<--->npm">
+                                        
+                                        npm
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="ReactNative">
+                        
+                        ReactNative
+                        <small>(10)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Redis">
+                        
+                        Redis
+                        <small>(4)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="rust">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        rust
+                        <small>(46)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="rust<--->p2p">
+                                        
+                                        p2p
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="spring">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        spring
+                        <small>(9)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="spring<--->java">
+                                        
+                                        java
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="ssr">
+                        
+                        ssr
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="149">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>包管理</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>贝塞尔曲线</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>分布式事务</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>分布式搜索</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>构建工具</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>后台</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>汇编</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>机器学习</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>跨域</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>流程引擎</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>热更新</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>视频格式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>数据结构与算法分析</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>数据库</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>图片格式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>异步</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>异常问题</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>音频</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>音视频</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>整洁代码</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>正则表达式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>直播</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>android</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Android</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>C</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>camera</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Cpp</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>es</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ffmpeg</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>git</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Gradle</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>java</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>javaScript</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libfaac</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libjpeg-turbo</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libx264</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libyuv</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Linux</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>NDK</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>react</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>React</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ReactNative</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Redis</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>RTMP</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>rust</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>seate</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>spring</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>springboot</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>SQL</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>srs</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ssr</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class="All 整洁代码 "
+           href="/2023/01/28/%E9%87%8D%E6%9E%84%E4%BB%A3%E7%A0%811/"
+           data-tag="整洁代码"
+           data-author="" >
+            <span class="post-title" title="观看Clean Code(整洁代码)记录-1">观看Clean Code(整洁代码)记录-1</span>
+            <span class="post-date" title="2023-01-28 08:02:25">2023/01/28</span>
+        </a>
+        
+        <a  class="All 异常问题 "
+           href="/2022/09/27/eclipse-mac-err/"
+           data-tag="异常问题"
+           data-author="" >
+            <span class="post-title" title="eclipse-mac-err">eclipse-mac-err</span>
+            <span class="post-date" title="2022-09-27 22:24:54">2022/09/27</span>
+        </a>
+        
+        <a  class="All 流程引擎 "
+           href="/2022/09/16/activiti7/"
+           data-tag="流程引擎"
+           data-author="" >
+            <span class="post-title" title="流程引擎-activiti7">流程引擎-activiti7</span>
+            <span class="post-date" title="2022-09-16 10:01:11">2022/09/16</span>
+        </a>
+        
+        <a  class="All 分布式事务 "
+           href="/2022/09/04/seate/"
+           data-tag="seate,分布式事务"
+           data-author="" >
+            <span class="post-title" title="配置seate">配置seate</span>
+            <span class="post-date" title="2022-09-04 19:11:24">2022/09/04</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/09/01/es-java/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="es在java环境中使用">es在java环境中使用</span>
+            <span class="post-date" title="2022-09-01 22:11:48">2022/09/01</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/09/01/es-ik/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="es配置ik分词器及热更新">es配置ik分词器及热更新</span>
+            <span class="post-date" title="2022-09-01 16:38:27">2022/09/01</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/06/es-7-change-password/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="es修改密码">es修改密码</span>
+            <span class="post-date" title="2022-08-06 23:37:16">2022/08/06</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/06/es-linux/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="elk在linux上简单安装">elk在linux上简单安装</span>
+            <span class="post-date" title="2022-08-06 21:02:25">2022/08/06</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/02/ELK/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="ELK学习">ELK学习</span>
+            <span class="post-date" title="2022-08-02 15:13:44">2022/08/02</span>
+        </a>
+        
+        <a  class="All 包管理 "
+           href="/2022/07/29/chocolatey/"
+           data-tag="包管理"
+           data-author="" >
+            <span class="post-title" title="chocolatey">chocolatey</span>
+            <span class="post-date" title="2022-07-29 16:56:39">2022/07/29</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/28/Spring-%E5%9F%BA%E7%A1%805/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础5">Spring-基础5</span>
+            <span class="post-date" title="2022-07-28 21:11:57">2022/07/28</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/28/Spring-%E5%9F%BA%E7%A1%804/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(四)">Spring-基础(四)</span>
+            <span class="post-date" title="2022-07-28 15:50:59">2022/07/28</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-%E5%9F%BA%E7%A1%803/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(三)">Spring-基础(三)</span>
+            <span class="post-date" title="2022-07-25 21:51:47">2022/07/25</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-%E5%9F%BA%E7%A1%802/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(二)">Spring-基础(二)</span>
+            <span class="post-date" title="2022-07-25 10:26:06">2022/07/25</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-%E5%9F%BA%E7%A1%801/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(一)">Spring-基础(一)</span>
+            <span class="post-date" title="2022-07-25 09:58:25">2022/07/25</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/07/17/P2P/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="P2P">P2P</span>
+            <span class="post-date" title="2022-07-17 10:46:24">2022/07/17</span>
+        </a>
+        
+        <a  class="All rust p2p "
+           href="/2022/07/16/Rust-libp2p/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-libp2p">Rust-libp2p</span>
+            <span class="post-date" title="2022-07-16 14:04:11">2022/07/16</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/07/06/%E5%8C%BA%E5%9D%97%E9%93%BE-%E8%AE%B0%E8%B4%A6%E6%A8%A1%E5%BC%8F/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="区块链-记账模式">区块链-记账模式</span>
+            <span class="post-date" title="2022-07-06 21:48:04">2022/07/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/06/26/Summer-boot%E4%B8%80%E6%9C%9F%E5%AE%8F%E9%83%A8%E5%88%86%E6%9E%84%E6%80%9D%E5%8F%8A%E5%AE%9E%E7%8E%B0/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Summer-boot一期宏部分构思及实现">Summer-boot一期宏部分构思及实现</span>
+            <span class="post-date" title="2022-06-26 10:12:27">2022/06/26</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2022/06/16/Git-fork%E9%A1%B9%E7%9B%AE%E6%9B%B4%E6%96%B0/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git-fork项目更新">Git-fork项目更新</span>
+            <span class="post-date" title="2022-06-16 15:11:56">2022/06/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/06/12/Rust-%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-编码规范">Rust-编码规范</span>
+            <span class="post-date" title="2022-06-12 09:05:33">2022/06/12</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2022/05/29/MySql-Some%E7%AD%89%E6%8C%87%E4%BB%A4/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="MySql_Some、Any、All的用法">MySql_Some、Any、All的用法</span>
+            <span class="post-date" title="2022-05-29 10:07:14">2022/05/29</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/12/Redis-%E8%81%9A%E5%90%88%E6%93%8D%E4%BD%9C/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-聚合操作">Redis-聚合操作</span>
+            <span class="post-date" title="2022-05-12 14:34:47">2022/05/12</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/11/Redis-%E5%88%87%E7%89%87%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-切片集群配置">Redis-切片集群配置</span>
+            <span class="post-date" title="2022-05-11 15:45:38">2022/05/11</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/10/Redis-%E5%93%A8%E5%85%B5%E6%9C%BA%E5%88%B6%E9%85%8D%E7%BD%AE/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-哨兵机制配置">Redis-哨兵机制配置</span>
+            <span class="post-date" title="2022-05-10 17:02:25">2022/05/10</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/10/Redis-%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%85%B3/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-开启远程访问">Redis-开启远程访问</span>
+            <span class="post-date" title="2022-05-10 14:24:32">2022/05/10</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/05/06/Rust-%E5%B1%9E%E6%80%A7/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-属性">Rust-属性</span>
+            <span class="post-date" title="2022-05-06 10:08:24">2022/05/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/20/Rust-build/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust编译过程图">Rust编译过程图</span>
+            <span class="post-date" title="2022-04-20 14:54:46">2022/04/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/08/Rust-Atomic/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-Atomic">Rust-Atomic</span>
+            <span class="post-date" title="2022-04-08 09:55:50">2022/04/08</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/06/Rust-%E6%AD%BB%E7%81%B5%E6%9C%AF3/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵术3">Rust-死灵术3</span>
+            <span class="post-date" title="2022-04-06 20:48:19">2022/04/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/06/Rust-%E6%AD%BB%E7%81%B5%E6%9C%AF2/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵术2">Rust-死灵术2</span>
+            <span class="post-date" title="2022-04-06 14:54:22">2022/04/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/02/Rust-AnyTrait/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-AnyTrait">Rust-AnyTrait</span>
+            <span class="post-date" title="2022-04-02 14:25:05">2022/04/02</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/02/Rust-Cow%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-Cow智能指针">Rust-Cow智能指针</span>
+            <span class="post-date" title="2022-04-02 10:16:00">2022/04/02</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/01/Rust-%E6%AD%BB%E7%81%B5%E6%9C%AF/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵书（一）">Rust-死灵书（一）</span>
+            <span class="post-date" title="2022-04-01 16:42:36">2022/04/01</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/03/09/Rust-%E5%8F%82%E8%80%83%E6%89%8B%E5%86%8C/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-参考手册">Rust-参考手册</span>
+            <span class="post-date" title="2022-03-09 10:15:21">2022/03/09</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/03/08/Rust-%E5%AE%8F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-小宏书(声明宏)">Rust-高级-小宏书(声明宏)</span>
+            <span class="post-date" title="2022-03-08 20:22:51">2022/03/08</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2022/03/03/Android%E9%9B%86%E6%88%90Rust/"
+           data-tag="Android,rust"
+           data-author="" >
+            <span class="post-title" title="Android集成Rust">Android集成Rust</span>
+            <span class="post-date" title="2022-03-03 10:56:49">2022/03/03</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/02/08/Rust-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-类型转换-From &amp; Into">Rust-类型转换-From &amp; Into</span>
+            <span class="post-date" title="2022-02-08 16:53:33">2022/02/08</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/16/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bbitflags/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之bitflags">Rust-高级-Crate之bitflags</span>
+            <span class="post-date" title="2022-01-16 22:36:28">2022/01/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Brayon/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之rayon">Rust-高级-Crate之rayon</span>
+            <span class="post-date" title="2022-01-12 21:55:30">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Blazy-static/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之lazy_static">Rust-高级-Crate之lazy_static</span>
+            <span class="post-date" title="2022-01-12 21:50:32">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8BWalkdir/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之Walkdir">Rust-高级-Crate之Walkdir</span>
+            <span class="post-date" title="2022-01-12 21:50:15">2022/01/12</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bthreadpool/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之threadpool">Rust-高级-Crate之threadpool</span>
+            <span class="post-date" title="2022-01-12 21:49:50">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Berror-chain/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之error_chain">Rust-高级-Crate之error_chain</span>
+            <span class="post-date" title="2022-01-12 21:49:39">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bcrossbeam/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之crossbeam">Rust-高级-Crate之crossbeam</span>
+            <span class="post-date" title="2022-01-12 21:16:24">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Btar/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之tar">Rust-高级-Crate之tar</span>
+            <span class="post-date" title="2022-01-12 10:29:50">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/11/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Brand/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之rand">Rust-高级-Crate之rand</span>
+            <span class="post-date" title="2022-01-11 14:52:45">2022/01/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/09/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bserde/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之serde">Rust-高级-Crate之serde</span>
+            <span class="post-date" title="2022-01-09 21:10:52">2022/01/09</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/09/Rust%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8%E4%B8%8E%E5%80%9F%E7%94%A8/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust中的引用与借用">Rust中的引用与借用</span>
+            <span class="post-date" title="2022-01-09 19:03:47">2022/01/09</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/09/graphQL/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="graphQL">graphQL</span>
+            <span class="post-date" title="2022-01-09 17:02:35">2022/01/09</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/05/Rust-%E9%AB%98%E7%BA%A7-%E6%9C%8D%E5%8A%A1%E4%B9%8BActix/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-服务之Actix">Rust-高级-服务之Actix</span>
+            <span class="post-date" title="2022-01-05 21:13:56">2022/01/05</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/05/Rust-%E9%AB%98%E7%BA%A7-%E5%BC%82%E6%AD%A5%E4%B9%8Bfutures/"
+           data-tag="rust,异步"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-异步之futures">Rust-高级-异步之futures</span>
+            <span class="post-date" title="2022-01-05 21:13:38">2022/01/05</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/30/Rust-%E6%9C%80%E5%90%8E%E7%9A%84%E9%A1%B9%E7%9B%AE/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-最后的项目">Rust-最后的项目</span>
+            <span class="post-date" title="2021-12-30 14:46:33">2021/12/30</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/21/Rust-%E9%AB%98%E7%BA%A7%E7%89%B9%E5%BE%81/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级特征">Rust-高级特征</span>
+            <span class="post-date" title="2021-12-21 22:22:15">2021/12/21</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-%E6%A8%A1%E5%BC%8F%E7%94%A8%E6%9D%A5%E5%8C%B9%E9%85%8D%E5%80%BC%E7%9A%84%E7%BB%93%E6%9E%84/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-模式与模式匹配">Rust-模式与模式匹配</span>
+            <span class="post-date" title="2021-12-20 20:53:44">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-面向对象">Rust-面向对象</span>
+            <span class="post-date" title="2021-12-20 15:15:04">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-%E6%97%A0%E7%95%8F%E5%B9%B6%E5%8F%91/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-无畏并发">Rust-无畏并发</span>
+            <span class="post-date" title="2021-12-20 09:44:35">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/19/Rust-%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-智能指针">Rust-智能指针</span>
+            <span class="post-date" title="2021-12-19 10:23:23">2021/12/19</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/16/Rust-CargoAndCratesIO/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-CargoAndCratesIO">Rust-CargoAndCratesIO</span>
+            <span class="post-date" title="2021-12-16 22:52:05">2021/12/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/16/Rust-%E5%87%BD%E6%95%B0%E5%BC%8F%E8%AF%AD%E8%A8%80%E5%8A%9F%E8%83%BD-%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E9%97%AD%E5%8C%85/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-函数式语言功能:迭代器与闭包">Rust-函数式语言功能:迭代器与闭包</span>
+            <span class="post-date" title="2021-12-16 16:08:22">2021/12/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/15/Rust-%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%A8%8B%E5%BA%8F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-IO">Rust-IO</span>
+            <span class="post-date" title="2021-12-15 17:07:26">2021/12/15</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/15/Rust-%E6%B5%8B%E8%AF%95/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-测试">Rust-测试</span>
+            <span class="post-date" title="2021-12-15 14:08:29">2021/12/15</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/14/Rust-%E6%B3%9B%E5%9E%8B%E3%80%81trait%E5%92%8C%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-泛型、trait和生命周期">Rust-泛型、trait和生命周期</span>
+            <span class="post-date" title="2021-12-14 20:57:17">2021/12/14</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/14/Rust-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-错误处理">Rust-错误处理</span>
+            <span class="post-date" title="2021-12-14 10:48:51">2021/12/14</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-%E5%B8%B8%E8%A7%81%E9%9B%86%E5%90%88/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-常见集合">Rust-常见集合</span>
+            <span class="post-date" title="2021-12-13 20:55:23">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%9D%97%E7%BB%84%E7%BB%87%E5%92%8C%E5%A4%8D%E7%94%A8%E4%BB%A3%E7%A0%81/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-使用模块组织和复用代码">Rust-使用模块组织和复用代码</span>
+            <span class="post-date" title="2021-12-13 16:26:05">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-枚举和模式匹配">Rust-枚举和模式匹配</span>
+            <span class="post-date" title="2021-12-13 10:44:04">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/12/Rust-%E7%BB%93%E6%9E%84%E4%BD%93/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-结构体">Rust-结构体</span>
+            <span class="post-date" title="2021-12-12 22:42:42">2021/12/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/12/Rust-%E6%89%80%E6%9C%89%E6%9D%83/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-所有权">Rust-所有权</span>
+            <span class="post-date" title="2021-12-12 11:32:16">2021/12/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/11/Rust-%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-基础技术">Rust-基础技术</span>
+            <span class="post-date" title="2021-12-11 20:25:09">2021/12/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/11/Rust-%E7%BC%96%E7%A8%8B%E7%8C%9C%E8%B0%9C%E6%B8%B8%E6%88%8F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-编程猜谜游戏">Rust-编程猜谜游戏</span>
+            <span class="post-date" title="2021-12-11 18:58:04">2021/12/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/10/Rust-%E5%85%A5%E9%97%A8/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-入门">Rust-入门</span>
+            <span class="post-date" title="2021-12-10 11:18:25">2021/12/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/10/Java-%E5%86%85%E9%83%A8%E7%B1%BB/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-内部类">Java-内部类</span>
+            <span class="post-date" title="2021-12-10 08:50:32">2021/12/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/09/Java-%E6%8E%A5%E5%8F%A3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-接口">Java-接口</span>
+            <span class="post-date" title="2021-12-09 14:54:05">2021/12/09</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/09/Java-%E5%A4%9A%E6%80%81/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-多态">Java-多态</span>
+            <span class="post-date" title="2021-12-09 08:42:47">2021/12/09</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/23/JavaNIO/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaNIO">JavaNIO</span>
+            <span class="post-date" title="2021-11-23 10:47:14">2021/11/23</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/23/JavaIO/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaIO">JavaIO</span>
+            <span class="post-date" title="2021-11-23 10:47:07">2021/11/23</span>
+        </a>
+        
+        <a  class="All spring java "
+           href="/2021/11/22/Spring%E5%B7%A5%E4%BD%9C%E5%AF%B9%E8%B1%A1/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring工作对象">Spring工作对象</span>
+            <span class="post-date" title="2021-11-22 09:44:06">2021/11/22</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/18/Java%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java函数式接口">Java函数式接口</span>
+            <span class="post-date" title="2021-11-18 10:50:22">2021/11/18</span>
+        </a>
+        
+        <a  class="All "
+           href="/2021/11/17/SpringBoot%E5%90%AF%E5%8A%A8-%E5%9F%BA%E7%A1%80/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="SpringBoot启动-基础">SpringBoot启动-基础</span>
+            <span class="post-date" title="2021-11-17 17:01:58">2021/11/17</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/16/JRebel/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JRebel">JRebel</span>
+            <span class="post-date" title="2021-11-16 08:58:18">2021/11/16</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/11/Spring%E5%90%AF%E5%8A%A8-%E5%9F%BA%E7%A1%80/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring启动-基础">Spring启动-基础</span>
+            <span class="post-date" title="2021-11-11 15:25:33">2021/11/11</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/10/%E5%8F%8D%E5%B0%84/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="反射">反射</span>
+            <span class="post-date" title="2021-11-10 20:57:08">2021/11/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/10/%E6%B3%A8%E8%A7%A3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="注解">注解</span>
+            <span class="post-date" title="2021-11-10 20:50:55">2021/11/10</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/09/SpringAOP-%E5%9F%BA%E7%A1%80/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="SpringAOP-基础">SpringAOP-基础</span>
+            <span class="post-date" title="2021-11-09 10:31:31">2021/11/09</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/08/SpringIOC-%E5%9F%BA%E7%A1%80/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="SpringIOC-基础">SpringIOC-基础</span>
+            <span class="post-date" title="2021-11-08 10:27:28">2021/11/08</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2021/11/02/%E9%9F%B3%E8%A7%86%E9%A2%91%E7%BC%96%E8%A7%A3%E7%A0%81%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/"
+           data-tag="音视频"
+           data-author="" >
+            <span class="post-title" title="音视频编解码技术基础">音视频编解码技术基础</span>
+            <span class="post-date" title="2021-11-02 12:06:49">2021/11/02</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2021/11/02/MysqlErrHosts/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="mysql安装时，Unable to connect to any of the specified MySQL hosts">mysql安装时，Unable to connect to any of the specified MySQL hosts</span>
+            <span class="post-date" title="2021-11-02 10:58:50">2021/11/02</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2021/10/08/H264%E7%BC%96%E7%A0%81-SPSPPS/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码 SPS &amp; PPS">H264编码 SPS &amp; PPS</span>
+            <span class="post-date" title="2021-10-08 21:20:12">2021/10/08</span>
+        </a>
+        
+        <a  class="All ssr "
+           href="/2021/01/18/centos%E7%BB%88%E7%AB%AFssr%E9%85%8D%E7%BD%AE/"
+           data-tag="ssr"
+           data-author="" >
+            <span class="post-title" title="centos终端ssr配置">centos终端ssr配置</span>
+            <span class="post-date" title="2021-01-18 08:21:35">2021/01/18</span>
+        </a>
+        
+        <a  class="All 数据结构 算法分析 "
+           href="/2020/12/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E5%85%B6%E4%BA%8C/"
+           data-tag="数据结构与算法分析"
+           data-author="" >
+            <span class="post-title" title="数据结构与算法分析阅读笔记其二">数据结构与算法分析阅读笔记其二</span>
+            <span class="post-date" title="2020-12-14 22:34:39">2020/12/14</span>
+        </a>
+        
+        <a  class="All 数据结构 算法分析 "
+           href="/2020/12/09/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"
+           data-tag="数据结构与算法分析"
+           data-author="" >
+            <span class="post-title" title="数据结构与算法分析阅读笔记">数据结构与算法分析阅读笔记</span>
+            <span class="post-date" title="2020-12-09 21:52:40">2020/12/09</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/10/27/FLV%E6%A0%BC%E5%BC%8F/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="FLV格式">FLV格式</span>
+            <span class="post-date" title="2020-10-27 15:33:56">2020/10/27</span>
+        </a>
+        
+        <a  class="All 机器学习 "
+           href="/2020/09/20/Mac%E4%B8%ADPython3-x%E7%BC%96%E8%AF%91Caffe/"
+           data-tag="机器学习"
+           data-author="" >
+            <span class="post-title" title="Mac中Python3.x编译Caffe">Mac中Python3.x编译Caffe</span>
+            <span class="post-date" title="2020-09-20 01:08:09">2020/09/20</span>
+        </a>
+        
+        <a  class="All JavaScript npm "
+           href="/2020/07/17/npm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%93%8D%E4%BD%9C/"
+           data-tag="直播"
+           data-author="" >
+            <span class="post-title" title="npm常用命令操作">npm常用命令操作</span>
+            <span class="post-date" title="2020-07-17 10:14:01">2020/07/17</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/16/MediaExtractorANDMediaMuxer/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="android端的音频处理工具MediaExtractor和MediaMuxer">android端的音频处理工具MediaExtractor和MediaMuxer</span>
+            <span class="post-date" title="2020-07-16 11:55:28">2020/07/16</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/15/AAC%E9%9F%B3%E9%A2%91%E7%A0%81%E6%B5%81/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="AAC音频码流">AAC音频码流</span>
+            <span class="post-date" title="2020-07-15 17:45:10">2020/07/15</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/15/Android-PCM%E5%A4%84%E7%90%86/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="Android-PCM">Android-PCM</span>
+            <span class="post-date" title="2020-07-15 13:29:49">2020/07/15</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/13/yuv-tool%E5%B7%A5%E5%85%B7%E7%B1%BB/"
+           data-tag="android,libyuv"
+           data-author="" >
+            <span class="post-title" title="yuv-tool工具类">yuv-tool工具类</span>
+            <span class="post-date" title="2020-07-13 22:58:21">2020/07/13</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/18/ffmpegforandroid%E7%BC%96%E8%AF%91/"
+           data-tag="ffmpeg"
+           data-author="" >
+            <span class="post-title" title="ffmpegforandroid编译">ffmpegforandroid编译</span>
+            <span class="post-date" title="2020-06-18 13:38:35">2020/06/18</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/11/libfaac%E7%BC%96%E8%AF%91/"
+           data-tag="libfaac"
+           data-author="" >
+            <span class="post-title" title="libfaac编译">libfaac编译</span>
+            <span class="post-date" title="2020-06-11 14:00:57">2020/06/11</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/11/libx264%E7%BC%96%E8%AF%91/"
+           data-tag="libx264"
+           data-author="" >
+            <span class="post-title" title="libx264编译">libx264编译</span>
+            <span class="post-date" title="2020-06-11 13:51:36">2020/06/11</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/06/10/RTMP%E8%A7%84%E8%8C%83%E5%AD%A6%E4%B9%A0/"
+           data-tag="RTMP,直播"
+           data-author="" >
+            <span class="post-title" title="RTMP规范学习">RTMP规范学习</span>
+            <span class="post-date" title="2020-06-10 11:35:52">2020/06/10</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/06/01/React-Native%E7%83%AD%E6%9B%B4%E6%96%B0/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native热更新">React-Native热更新</span>
+            <span class="post-date" title="2020-06-01 16:03:28">2020/06/01</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2020/06/01/JavaWeb/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaWeb">JavaWeb</span>
+            <span class="post-date" title="2020-06-01 11:09:17">2020/06/01</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2020/05/26/JDBC/"
+           data-tag="java,数据库"
+           data-author="" >
+            <span class="post-title" title="JDBC">JDBC</span>
+            <span class="post-date" title="2020-05-26 16:23:01">2020/05/26</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2020/03/29/%E4%BA%86%E8%A7%A3%E8%B7%A8%E5%9F%9F/"
+           data-tag="后台,跨域"
+           data-author="" >
+            <span class="post-title" title="了解跨域">了解跨域</span>
+            <span class="post-date" title="2020-03-29 21:31:15">2020/03/29</span>
+        </a>
+        
+        <a  class="All JavaScript "
+           href="/2020/03/08/JavaScript%E8%AF%AD%E6%B3%95%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="javaScript"
+           data-author="" >
+            <span class="post-title" title="JavaScript语法（一）">JavaScript语法（一）</span>
+            <span class="post-date" title="2020-03-08 10:29:30">2020/03/08</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/03/06/React-native-%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-native 高德地图">React-native 高德地图</span>
+            <span class="post-date" title="2020-03-06 10:07:45">2020/03/06</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/03/03/React-16-8-Hooks/"
+           data-tag="React"
+           data-author="" >
+            <span class="post-title" title="React 16.8 Hooks">React 16.8 Hooks</span>
+            <span class="post-date" title="2020-03-03 10:07:02">2020/03/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/01/06/React-Native%E5%8E%9F%E7%94%9F%E9%80%9A%E4%BF%A1/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native原生通信">React-Native原生通信</span>
+            <span class="post-date" title="2020-01-06 16:34:00">2020/01/06</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/27/React-Native%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native原理浅析">React-Native原理浅析</span>
+            <span class="post-date" title="2019-12-27 15:32:08">2019/12/27</span>
+        </a>
+        
+        <a  class="All 正则表达式 "
+           href="/2019/12/18/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
+           data-tag="正则表达式"
+           data-author="" >
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2019-12-18 21:45:36">2019/12/18</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/05/React-Native-%E5%8A%A8%E7%94%BB/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native-动画">React-Native-动画</span>
+            <span class="post-date" title="2019-12-05 16:20:25">2019/12/05</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/03/React-%E8%87%AA%E5%AD%A6%E4%B9%8B%E8%B7%AF%EF%BC%88%E4%BA%8C%EF%BC%89/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="React-自学之路（二）">React-自学之路（二）</span>
+            <span class="post-date" title="2019-12-03 13:06:53">2019/12/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/03/React-%E8%87%AA%E5%AD%A6%E4%B9%8B%E8%B7%AF%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="React"
+           data-author="" >
+            <span class="post-title" title="React-自学之路（一）">React-自学之路（一）</span>
+            <span class="post-date" title="2019-12-03 09:40:28">2019/12/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/10/12/React%E6%96%B0%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"
+           data-tag="react"
+           data-author="" >
+            <span class="post-title" title="React新的生命周期">React新的生命周期</span>
+            <span class="post-date" title="2019-10-12 15:41:02">2019/10/12</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2019/09/18/%E5%88%9B%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE%E6%97%B6%EF%BC%8C%E5%87%BA%E7%8E%B0Could-not-calculate-build-plan%E9%94%99%E8%AF%AF/"
+           data-tag="springboot"
+           data-author="" >
+            <span class="post-title" title="创建maven项目时，出现Could not calculate build plan错误">创建maven项目时，出现Could not calculate build plan错误</span>
+            <span class="post-date" title="2019-09-18 09:25:06">2019/09/18</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2019/09/07/MySQL%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="MySQL常用指令">MySQL常用指令</span>
+            <span class="post-date" title="2019-09-07 21:10:03">2019/09/07</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/07/05/RecycleView%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="RecycleView（一）">RecycleView（一）</span>
+            <span class="post-date" title="2019-07-05 14:03:06">2019/07/05</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/25/Android%E5%8A%A8%E7%94%BB%EF%BC%88%E4%B8%89%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（三）">Android动画（三）</span>
+            <span class="post-date" title="2019-06-25 14:15:26">2019/06/25</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/20/Android%E5%8A%A8%E7%94%BB%EF%BC%88%E4%BA%8C%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（二）">Android动画（二）</span>
+            <span class="post-date" title="2019-06-20 15:10:00">2019/06/20</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/19/Android%E5%8A%A8%E7%94%BB%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（一）">Android动画（一）</span>
+            <span class="post-date" title="2019-06-19 15:15:56">2019/06/19</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/18/Android%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%EF%BC%88%E4%BA%8C%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android自定义控件（二）">Android自定义控件（二）</span>
+            <span class="post-date" title="2019-06-18 13:43:11">2019/06/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/13/%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF/"
+           data-tag="Android,贝塞尔曲线"
+           data-author="" >
+            <span class="post-title" title="贝塞尔曲线">贝塞尔曲线</span>
+            <span class="post-date" title="2019-06-13 10:14:25">2019/06/13</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/04/Java-Binder%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%90%86%E8%A7%A3/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Java Binder进程通信理解">Java Binder进程通信理解</span>
+            <span class="post-date" title="2019-06-04 14:01:43">2019/06/04</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/05/30/arm-neon-h%E6%96%87%E4%BB%B6%E5%8A%9F%E8%83%BD/"
+           data-tag="汇编"
+           data-author="" >
+            <span class="post-title" title="arm-neon.h文件功能">arm-neon.h文件功能</span>
+            <span class="post-date" title="2019-05-30 08:45:08">2019/05/30</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/05/06/Handler%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6/"
+           data-tag="android"
+           data-author="" >
+            <span class="post-title" title="Handler消息机制">Handler消息机制</span>
+            <span class="post-date" title="2019-05-06 14:09:45">2019/05/06</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/05/06/H264%E7%BC%96%E7%A0%81-%E7%86%B5%E7%BC%96%E7%A0%81/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码-熵编码">H264编码-熵编码</span>
+            <span class="post-date" title="2019-05-06 13:42:57">2019/05/06</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/04/08/NDK%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E5%90%88%E9%9B%86/"
+           data-tag="NDK"
+           data-author="" >
+            <span class="post-title" title="NDK开发问题合集">NDK开发问题合集</span>
+            <span class="post-date" title="2019-04-08 10:53:30">2019/04/08</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/04/01/H264%E7%BC%96%E7%A0%81%E5%9F%BA%E7%A1%80/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码基础">H264编码基础</span>
+            <span class="post-date" title="2019-04-01 09:26:11">2019/04/01</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/31/srs%E7%9B%B4%E6%92%AD%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/"
+           data-tag="直播,srs"
+           data-author="" >
+            <span class="post-title" title="srs直播平台搭建">srs直播平台搭建</span>
+            <span class="post-date" title="2019-03-31 10:37:42">2019/03/31</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/27/%E5%9B%BE%E7%89%87RGB%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/"
+           data-tag="图片格式"
+           data-author="" >
+            <span class="post-title" title="图片RGB数据格式">图片RGB数据格式</span>
+            <span class="post-date" title="2019-03-27 22:24:49">2019/03/27</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/14/%E5%9B%BE%E7%89%87YUV%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/"
+           data-tag="图片格式"
+           data-author="" >
+            <span class="post-title" title="图片YUV数据格式">图片YUV数据格式</span>
+            <span class="post-date" title="2019-03-14 11:10:16">2019/03/14</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2019/03/08/libjpeg-turbo%E7%BC%96%E8%AF%91/"
+           data-tag="libjpeg-turbo"
+           data-author="" >
+            <span class="post-title" title="libjpeg-turbo编译">libjpeg-turbo编译</span>
+            <span class="post-date" title="2019-03-08 13:41:20">2019/03/08</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2019/03/07/libYUV%E7%BC%96%E8%AF%91/"
+           data-tag="libyuv"
+           data-author="" >
+            <span class="post-title" title="libYUV编译">libYUV编译</span>
+            <span class="post-date" title="2019-03-07 15:05:11">2019/03/07</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/02/18/Android-camera%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="camera"
+           data-author="" >
+            <span class="post-title" title="Android camera（一）">Android camera（一）</span>
+            <span class="post-date" title="2019-02-18 15:03:27">2019/02/18</span>
+        </a>
+        
+        <a  class="All C/C++ "
+           href="/2019/01/23/Cpp%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Cpp"
+           data-author="" >
+            <span class="post-title" title="Cpp基础（一）">Cpp基础（一）</span>
+            <span class="post-date" title="2019-01-23 10:52:13">2019/01/23</span>
+        </a>
+        
+        <a  class="All C/C++ "
+           href="/2019/01/18/C%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="C"
+           data-author="" >
+            <span class="post-title" title="C基础（一）">C基础（一）</span>
+            <span class="post-date" title="2019-01-18 14:08:23">2019/01/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/12/18/EasyPermission/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="EasyPermission">EasyPermission</span>
+            <span class="post-date" title="2018-12-18 13:20:30">2018/12/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/12/15/Android%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android自定义控件（一）">Android自定义控件（一）</span>
+            <span class="post-date" title="2018-12-15 21:44:34">2018/12/15</span>
+        </a>
+        
+        <a  class="All ssr "
+           href="/2018/12/10/Linux%E9%85%8D%E7%BD%AEShadowSocks-R/"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux配置ShadowSocks-R">Linux配置ShadowSocks-R</span>
+            <span class="post-date" title="2018-12-10 15:58:52">2018/12/10</span>
+        </a>
+        
+        <a  class="All Android 热更新 "
+           href="/2018/10/29/Sophix%E7%83%AD%E6%9B%B4%E6%96%B0/"
+           data-tag="android,热更新"
+           data-author="" >
+            <span class="post-title" title="Sophix热更新">Sophix热更新</span>
+            <span class="post-date" title="2018-10-29 16:50:36">2018/10/29</span>
+        </a>
+        
+        <a  class="All Android 热更新 "
+           href="/2018/10/18/TinkerPatch%E7%83%AD%E6%9B%B4%E6%96%B0/"
+           data-tag="android,热更新"
+           data-author="" >
+            <span class="post-title" title="TinkerPatch热更新">TinkerPatch热更新</span>
+            <span class="post-date" title="2018-10-18 20:11:30">2018/10/18</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2018/06/21/React-native-flex%E5%B8%83%E5%B1%80/"
+           data-tag="react"
+           data-author="" >
+            <span class="post-title" title="React-native flex布局">React-native flex布局</span>
+            <span class="post-date" title="2018-06-21 16:22:47">2018/06/21</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/01/25/Android%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android事件分发">Android事件分发</span>
+            <span class="post-date" title="2018-01-25 16:36:52">2018/01/25</span>
+        </a>
+        
+        <a  class="All Gradle "
+           href="/2018/01/25/Gradle%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="构建工具,Gradle"
+           data-author="" >
+            <span class="post-title" title="Gradle（一）">Gradle（一）</span>
+            <span class="post-date" title="2018-01-25 16:36:52">2018/01/25</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2017/11/24/firstBlod2/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git详细讲解(远程)">Git详细讲解(远程)</span>
+            <span class="post-date" title="2017-11-24 10:18:05">2017/11/24</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2017/10/19/firstBlod/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git详细讲解(本地)">Git详细讲解(本地)</span>
+            <span class="post-date" title="2017-10-19 21:49:28">2017/10/19</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-Android自定义控件（一）" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">Android自定义控件（一）</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="Android">Android</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color3">Android</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2021-04-17 07:10:38'>2018-12-15 21:44</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                Comment:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%AE%80%E4%BB%8B"><span class="toc-text">一、简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89View%E7%9A%84%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-text">二、自定义View的构造函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%A6%96%E5%85%88%E7%BB%A7%E6%89%BFView%E7%B1%BB%E5%B9%B6%E5%AE%9E%E7%8E%B0%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-text">1.首先继承View类并实现构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%9E%E6%80%A7-AttributeSet"><span class="toc-text">2.自定义属性(AttributeSet)</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E7%BC%96%E5%86%99%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%9E%E6%80%A7"><span class="toc-text">1.编写自定义属性</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#2-xml%E4%B8%AD%E6%B7%BB%E5%8A%A0%E5%B1%9E%E6%80%A7"><span class="toc-text">2.xml中添加属性</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%E4%B8%AD%E6%B7%BB%E5%8A%A0%E8%BF%99%E4%BA%9B%E5%B1%9E%E6%80%A7"><span class="toc-text">3.自定义控件中添加这些属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-%E6%97%A5%E5%BF%97"><span class="toc-text">4.日志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-styles%E4%B8%AD%E6%B7%BB%E5%8A%A0%E8%BF%99%E4%BA%9B%E5%B1%9E%E6%80%A7"><span class="toc-text">5.styles中添加这些属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-%E6%B7%BB%E5%8A%A0%E8%87%B3%E9%A1%B5%E9%9D%A2"><span class="toc-text">6.添加至页面</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#7-%E5%AF%B9%E6%AF%94%E6%97%A5%E5%BF%97"><span class="toc-text">7.对比日志</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#8-%E5%9C%A8theme%E4%B8%AD%E6%B7%BB%E5%8A%A0%E8%BF%99%E4%BA%9B%E5%B1%9E%E6%80%A7"><span class="toc-text">8.在theme中添加这些属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#9-%E5%AF%B9%E6%AF%94%E7%BB%93%E6%9E%9C"><span class="toc-text">9.对比结果</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-defStyleAttr"><span class="toc-text">2.defStyleAttr</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E6%B7%BB%E5%8A%A0defStyleAttr%E5%B1%9E%E6%80%A7"><span class="toc-text">1.添加defStyleAttr属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-%E6%B7%BB%E5%8A%A0%E8%87%B3Java%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%E4%B8%AD"><span class="toc-text">2.添加至Java自定义控件中</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-%E5%9C%A8theme%E4%B8%AD%E6%B7%BB%E5%8A%A0defStyleAttr%E5%B1%9E%E6%80%A7"><span class="toc-text">3.在theme中添加defStyleAttr属性</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-%E5%AF%B9%E6%AF%94%E7%BB%93%E6%9E%9C"><span class="toc-text">4.对比结果</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-defStyleRes"><span class="toc-text">3. defStyleRes</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E9%A6%96%E5%85%88%E5%8E%BB%E9%99%A4Theme%E4%B8%AD%E7%9A%84defStyleAttr"><span class="toc-text">1.首先去除Theme中的defStyleAttr</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%B8%B8%E7%94%A8%E7%9A%84%E4%B8%89%E5%A4%A7%E5%87%BD%E6%95%B0"><span class="toc-text">三、常用的三大函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-ViewRoot%E4%B8%8EDecorView"><span class="toc-text">1.ViewRoot与DecorView</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-MeasureSpec%E7%B1%BB%E5%92%8CViewGroup-LayoutParams%E7%B1%BB"><span class="toc-text">2.MeasureSpec类和ViewGroup.LayoutParams类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#MeasureSpec"><span class="toc-text">MeasureSpec</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ViewGroup-LayoutParams"><span class="toc-text">ViewGroup.LayoutParams</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%B5%8B%E9%87%8F-onMeasure"><span class="toc-text">3.测量-onMeasure</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-%E8%B7%9F%E8%B8%AAperformMeeasure-%E5%87%BD%E6%95%B0"><span class="toc-text">1.跟踪performMeeasure()函数</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-DecorView%E7%9A%84onMeasure-%E5%87%BD%E6%95%B0"><span class="toc-text">2.DecorView的onMeasure()函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%B8%83%E5%B1%80-onLayout"><span class="toc-text">2.布局-onLayout</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-View%E5%92%8CViewGroup%E4%B8%AD%E7%9A%84onLayout"><span class="toc-text">1.View和ViewGroup中的onLayout</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%BA%90%E7%A0%81%E8%B7%9F%E8%B8%AA"><span class="toc-text">2.源码跟踪</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E7%BB%98%E5%88%B6-onDraw"><span class="toc-text">3.绘制-onDraw</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ViewRootImpl-draw"><span class="toc-text">ViewRootImpl.draw</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#View-draw"><span class="toc-text">View.draw</span></a></li></ol></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p>在发现现有的控件无法满足项目需求时，则需要我们来绘制该控件，完成需求。此时从控件产生、绘制、点击到销毁都需要我们来实现，自定义控件则更需要掌握全面。<br>我们可以继承已有View(ImageView)实现特定效果或继承View来完全自定义、继承ViewGroup来完成View的管理。</p>
+<h2 id="二、自定义View的构造函数"><a href="#二、自定义View的构造函数" class="headerlink" title="二、自定义View的构造函数"></a>二、自定义View的构造函数</h2><h3 id="1-首先继承View类并实现构造函数"><a href="#1-首先继承View类并实现构造函数" class="headerlink" title="1.首先继承View类并实现构造函数"></a>1.首先继承View类并实现构造函数</h3><p>可以看的会基本以以下方式继承View。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SimpleView</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">View</span> </span>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">SimpleView</span><span class="hljs-params">(Context context)</span> </span>&#123;<br>		<span class="hljs-keyword">super</span>(context);<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">SimpleView</span><span class="hljs-params">(Context context, AttributeSet attrs)</span> </span>&#123;<br>		<span class="hljs-keyword">super</span>(context, attrs);<br>	&#125;<br>	<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">SimpleView</span><span class="hljs-params">(Context context, AttributeSet attrs, <span class="hljs-keyword">int</span> defStyleAttr)</span> </span>&#123;<br>		<span class="hljs-keyword">super</span>(context, attrs, defStyleAttr)<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">SimpleView</span><span class="hljs-params">(Context context, AttributeSet attrs, <span class="hljs-keyword">int</span> defStyleAttr, <span class="hljs-keyword">int</span> defStyleRes)</span> </span>&#123;<br>		<span class="hljs-keyword">super</span>(context, attrs, defStyleAttr, defStyleRes)<br>	&#125;<br>	...<br>&#125;<br></code></pre></td></tr></table></figure><br>参数:</p>
+<blockquote>
+<p>context:通过该上下文可以访问当前主题、资源等。<br>attrs:扩展视图的XML标记的属性<br>defStyleAttr:当前主题中的一个属性，它包含对为视图提供默认值的样式资源的引用。输入0则不查找默认值。<br>defStyleRes:提供默认的样式资源的资源标识符，仅在defStyleAttr为0或在主题中找不到时使用。输入0则不查找默认值。</p>
+</blockquote>
+<h3 id="2-自定义属性-AttributeSet"><a href="#2-自定义属性-AttributeSet" class="headerlink" title="2.自定义属性(AttributeSet)"></a>2.自定义属性(AttributeSet)</h3><h5 id="1-编写自定义属性"><a href="#1-编写自定义属性" class="headerlink" title="1.编写自定义属性"></a>1.编写自定义属性</h5><p>首先在<strong><font color=#6495ED>values</font></strong>下创建<strong><font color=#6495ED>attrs.xml</font></strong>文件，并在其中添加我们的自定义属性<br><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">resources</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">declare-styleable</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;SimpleView&quot;</span>&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">attr</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont&quot;</span> <span class="hljs-attr">format</span>=<span class="hljs-string">&quot;string&quot;</span>/&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">attr</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont1&quot;</span> <span class="hljs-attr">format</span>=<span class="hljs-string">&quot;string&quot;</span>/&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">attr</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont2&quot;</span> <span class="hljs-attr">format</span>=<span class="hljs-string">&quot;string&quot;</span>/&gt;</span><br>		<span class="hljs-tag">&lt;<span class="hljs-name">attr</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont3&quot;</span> <span class="hljs-attr">format</span>=<span class="hljs-string">&quot;string&quot;</span>/&gt;</span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">declare-styleable</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">resources</span>&gt;</span><br></code></pre></td></tr></table></figure></p>
+<h6 id="2-xml中添加属性"><a href="#2-xml中添加属性" class="headerlink" title="2.xml中添加属性"></a>2.xml中添加属性</h6><p>并在控件初始化时找到这些参数，这里我们添加了<strong><font color=#6495ED>textFont</font></strong>和<strong><font color=#6495ED>textColor</font></strong>两个自定义参数，并在xml中使用<br><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml">&lt;LinearLayout<br>	xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;<br>	...&gt;<br>	&lt;com.test.demo.testdome.views.SimpleView<br>		...<br>		app:textFont=&quot;font_xml&quot;/&gt;<br><span class="hljs-tag">&lt;/<span class="hljs-name">LinearLayout</span>&gt;</span><br></code></pre></td></tr></table></figure></p>
+<h5 id="3-自定义控件中添加这些属性"><a href="#3-自定义控件中添加这些属性" class="headerlink" title="3.自定义控件中添加这些属性"></a>3.自定义控件中添加这些属性</h5><p>这里只添加了<strong><font color=#6495ED>textFont</font></strong>参数为15sp<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SimpleView</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">View</span> </span>&#123;<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">SimpleView</span><span class="hljs-params">(Context context)</span> </span>&#123;<br>		<span class="hljs-keyword">super</span>(context);<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">SimpleView</span><span class="hljs-params">(Context context, <span class="hljs-meta">@Nullable</span> AttributeSet attrs)</span> </span>&#123;<br>		<span class="hljs-keyword">super</span>(context, attrs);<br>		init(context, attrs, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">SimpleView</span><span class="hljs-params">(Context context, <span class="hljs-meta">@Nullable</span> AttributeSet attrs, <span class="hljs-keyword">int</span> defStyleAttr)</span> </span>&#123;<br>		<span class="hljs-keyword">super</span>(context, attrs, defStyleAttr);<br>		init(context, attrs, defStyleAttr, <span class="hljs-number">0</span>);<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">SimpleView</span><span class="hljs-params">(Context context, <span class="hljs-meta">@Nullable</span> AttributeSet attrs, <span class="hljs-keyword">int</span> defStyleAttr, <span class="hljs-keyword">int</span> defStyleRes)</span> </span>&#123;<br>		<span class="hljs-keyword">super</span>(context, attrs, defStyleAttr, defStyleRes);<br>		init(context,attrs, defStyleAttr, defStyleRes);<br>	&#125;<br><br>	<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">(Context context, AttributeSet attrs, <span class="hljs-keyword">int</span> defStyleAttr, <span class="hljs-keyword">int</span> defStyleRes)</span> </span>&#123;<br>		TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SimpleView, defStyleAttr, defStyleRes);<br>		String textFont = typedArray.getString(R.styleable.SimpleView_textFont);<br>		String textFont1 = typedArray.getString(R.styleable.SimpleView_textFont1);<br>		String textFont2 = typedArray.getString(R.styleable.SimpleView_textFont2);<br>		String textFont3 = typedArray.getString(R.styleable.SimpleView_textFont3);<br>		Log.e(<span class="hljs-string">&quot;-----&gt;&quot;</span>, <span class="hljs-string">&quot;textFont:&quot;</span>+textFont);<br>		Log.e(<span class="hljs-string">&quot;-----&gt;&quot;</span>, <span class="hljs-string">&quot;textFont1:&quot;</span>+textFont1);<br>		Log.e(<span class="hljs-string">&quot;-----&gt;&quot;</span>, <span class="hljs-string">&quot;textFont2:&quot;</span>+textFont2);<br>		Log.e(<span class="hljs-string">&quot;-----&gt;&quot;</span>, <span class="hljs-string">&quot;textFont3:&quot;</span>+textFont3);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<h5 id="4-日志"><a href="#4-日志" class="headerlink" title="4.日志"></a>4.日志</h5><p>结果可以看到我们添加的textFont已经生效，而未添加的1～3都为null<br><img src="/img/AndroidView/0.png" alt="github"></p>
+<h5 id="5-styles中添加这些属性"><a href="#5-styles中添加这些属性" class="headerlink" title="5.styles中添加这些属性"></a>5.styles中添加这些属性</h5><p>添加属性至<strong><font color=#6495ED>styles.xml</font></strong>文件中<br><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">resources</span>&gt;</span><br>	...<br>	<span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;SimpleStyle&quot;</span>&gt;</span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont&quot;</span>&gt;</span>font_style<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont1&quot;</span>&gt;</span>font_style<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont2&quot;</span>&gt;</span>font_style<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont3&quot;</span>&gt;</span>font_style<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">resources</span>&gt;</span><br></code></pre></td></tr></table></figure></p>
+<h5 id="6-添加至页面"><a href="#6-添加至页面" class="headerlink" title="6.添加至页面"></a>6.添加至页面</h5><p>添加至页面中<br><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml">&lt;LinearLayout<br>	xmlns:app=&quot;http://schemas.android.com/apk/res-auto&quot;<br>	...&gt;<br>	&lt;com.test.demo.testdome.views.SimpleView<br>		...<br>		style=&quot;@style/SimpleStyle&quot;<br>		app:textFont=&quot;font_xml&quot;/&gt;<br><span class="hljs-tag">&lt;/<span class="hljs-name">LinearLayout</span>&gt;</span><br></code></pre></td></tr></table></figure></p>
+<h5 id="7-对比日志"><a href="#7-对比日志" class="headerlink" title="7.对比日志"></a>7.对比日志</h5><p>再次打印日志可以看到，<strong><font color=#6495ED>页面下的属性覆盖了style下的属性，即优先级大于style</font></strong><br><img src="/img/AndroidView/1.png" alt="github"></p>
+<h5 id="8-在theme中添加这些属性"><a href="#8-在theme中添加这些属性" class="headerlink" title="8.在theme中添加这些属性"></a>8.在theme中添加这些属性</h5><p>最后我们在<strong><font color=#6495ED>Theme</font></strong>中添加属性<br><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">resources</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;AppTheme&quot;</span> <span class="hljs-attr">parent</span>=<span class="hljs-string">&quot;Theme.AppCompat.Light.DarkActionBar&quot;</span>&gt;</span><br>		...<br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont&quot;</span>&gt;</span>font_theme<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont1&quot;</span>&gt;</span>font_theme<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont2&quot;</span>&gt;</span>font_theme<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont3&quot;</span>&gt;</span>font_theme<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br>	...<br>	<span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;SimpleStyle&quot;</span>&gt;</span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont&quot;</span>&gt;</span>font_style<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont1&quot;</span>&gt;</span>font_style<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont2&quot;</span>&gt;</span>font_style<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">resources</span>&gt;</span><br></code></pre></td></tr></table></figure></p>
+<h5 id="9-对比结果"><a href="#9-对比结果" class="headerlink" title="9.对比结果"></a>9.对比结果</h5><p>日志中以看到结果<br><strong><font color=#6495ED>theme 被 style 覆盖，而 style 被 xml 覆盖</font></strong>即得出：<br><strong><font color=#6495ED>xml &gt; style &gt; theme </font></strong></p>
+<h3 id="2-defStyleAttr"><a href="#2-defStyleAttr" class="headerlink" title="2.defStyleAttr"></a>2.defStyleAttr</h3><h5 id="1-添加defStyleAttr属性"><a href="#1-添加defStyleAttr属性" class="headerlink" title="1.添加defStyleAttr属性"></a>1.添加defStyleAttr属性</h5><p>在<strong><font color=#6495ED>attrs</font></strong>文件中添加<strong><font color=#6495ED>style属性</font></strong><br><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">resources</span>&gt;</span><br>	...<br><br>	<span class="hljs-tag">&lt;<span class="hljs-name">attr</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;Simple_def_style&quot;</span> <span class="hljs-attr">format</span>=<span class="hljs-string">&quot;reference&quot;</span>/&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">resources</span>&gt;</span><br></code></pre></td></tr></table></figure></p>
+<h5 id="2-添加至Java自定义控件中"><a href="#2-添加至Java自定义控件中" class="headerlink" title="2.添加至Java自定义控件中"></a>2.添加至Java自定义控件中</h5><p>添加后java文件也需要添加以上属性<strong><font color=#6495ED>R.attr.Si…</font></strong><br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SimpleView</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">View</span> </span>&#123;<br>	...<br>	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">SimpleView</span><span class="hljs-params">(Context context, <span class="hljs-meta">@Nullable</span> AttributeSet attrs)</span> </span>&#123;<br>		<span class="hljs-keyword">super</span>(context, attrs);<br>		init(context, attrs, R.attr.Simple_def_style, <span class="hljs-number">0</span>);<br>	&#125;<br>	...<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<h5 id="3-在theme中添加defStyleAttr属性"><a href="#3-在theme中添加defStyleAttr属性" class="headerlink" title="3.在theme中添加defStyleAttr属性"></a>3.在theme中添加defStyleAttr属性</h5><p>最后在<strong><font color=#6495ED>styles文件</font></strong>中添加对应的style内容<br><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">resources</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;AppTheme&quot;</span> <span class="hljs-attr">parent</span>=<span class="hljs-string">&quot;Theme.AppCompat.Light.DarkActionBar&quot;</span>&gt;</span><br>		...<br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont&quot;</span>&gt;</span>font_theme<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont1&quot;</span>&gt;</span>font_theme<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont2&quot;</span>&gt;</span>font_theme<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont3&quot;</span>&gt;</span>font_theme<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br>		<br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;Simple_def_style&quot;</span>&gt;</span>@style/SimpleDefStyle<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><br>	<span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;SimpleStyle&quot;</span>&gt;</span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont&quot;</span>&gt;</span>font_style<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont1&quot;</span>&gt;</span>font_style<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont2&quot;</span>&gt;</span>font_style<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><br>	<span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;SimpleDefStyle&quot;</span>&gt;</span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont&quot;</span>&gt;</span>font_def<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont1&quot;</span>&gt;</span>font_def<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont2&quot;</span>&gt;</span>font_def<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont3&quot;</span>&gt;</span>font_def<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">resources</span>&gt;</span><br></code></pre></td></tr></table></figure><br>完成以上处理后就可以查看结果<br><img src="/img/AndroidView/3.png" alt="github"><br>可以确认，<strong><font color=#6495ED>在使用defStyleAttr时，会覆盖theme的属性</font></strong></p>
+<h5 id="4-对比结果"><a href="#4-对比结果" class="headerlink" title="4.对比结果"></a>4.对比结果</h5><p>而我们可以给添加style参数看看<br><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">resources</span>&gt;</span><br>	...<br>	<span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;SimpleStyle&quot;</span>&gt;</span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont&quot;</span>&gt;</span>font_style<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont1&quot;</span>&gt;</span>font_style<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont2&quot;</span>&gt;</span>font_style<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont3&quot;</span>&gt;</span>font_style<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br>	...<br><span class="hljs-tag">&lt;/<span class="hljs-name">resources</span>&gt;</span><br><br></code></pre></td></tr></table></figure><br><img src="/img/AndroidView/4.png" alt="github"></p>
+<p>可以确认<br><strong><font color=#6495ED>xml &gt; style &gt; defStyleAttr &gt; theme </font></strong></p>
+<h3 id="3-defStyleRes"><a href="#3-defStyleRes" class="headerlink" title="3. defStyleRes"></a>3. defStyleRes</h3><p>需要注意：<br><strong><font color=#6495ED>除非defStyleAttr为0（可以理解为theme中没有相关属性），否则程序根本不会去从我们的defStyleRes找属性值。</font></strong></p>
+<blockquote>
+<p>1.去除theme属性<br>2.将defStyleSAttr = 0</p>
+</blockquote>
+<h5 id="1-首先去除Theme中的defStyleAttr"><a href="#1-首先去除Theme中的defStyleAttr" class="headerlink" title="1.首先去除Theme中的defStyleAttr"></a>1.首先去除Theme中的defStyleAttr</h5><p>我们首先注释defStyleAttr的引用<br><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">resources</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;AppTheme&quot;</span> <span class="hljs-attr">parent</span>=<span class="hljs-string">&quot;Theme.AppCompat.Light.DarkActionBar&quot;</span>&gt;</span><br>		...<br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont&quot;</span>&gt;</span>font_theme<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont1&quot;</span>&gt;</span>font_theme<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont2&quot;</span>&gt;</span>font_theme<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont3&quot;</span>&gt;</span>font_theme<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br>		<br><span class="xml">		<span class="hljs-comment">&lt;!--&lt;item name=&quot;Simple_def_style&quot;&gt;@style/SimpleDefStyle&lt;/item&gt;--&gt;</span></span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><br>	<span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;SimpleStyle&quot;</span>&gt;</span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont&quot;</span>&gt;</span>font_style<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont1&quot;</span>&gt;</span>font_style<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont2&quot;</span>&gt;</span>font_style<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><br>	<span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;SimpleDefStyle&quot;</span>&gt;</span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont&quot;</span>&gt;</span>font_def<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont1&quot;</span>&gt;</span>font_def<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont2&quot;</span>&gt;</span>font_def<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br><span class="xml">		<span class="hljs-tag">&lt;<span class="hljs-name">item</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;textFont3&quot;</span>&gt;</span>font_def<span class="hljs-tag">&lt;/<span class="hljs-name">item</span>&gt;</span></span><br>	<span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">resources</span>&gt;</span><br><br></code></pre></td></tr></table></figure><br>可以看到我们拿到了想要的数据，可以知道他的优先级大于theme。<br><img src="/img/Android/5.png" alt="github"></p>
+<p>这里总结了以下几种情况:</p>
+<blockquote>
+<p>1.通过布局文件来设置属性<br>2.通过styles文件来设置属性<br>3.通过theme来设置属性<br>4.通过defStyleAttr来设置属性<br>5.通过defStyleRes来设置属性<br>因此：<br><strong><font color=#6495ED>xml &gt; style &gt; defStyleAttr &gt; defStyleRes  &gt; theme </font></strong></p>
+</blockquote>
+<h2 id="三、常用的三大函数"><a href="#三、常用的三大函数" class="headerlink" title="三、常用的三大函数"></a>三、常用的三大函数</h2><h3 id="1-ViewRoot与DecorView"><a href="#1-ViewRoot与DecorView" class="headerlink" title="1.ViewRoot与DecorView"></a>1.ViewRoot与DecorView</h3><p>ViewRoot对应ViewRootImpl:该类是Activity的View树与WindowManager的中间通信者，他是View的绘制(测量、布局、绘制)的起点。<br>在ActivityThread中，当Activity对象被创建完毕后，会将DecorView添加到Window中，同时创建ViewRootImpl对象，并使ViewRootImpl与DecorView建立关联。<br>而View的绘制流程是从ViewRootImpl的performTraversals()方法开始。performMeasure、performLayout和performDraw三个方法分别完成View的measure、layout和draw三个方法，最后再分别调用onMeasure、onLayout和onDraw三个自实现方法。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>ViewRootImpl</th>
+<th>View</th>
+<th>SimpleView</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>performMeasure</td>
+<td>measure</td>
+<td>onMeasure</td>
+</tr>
+<tr>
+<td> performLayout</td>
+<td>layout</td>
+<td>onLayout</td>
+</tr>
+<tr>
+<td> performDraw</td>
+<td>draw</td>
+<td>onDraw</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="2-MeasureSpec类和ViewGroup-LayoutParams类"><a href="#2-MeasureSpec类和ViewGroup-LayoutParams类" class="headerlink" title="2.MeasureSpec类和ViewGroup.LayoutParams类"></a>2.MeasureSpec类和ViewGroup.LayoutParams类</h3><h4 id="MeasureSpec"><a href="#MeasureSpec" class="headerlink" title="MeasureSpec"></a>MeasureSpec</h4><p>MeasureSpec是View类的一个内部类。封装了从父节点传递到子节点的布局需求，里面包含了测量模式和大小。其中把测量模式和大小封装成32位的int值中，高两位表示模式，低30位表示大小。</p>
+<p>可以获取当前的模式和大小<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getMode</span><span class="hljs-params">(<span class="hljs-keyword">int</span> measureSpec)</span> </span>&#123;<br>	<span class="hljs-keyword">return</span> (measureSpec &amp; MODE_MASK);<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getSize</span><span class="hljs-params">(<span class="hljs-keyword">int</span> measureSpec)</span> </span>&#123;<br>	<span class="hljs-keyword">return</span> (measureSpec &amp; ~MODE_MASK);<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<p>将模式和大小封装成MeasureSpec类型<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">makeMeasureSpec</span><span class="hljs-params">(<span class="hljs-keyword">int</span> size, <span class="hljs-keyword">int</span> mode)</span> </span>&#123;<br>	<span class="hljs-keyword">if</span> (sUseBrokenMakeMeasureSpec) &#123;<br>		<span class="hljs-keyword">return</span> size + mode;<br>	&#125; <span class="hljs-keyword">else</span> &#123;<br>		<span class="hljs-keyword">return</span> (size &amp; ~MODE_MASK) | (mode &amp; MODE_MASK);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>三种模式如下：</p>
+<blockquote>
+<p>1.UNSPECIFIED:父View不对子View有任何限制，子View需要多大就多<br>2.EXACTLY:父View已经测量出子Viwe所需要的精确大小，这时候View的最终大小就是SpecSize所指定的值。对应于match_parent和精确数值这两种模式<br>3.AT_MOST:子View的最终大小是父View指定的SpecSize值，并且子View的大小不能大于这个值，即对应wrap_content这种模式</p>
+</blockquote>
+<p>View默认的onMeasure()方法只支持EXACTLY模式，所以如果在自定义控件的时候不重写onMeasure()方法的话，就只能使用EXACTLY模式，且控件只可以响应你指定的具体宽高值或者是match_parent属性。如果要让自定义的View支持wrap_content属性，那么就必须重写onMeasure()方法来指定wrap_content时的大小。</p>
+<h4 id="ViewGroup-LayoutParams"><a href="#ViewGroup-LayoutParams" class="headerlink" title="ViewGroup.LayoutParams"></a>ViewGroup.LayoutParams</h4><p>同上，都是指定View的宽高。<br>| 参数          | 功能 |<br>| ——————- | —— |<br>| 值            | dp或px |<br>| match_parent |与父空间相同|<br>| wrap_parent  |自适应大小(含padding)|</p>
+<h3 id="3-测量-onMeasure"><a href="#3-测量-onMeasure" class="headerlink" title="3.测量-onMeasure"></a>3.测量-onMeasure</h3><p>即测量自身控件，测量子控件。</p>
+<h5 id="1-跟踪performMeeasure-函数"><a href="#1-跟踪performMeeasure-函数" class="headerlink" title="1.跟踪performMeeasure()函数"></a>1.跟踪performMeeasure()函数</h5><p><strong>performMeasure()流程</strong><br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getRootMeasureSpec</span><span class="hljs-params">(<span class="hljs-keyword">int</span> windowSize, <span class="hljs-keyword">int</span> rootDimension)</span> </span>&#123;<br>	<span class="hljs-keyword">int</span> measureSpec;<br>	<span class="hljs-keyword">switch</span> (rootDimension) &#123;<br>		<span class="hljs-keyword">case</span> ViewGroup.LayoutParams.MATCH_PARENT:<br>			measureSpec = MeasureSpec.makeMeasureSpec(windowSize, MeasureSpec.EXACTLY);<br>			<span class="hljs-keyword">break</span>;<br>		<span class="hljs-keyword">case</span> ViewGroup.LayoutParams.WRAP_CONTENT:<br>			measureSpec = MeasureSpec.makeMeasureSpec(windowSize, MeasureSpec.AT_MOST);<br>			<span class="hljs-keyword">break</span>;<br>		<span class="hljs-keyword">default</span>:<br>			measureSpec = MeasureSpec.makeMeasureSpec(rootDimension, MeasureSpec.EXACTLY);<br>			<span class="hljs-keyword">break</span>;<br>	&#125;<br>	<span class="hljs-keyword">return</span> measureSpec;<br>&#125;<br>...<br>	<span class="hljs-keyword">int</span> childWidthMeasureSpec = getRootMeasureSpec(mWidth, lp.width);<br>	<span class="hljs-keyword">int</span> childHeightMeasureSpec = getRootMeasureSpec(mHeight, lp.height);<br><br>	performMeasure(childWidthMeasureSpec, childHeightMeasureSpec);<br>...<br></code></pre></td></tr></table></figure><br>可以看到调用performMeasure前获取了childWidthMeasureSpec和childHeightMeasureSpec参数。<br>以下是getRootMeasureSpec的方法，通过MeasureSpce返回一个该类型的数值，传入了Window的宽高和DecorView的LayoutParams类型。<br>这里的lp.width和lp.height都是xml中写入的数值，因此在MATCH_PARENT和WRAP_CONTENT时使用的是width，而在default下使用的是lp的数值。</p>
+<p>进入到performMeasure()方法，设置跟踪点的起始和结束后就是调用mView的measure方法了。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">performMeasure</span><span class="hljs-params">(<span class="hljs-keyword">int</span> childWidthMeasureSpec, <span class="hljs-keyword">int</span> childHeightMeasureSpec)</span> </span>&#123;<br>	Trace.traceBegin(Trace.TRACE_TAG_VIEW, <span class="hljs-string">&quot;measure&quot;</span>);<br>	<span class="hljs-keyword">try</span> &#123;<br>		mView.measure(childWidthMeasureSpec, childHeightMeasureSpec);<br>	&#125; <span class="hljs-keyword">finally</span> &#123;<br>		Trace.traceEnd(Trace.TRACE_TAG_VIEW);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>进入measure()方法，进行二级缓存机制来检测是否需要调用onMeasure方法。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">void</span> <span class="hljs-title">measure</span><span class="hljs-params">(<span class="hljs-keyword">int</span> widthMeasureSpec, <span class="hljs-keyword">int</span> heightMeasureSpec)</span> </span>&#123;<br>	...<br>	<span class="hljs-comment">// 是否有重新Layout的标志</span><br>	<span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> forceLayout = (mPrivateFlags &amp; PFLAG_FORCE_LAYOUT) == PFLAG_FORCE_LAYOUT;<br>		<br>	<span class="hljs-comment">// 与上一次的MeasureSpec进行对比确定是否需要重新绘制</span><br>	<span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> specChanged = widthMeasureSpec != mOldWidthMeasureSpec|| heightMeasureSpec != mOldHeightMeasureSpec;<br>  <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> isSpecExactly = MeasureSpec.getMode(widthMeasureSpec) == MeasureSpec.EXACTLY&amp;&amp; MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.EXACTLY;<br>	<span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> matchesSpecSize = getMeasuredWidth() == MeasureSpec.getSize(widthMeasureSpec)&amp;&amp; getMeasuredHeight() == MeasureSpec.getSize(heightMeasureSpec);<br>	<span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> needsLayout = specChanged&amp;&amp; (sAlwaysRemeasureExactly || !isSpecExactly || !matchesSpecSize);<br>	<span class="hljs-keyword">if</span> (forceLayout || needsLayout) &#123;<br>		<span class="hljs-comment">// 首先清除测量的尺寸标志，置成员变量mPrivateFlags的MEASURED_DIMENSION_SET位设置为0</span><br>		mPrivateFlags &amp;= ~PFLAG_MEASURED_DIMENSION_SET;<br><br>		resolveRtlPropertiesIfNeeded();<br><br>		<span class="hljs-comment">// key的值是由widthMeasureSpec和heightMeasureSpece在MeasureCache中查看在当前传入的宽高的MeasureSpec是否已经执行过onMeasure计算</span><br>		<span class="hljs-comment">// 如果已经执行过，则直接取出结果通过setMeasuredDimemsionRaw()设置测量出的相关参数</span><br>		<span class="hljs-comment">// 如果没有执行过，才会调用onMeasure()方法进行测量工作</span><br>		<span class="hljs-keyword">int</span> cacheIndex = forceLayout ? -<span class="hljs-number">1</span> : mMeasureCache.indexOfKey(key);<br>		<span class="hljs-keyword">if</span> (cacheIndex &lt; <span class="hljs-number">0</span> || sIgnoreMeasureCache) &#123;<br>			onMeasure(widthMeasureSpec, heightMeasureSpec);<br>			<span class="hljs-comment">// 如果此时没有调用，则那layout会再调用measure（）</span><br>			mPrivateFlags3 &amp;= ~PFLAG3_MEASURE_NEEDED_BEFORE_LAYOUT;<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			...<br><br>		<span class="hljs-comment">// 设置为结束标志</span><br>		mPrivateFlags |= PFLAG_LAYOUT_REQUIRED;<br>		...<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>mPrivateFlags在这里是一个标志位，在onMeasure测量前设置一个值，在onMeasure执行的最后设置一个值，测量完成后判断mPrivateFlags的值。若前面没有执行setMeasuredDimension(w,h)完成测量，那么mPrivateFlags值则不会重新设置，判断mPrivateFlags时会执行if语句中内容，抛出IllegalStateException异常。<br>mPrivateFlags3也是一个标志位，判断是否调用onMeasure函数。如果没有，则会在<code>layout</code>函数中调用。</p>
+<p>而真正起到measure的过程是onMeasure的方法中。可以看到，他将传递过去的measureSpec数值赋值并调整mPrivateFlags后就结束了。<br>这里表明所有的子控件的measure方法运行结束。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onMeasure</span><span class="hljs-params">(<span class="hljs-keyword">int</span> widthMeasureSpec, <span class="hljs-keyword">int</span> heightMeasureSpec)</span> </span>&#123;<br>	setMeasuredDimension(getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec),<br>		getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec));<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setMeasuredDimension</span><span class="hljs-params">(<span class="hljs-keyword">int</span> measuredWidth, <span class="hljs-keyword">int</span> measuredHeight)</span> </span>&#123;<br>	...<br>	setMeasuredDimensionRaw(measuredWidth, measuredHeight);<br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setMeasuredDimensionRaw</span><span class="hljs-params">(<span class="hljs-keyword">int</span> measuredWidth, <span class="hljs-keyword">int</span> measuredHeight)</span> </span>&#123;<br>	mMeasuredWidth = measuredWidth;<br>	mMeasuredHeight = measuredHeight;<br>	<span class="hljs-comment">// 提示完成测量</span><br>	mPrivateFlags |= PFLAG_MEASURED_DIMENSION_SET;<br>&#125;<br></code></pre></td></tr></table></figure><br>在写自定义控件的时候，都会重写上面的<code>onMeasure</code>函数来完成自定义的功能。但是如果不调用<code>setMeasuredDimension</code>函数，就不会提示完成测量，导致多次测量的情况。</p>
+<h4 id="2-DecorView的onMeasure-函数"><a href="#2-DecorView的onMeasure-函数" class="headerlink" title="2.DecorView的onMeasure()函数"></a>2.DecorView的onMeasure()函数</h4><p>来看看最上层的View如何控制子View：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onMeasure</span><span class="hljs-params">(<span class="hljs-keyword">int</span> widthMeasureSpec, <span class="hljs-keyword">int</span> heightMeasureSpec)</span> </span>&#123;<br>				......<br><br>        <span class="hljs-keyword">boolean</span> fixedWidth = <span class="hljs-keyword">false</span>;<br>        mApplyFloatingHorizontalInsets = <span class="hljs-keyword">false</span>;<br>        <br>　　　　　<span class="hljs-comment">//如果SpecMode不是EXACTLY的，则需要在这里调整为EXACTLY</span><br>        <span class="hljs-keyword">if</span> (widthMode == AT_MOST) &#123;<br>            <span class="hljs-keyword">final</span> TypedValue tvw = isPortrait ? mWindow.mFixedWidthMinor : mWindow.mFixedWidthMajor;<br>            <span class="hljs-keyword">if</span> (tvw != <span class="hljs-keyword">null</span> &amp;&amp; tvw.type != TypedValue.TYPE_NULL) &#123;<br>                <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> w;<br>                <span class="hljs-comment">//根据DecorView属性，计算出DecorView需要的宽度</span><br>                <span class="hljs-keyword">if</span> (tvw.type == TypedValue.TYPE_DIMENSION) &#123;<br>                    w = (<span class="hljs-keyword">int</span>) tvw.getDimension(metrics);<br>                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (tvw.type == TypedValue.TYPE_FRACTION) &#123;<br>                    w = (<span class="hljs-keyword">int</span>) tvw.getFraction(metrics.widthPixels, metrics.widthPixels);<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    w = <span class="hljs-number">0</span>;<br>                &#125;<br>                <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> widthSize = MeasureSpec.getSize(widthMeasureSpec);<br>                <span class="hljs-comment">//根据上面计算出来的需要的宽度生成新的MeasureSpec用于DecorView的测量流程</span><br>                <span class="hljs-keyword">if</span> (w &gt; <span class="hljs-number">0</span>) &#123;<br>                    widthMeasureSpec = MeasureSpec.makeMeasureSpec(<br>                            Math.min(w, widthSize), EXACTLY);<br>                    fixedWidth = <span class="hljs-keyword">true</span>;<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    widthMeasureSpec = MeasureSpec.makeMeasureSpec(<br>                            widthSize - mFloatingInsets.left - mFloatingInsets.right,<br>                            AT_MOST);<br>                    mApplyFloatingHorizontalInsets = <span class="hljs-keyword">true</span>;<br>                &#125;<br>            &#125;<br>        &#125;<br><br>        mApplyFloatingVerticalInsets = <span class="hljs-keyword">false</span>;<br>        <span class="hljs-keyword">if</span> (heightMode == AT_MOST) &#123;<br>						......<br>        &#125;<br>        ...<span class="hljs-keyword">super</span>.onMeasure(widthMeasureSpec, heightMeasureSpec);<br>    &#125;<br></code></pre></td></tr></table></figure><br>最后调用父类的<code>onMeasure</code>函数。父类为FrameLayout：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>  <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onMeasure</span><span class="hljs-params">(<span class="hljs-keyword">int</span> widthMeasureSpec, <span class="hljs-keyword">int</span> heightMeasureSpec)</span> </span>&#123;<br>      <span class="hljs-keyword">int</span> count = getChildCount();<br><br>　　　　<span class="hljs-comment">//如果宽、高的MeasureSpec的Mode有一个不是EXACTLY，这里就是true</span><br>      <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> measureMatchParentChildren =<br>              MeasureSpec.getMode(widthMeasureSpec) != MeasureSpec.EXACTLY ||<br>              MeasureSpec.getMode(heightMeasureSpec) != MeasureSpec.EXACTLY;<br>      mMatchParentChildren.clear();<br><br>　　　　<span class="hljs-comment">//遍历子View</span><br>      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; count; i++) &#123;<br>          <span class="hljs-keyword">final</span> View child = getChildAt(i);<br>          <span class="hljs-keyword">if</span> (mMeasureAllChildren || child.getVisibility() != GONE) &#123;<br>　　　　　　　　<span class="hljs-comment">//子View的测量，方法内会调用到child.measure()</span><br>              measureChildWithMargins(child, widthMeasureSpec, <span class="hljs-number">0</span>, heightMeasureSpec, <span class="hljs-number">0</span>);<br>              <span class="hljs-keyword">final</span> LayoutParams lp = (LayoutParams) child.getLayoutParams();<br>　　　　　　　　<span class="hljs-comment">//计算出所有子布局中宽度和高度最大的值</span><br>　　　　　　　　<span class="hljs-comment">//由于子布局占用的尺寸除了自身宽高之外，还包含了其距离父布局的边界的值，所以需要加上左右Margin值</span><br>              maxWidth = Math.max(maxWidth, child.getMeasuredWidth() + lp.leftMargin + lp.rightMargin);<br>              maxHeight = Math.max(maxHeight, child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin);<br>              childState = combineMeasuredStates(childState, child.getMeasuredState());<br><br>　　　　　　　　<span class="hljs-comment">//当前的FrameLayout的MeasureSpec不都是EXACTLY,且其子View为MATCH_PARENT，</span><br>　　　　　　　　<span class="hljs-comment">//则子View保存到mMatchParentChildren中，后面重新测量</span><br>　　　　　　　　<span class="hljs-comment">//DecorView不会走这个逻辑，因为进过了DecorView的onMeasure()流程，MeasureSpec一定都为EXACTLY</span><br>　　　　　　　　<span class="hljs-comment">//会走到下面流程的情况举例：用户自布局一个FrameLayout属性为WRAP_CONTENT是，但子布局为MATCH_PARENT</span><br>              <span class="hljs-keyword">if</span> (measureMatchParentChildren) &#123;<br>                  <span class="hljs-keyword">if</span> (lp.width == LayoutParams.MATCH_PARENT ||<br>                          lp.height == LayoutParams.MATCH_PARENT) &#123;<br>                      mMatchParentChildren.add(child);<br>                  &#125;<br>              &#125;<br>          &#125;<br>      &#125;<br><br>　　　　<span class="hljs-comment">//最后计算得到的maxWidth和maxHeight的值需要保证能够容纳下当前Layout下所有子View，所以需要对各类情况进行处理</span><br>　　　　<span class="hljs-comment">//所以有以下的加上Padding值，用户设置的Mini尺寸值的对比，设置了背景图片情况的图片大小对比</span><br>      maxWidth += getPaddingLeftWithForeground() + getPaddingRightWithForeground();<br>      maxHeight += getPaddingTopWithForeground() + getPaddingBottomWithForeground();<br><br>      maxHeight = Math.max(maxHeight, getSuggestedMinimumHeight());<br>      maxWidth = Math.max(maxWidth, getSuggestedMinimumWidth());<br><br>      <span class="hljs-keyword">final</span> Drawable drawable = getForeground();<br>      <span class="hljs-keyword">if</span> (drawable != <span class="hljs-keyword">null</span>) &#123;<br>          maxHeight = Math.max(maxHeight, drawable.getMinimumHeight());<br>          maxWidth = Math.max(maxWidth, drawable.getMinimumWidth());<br>      &#125;<br><br>　　　　<span class="hljs-comment">//设置测量结果，相当于完成自己View的measure</span><br>      setMeasuredDimension(resolveSizeAndState(maxWidth, widthMeasureSpec, childState),<br>              resolveSizeAndState(maxHeight, heightMeasureSpec,<br>                      childState &lt;&lt; MEASURED_HEIGHT_STATE_SHIFT));<br><br>      count = mMatchParentChildren.size();<br>      <span class="hljs-keyword">if</span> (count &gt; <span class="hljs-number">1</span>) &#123;<br>          <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; count; i++) &#123;<br>              <span class="hljs-keyword">final</span> View child = mMatchParentChildren.get(i);<br>              <span class="hljs-keyword">final</span> MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();<br><br>              <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> childWidthMeasureSpec;<br>              <span class="hljs-keyword">if</span> (lp.width == LayoutParams.MATCH_PARENT) &#123;<br>　　　　　　　　　　<span class="hljs-comment">//根据当前FrameLayout已经测量出来的mMeasureWidth，计算出MATCH_PARENT的子View的宽度值</span><br>　　　　　　　　　　<span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> width = Math.max(<span class="hljs-number">0</span>, getMeasuredWidth()<br>                          - getPaddingLeftWithForeground() - getPaddingRightWithForeground()<br>                          - lp.leftMargin - lp.rightMargin);<br>                  childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(<br>                          width, MeasureSpec.EXACTLY);<br>              &#125; <span class="hljs-keyword">else</span> &#123;<br>                  childWidthMeasureSpec = getChildMeasureSpec(widthMeasureSpec,<br>                          getPaddingLeftWithForeground() + getPaddingRightWithForeground() +<br>                          lp.leftMargin + lp.rightMargin,<br>                          lp.width);<br>              &#125;<br><br>              ... <span class="hljs-comment">//childHeigthMeasureSpe的设置，逻辑同上一段</span><br><br>              child.measure(childWidthMeasureSpec, childHeightMeasureSpec);<br>          &#125;<br>      &#125;<br>  &#125;<br></code></pre></td></tr></table></figure><br>这里计算会根据FrameLayout的方式来计算maxWidth和maxHeight，当然不同的Layout计算方式不一样。<br>那么在哪里测量子View呢？<br><code>measureChildWithMargins()</code>:<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">measureChildWithMargins</span><span class="hljs-params">(View child,</span></span><br><span class="hljs-function"><span class="hljs-params">           <span class="hljs-keyword">int</span> parentWidthMeasureSpec, <span class="hljs-keyword">int</span> widthUsed,</span></span><br><span class="hljs-function"><span class="hljs-params">           <span class="hljs-keyword">int</span> parentHeightMeasureSpec, <span class="hljs-keyword">int</span> heightUsed)</span> </span>&#123;<br>       <span class="hljs-keyword">final</span> MarginLayoutParams lp = (MarginLayoutParams) child.getLayoutParams();<br><br>       <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> childWidthMeasureSpec = getChildMeasureSpec(parentWidthMeasureSpec,<br>               mPaddingLeft + mPaddingRight + lp.leftMargin + lp.rightMargin<br>                       + widthUsed, lp.width);<br>       <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> childHeightMeasureSpec = getChildMeasureSpec(parentHeightMeasureSpec,<br>               mPaddingTop + mPaddingBottom + lp.topMargin + lp.bottomMargin<br>                       + heightUsed, lp.height);<br>       child.measure(childWidthMeasureSpec, childHeightMeasureSpec);<br>   &#125;<br></code></pre></td></tr></table></figure><br>可以看到<code>getChildMeasureSpec</code>函数来完成获取子View的MeasureSpec，因此完成子View的测量。<br>继续看看里面完成了什么：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getChildMeasureSpec</span><span class="hljs-params">(<span class="hljs-keyword">int</span> spec, <span class="hljs-keyword">int</span> padding, <span class="hljs-keyword">int</span> childDimension)</span> </span>&#123;<br>　　　　<span class="hljs-comment">//父布局的SpecMode和Size</span><br>      <span class="hljs-keyword">int</span> specMode = MeasureSpec.getMode(spec);<br>      <span class="hljs-keyword">int</span> specSize = MeasureSpec.getSize(spec);<br><br>　　　　<span class="hljs-comment">//父布局中剩下的能够提供给子View使用的尺寸，通过后面计算得到子View需要多少</span><br>      <span class="hljs-keyword">int</span> size = Math.max(<span class="hljs-number">0</span>, specSize - padding);<br><br>　　　　<span class="hljs-comment">//用于保存子布局的进行measure的MeasureSpec的两个参数</span><br>      <span class="hljs-keyword">int</span> resultSize = <span class="hljs-number">0</span>;<br>      <span class="hljs-keyword">int</span> resultMode = <span class="hljs-number">0</span>;<br><br>      <span class="hljs-keyword">switch</span> (specMode) &#123;<br>　　　　<span class="hljs-comment">//如果父布局是Mode是EXACTY</span><br>　　　　<span class="hljs-keyword">case</span> MeasureSpec.EXACTLY:<br>          <span class="hljs-keyword">if</span> (childDimension &gt;= <span class="hljs-number">0</span>) &#123;<br>　　　　　　　　<span class="hljs-comment">//子View赋值了固定大小</span><br>　　　　　　　　<span class="hljs-comment">//则子View的SpecSize就是自己想要的大小</span><br>              <span class="hljs-comment">//则子View的SpecMode是EXACTY</span><br>              resultSize = childDimension;<br>              resultMode = MeasureSpec.EXACTLY;<br>          &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (childDimension == LayoutParams.MATCH_PARENT) &#123;<br>　　　　　　　　<span class="hljs-comment">//子View是MATCH_PARENT</span><br>　　　　　　　　<span class="hljs-comment">//子View想要父布局所有大小，则把父布局剩余的大小都给子View</span><br>　　　　　　　　<span class="hljs-comment">//子View的SpecMode是EXACTLY</span><br>　　　　　　　　resultSize = size;<br>              resultMode = MeasureSpec.EXACTLY;<br>          &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (childDimension == LayoutParams.WRAP_CONTENT) &#123;<br>　　　　　　　　<span class="hljs-comment">//子View是WRAP_CONTENT</span><br>　　　　　　　　<span class="hljs-comment">//子View想要在后面自己计算自己需要多少大小</span><br>　　　　　　　　<span class="hljs-comment">//则把父布局剩余的大小存入SpecSize，但SpecMode为AT_MOST</span><br>              <span class="hljs-comment">//表示子布局在后面measure自己大小的同时不能超过SpecSize的值</span><br>　　　　　　　　resultSize = size;<br>              resultMode = MeasureSpec.AT_MOST;<br>          &#125;<br>          <span class="hljs-keyword">break</span>;<br><br>　　　　<span class="hljs-comment">//父布局Mode为AT_MOST</span><br>      <span class="hljs-keyword">case</span> MeasureSpec.AT_MOST:<br>          <span class="hljs-keyword">if</span> (childDimension &gt;= <span class="hljs-number">0</span>) &#123;<br>              resultSize = childDimension;<br>              resultMode = MeasureSpec.EXACTLY;<br>          &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (childDimension == LayoutParams.MATCH_PARENT) &#123;<br>              <span class="hljs-comment">//子View是MATCH_PARENT</span><br>              <span class="hljs-comment">//由于父布局没有确定大小，所以子布局在确定自己需要多少大小前不能给出确定大小</span><br>              <span class="hljs-comment">//则把父布局剩余的大小存入SpecSize，但SpecMode为AT_MOST</span><br>              resultSize = size;<br>              resultMode = MeasureSpec.AT_MOST;<br>          &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (childDimension == LayoutParams.WRAP_CONTENT) &#123;<br>              resultSize = size;<br>              resultMode = MeasureSpec.AT_MOST;<br>          &#125;<br>          <span class="hljs-keyword">break</span>;<br><br>      <span class="hljs-keyword">case</span> MeasureSpec.UNSPECIFIED:<br>          <span class="hljs-keyword">if</span> (childDimension &gt;= <span class="hljs-number">0</span>) &#123;<br>              resultSize = childDimension;<br>              resultMode = MeasureSpec.EXACTLY;<br>          &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (childDimension == LayoutParams.MATCH_PARENT) &#123;<br>              <span class="hljs-comment">//如果子View是MATFH_PARENT</span><br>　　　　　　　　<span class="hljs-comment">//由于父布局没有限定子布局大小，则设置SpecSize值为0 （需要View支持这种模式）</span><br>　　　　　　　　<span class="hljs-comment">//设置SpecMode类型还是为UNSPECIFIED，这样最后计算出有多大就给多大，没有父布局的限制（下同）</span><br>              resultSize = View.sUseZeroUnspecifiedMeasureSpec ? <span class="hljs-number">0</span> : size;<br>              resultMode = MeasureSpec.UNSPECIFIED;<br>          &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (childDimension == LayoutParams.WRAP_CONTENT) &#123;<br>              resultSize = View.sUseZeroUnspecifiedMeasureSpec ? <span class="hljs-number">0</span> : size;<br>              resultMode = MeasureSpec.UNSPECIFIED;<br>          &#125;<br>          <span class="hljs-keyword">break</span>;<br>      &#125;<br>      <span class="hljs-comment">//生成MeasureSpec</span><br>　　　　<span class="hljs-keyword">return</span> MeasureSpec.makeMeasureSpec(resultSize, resultMode);<br>  &#125;<br></code></pre></td></tr></table></figure><br>完成上述测量后，就会调用子控件的measure函数</p>
+<blockquote>
+<p>如果是ViewGroup类型，就会继续调用子View的measure方法、setMeasuredDimension方法，并设置自己的的宽高。<br>如果是子View是控件，就会调用自己重写的onMeasure方法完成自己的测量，并在最后调用setMeasuredDiension函数完成测量结束。</p>
+</blockquote>
+<p>以上就可完成了整个measure测量功能。</p>
+<h3 id="2-布局-onLayout"><a href="#2-布局-onLayout" class="headerlink" title="2.布局-onLayout"></a>2.布局-onLayout</h3><p>同上，我们进入ViewRootImpl.preformLayout()函数</p>
+<h4 id="1-View和ViewGroup中的onLayout"><a href="#1-View和ViewGroup中的onLayout" class="headerlink" title="1.View和ViewGroup中的onLayout"></a>1.View和ViewGroup中的onLayout</h4><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">performLayout</span><span class="hljs-params">(WindowManager.LayoutParams lp, <span class="hljs-keyword">int</span> desiredWindowWidth,</span></span><br><span class="hljs-function"><span class="hljs-params">          <span class="hljs-keyword">int</span> desiredWindowHeight)</span> </span>&#123;<br>　　　　......<br>      Trace.traceBegin(Trace.TRACE_TAG_VIEW, <span class="hljs-string">&quot;layout&quot;</span>);<br>      <span class="hljs-keyword">try</span> &#123;<br>          host.layout(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, host.getMeasuredWidth(), host.getMeasuredHeight());<br>　　　　　　......<br>　　　　　　&#125; <span class="hljs-keyword">finally</span> &#123;<br>          Trace.traceEnd(Trace.TRACE_TAG_VIEW);<br>      &#125;<br>      mInLayout = <span class="hljs-keyword">false</span>;<br>  &#125;<br></code></pre></td></tr></table></figure>
+<p>调用到DecorView的layout方法，就是调用ViewGroup的layout方法。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">layout</span><span class="hljs-params">(<span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> t, <span class="hljs-keyword">int</span> r, <span class="hljs-keyword">int</span> b)</span> </span>&#123;<br>      ...<br>      onLayout(changed, l, t, r, b);<br>　　　　...<br>	&#125;<br>　　<span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onLayout</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span> changed, <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> top, <span class="hljs-keyword">int</span> right, <span class="hljs-keyword">int</span> bottom)</span> </span>&#123;<br>　　&#125;<br></code></pre></td></tr></table></figure><br>同<code>measure</code>测量很像，调用<code>layout</code>后，会调用<code>onLayout</code>函数，而这里的onLayout函数是空函数，需要被重写。因为在实际调用中，View的子类是不会包含子View，因此这里是空函数。那么相反作为View集合的ViewGroup中<code>onLayout</code>会有很多东西。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">void</span> <span class="hljs-title">layout</span><span class="hljs-params">(<span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> t, <span class="hljs-keyword">int</span> r, <span class="hljs-keyword">int</span> b)</span> </span>&#123;<br>      <span class="hljs-keyword">if</span> (!mSuppressLayout &amp;&amp; (mTransition == <span class="hljs-keyword">null</span> || !mTransition.isChangingLayout())) &#123;<br>          <span class="hljs-keyword">if</span> (mTransition != <span class="hljs-keyword">null</span>) &#123;<span class="hljs-comment">//过渡动画相关</span><br>              mTransition.layoutChange(<span class="hljs-keyword">this</span>);<br>          &#125;<br>          <span class="hljs-keyword">super</span>.layout(l, t, r, b);<br>      &#125; <span class="hljs-keyword">else</span> &#123;<br>          mLayoutCalledWhileSuppressed = <span class="hljs-keyword">true</span>;<br>      &#125;<br>  &#125;<br>  <span class="hljs-meta">@Override</span><br>  <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onLayout</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span> changed,</span></span><br><span class="hljs-function"><span class="hljs-params">          <span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> t, <span class="hljs-keyword">int</span> r, <span class="hljs-keyword">int</span> b)</span></span>;<br></code></pre></td></tr></table></figure><br>需要子ViewGroup必须<code>重写onLayout</code>函数，来完成内部的子View分布。</p>
+<h4 id="2-源码跟踪"><a href="#2-源码跟踪" class="headerlink" title="2.源码跟踪"></a>2.源码跟踪</h4><p>从最开始的ViewRootImpl.performLayout()，调用了View的layout(参数为测量后的宽高)方法:<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">layout</span><span class="hljs-params">(<span class="hljs-keyword">int</span> l, <span class="hljs-keyword">int</span> t, <span class="hljs-keyword">int</span> r, <span class="hljs-keyword">int</span> b)</span> </span>&#123;<br>　　　　<span class="hljs-comment">//mPrivateFlag3记录了measure过程是否被跳过，如果被跳过则这时候再调用一次measure()</span><br>      <span class="hljs-keyword">if</span> ((mPrivateFlags3 &amp; PFLAG3_MEASURE_NEEDED_BEFORE_LAYOUT) != <span class="hljs-number">0</span>) &#123;<br>          onMeasure(mOldWidthMeasureSpec, mOldHeightMeasureSpec);<br>          mPrivateFlags3 &amp;= ~PFLAG3_MEASURE_NEEDED_BEFORE_LAYOUT;<br>      &#125;<br><br>      <span class="hljs-keyword">int</span> oldL = mLeft;<br>      <span class="hljs-keyword">int</span> oldT = mTop;<br>      <span class="hljs-keyword">int</span> oldB = mBottom;<br>      <span class="hljs-keyword">int</span> oldR = mRight;<br><br>　　　　<span class="hljs-comment">//layoutoutMode为Optical则会调到setOpticalFrame()</span><br>      <span class="hljs-comment">//setOpticalFrame()会对传入的参数进行调整，但还是调用到setFrame()方法</span><br>      <span class="hljs-keyword">boolean</span> changed = isLayoutModeOptical(mParent) ?<br>              setOpticalFrame(l, t, r, b) : setFrame(l, t, r, b);<br><br>　　　　<span class="hljs-comment">//如果View位置发生了变化或已经设置了重新Layout的标志</span><br>      <span class="hljs-keyword">if</span> (changed || (mPrivateFlags &amp; PFLAG_LAYOUT_REQUIRED) == PFLAG_LAYOUT_REQUIRED) &#123;<br>          onLayout(changed, l, t, r, b);<br>　　　　　　...<br>      &#125;<br>      mPrivateFlags &amp;= ~PFLAG_FORCE_LAYOUT;<br>      mPrivateFlags3 |= PFLAG3_IS_LAID_OUT;<br>  &#125;<br></code></pre></td></tr></table></figure><br>mPrivateFlags3的标识位判断，并调用了<code>setFrame</code>函数，该函数用于判断此次布局与上一次是否发生变化。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">setFrame</span><span class="hljs-params">(<span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> top, <span class="hljs-keyword">int</span> right, <span class="hljs-keyword">int</span> bottom)</span> </span>&#123;<br>      <span class="hljs-keyword">boolean</span> changed = <span class="hljs-keyword">false</span>;<br>      <span class="hljs-keyword">if</span> (mLeft != left || mRight != right || mTop != top || mBottom != bottom) &#123;<br>          changed = <span class="hljs-keyword">true</span>;<br><br>          <span class="hljs-keyword">int</span> drawn = mPrivateFlags &amp; PFLAG_DRAWN;<br><br>          <span class="hljs-keyword">int</span> oldWidth = mRight - mLeft;<br>          <span class="hljs-keyword">int</span> oldHeight = mBottom - mTop;<br>          <span class="hljs-keyword">int</span> newWidth = right - left;<br>          <span class="hljs-keyword">int</span> newHeight = bottom - top;<br>          <span class="hljs-keyword">boolean</span> sizeChanged = (newWidth != oldWidth) || (newHeight != oldHeight);<br><br>          invalidate(sizeChanged);<br><br>          mLeft = left;<br>          mTop = top;<br>          mRight = right;<br>          mBottom = bottom;<br>          mRenderNode.setLeftTopRightBottom(mLeft, mTop, mRight, mBottom);<br><br>          mPrivateFlags |= PFLAG_HAS_BOUNDS;<br><br>　　　　　　<span class="hljs-comment">//会回调onSizeChanged()方法</span><br>          <span class="hljs-keyword">if</span> (sizeChanged) &#123;<br>              sizeChange(newWidth, newHeight, oldWidth, oldHeight);<br>          &#125;<br>          ......<br>      &#125;<br>      <span class="hljs-keyword">return</span> changed;<br>  &#125;<br></code></pre></td></tr></table></figure><br>完成上述功能后就会调用<code>onLayout</code>了。</p>
+<p>DecorView继承自FrameLayout因此最后DecorView.onLayout会调用到FrameLayout.onLayout：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>  <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onLayout</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span> changed, <span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> top, <span class="hljs-keyword">int</span> right, <span class="hljs-keyword">int</span> bottom)</span> </span>&#123;<br>      layoutChildren(left, top, right, bottom, <span class="hljs-keyword">false</span> <span class="hljs-comment">/* no force left gravity */</span>);<br>  &#125;<br><br>  <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">layoutChildren</span><span class="hljs-params">(<span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> top, <span class="hljs-keyword">int</span> right, <span class="hljs-keyword">int</span> bottom, <span class="hljs-keyword">boolean</span> forceLeftGravity)</span> </span>&#123;<br>      <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> count = getChildCount();<br><br>　　　　<span class="hljs-comment">//计算当前Layout的边界padding值</span><br>      <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> parentLeft = getPaddingLeftWithForeground();<br>      <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> parentRight = right - left - getPaddingRightWithForeground();<br>      <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> parentTop = getPaddingTopWithForeground();<br>      <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> parentBottom = bottom - top - getPaddingBottomWithForeground();<br><br>      <span class="hljs-comment">//遍历该Layout的所有子View</span><br>      <span class="hljs-comment">//结合子View的measure值，即自己的属性，计算出子View的layout区域，并调用子View的layout()方法</span><br>      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; count; i++) &#123;<br>          <span class="hljs-keyword">final</span> View child = getChildAt(i);<br>          <span class="hljs-keyword">if</span> (child.getVisibility() != GONE) &#123;<br>              <span class="hljs-keyword">final</span> LayoutParams lp = (LayoutParams) child.getLayoutParams();<br><br>　　　　　　　　<span class="hljs-comment">//获得该子布局measure出来的宽、高值</span><br>              <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> width = child.getMeasuredWidth();<br>              <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> height = child.getMeasuredHeight();<br><br>              <span class="hljs-keyword">int</span> childLeft;<br>              <span class="hljs-keyword">int</span> childTop;<br><br>              <span class="hljs-keyword">int</span> gravity = lp.gravity;<br>              <span class="hljs-keyword">if</span> (gravity == -<span class="hljs-number">1</span>) &#123;<br>                  gravity = DEFAULT_CHILD_GRAVITY;<br>              &#125;<br><br>              <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> layoutDirection = getLayoutDirection();<br>              <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> absoluteGravity = Gravity.getAbsoluteGravity(gravity, layoutDirection);<br>              <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> verticalGravity = gravity &amp; Gravity.VERTICAL_GRAVITY_MASK;　　　　　　　　　　<br><br>　　　　　　　　<span class="hljs-comment">//该Layout水平方向的gravity属性各种情况下的处理</span><br>              <span class="hljs-keyword">switch</span> (absoluteGravity &amp; Gravity.HORIZONTAL_GRAVITY_MASK) &#123;<br>　　　　　　　　　　<span class="hljs-comment">//水平方向居中</span><br>                  <span class="hljs-keyword">case</span> Gravity.CENTER_HORIZONTAL:<br>                      childLeft = parentLeft + (parentRight - parentLeft - width) / <span class="hljs-number">2</span> +<br>                      lp.leftMargin - lp.rightMargin;<br>                      <span class="hljs-keyword">break</span>;<br>                  <span class="hljs-comment">//水平方向居右</span><br>                  <span class="hljs-keyword">case</span> Gravity.RIGHT:<br>                      <span class="hljs-keyword">if</span> (!forceLeftGravity) &#123;<br>                          childLeft = parentRight - width - lp.rightMargin;<br>                          <span class="hljs-keyword">break</span>;<br>                      &#125;<br>                  <span class="hljs-comment">//水平方向居左</span><br>                  <span class="hljs-keyword">case</span> Gravity.LEFT:<br>                  <span class="hljs-keyword">default</span>:<br>                      childLeft = parentLeft + lp.leftMargin;<br>              &#125;<br><br>　　　　　　　　<span class="hljs-comment">//该Layout垂直方法的gravity属性各种情况的处理</span><br>              <span class="hljs-keyword">switch</span> (verticalGravity) &#123;<br>                  <span class="hljs-keyword">case</span> Gravity.TOP:<br>                      childTop = parentTop + lp.topMargin;<br>                      <span class="hljs-keyword">break</span>;<br>                  <span class="hljs-keyword">case</span> Gravity.CENTER_VERTICAL:<br>                      childTop = parentTop + (parentBottom - parentTop - height) / <span class="hljs-number">2</span> +<br>                      lp.topMargin - lp.bottomMargin;<br>                      <span class="hljs-keyword">break</span>;<br>                  <span class="hljs-keyword">case</span> Gravity.BOTTOM:<br>                      childTop = parentBottom - height - lp.bottomMargin;<br>                      <span class="hljs-keyword">break</span>;<br>                  <span class="hljs-keyword">default</span>:<br>                      childTop = parentTop + lp.topMargin;<br>              &#125;<br><br>　　　　　　　　<span class="hljs-comment">//调用子View的layout方法，这里传入的参数就是父布局计算好的子View的区域</span><br>              child.layout(childLeft, childTop, childLeft + width, childTop + height);<br>          &#125;<br>      &#125;<br>  &#125;<br></code></pre></td></tr></table></figure><br>整个layout过程，实际遍历整个View树，根据measure过程计算出的View需要的宽度和高度值结合自己的LayoutParam属性，计算出所有View在相对于自己父布局View的边界的位置，并保存到mLeft、mTop、mRight、mBottom变量中，用于后面的绘制操作。</p>
+<h3 id="3-绘制-onDraw"><a href="#3-绘制-onDraw" class="headerlink" title="3.绘制-onDraw"></a>3.绘制-onDraw</h3><p>同上，performLayout()方法，便会调用到performDraw()方法，进入到ViewRootImpl.performDraw()方法。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">performDraw</span><span class="hljs-params">()</span> </span>&#123;<br>      <span class="hljs-keyword">if</span> (mAttachInfo.mDisplayState == Display.STATE_OFF &amp;&amp; !mReportNextDraw) &#123;<br>          <span class="hljs-keyword">return</span>;<br>      &#125;<br>　　　　<span class="hljs-comment">//是否需要全部重绘的标志</span><br>      <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> fullRedrawNeeded = mFullRedrawNeeded;<br>      mFullRedrawNeeded = <span class="hljs-keyword">false</span>;<br><br>      mIsDrawing = <span class="hljs-keyword">true</span>;<br>      Trace.traceBegin(Trace.TRACE_TAG_VIEW, <span class="hljs-string">&quot;draw&quot;</span>);<br>      <span class="hljs-keyword">try</span> &#123;<br>          draw(fullRedrawNeeded);<br>      &#125; <span class="hljs-keyword">finally</span> &#123;<br>          mIsDrawing = <span class="hljs-keyword">false</span>;<br>          Trace.traceEnd(Trace.TRACE_TAG_VIEW);<br>      &#125;<br>  &#125;<br></code></pre></td></tr></table></figure></p>
+<h4 id="ViewRootImpl-draw"><a href="#ViewRootImpl-draw" class="headerlink" title="ViewRootImpl.draw"></a>ViewRootImpl.draw</h4><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">draw</span><span class="hljs-params">(<span class="hljs-keyword">boolean</span> fullRedrawNeeded)</span> </span>&#123;<br>      ...<br><br>　　　　<span class="hljs-comment">//如果是第一次绘制，则会回调到sFirstDrawHandlers中的事件</span><br>      <span class="hljs-comment">//在ActivityThread.attch()方法中有将回调事件加入该队列</span><br>      <span class="hljs-comment">//回调时会执行ActivityThread.ensureJitEnable来确保即时编译相关功能</span><br>      <span class="hljs-keyword">if</span> (!sFirstDrawComplete) &#123;<br>          <span class="hljs-keyword">synchronized</span> (sFirstDrawHandlers) &#123;<br>              sFirstDrawComplete = <span class="hljs-keyword">true</span>;<br>              <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> count = sFirstDrawHandlers.size();<br>              <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i&lt; count; i++) &#123;<br>                  mHandler.post(sFirstDrawHandlers.get(i));<br>              &#125;<br>          &#125;<br>      &#125;<br>　　　　　<br>　　　　<span class="hljs-comment">//滚动相关处理，如果scroll发生改变，则回调dispatchOnScrollChanged()方法</span><br>      scrollToRectOrFocus(<span class="hljs-keyword">null</span>, <span class="hljs-keyword">false</span>);<br>      <span class="hljs-keyword">if</span> (mAttachInfo.mViewScrollChanged) &#123;<br>          mAttachInfo.mViewScrollChanged = <span class="hljs-keyword">false</span>;<br>          mAttachInfo.mTreeObserver.dispatchOnScrollChanged();<br>      &#125;<br><br>      <span class="hljs-comment">//窗口当前是否有动画需要执行</span><br>      <span class="hljs-keyword">boolean</span> animating = mScroller != <span class="hljs-keyword">null</span> &amp;&amp; mScroller.computeScrollOffset();<br>　　　　　... <span class="hljs-comment">//scroll相关处理</span><br>　　　　　<span class="hljs-keyword">final</span> Rect dirty = mDirty;<br>　　　　　...<br>　　　　<span class="hljs-keyword">if</span> (fullRedrawNeeded) &#123;<br>          mAttachInfo.mIgnoreDirtyState = <span class="hljs-keyword">true</span>;<br>          dirty.set(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, (<span class="hljs-keyword">int</span>) (mWidth * appScale + <span class="hljs-number">0.5f</span>), (<span class="hljs-keyword">int</span>) (mHeight * appScale + <span class="hljs-number">0.5f</span>));<br>      &#125;<br><br>      ...<br><br>　　　　<span class="hljs-keyword">if</span> (!dirty.isEmpty() || mIsAnimating || accessibilityFocusDirty) &#123;<br>          <span class="hljs-comment">//mAttachInfo.mHardwareRenderer不为null，则表示该Window使用硬件加速进行绘制</span><br>          <span class="hljs-comment">//执行ViewRootImpl.set()方法会判断是否使用硬件加速</span><br>          <span class="hljs-comment">//若判断使用会调用ViewRootImpl.enableHardwareAcceleration()来初始化mHardwareRenderer</span><br>　　　　　　　<span class="hljs-comment">//该View设置为使用硬件加速，且当前硬件加速处于可用状态</span><br>          <span class="hljs-keyword">if</span> (mAttachInfo.mHardwareRenderer != <span class="hljs-keyword">null</span> &amp;&amp; mAttachInfo.mHardwareRenderer.isEnabled()) &#123;<br>              ...<br>              <span class="hljs-comment">//使用硬件加速绘制方式</span><br>              mAttachInfo.mHardwareRenderer.draw(mView, mAttachInfo, <span class="hljs-keyword">this</span>);<br>          &#125; <span class="hljs-keyword">else</span> &#123;<br>              <span class="hljs-comment">//如果当前View要求使用硬件加速，但硬件加速处于disable状态</span><br>              <span class="hljs-comment">//可能是由于硬件加速在销毁之前的surface实例时会发出无效的宣告导致的</span><br>　　　　　　　　<span class="hljs-keyword">if</span> (mAttachInfo.mHardwareRenderer != <span class="hljs-keyword">null</span> &amp;&amp;<br>                      !mAttachInfo.mHardwareRenderer.isEnabled() &amp;&amp;<br>                      mAttachInfo.mHardwareRenderer.isRequested()) &#123;<br>                  <span class="hljs-keyword">try</span> &#123;<br>                      <span class="hljs-comment">//尝试重新初始化当前window的硬件加速</span><br>                      mAttachInfo.mHardwareRenderer.initializeIfNeeded(<br>                              mWidth, mHeight, mAttachInfo, mSurface, surfaceInsets);<br>                  &#125; <span class="hljs-keyword">catch</span> (OutOfResourcesException e) &#123;<br>                      handleOutOfResourcesException(e);<br>                      <span class="hljs-keyword">return</span>;<br>                  &#125;<br><br>                  mFullRedrawNeeded = <span class="hljs-keyword">true</span>;<br>                  scheduleTraversals();<br>                  <span class="hljs-keyword">return</span>;<br>              &#125;<br><br>　　　　　　　　<span class="hljs-comment">//使用软件渲染绘制方式</span><br>              <span class="hljs-keyword">if</span> (!drawSoftware(surface, mAttachInfo, xOffset, yOffset, scalingRequired, dirty)) &#123;<br>                  <span class="hljs-keyword">return</span>;<br>              &#125;<br>          &#125;<br>      &#125;<br>      ...<br>  &#125;<br></code></pre></td></tr></table></figure>
+<p>mDirty表示的是当前需要更新的区域，经过一些scroll相关的处理后，如果区域不为空或者有动画需要执行时，便会执行重绘窗口的工作。<br>两种绘制方式，硬件加速绘制方式和软件渲染绘制方式，在创建窗口流程的ViewRootImpl.setView中，会根据不同情况，来选择是否创<code>mAttachInfo.mHardwareRenderer</code>对象。无论哪种方式，都会进入<code>mView.draw()</code>方法中，即DecorView.draw()，即View.draw()。</p>
+<blockquote>
+<p>如果该对象不为空，则会进入硬件加速绘制方式，即调用到ThreadedRenderer.draw()<br>软件渲染的绘制方式，调用到ViewRootImpl.drawSoftware()方法</p>
+</blockquote>
+<p>虽然无论哪种启动都会进入<code>View.draw</code>方法，但是在参数<code>Canvas</code>却有不同，Canvas就是画布，一方面代表了当前用于绘制的区域及区域属性相关信息，同时也提供了各类接口用于在这片区域上画出给类图形。在使用不同的绘制方式，在调用Canvas接口时他们的底层实现都不同，带来的效果和内存都不一样，这也是两者的区别。</p>
+<h4 id="View-draw"><a href="#View-draw" class="headerlink" title="View.draw"></a>View.draw</h4><p>那么看一下<code>View.draw</code>函数：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@CallSuper</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">draw</span><span class="hljs-params">(Canvas canvas)</span> </span>&#123;<br>      <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> privateFlags = mPrivateFlags;<br>      <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> dirtyOpaque = (privateFlags &amp; PFLAG_DIRTY_MASK) == PFLAG_DIRTY_OPAQUE &amp;&amp;<br>              (mAttachInfo == <span class="hljs-keyword">null</span> || !mAttachInfo.mIgnoreDirtyState);<br>      mPrivateFlags = (privateFlags &amp; ~PFLAG_DIRTY_MASK) | PFLAG_DRAWN;<br><br>      <span class="hljs-comment">//1.画出背景background</span><br>      <span class="hljs-comment">//2.判断是否需要画边缘的渐变效果</span><br>      <span class="hljs-comment">//3.画出当前View需要显示的内容，调用onDraw()来实现</span><br>      <span class="hljs-comment">//4.调用dispatchDraw()方法，进入子视图的draw逻辑</span><br>      <span class="hljs-comment">//5.如果需要花边缘渐变效果，则在这里画</span><br>      <span class="hljs-comment">//6.绘制装饰（如滚动条）</span><br><br>　　　　<span class="hljs-comment">// Step 1, draw the background, if needed</span><br>      <span class="hljs-keyword">int</span> saveCount;<br><br>      <span class="hljs-keyword">if</span> (!dirtyOpaque) &#123;<br>　　　　　　　<span class="hljs-comment">//画背景</span><br>          drawBackground(canvas);<br>      &#125;<br><br>      <span class="hljs-comment">// skip step 2 &amp; 5 if possible (common case)</span><br>　　　　<span class="hljs-comment">//判断是否需要绘制边缘渐变效果（水平方向、垂直方向）</span><br>      <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> viewFlags = mViewFlags;<br>      <span class="hljs-keyword">boolean</span> horizontalEdges = (viewFlags &amp; FADING_EDGE_HORIZONTAL) != <span class="hljs-number">0</span>;<span class="hljs-comment">//是否有</span><br>      <span class="hljs-keyword">boolean</span> verticalEdges = (viewFlags &amp; FADING_EDGE_VERTICAL) != <span class="hljs-number">0</span>;<br>　　　　<span class="hljs-comment">//如果不需要绘制边缘渐变效果，跳过了step5</span><br>      <span class="hljs-keyword">if</span> (!verticalEdges &amp;&amp; !horizontalEdges) &#123;<br>          <span class="hljs-comment">// Step 3, draw the content</span><br>          <span class="hljs-comment">//绘制自己View的内容</span><br>　　　　　　 <span class="hljs-keyword">if</span> (!dirtyOpaque) onDraw(canvas);<br><br>          <span class="hljs-comment">// Step 4, draw the children</span><br>　　　　　　<span class="hljs-comment">//调起子View的Draw过程</span><br>          dispatchDraw(canvas);<br><br>          <span class="hljs-comment">// Overlay is part of the content and draws beneath Foreground</span><br>          <span class="hljs-keyword">if</span> (mOverlay != <span class="hljs-keyword">null</span> &amp;&amp; !mOverlay.isEmpty()) &#123;<br>              mOverlay.getOverlayView().dispatchDraw(canvas);<br>          &#125;<br><br>          <span class="hljs-comment">// Step 6, draw decorations (foreground, scrollbars)</span><br>          onDrawForeground(canvas);<br><br>          <span class="hljs-comment">// we&#x27;re done...</span><br>          <span class="hljs-keyword">return</span>;<br>      &#125;<br><br>      ... <span class="hljs-comment">//有边缘渐变效果的处理// Step 3, draw the content</span><br>      <span class="hljs-keyword">if</span> (!dirtyOpaque) onDraw(canvas);<br><br>      <span class="hljs-comment">// Step 4, draw the children</span><br>      dispatchDraw(canvas);<br><br>      <span class="hljs-comment">// Step 5, draw the fade effect and restore layers</span><br>      ... <span class="hljs-comment">//画出边缘渐变效果// Overlay is part of the content and draws beneath Foreground</span><br>      <span class="hljs-keyword">if</span> (mOverlay != <span class="hljs-keyword">null</span> &amp;&amp; !mOverlay.isEmpty()) &#123;<br>          mOverlay.getOverlayView().dispatchDraw(canvas);<br>      &#125;<br><br>      <span class="hljs-comment">// Step 6, draw decorations (foreground, scrollbars)</span><br>      onDrawForeground(canvas);<br>  &#125;<br></code></pre></td></tr></table></figure><br>看到调用了自己的<code>onDraw</code>和<code>dispatchDraw</code>函数：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onDraw</span><span class="hljs-params">(Canvas c)</span> </span>&#123;<br>      <span class="hljs-keyword">super</span>.onDraw(c);<br>      <span class="hljs-comment">//DecorView设置了一个BackgroundFallback，该对象用于应用没有设置window背景时，会显示该对象指示的背景</span><br>      mBackgroundFallback.draw(mContentRoot, c, mWindow.mContentParent);<br>  &#125;<br></code></pre></td></tr></table></figure><br>而在这里调用的父控件则是FrameLayout，而在FrameLayout和其父类View中<code>onDraw</code>都是空函数。因此在<code>onDraw</code>函数中其实并为执行任何事情。</p>
+<p><code>dispatchDraw</code>该函数在View中为空实现，只有在ViewGroup中会有相应的实现方式。而这里则是FrameLayout/ViewGroup中实现。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Override</span><br>  <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dispatchDraw</span><span class="hljs-params">(Canvas canvas)</span> </span>&#123;<br>      <span class="hljs-keyword">boolean</span> usingRenderNodeProperties = canvas.isRecordingFor(mRenderNode);<br>      <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> childrenCount = mChildrenCount;<br>      <span class="hljs-keyword">final</span> View[] children = mChildren;<br>      <span class="hljs-keyword">int</span> flags = mGroupFlags;<br><br>      <span class="hljs-comment">//如果当前的ViewGroup需要执行Layout级别的动画</span><br>      <span class="hljs-keyword">if</span> ((flags &amp; FLAG_RUN_ANIMATION) != <span class="hljs-number">0</span> &amp;&amp; canAnimate()) &#123;<br>          <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> buildCache = !isHardwareAccelerated();<br>          <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; childrenCount; i++) &#123;<br>              <span class="hljs-keyword">final</span> View child = children[i];<br>              <span class="hljs-keyword">if</span> ((child.mViewFlags &amp; VISIBILITY_MASK) == VISIBLE) &#123;<br>                  <span class="hljs-keyword">final</span> LayoutParams params = child.getLayoutParams();<br>　　　　　　　　　　　　<span class="hljs-comment">//将需要执行的动画设置到子View的对应属性上</span><br>                  attachLayoutAnimationParameters(child, params, i, childrenCount);<br>                  bindLayoutAnimation(child);<br>              &#125;<br>          &#125;<br><br>          <span class="hljs-keyword">final</span> LayoutAnimationController controller = mLayoutAnimationController;<br>          <span class="hljs-keyword">if</span> (controller.willOverlap()) &#123;<br>              mGroupFlags |= FLAG_OPTIMIZE_INVALIDATE;<br>          &#125;<br><br>　　　　　　<span class="hljs-comment">//启动mLayoutAnimationControlle中设置的动画</span><br>          controller.start();<br><br>          mGroupFlags &amp;= ~FLAG_RUN_ANIMATION;<br>          mGroupFlags &amp;= ~FLAG_ANIMATION_DONE;<br><br>　　　　　　<span class="hljs-comment">//动画启动时的回调</span><br>          <span class="hljs-keyword">if</span> (mAnimationListener != <span class="hljs-keyword">null</span>) &#123;<br>              mAnimationListener.onAnimationStart(controller.getAnimation());<br>          &#125;<br>      &#125;<br><br>      <span class="hljs-keyword">int</span> clipSaveCount = <span class="hljs-number">0</span>;<br>      <span class="hljs-keyword">final</span> <span class="hljs-keyword">boolean</span> clipToPadding = (flags &amp; CLIP_TO_PADDING_MASK) == CLIP_TO_PADDING_MASK;<br>　　　　<span class="hljs-comment">//如果当前的ViewGroup设置了Padding的属性</span><br>      <span class="hljs-keyword">if</span> (clipToPadding) &#123;<br>          clipSaveCount = canvas.save();<br>          <span class="hljs-comment">//将父视图传入的canvas裁剪去padding的区域</span><br>          canvas.clipRect(mScrollX + mPaddingLeft, mScrollY + mPaddingTop,<br>                  mScrollX + mRight - mLeft - mPaddingRight,<br>                  mScrollY + mBottom - mTop - mPaddingBottom);<br>      &#125;<br>      ...<br>		<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; childrenCount; i++) &#123;<br>　　　　　　　... <span class="hljs-comment">//TransientView的处理</span><br>　　　　　　<span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> childIndex = getAndVerifyPreorderedIndex(childrenCount, i, customOrder);<br>          <span class="hljs-keyword">final</span> View child = getAndVerifyPreorderedView(preorderedList, children, childIndex);<br>          <span class="hljs-keyword">if</span> ((child.mViewFlags &amp; VISIBILITY_MASK) == VISIBLE || child.getAnimation() != <span class="hljs-keyword">null</span>) &#123;<br>              more |= drawChild(canvas, child, drawingTime);<br>          &#125;<br>      &#125;<br>　　　　 ...<br>　　　　<span class="hljs-comment">//绘制mDisappearingChildren列别中的子视图，指正在处于消失动画状态的子View</span><br>      <span class="hljs-keyword">if</span> (mDisappearingChildren != <span class="hljs-keyword">null</span>) &#123;<br>          <span class="hljs-keyword">final</span> ArrayList&lt;View&gt; disappearingChildren = mDisappearingChildren;<br>          <span class="hljs-keyword">final</span> <span class="hljs-keyword">int</span> disappearingCount = disappearingChildren.size() - <span class="hljs-number">1</span>;<br>          <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = disappearingCount; i &gt;= <span class="hljs-number">0</span>; i--) &#123;<br>              <span class="hljs-keyword">final</span> View child = disappearingChildren.get(i);<br>              more |= drawChild(canvas, child, drawingTime);<br>          &#125;<br>      &#125;<br><br>      ...<br><br>　　　　<span class="hljs-comment">//检查动画是否完成，如果完成则发送一个异步消息，通知应用程序</span><br>      <span class="hljs-keyword">if</span> ((flags &amp; FLAG_ANIMATION_DONE) == <span class="hljs-number">0</span> &amp;&amp; (flags &amp; FLAG_NOTIFY_ANIMATION_LISTENER) == <span class="hljs-number">0</span> &amp;&amp;<br>              mLayoutAnimationController.isDone() &amp;&amp; !more) &#123;<br>          mGroupFlags |= FLAG_NOTIFY_ANIMATION_LISTENER;<br>          <span class="hljs-keyword">final</span> Runnable end = <span class="hljs-keyword">new</span> Runnable() &#123;<br>             <span class="hljs-meta">@Override</span><br>             <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">run</span><span class="hljs-params">()</span> </span>&#123;<br>                 notifyAnimationListener();<br>             &#125;<br>          &#125;;<br>          post(end);<br>      &#125;<br>  &#125;<br></code></pre></td></tr></table></figure><br>最后会在<code>drawChild</code>中调用子View中的<code>draw</code>:<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">drawChild</span><span class="hljs-params">(Canvas canvas, View child, <span class="hljs-keyword">long</span> drawingTime)</span> </span>&#123;<br>      <span class="hljs-keyword">return</span> child.draw(canvas, <span class="hljs-keyword">this</span>, drawingTime);<br>  &#125;<br></code></pre></td></tr></table></figure></p>
+<p>需要注意这里调用的draw函数和上述不一样，此时是一个有三个参数的重载<code>draw</code>。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//这个方法是专门用于ViewGroup来调其子View的绘制过程的方法</span><br>  <span class="hljs-comment">//方法会传入当前View的父布局View，用来进行父布局canvas画布的区域移动和裁剪工作</span><br>  <span class="hljs-comment">//该方法会根据绘制类型（硬件加速、软件渲染）结合View属性进行一些canvas和painter属性设置工作</span><br>　　<span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">draw</span><span class="hljs-params">(Canvas canvas, ViewGroup parent, <span class="hljs-keyword">long</span> drawingTime)</span> </span>&#123;<br>　　　　...<br>　　　　draw(canvas);<br>　　　　...<br>  &#125;<br></code></pre></td></tr></table></figure>
+<p>最后终于见到了<code>draw</code>函数，后面也就和开始的情景一模一样。</p>
+
+      
+       
+    </div>
+</article>
+
+
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '07584e1e38d09c739a16',
+            clientSecret: '6a466750b46c76ed9cc8ee0fe0d78e0c33898937',
+            repo: 'yangandmore.github.io',
+            owner: 'Yangandmore',
+            admin: ['Yangandmore'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2016-2020 Yangandmore
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

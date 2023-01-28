@@ -1,0 +1,2469 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Rust-智能指针 | 杨小杨的博客</title>
+  <meta name="keywords" content=" rust ">
+  <meta name="description" content="Rust-智能指针 | 杨小杨的博客">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="整洁代码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="观看Clean Code(整洁代码)记录-1">
+<meta property="og:url" content="http://example.com/2023/01/28/%E9%87%8D%E6%9E%84%E4%BB%A3%E7%A0%811/index.html">
+<meta property="og:site_name" content="杨小杨的博客">
+<meta property="og:description" content="整洁代码">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/CleanCode/0.png">
+<meta property="og:image" content="http://example.com/img/CleanCode/1.png">
+<meta property="article:published_time" content="2023-01-28T08:02:25.000Z">
+<meta property="article:modified_time" content="2023-01-28T09:49:19.837Z">
+<meta property="article:author" content="Yang">
+<meta property="article:tag" content="整洁代码">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/CleanCode/0.png">
+
+
+<link rel="icon" href="/img/header.png">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/header.png"/>
+</a>
+<div class="author">
+    <span>Yang</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="github"
+               href="https://github.com/Yangandmore"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="email"
+               href="mailto:635408602@qq.com"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="qq"
+               href="http://wpa.qq.com/msgrd?v=3&uin=635408602&site=qq&menu=yes"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-qq"></use>
+                    </svg>
+                
+            </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(149)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                <li>
+                    <div data-rel="数据库">
+                        
+                        数据库
+                        <small>(4)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="包管理">
+                        
+                        包管理
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="编译的库">
+                        
+                        编译的库
+                        <small>(5)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="分布式事务">
+                        
+                        分布式事务
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="分布式搜索">
+                        
+                        分布式搜索
+                        <small>(5)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="后台">
+                        
+                        后台
+                        <small>(3)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="机器学习">
+                        
+                        机器学习
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="流程引擎">
+                        
+                        流程引擎
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="数据结构">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        数据结构
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="数据结构<--->算法分析">
+                                        
+                                        算法分析
+                                        
+                                            <small>(2
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="异常问题">
+                        
+                        异常问题
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="音视频">
+                        
+                        音视频
+                        <small>(13)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="整洁代码">
+                        
+                        整洁代码
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="正则表达式">
+                        
+                        正则表达式
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Android">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        Android
+                        <small>(17)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="Android<--->热更新">
+                                        
+                                        热更新
+                                        
+                                            <small>(2
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="C/C++">
+                        
+                        C/C++
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="git">
+                        
+                        git
+                        <small>(3)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Gradle">
+                        
+                        Gradle
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="java">
+                        
+                        java
+                        <small>(9)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="JavaScript">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        JavaScript
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="JavaScript<--->npm">
+                                        
+                                        npm
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="ReactNative">
+                        
+                        ReactNative
+                        <small>(10)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Redis">
+                        
+                        Redis
+                        <small>(4)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="rust">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        rust
+                        <small>(46)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="rust<--->p2p">
+                                        
+                                        p2p
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="spring">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        spring
+                        <small>(9)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="spring<--->java">
+                                        
+                                        java
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="ssr">
+                        
+                        ssr
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="149">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>包管理</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>贝塞尔曲线</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>分布式事务</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>分布式搜索</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>构建工具</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>后台</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>汇编</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>机器学习</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>跨域</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>流程引擎</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>热更新</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>视频格式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>数据结构与算法分析</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>数据库</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>图片格式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>异步</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>异常问题</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>音频</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>音视频</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>整洁代码</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>正则表达式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>直播</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>android</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Android</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>C</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>camera</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Cpp</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>es</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ffmpeg</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>git</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Gradle</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>java</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>javaScript</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libfaac</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libjpeg-turbo</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libx264</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libyuv</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Linux</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>NDK</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>react</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>React</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ReactNative</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Redis</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>RTMP</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>rust</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>seate</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>spring</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>springboot</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>SQL</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>srs</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ssr</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class="All 整洁代码 "
+           href="/2023/01/28/%E9%87%8D%E6%9E%84%E4%BB%A3%E7%A0%811/"
+           data-tag="整洁代码"
+           data-author="" >
+            <span class="post-title" title="观看Clean Code(整洁代码)记录-1">观看Clean Code(整洁代码)记录-1</span>
+            <span class="post-date" title="2023-01-28 08:02:25">2023/01/28</span>
+        </a>
+        
+        <a  class="All 异常问题 "
+           href="/2022/09/27/eclipse-mac-err/"
+           data-tag="异常问题"
+           data-author="" >
+            <span class="post-title" title="eclipse-mac-err">eclipse-mac-err</span>
+            <span class="post-date" title="2022-09-27 22:24:54">2022/09/27</span>
+        </a>
+        
+        <a  class="All 流程引擎 "
+           href="/2022/09/16/activiti7/"
+           data-tag="流程引擎"
+           data-author="" >
+            <span class="post-title" title="流程引擎-activiti7">流程引擎-activiti7</span>
+            <span class="post-date" title="2022-09-16 10:01:11">2022/09/16</span>
+        </a>
+        
+        <a  class="All 分布式事务 "
+           href="/2022/09/04/seate/"
+           data-tag="seate,分布式事务"
+           data-author="" >
+            <span class="post-title" title="配置seate">配置seate</span>
+            <span class="post-date" title="2022-09-04 19:11:24">2022/09/04</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/09/01/es-java/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="es在java环境中使用">es在java环境中使用</span>
+            <span class="post-date" title="2022-09-01 22:11:48">2022/09/01</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/09/01/es-ik/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="es配置ik分词器及热更新">es配置ik分词器及热更新</span>
+            <span class="post-date" title="2022-09-01 16:38:27">2022/09/01</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/06/es-7-change-password/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="es修改密码">es修改密码</span>
+            <span class="post-date" title="2022-08-06 23:37:16">2022/08/06</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/06/es-linux/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="elk在linux上简单安装">elk在linux上简单安装</span>
+            <span class="post-date" title="2022-08-06 21:02:25">2022/08/06</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/02/ELK/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="ELK学习">ELK学习</span>
+            <span class="post-date" title="2022-08-02 15:13:44">2022/08/02</span>
+        </a>
+        
+        <a  class="All 包管理 "
+           href="/2022/07/29/chocolatey/"
+           data-tag="包管理"
+           data-author="" >
+            <span class="post-title" title="chocolatey">chocolatey</span>
+            <span class="post-date" title="2022-07-29 16:56:39">2022/07/29</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/28/Spring-%E5%9F%BA%E7%A1%805/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础5">Spring-基础5</span>
+            <span class="post-date" title="2022-07-28 21:11:57">2022/07/28</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/28/Spring-%E5%9F%BA%E7%A1%804/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(四)">Spring-基础(四)</span>
+            <span class="post-date" title="2022-07-28 15:50:59">2022/07/28</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-%E5%9F%BA%E7%A1%803/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(三)">Spring-基础(三)</span>
+            <span class="post-date" title="2022-07-25 21:51:47">2022/07/25</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-%E5%9F%BA%E7%A1%802/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(二)">Spring-基础(二)</span>
+            <span class="post-date" title="2022-07-25 10:26:06">2022/07/25</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-%E5%9F%BA%E7%A1%801/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(一)">Spring-基础(一)</span>
+            <span class="post-date" title="2022-07-25 09:58:25">2022/07/25</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/07/17/P2P/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="P2P">P2P</span>
+            <span class="post-date" title="2022-07-17 10:46:24">2022/07/17</span>
+        </a>
+        
+        <a  class="All rust p2p "
+           href="/2022/07/16/Rust-libp2p/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-libp2p">Rust-libp2p</span>
+            <span class="post-date" title="2022-07-16 14:04:11">2022/07/16</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/07/06/%E5%8C%BA%E5%9D%97%E9%93%BE-%E8%AE%B0%E8%B4%A6%E6%A8%A1%E5%BC%8F/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="区块链-记账模式">区块链-记账模式</span>
+            <span class="post-date" title="2022-07-06 21:48:04">2022/07/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/06/26/Summer-boot%E4%B8%80%E6%9C%9F%E5%AE%8F%E9%83%A8%E5%88%86%E6%9E%84%E6%80%9D%E5%8F%8A%E5%AE%9E%E7%8E%B0/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Summer-boot一期宏部分构思及实现">Summer-boot一期宏部分构思及实现</span>
+            <span class="post-date" title="2022-06-26 10:12:27">2022/06/26</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2022/06/16/Git-fork%E9%A1%B9%E7%9B%AE%E6%9B%B4%E6%96%B0/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git-fork项目更新">Git-fork项目更新</span>
+            <span class="post-date" title="2022-06-16 15:11:56">2022/06/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/06/12/Rust-%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-编码规范">Rust-编码规范</span>
+            <span class="post-date" title="2022-06-12 09:05:33">2022/06/12</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2022/05/29/MySql-Some%E7%AD%89%E6%8C%87%E4%BB%A4/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="MySql_Some、Any、All的用法">MySql_Some、Any、All的用法</span>
+            <span class="post-date" title="2022-05-29 10:07:14">2022/05/29</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/12/Redis-%E8%81%9A%E5%90%88%E6%93%8D%E4%BD%9C/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-聚合操作">Redis-聚合操作</span>
+            <span class="post-date" title="2022-05-12 14:34:47">2022/05/12</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/11/Redis-%E5%88%87%E7%89%87%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-切片集群配置">Redis-切片集群配置</span>
+            <span class="post-date" title="2022-05-11 15:45:38">2022/05/11</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/10/Redis-%E5%93%A8%E5%85%B5%E6%9C%BA%E5%88%B6%E9%85%8D%E7%BD%AE/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-哨兵机制配置">Redis-哨兵机制配置</span>
+            <span class="post-date" title="2022-05-10 17:02:25">2022/05/10</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/10/Redis-%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%85%B3/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-开启远程访问">Redis-开启远程访问</span>
+            <span class="post-date" title="2022-05-10 14:24:32">2022/05/10</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/05/06/Rust-%E5%B1%9E%E6%80%A7/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-属性">Rust-属性</span>
+            <span class="post-date" title="2022-05-06 10:08:24">2022/05/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/20/Rust-build/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust编译过程图">Rust编译过程图</span>
+            <span class="post-date" title="2022-04-20 14:54:46">2022/04/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/08/Rust-Atomic/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-Atomic">Rust-Atomic</span>
+            <span class="post-date" title="2022-04-08 09:55:50">2022/04/08</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/06/Rust-%E6%AD%BB%E7%81%B5%E6%9C%AF3/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵术3">Rust-死灵术3</span>
+            <span class="post-date" title="2022-04-06 20:48:19">2022/04/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/06/Rust-%E6%AD%BB%E7%81%B5%E6%9C%AF2/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵术2">Rust-死灵术2</span>
+            <span class="post-date" title="2022-04-06 14:54:22">2022/04/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/02/Rust-AnyTrait/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-AnyTrait">Rust-AnyTrait</span>
+            <span class="post-date" title="2022-04-02 14:25:05">2022/04/02</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/02/Rust-Cow%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-Cow智能指针">Rust-Cow智能指针</span>
+            <span class="post-date" title="2022-04-02 10:16:00">2022/04/02</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/01/Rust-%E6%AD%BB%E7%81%B5%E6%9C%AF/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵书（一）">Rust-死灵书（一）</span>
+            <span class="post-date" title="2022-04-01 16:42:36">2022/04/01</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/03/09/Rust-%E5%8F%82%E8%80%83%E6%89%8B%E5%86%8C/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-参考手册">Rust-参考手册</span>
+            <span class="post-date" title="2022-03-09 10:15:21">2022/03/09</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/03/08/Rust-%E5%AE%8F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-小宏书(声明宏)">Rust-高级-小宏书(声明宏)</span>
+            <span class="post-date" title="2022-03-08 20:22:51">2022/03/08</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2022/03/03/Android%E9%9B%86%E6%88%90Rust/"
+           data-tag="Android,rust"
+           data-author="" >
+            <span class="post-title" title="Android集成Rust">Android集成Rust</span>
+            <span class="post-date" title="2022-03-03 10:56:49">2022/03/03</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/02/08/Rust-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-类型转换-From &amp; Into">Rust-类型转换-From &amp; Into</span>
+            <span class="post-date" title="2022-02-08 16:53:33">2022/02/08</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/16/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bbitflags/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之bitflags">Rust-高级-Crate之bitflags</span>
+            <span class="post-date" title="2022-01-16 22:36:28">2022/01/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Brayon/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之rayon">Rust-高级-Crate之rayon</span>
+            <span class="post-date" title="2022-01-12 21:55:30">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Blazy-static/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之lazy_static">Rust-高级-Crate之lazy_static</span>
+            <span class="post-date" title="2022-01-12 21:50:32">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8BWalkdir/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之Walkdir">Rust-高级-Crate之Walkdir</span>
+            <span class="post-date" title="2022-01-12 21:50:15">2022/01/12</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bthreadpool/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之threadpool">Rust-高级-Crate之threadpool</span>
+            <span class="post-date" title="2022-01-12 21:49:50">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Berror-chain/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之error_chain">Rust-高级-Crate之error_chain</span>
+            <span class="post-date" title="2022-01-12 21:49:39">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bcrossbeam/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之crossbeam">Rust-高级-Crate之crossbeam</span>
+            <span class="post-date" title="2022-01-12 21:16:24">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Btar/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之tar">Rust-高级-Crate之tar</span>
+            <span class="post-date" title="2022-01-12 10:29:50">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/11/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Brand/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之rand">Rust-高级-Crate之rand</span>
+            <span class="post-date" title="2022-01-11 14:52:45">2022/01/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/09/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bserde/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之serde">Rust-高级-Crate之serde</span>
+            <span class="post-date" title="2022-01-09 21:10:52">2022/01/09</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/09/Rust%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8%E4%B8%8E%E5%80%9F%E7%94%A8/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust中的引用与借用">Rust中的引用与借用</span>
+            <span class="post-date" title="2022-01-09 19:03:47">2022/01/09</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/09/graphQL/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="graphQL">graphQL</span>
+            <span class="post-date" title="2022-01-09 17:02:35">2022/01/09</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/05/Rust-%E9%AB%98%E7%BA%A7-%E6%9C%8D%E5%8A%A1%E4%B9%8BActix/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-服务之Actix">Rust-高级-服务之Actix</span>
+            <span class="post-date" title="2022-01-05 21:13:56">2022/01/05</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/05/Rust-%E9%AB%98%E7%BA%A7-%E5%BC%82%E6%AD%A5%E4%B9%8Bfutures/"
+           data-tag="rust,异步"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-异步之futures">Rust-高级-异步之futures</span>
+            <span class="post-date" title="2022-01-05 21:13:38">2022/01/05</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/30/Rust-%E6%9C%80%E5%90%8E%E7%9A%84%E9%A1%B9%E7%9B%AE/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-最后的项目">Rust-最后的项目</span>
+            <span class="post-date" title="2021-12-30 14:46:33">2021/12/30</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/21/Rust-%E9%AB%98%E7%BA%A7%E7%89%B9%E5%BE%81/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级特征">Rust-高级特征</span>
+            <span class="post-date" title="2021-12-21 22:22:15">2021/12/21</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-%E6%A8%A1%E5%BC%8F%E7%94%A8%E6%9D%A5%E5%8C%B9%E9%85%8D%E5%80%BC%E7%9A%84%E7%BB%93%E6%9E%84/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-模式与模式匹配">Rust-模式与模式匹配</span>
+            <span class="post-date" title="2021-12-20 20:53:44">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-面向对象">Rust-面向对象</span>
+            <span class="post-date" title="2021-12-20 15:15:04">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-%E6%97%A0%E7%95%8F%E5%B9%B6%E5%8F%91/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-无畏并发">Rust-无畏并发</span>
+            <span class="post-date" title="2021-12-20 09:44:35">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/19/Rust-%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-智能指针">Rust-智能指针</span>
+            <span class="post-date" title="2021-12-19 10:23:23">2021/12/19</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/16/Rust-CargoAndCratesIO/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-CargoAndCratesIO">Rust-CargoAndCratesIO</span>
+            <span class="post-date" title="2021-12-16 22:52:05">2021/12/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/16/Rust-%E5%87%BD%E6%95%B0%E5%BC%8F%E8%AF%AD%E8%A8%80%E5%8A%9F%E8%83%BD-%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E9%97%AD%E5%8C%85/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-函数式语言功能:迭代器与闭包">Rust-函数式语言功能:迭代器与闭包</span>
+            <span class="post-date" title="2021-12-16 16:08:22">2021/12/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/15/Rust-%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%A8%8B%E5%BA%8F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-IO">Rust-IO</span>
+            <span class="post-date" title="2021-12-15 17:07:26">2021/12/15</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/15/Rust-%E6%B5%8B%E8%AF%95/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-测试">Rust-测试</span>
+            <span class="post-date" title="2021-12-15 14:08:29">2021/12/15</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/14/Rust-%E6%B3%9B%E5%9E%8B%E3%80%81trait%E5%92%8C%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-泛型、trait和生命周期">Rust-泛型、trait和生命周期</span>
+            <span class="post-date" title="2021-12-14 20:57:17">2021/12/14</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/14/Rust-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-错误处理">Rust-错误处理</span>
+            <span class="post-date" title="2021-12-14 10:48:51">2021/12/14</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-%E5%B8%B8%E8%A7%81%E9%9B%86%E5%90%88/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-常见集合">Rust-常见集合</span>
+            <span class="post-date" title="2021-12-13 20:55:23">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%9D%97%E7%BB%84%E7%BB%87%E5%92%8C%E5%A4%8D%E7%94%A8%E4%BB%A3%E7%A0%81/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-使用模块组织和复用代码">Rust-使用模块组织和复用代码</span>
+            <span class="post-date" title="2021-12-13 16:26:05">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-枚举和模式匹配">Rust-枚举和模式匹配</span>
+            <span class="post-date" title="2021-12-13 10:44:04">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/12/Rust-%E7%BB%93%E6%9E%84%E4%BD%93/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-结构体">Rust-结构体</span>
+            <span class="post-date" title="2021-12-12 22:42:42">2021/12/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/12/Rust-%E6%89%80%E6%9C%89%E6%9D%83/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-所有权">Rust-所有权</span>
+            <span class="post-date" title="2021-12-12 11:32:16">2021/12/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/11/Rust-%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-基础技术">Rust-基础技术</span>
+            <span class="post-date" title="2021-12-11 20:25:09">2021/12/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/11/Rust-%E7%BC%96%E7%A8%8B%E7%8C%9C%E8%B0%9C%E6%B8%B8%E6%88%8F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-编程猜谜游戏">Rust-编程猜谜游戏</span>
+            <span class="post-date" title="2021-12-11 18:58:04">2021/12/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/10/Rust-%E5%85%A5%E9%97%A8/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-入门">Rust-入门</span>
+            <span class="post-date" title="2021-12-10 11:18:25">2021/12/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/10/Java-%E5%86%85%E9%83%A8%E7%B1%BB/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-内部类">Java-内部类</span>
+            <span class="post-date" title="2021-12-10 08:50:32">2021/12/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/09/Java-%E6%8E%A5%E5%8F%A3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-接口">Java-接口</span>
+            <span class="post-date" title="2021-12-09 14:54:05">2021/12/09</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/09/Java-%E5%A4%9A%E6%80%81/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-多态">Java-多态</span>
+            <span class="post-date" title="2021-12-09 08:42:47">2021/12/09</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/23/JavaNIO/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaNIO">JavaNIO</span>
+            <span class="post-date" title="2021-11-23 10:47:14">2021/11/23</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/23/JavaIO/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaIO">JavaIO</span>
+            <span class="post-date" title="2021-11-23 10:47:07">2021/11/23</span>
+        </a>
+        
+        <a  class="All spring java "
+           href="/2021/11/22/Spring%E5%B7%A5%E4%BD%9C%E5%AF%B9%E8%B1%A1/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring工作对象">Spring工作对象</span>
+            <span class="post-date" title="2021-11-22 09:44:06">2021/11/22</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/18/Java%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java函数式接口">Java函数式接口</span>
+            <span class="post-date" title="2021-11-18 10:50:22">2021/11/18</span>
+        </a>
+        
+        <a  class="All "
+           href="/2021/11/17/SpringBoot%E5%90%AF%E5%8A%A8-%E5%9F%BA%E7%A1%80/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="SpringBoot启动-基础">SpringBoot启动-基础</span>
+            <span class="post-date" title="2021-11-17 17:01:58">2021/11/17</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/16/JRebel/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JRebel">JRebel</span>
+            <span class="post-date" title="2021-11-16 08:58:18">2021/11/16</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/11/Spring%E5%90%AF%E5%8A%A8-%E5%9F%BA%E7%A1%80/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring启动-基础">Spring启动-基础</span>
+            <span class="post-date" title="2021-11-11 15:25:33">2021/11/11</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/10/%E5%8F%8D%E5%B0%84/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="反射">反射</span>
+            <span class="post-date" title="2021-11-10 20:57:08">2021/11/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/10/%E6%B3%A8%E8%A7%A3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="注解">注解</span>
+            <span class="post-date" title="2021-11-10 20:50:55">2021/11/10</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/09/SpringAOP-%E5%9F%BA%E7%A1%80/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="SpringAOP-基础">SpringAOP-基础</span>
+            <span class="post-date" title="2021-11-09 10:31:31">2021/11/09</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/08/SpringIOC-%E5%9F%BA%E7%A1%80/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="SpringIOC-基础">SpringIOC-基础</span>
+            <span class="post-date" title="2021-11-08 10:27:28">2021/11/08</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2021/11/02/%E9%9F%B3%E8%A7%86%E9%A2%91%E7%BC%96%E8%A7%A3%E7%A0%81%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/"
+           data-tag="音视频"
+           data-author="" >
+            <span class="post-title" title="音视频编解码技术基础">音视频编解码技术基础</span>
+            <span class="post-date" title="2021-11-02 12:06:49">2021/11/02</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2021/11/02/MysqlErrHosts/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="mysql安装时，Unable to connect to any of the specified MySQL hosts">mysql安装时，Unable to connect to any of the specified MySQL hosts</span>
+            <span class="post-date" title="2021-11-02 10:58:50">2021/11/02</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2021/10/08/H264%E7%BC%96%E7%A0%81-SPSPPS/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码 SPS &amp; PPS">H264编码 SPS &amp; PPS</span>
+            <span class="post-date" title="2021-10-08 21:20:12">2021/10/08</span>
+        </a>
+        
+        <a  class="All ssr "
+           href="/2021/01/18/centos%E7%BB%88%E7%AB%AFssr%E9%85%8D%E7%BD%AE/"
+           data-tag="ssr"
+           data-author="" >
+            <span class="post-title" title="centos终端ssr配置">centos终端ssr配置</span>
+            <span class="post-date" title="2021-01-18 08:21:35">2021/01/18</span>
+        </a>
+        
+        <a  class="All 数据结构 算法分析 "
+           href="/2020/12/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E5%85%B6%E4%BA%8C/"
+           data-tag="数据结构与算法分析"
+           data-author="" >
+            <span class="post-title" title="数据结构与算法分析阅读笔记其二">数据结构与算法分析阅读笔记其二</span>
+            <span class="post-date" title="2020-12-14 22:34:39">2020/12/14</span>
+        </a>
+        
+        <a  class="All 数据结构 算法分析 "
+           href="/2020/12/09/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"
+           data-tag="数据结构与算法分析"
+           data-author="" >
+            <span class="post-title" title="数据结构与算法分析阅读笔记">数据结构与算法分析阅读笔记</span>
+            <span class="post-date" title="2020-12-09 21:52:40">2020/12/09</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/10/27/FLV%E6%A0%BC%E5%BC%8F/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="FLV格式">FLV格式</span>
+            <span class="post-date" title="2020-10-27 15:33:56">2020/10/27</span>
+        </a>
+        
+        <a  class="All 机器学习 "
+           href="/2020/09/20/Mac%E4%B8%ADPython3-x%E7%BC%96%E8%AF%91Caffe/"
+           data-tag="机器学习"
+           data-author="" >
+            <span class="post-title" title="Mac中Python3.x编译Caffe">Mac中Python3.x编译Caffe</span>
+            <span class="post-date" title="2020-09-20 01:08:09">2020/09/20</span>
+        </a>
+        
+        <a  class="All JavaScript npm "
+           href="/2020/07/17/npm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%93%8D%E4%BD%9C/"
+           data-tag="直播"
+           data-author="" >
+            <span class="post-title" title="npm常用命令操作">npm常用命令操作</span>
+            <span class="post-date" title="2020-07-17 10:14:01">2020/07/17</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/16/MediaExtractorANDMediaMuxer/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="android端的音频处理工具MediaExtractor和MediaMuxer">android端的音频处理工具MediaExtractor和MediaMuxer</span>
+            <span class="post-date" title="2020-07-16 11:55:28">2020/07/16</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/15/AAC%E9%9F%B3%E9%A2%91%E7%A0%81%E6%B5%81/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="AAC音频码流">AAC音频码流</span>
+            <span class="post-date" title="2020-07-15 17:45:10">2020/07/15</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/15/Android-PCM%E5%A4%84%E7%90%86/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="Android-PCM">Android-PCM</span>
+            <span class="post-date" title="2020-07-15 13:29:49">2020/07/15</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/13/yuv-tool%E5%B7%A5%E5%85%B7%E7%B1%BB/"
+           data-tag="android,libyuv"
+           data-author="" >
+            <span class="post-title" title="yuv-tool工具类">yuv-tool工具类</span>
+            <span class="post-date" title="2020-07-13 22:58:21">2020/07/13</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/18/ffmpegforandroid%E7%BC%96%E8%AF%91/"
+           data-tag="ffmpeg"
+           data-author="" >
+            <span class="post-title" title="ffmpegforandroid编译">ffmpegforandroid编译</span>
+            <span class="post-date" title="2020-06-18 13:38:35">2020/06/18</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/11/libfaac%E7%BC%96%E8%AF%91/"
+           data-tag="libfaac"
+           data-author="" >
+            <span class="post-title" title="libfaac编译">libfaac编译</span>
+            <span class="post-date" title="2020-06-11 14:00:57">2020/06/11</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/11/libx264%E7%BC%96%E8%AF%91/"
+           data-tag="libx264"
+           data-author="" >
+            <span class="post-title" title="libx264编译">libx264编译</span>
+            <span class="post-date" title="2020-06-11 13:51:36">2020/06/11</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/06/10/RTMP%E8%A7%84%E8%8C%83%E5%AD%A6%E4%B9%A0/"
+           data-tag="RTMP,直播"
+           data-author="" >
+            <span class="post-title" title="RTMP规范学习">RTMP规范学习</span>
+            <span class="post-date" title="2020-06-10 11:35:52">2020/06/10</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/06/01/React-Native%E7%83%AD%E6%9B%B4%E6%96%B0/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native热更新">React-Native热更新</span>
+            <span class="post-date" title="2020-06-01 16:03:28">2020/06/01</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2020/06/01/JavaWeb/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaWeb">JavaWeb</span>
+            <span class="post-date" title="2020-06-01 11:09:17">2020/06/01</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2020/05/26/JDBC/"
+           data-tag="java,数据库"
+           data-author="" >
+            <span class="post-title" title="JDBC">JDBC</span>
+            <span class="post-date" title="2020-05-26 16:23:01">2020/05/26</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2020/03/29/%E4%BA%86%E8%A7%A3%E8%B7%A8%E5%9F%9F/"
+           data-tag="后台,跨域"
+           data-author="" >
+            <span class="post-title" title="了解跨域">了解跨域</span>
+            <span class="post-date" title="2020-03-29 21:31:15">2020/03/29</span>
+        </a>
+        
+        <a  class="All JavaScript "
+           href="/2020/03/08/JavaScript%E8%AF%AD%E6%B3%95%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="javaScript"
+           data-author="" >
+            <span class="post-title" title="JavaScript语法（一）">JavaScript语法（一）</span>
+            <span class="post-date" title="2020-03-08 10:29:30">2020/03/08</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/03/06/React-native-%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-native 高德地图">React-native 高德地图</span>
+            <span class="post-date" title="2020-03-06 10:07:45">2020/03/06</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/03/03/React-16-8-Hooks/"
+           data-tag="React"
+           data-author="" >
+            <span class="post-title" title="React 16.8 Hooks">React 16.8 Hooks</span>
+            <span class="post-date" title="2020-03-03 10:07:02">2020/03/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/01/06/React-Native%E5%8E%9F%E7%94%9F%E9%80%9A%E4%BF%A1/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native原生通信">React-Native原生通信</span>
+            <span class="post-date" title="2020-01-06 16:34:00">2020/01/06</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/27/React-Native%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native原理浅析">React-Native原理浅析</span>
+            <span class="post-date" title="2019-12-27 15:32:08">2019/12/27</span>
+        </a>
+        
+        <a  class="All 正则表达式 "
+           href="/2019/12/18/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
+           data-tag="正则表达式"
+           data-author="" >
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2019-12-18 21:45:36">2019/12/18</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/05/React-Native-%E5%8A%A8%E7%94%BB/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native-动画">React-Native-动画</span>
+            <span class="post-date" title="2019-12-05 16:20:25">2019/12/05</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/03/React-%E8%87%AA%E5%AD%A6%E4%B9%8B%E8%B7%AF%EF%BC%88%E4%BA%8C%EF%BC%89/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="React-自学之路（二）">React-自学之路（二）</span>
+            <span class="post-date" title="2019-12-03 13:06:53">2019/12/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/03/React-%E8%87%AA%E5%AD%A6%E4%B9%8B%E8%B7%AF%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="React"
+           data-author="" >
+            <span class="post-title" title="React-自学之路（一）">React-自学之路（一）</span>
+            <span class="post-date" title="2019-12-03 09:40:28">2019/12/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/10/12/React%E6%96%B0%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"
+           data-tag="react"
+           data-author="" >
+            <span class="post-title" title="React新的生命周期">React新的生命周期</span>
+            <span class="post-date" title="2019-10-12 15:41:02">2019/10/12</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2019/09/18/%E5%88%9B%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE%E6%97%B6%EF%BC%8C%E5%87%BA%E7%8E%B0Could-not-calculate-build-plan%E9%94%99%E8%AF%AF/"
+           data-tag="springboot"
+           data-author="" >
+            <span class="post-title" title="创建maven项目时，出现Could not calculate build plan错误">创建maven项目时，出现Could not calculate build plan错误</span>
+            <span class="post-date" title="2019-09-18 09:25:06">2019/09/18</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2019/09/07/MySQL%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="MySQL常用指令">MySQL常用指令</span>
+            <span class="post-date" title="2019-09-07 21:10:03">2019/09/07</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/07/05/RecycleView%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="RecycleView（一）">RecycleView（一）</span>
+            <span class="post-date" title="2019-07-05 14:03:06">2019/07/05</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/25/Android%E5%8A%A8%E7%94%BB%EF%BC%88%E4%B8%89%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（三）">Android动画（三）</span>
+            <span class="post-date" title="2019-06-25 14:15:26">2019/06/25</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/20/Android%E5%8A%A8%E7%94%BB%EF%BC%88%E4%BA%8C%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（二）">Android动画（二）</span>
+            <span class="post-date" title="2019-06-20 15:10:00">2019/06/20</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/19/Android%E5%8A%A8%E7%94%BB%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（一）">Android动画（一）</span>
+            <span class="post-date" title="2019-06-19 15:15:56">2019/06/19</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/18/Android%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%EF%BC%88%E4%BA%8C%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android自定义控件（二）">Android自定义控件（二）</span>
+            <span class="post-date" title="2019-06-18 13:43:11">2019/06/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/13/%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF/"
+           data-tag="Android,贝塞尔曲线"
+           data-author="" >
+            <span class="post-title" title="贝塞尔曲线">贝塞尔曲线</span>
+            <span class="post-date" title="2019-06-13 10:14:25">2019/06/13</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/04/Java-Binder%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%90%86%E8%A7%A3/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Java Binder进程通信理解">Java Binder进程通信理解</span>
+            <span class="post-date" title="2019-06-04 14:01:43">2019/06/04</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/05/30/arm-neon-h%E6%96%87%E4%BB%B6%E5%8A%9F%E8%83%BD/"
+           data-tag="汇编"
+           data-author="" >
+            <span class="post-title" title="arm-neon.h文件功能">arm-neon.h文件功能</span>
+            <span class="post-date" title="2019-05-30 08:45:08">2019/05/30</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/05/06/Handler%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6/"
+           data-tag="android"
+           data-author="" >
+            <span class="post-title" title="Handler消息机制">Handler消息机制</span>
+            <span class="post-date" title="2019-05-06 14:09:45">2019/05/06</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/05/06/H264%E7%BC%96%E7%A0%81-%E7%86%B5%E7%BC%96%E7%A0%81/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码-熵编码">H264编码-熵编码</span>
+            <span class="post-date" title="2019-05-06 13:42:57">2019/05/06</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/04/08/NDK%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E5%90%88%E9%9B%86/"
+           data-tag="NDK"
+           data-author="" >
+            <span class="post-title" title="NDK开发问题合集">NDK开发问题合集</span>
+            <span class="post-date" title="2019-04-08 10:53:30">2019/04/08</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/04/01/H264%E7%BC%96%E7%A0%81%E5%9F%BA%E7%A1%80/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码基础">H264编码基础</span>
+            <span class="post-date" title="2019-04-01 09:26:11">2019/04/01</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/31/srs%E7%9B%B4%E6%92%AD%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/"
+           data-tag="直播,srs"
+           data-author="" >
+            <span class="post-title" title="srs直播平台搭建">srs直播平台搭建</span>
+            <span class="post-date" title="2019-03-31 10:37:42">2019/03/31</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/27/%E5%9B%BE%E7%89%87RGB%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/"
+           data-tag="图片格式"
+           data-author="" >
+            <span class="post-title" title="图片RGB数据格式">图片RGB数据格式</span>
+            <span class="post-date" title="2019-03-27 22:24:49">2019/03/27</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/14/%E5%9B%BE%E7%89%87YUV%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/"
+           data-tag="图片格式"
+           data-author="" >
+            <span class="post-title" title="图片YUV数据格式">图片YUV数据格式</span>
+            <span class="post-date" title="2019-03-14 11:10:16">2019/03/14</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2019/03/08/libjpeg-turbo%E7%BC%96%E8%AF%91/"
+           data-tag="libjpeg-turbo"
+           data-author="" >
+            <span class="post-title" title="libjpeg-turbo编译">libjpeg-turbo编译</span>
+            <span class="post-date" title="2019-03-08 13:41:20">2019/03/08</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2019/03/07/libYUV%E7%BC%96%E8%AF%91/"
+           data-tag="libyuv"
+           data-author="" >
+            <span class="post-title" title="libYUV编译">libYUV编译</span>
+            <span class="post-date" title="2019-03-07 15:05:11">2019/03/07</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/02/18/Android-camera%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="camera"
+           data-author="" >
+            <span class="post-title" title="Android camera（一）">Android camera（一）</span>
+            <span class="post-date" title="2019-02-18 15:03:27">2019/02/18</span>
+        </a>
+        
+        <a  class="All C/C++ "
+           href="/2019/01/23/Cpp%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Cpp"
+           data-author="" >
+            <span class="post-title" title="Cpp基础（一）">Cpp基础（一）</span>
+            <span class="post-date" title="2019-01-23 10:52:13">2019/01/23</span>
+        </a>
+        
+        <a  class="All C/C++ "
+           href="/2019/01/18/C%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="C"
+           data-author="" >
+            <span class="post-title" title="C基础（一）">C基础（一）</span>
+            <span class="post-date" title="2019-01-18 14:08:23">2019/01/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/12/18/EasyPermission/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="EasyPermission">EasyPermission</span>
+            <span class="post-date" title="2018-12-18 13:20:30">2018/12/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/12/15/Android%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android自定义控件（一）">Android自定义控件（一）</span>
+            <span class="post-date" title="2018-12-15 21:44:34">2018/12/15</span>
+        </a>
+        
+        <a  class="All ssr "
+           href="/2018/12/10/Linux%E9%85%8D%E7%BD%AEShadowSocks-R/"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux配置ShadowSocks-R">Linux配置ShadowSocks-R</span>
+            <span class="post-date" title="2018-12-10 15:58:52">2018/12/10</span>
+        </a>
+        
+        <a  class="All Android 热更新 "
+           href="/2018/10/29/Sophix%E7%83%AD%E6%9B%B4%E6%96%B0/"
+           data-tag="android,热更新"
+           data-author="" >
+            <span class="post-title" title="Sophix热更新">Sophix热更新</span>
+            <span class="post-date" title="2018-10-29 16:50:36">2018/10/29</span>
+        </a>
+        
+        <a  class="All Android 热更新 "
+           href="/2018/10/18/TinkerPatch%E7%83%AD%E6%9B%B4%E6%96%B0/"
+           data-tag="android,热更新"
+           data-author="" >
+            <span class="post-title" title="TinkerPatch热更新">TinkerPatch热更新</span>
+            <span class="post-date" title="2018-10-18 20:11:30">2018/10/18</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2018/06/21/React-native-flex%E5%B8%83%E5%B1%80/"
+           data-tag="react"
+           data-author="" >
+            <span class="post-title" title="React-native flex布局">React-native flex布局</span>
+            <span class="post-date" title="2018-06-21 16:22:47">2018/06/21</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/01/25/Android%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android事件分发">Android事件分发</span>
+            <span class="post-date" title="2018-01-25 16:36:52">2018/01/25</span>
+        </a>
+        
+        <a  class="All Gradle "
+           href="/2018/01/25/Gradle%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="构建工具,Gradle"
+           data-author="" >
+            <span class="post-title" title="Gradle（一）">Gradle（一）</span>
+            <span class="post-date" title="2018-01-25 16:36:52">2018/01/25</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2017/11/24/firstBlod2/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git详细讲解(远程)">Git详细讲解(远程)</span>
+            <span class="post-date" title="2017-11-24 10:18:05">2017/11/24</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2017/10/19/firstBlod/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git详细讲解(本地)">Git详细讲解(本地)</span>
+            <span class="post-date" title="2017-10-19 21:49:28">2017/10/19</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-Rust-智能指针" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">Rust-智能指针</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="rust">rust</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color5">rust</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2022-03-03 05:51:48'>2021-12-19 10:23</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                Comment:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81Box-%E5%9C%A8%E5%A0%86%E4%B8%8A%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE%EF%BC%8C%E5%B9%B6%E4%B8%94%E5%8F%AF%E7%A1%AE%E5%AE%9A%E5%A4%A7%E5%B0%8F"><span class="toc-text">一、Box 在堆上存储数据，并且可确定大小</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Box-%E5%9C%A8%E5%A0%86%E4%B8%8A%E5%82%A8%E5%AD%98%E6%95%B0%E6%8D%AE"><span class="toc-text">使用 Box 在堆上储存数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#box-%E5%85%81%E8%AE%B8%E5%88%9B%E5%BB%BA%E9%80%92%E5%BD%92%E7%B1%BB%E5%9E%8B"><span class="toc-text">box 允许创建递归类型</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#cons-list"><span class="toc-text">cons list</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E9%9D%9E%E9%80%92%E5%BD%92%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%A4%A7%E5%B0%8F"><span class="toc-text">计算非递归类型的大小</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Box-%E7%BB%99%E9%80%92%E5%BD%92%E7%B1%BB%E5%9E%8B%E4%B8%80%E4%B8%AA%E5%B7%B2%E7%9F%A5%E7%9A%84%E5%A4%A7%E5%B0%8F"><span class="toc-text">使用 Box 给递归类型一个已知的大小</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E9%80%9A%E8%BF%87-Deref-trait-%E5%B0%86%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88%E5%BD%93%E4%BD%9C%E5%B8%B8%E8%A7%84%E5%BC%95%E7%94%A8%E5%A4%84%E7%90%86"><span class="toc-text">二、通过 Deref trait 将智能指针当作常规引用处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87-%E8%BF%BD%E8%B8%AA%E6%8C%87%E9%92%88%E7%9A%84%E5%80%BC"><span class="toc-text">通过 * 追踪指针的值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%83%8F%E5%BC%95%E7%94%A8%E4%B8%80%E6%A0%B7%E4%BD%BF%E7%94%A8-Box"><span class="toc-text">像引用一样使用 Box</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="toc-text">自定义智能指针</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0-Deref-trait-%E5%AE%9A%E4%B9%89%E5%A6%82%E4%BD%95%E5%83%8F%E5%BC%95%E7%94%A8%E4%B8%80%E6%A0%B7%E5%AF%B9%E5%BE%85%E6%9F%90%E7%B1%BB%E5%9E%8B"><span class="toc-text">实现 Deref trait 定义如何像引用一样对待某类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E5%92%8C%E6%96%B9%E6%B3%95%E7%9A%84%E9%9A%90%E5%BC%8F%E8%A7%A3%E5%BC%95%E7%94%A8%E5%BC%BA%E5%88%B6%E5%A4%9A%E6%80%81"><span class="toc-text">函数和方法的隐式解引用强制多态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%BC%95%E7%94%A8%E5%BC%BA%E5%88%B6%E5%A4%9A%E6%80%81%E5%A6%82%E4%BD%95%E4%B8%8E%E5%8F%AF%E5%8F%98%E6%80%A7%E4%BA%A4%E4%BA%92"><span class="toc-text">解引用强制多态如何与可变性交互</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81Drop-Trait-%E8%BF%90%E8%A1%8C%E6%B8%85%E7%90%86%E4%BB%A3%E7%A0%81"><span class="toc-text">三、Drop Trait 运行清理代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87-std-mem-drop-%E6%8F%90%E6%97%A9%E4%B8%A2%E5%BC%83%E5%80%BC"><span class="toc-text">通过 std::mem::drop 提早丢弃值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81Rc-%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="toc-text">四、Rc 引用计数智能指针</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Rc-%E5%85%B1%E4%BA%AB%E6%95%B0%E6%8D%AE"><span class="toc-text">使用 Rc 共享数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%8B%E9%9A%86-Rc-%E4%BC%9A%E5%A2%9E%E5%8A%A0%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0"><span class="toc-text">克隆 Rc 会增加引用计数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81RefCell-%E5%92%8C%E5%86%85%E9%83%A8%E5%8F%AF%E5%8F%98%E6%80%A7%E6%A8%A1%E5%BC%8F"><span class="toc-text">五、RefCell 和内部可变性模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87-RefCell-%E5%9C%A8%E8%BF%90%E8%A1%8C%E6%97%B6%E6%A3%80%E6%9F%A5%E5%80%9F%E7%94%A8%E8%A7%84%E5%88%99"><span class="toc-text">通过 RefCell 在运行时检查借用规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E9%83%A8%E5%8F%AF%E5%8F%98%E6%80%A7-%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%80%BC%E7%9A%84%E5%8F%AF%E5%8F%98%E5%80%9F%E7%94%A8"><span class="toc-text">内部可变性:不可变值的可变借用</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%86%85%E9%83%A8%E5%8F%AF%E5%8F%98%E6%80%A7%E7%9A%84%E7%94%A8%E4%BE%8B-mock-%E5%AF%B9%E8%B1%A1"><span class="toc-text">内部可变性的用例:mock 对象</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#RefCell-%E5%9C%A8%E8%BF%90%E8%A1%8C%E6%97%B6%E6%A3%80%E6%9F%A5%E5%80%9F%E7%94%A8%E8%A7%84%E5%88%99"><span class="toc-text">RefCell 在运行时检查借用规则</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E5%90%88-Rc-%E5%92%8C-RefCell-%E6%9D%A5%E6%8B%A5%E6%9C%89%E5%A4%9A%E4%B8%AA%E5%8F%AF%E5%8F%98%E6%95%B0%E6%8D%AE%E6%89%80%E6%9C%89%E8%80%85"><span class="toc-text">结合 Rc 和 RefCell 来拥有多个可变数据所有者</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%BC%95%E7%94%A8%E5%BE%AA%E7%8E%AF%E4%B8%8E%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F"><span class="toc-text">六、引用循环与内存泄漏</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%B6%E9%80%A0%E5%BC%95%E7%94%A8%E5%BE%AA%E7%8E%AF"><span class="toc-text">制造引用循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%BF%E5%85%8D%E5%BC%95%E7%94%A8%E5%BE%AA%E7%8E%AF-%E5%B0%86-Rc-%E5%8F%98%E4%B8%BA-Weak"><span class="toc-text">避免引用循环:将 Rc 变为 Weak</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%A0%91%E5%BD%A2%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E5%B8%A6%E6%9C%89%E5%AD%90%E8%8A%82%E7%82%B9%E7%9A%84-Node"><span class="toc-text">创建树形数据结构:带有子节点的 Node</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%A2%9E%E5%8A%A0%E4%BB%8E%E5%AD%90%E5%88%B0%E7%88%B6%E7%9A%84%E5%BC%95%E7%94%A8"><span class="toc-text">增加从子到父的引用</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E8%A7%86%E5%8C%96-strong-count-%E5%92%8C-weak-count-%E7%9A%84%E6%94%B9%E5%8F%98"><span class="toc-text">可视化 strong_count 和 weak_count 的改变</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>指针(pointer)</strong>是一个包含内存地址的变量的通用概念。这个地址引用，或“指向”(points at)一些其他数据。Rust 中最常见的指针是<strong>引用(reference)</strong>。引用以 <code>&amp;</code> 符号为标志并借用了他们所指向的值。除了引用数据它们没有任何其他特殊功能。它们也没有任何额外开销，所以应用的最多。</p>
+<p>另一方面，<strong>智能指针(smart pointers)</strong>是一类数据结构，<strong>他们的表现类似指针，但是也拥有额外的元数据和功能。</strong>智能指针的概念并不为 Rust 所独有；其起源于 C++ 并存在于其他语言中。Rust 标准库中不同的智能指针提供了多于引用的额外功能。我们将会探索的一个例子便是<strong>引用计数(reference counting)</strong>智能指针类型，其允许数据有多个所有者。引用计数智能指针记录总共有多少个所有者，并当没有任何所有者时负责清理数据。</p>
+<p>在 Rust 中，<strong>普通引用</strong>和<strong>智能指针</strong>的一个额外的区别是<code>引用是一类只借用数据的指针</code>；相反大部分情况，智能指针拥有他们指向的数据。</p>
+<p>实际上之前已经出现过一些智能指针，<code>String</code> 和 <code>Vec&lt;T&gt;</code> 。虽然当时我们并不这么称呼它们。这些类型都属于智能指针因为它们拥有一些数据并允许你修改它们。它们也带有元数据（比如他们的容量）和额外的功能或保证（<code>String</code> 的数据总是有效的 <code>UTF-8</code> 编码）。</p>
+<p><strong>智能指针通常使用结构体实现。</strong>智能指针区别于常规结构体的显著特性在于其实现了 <code>Deref</code> 和 <code>Drop trait</code>。<code>Deref trait</code> 允许智能指针结构体实例表现的像引用一样，<strong>这样就可以编写既用于引用、又用于智能指针的代码</strong>。<code>Drop trait</code> 允许我们自定义当智能指针离开作用域时运行的代码。并且会讨论这些 trait 以及为什么对于智能指针来说他们很重要。</p>
+<p>考虑到智能指针是一个在 Rust 经常被使用的通用设计模式，我们并不会覆盖所有现存的智能指针。很多库都有自己的智能指针而你也可以编写属于你自己的智能指针。这里将会讲到的是来自标准库中最常用的一些:</p>
+<ul>
+<li><code>Box&lt;T&gt;</code> ，用于在堆上分配值</li>
+<li><code>Rc&lt;T&gt;</code> ，一个引用计数类型，其数据可以有多个所有者</li>
+<li><code>Ref&lt;T&gt;</code> 和 <code>RefMut&lt;T&gt;</code> ，通过 <code>RefCell&lt;T&gt;</code> 访问，<code>RefCell&lt;T&gt;</code> 是一个在运行时而不是在编译时执行借用规则的类型。</li>
+</ul>
+<p>同时我们会涉及内部<strong>可变性(interior mutability)</strong>模式，这时不可变类型暴露出改变其内部值的API。我们也会讨论<strong>引用循环(reference cycles)</strong>会如何泄露内存，以及如何避免。</p>
+<h2 id="一、Box-在堆上存储数据，并且可确定大小"><a href="#一、Box-在堆上存储数据，并且可确定大小" class="headerlink" title="一、Box 在堆上存储数据，并且可确定大小"></a>一、Box<T> 在堆上存储数据，并且可确定大小</h2><p>最简单直接的智能指针是 <strong>box</strong>，其类型是 <code>Box&lt;T&gt;</code> 。 box 允许你将一个值放在堆上而不是栈上。<strong>留在栈上的则是指向堆数据的指针。</strong></p>
+<p>除了数据被储存在堆上而不是栈上之外，box没有性能损失，不过也没有很多额外的功能。他们多用于如下场景:</p>
+<ul>
+<li>当有一个在编译时未知大小的类型，而又想要在需要确切大小的上下文中使用这个类型值的时候</li>
+<li>当有大量数据并希望在确保数据不被拷贝的情况下转移所有权的时候</li>
+<li>当希望拥有一个值并只关心它的类型是否实现了特定 <code>trait</code> 而不是其具体类型的时候</li>
+</ul>
+<p>我们将在本部分的余下内容中展示第一种应用场景。在第二种情况中，转移大量数据的所有权可能会花费很长的时间，因为数据在栈上进行了拷贝。为了改善这种情况下的性能，可以通过 box 将这些数据储存在堆上。接着，只有少量的指针数据在栈上被拷贝。第三种情况被称为 <code>trait</code> 对象(trait object)。</p>
+<h3 id="使用-Box-在堆上储存数据"><a href="#使用-Box-在堆上储存数据" class="headerlink" title="使用 Box 在堆上储存数据"></a>使用 Box<T> 在堆上储存数据</h3><p>在开始 <code>Box&lt;T&gt;</code> 的用例之前，让我们熟悉一下语法和如何与储存在 <code>Box&lt;T&gt;</code> 中的值交互。<br>使用 box 在堆上储存一个 i32 :<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() &#123;<br>    <span class="hljs-keyword">let</span> b = <span class="hljs-built_in">Box</span>::new(<span class="hljs-number">5</span>);<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;b = &#123;&#125;&quot;</span>, b);<br>&#125;<br></code></pre></td></tr></table></figure><br>这里定义了变量 b ，其值是一个指向被分配在堆上的值 5 的 Box 。这个程序会打印出 <code>b = 5</code> ；在这个例子中，我们可以像数据是储存在栈上的那样访问 box 中的数据。正如任何拥有数据所有权的值那样，当像 b 这样的 box 在 main 的末尾离开作用域时，它将被释放。这个释放过程作用于 box 本身(位于栈上)和它所指向的数据(位于堆上)。</p>
+<p>将一个单独的值存放在堆上并不是很有意义。</p>
+<h3 id="box-允许创建递归类型"><a href="#box-允许创建递归类型" class="headerlink" title="box 允许创建递归类型"></a>box 允许创建递归类型</h3><p>Rust 需要在编译时知道类型占用多少空间。一种无法在编译时知道大小的类型是<strong>递归类型(recursive type)</strong>，其值的一部分可以是相同类型的另一个值。这种值的嵌套理论上可以无限的进行下去，所以 Rust 不知道递归类型需要多少空间。不过 box 有一个已知的大小，所以通过在循环类型定义中插入box，就可以创建递归类型了。</p>
+<p>让我们探索一下 <code>cons list</code>，一个函数式编程语言中的常见类型，来展示这个(递归类型)概念。除了递归之外，我们将要定义的 <code>cons list</code> 类型是很直白的，所以这个例子中的概念在任何遇到更为复杂的涉及到递归类型的场景时都很实用。</p>
+<h6 id="cons-list"><a href="#cons-list" class="headerlink" title="cons list"></a>cons list</h6><p><code>cons list</code> 是一个来源于 <strong>Lisp 编程语言及其方言的数据结构。</strong>在 Lisp 中，<strong><em>cons 函数（“construct function” 的缩写）利用两个参数来构造一个新的列表，他们通常是一个单独的值和另一个列表。</em></strong></p>
+<p>cons 函数的概念涉及到更常见的函数式编程术语；“将 x 与 y 连接” 通常意味着构建一个新的容器而将 x 的元素放在新容器的开头，其后则是容器 y 的元素。</p>
+<p><code>cons list</code> 的每一项都包含两个元素：<code>当前项的值</code>和<code>下一项</code>。<code>其最后一项值包含一个叫做 Nil 的值且没有下一项</code>。<code>cons list</code> 通过递归调用 cons 函数产生。代表递归的终止条件（base case）的规范名称是 <code>Nil</code>，它宣布列表的终止。</p>
+<p>注意虽然函数式编程语言经常使用 <code>cons list</code>，但是它并不是一个 Rust 中常见的类型。大部分在 Rust 中需要列表的时候，<code>Vec&lt;T&gt;</code> 是一个更好的选择。其他更为复杂的递归数据类型确实在 Rust 的很多场景中很有用，不过通过以 <code>cons list</code> 作为开始，我们可以探索如何使用 box 毫不费力的定义一个递归数据类型。</p>
+<p>包含一个 <code>cons list</code> 的枚举定义。注意这还不能编译因为这个类型没有已知的大小，之后我们会展示:<br><figure class="highlight thrift"><table><tr><td class="code"><pre><code class="hljs thrift"><span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">List</span> </span>&#123;<br>    Cons(<span class="hljs-built_in">i32</span>, List),<br>    Nil,<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意:出于示例的需要我们选择实现一个只存放 i32 值的 cons list。也可以用泛型实现它</p>
+</blockquote>
+<p>使用这个 <code>cons list</code> 来储存列表 <code>1, 2, 3</code> 。<br><figure class="highlight gauss"><table><tr><td class="code"><pre><code class="hljs gauss"><span class="hljs-keyword">use</span> crate::List::&#123;<span class="hljs-built_in">Cons</span>, Nil&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span>(<span class="hljs-params"></span>) &#123;</span><br><span class="hljs-function">    <span class="hljs-title">let</span> <span class="hljs-title">list</span> </span>= <span class="hljs-built_in">Cons</span>(<span class="hljs-number">1</span>, <span class="hljs-built_in">Cons</span>(<span class="hljs-number">2</span>, <span class="hljs-built_in">Cons</span>(<span class="hljs-number">3</span>, Nil)));<br>&#125;<br></code></pre></td></tr></table></figure><br>第一个 Cons 储存了 1 和另一个 List 值。这个 List 是另一个包含 2 的 Cons 值和下一个 List 值。接着又有另一个存放了 3 的 Cons 值和最后一个值为 Nil 的 List ，非递归成员代表了列表的结尾。</p>
+<p>如果尝试编译上面的代码，会得到下面错误:<br><figure class="highlight n1ql"><table><tr><td class="code"><pre><code class="hljs n1ql">$ cargo run<br>   Compiling cons-list v0.1.0 (file:///projects/cons-list)<br>error[E0072]: recursive type `List` has infinite size<br> --&gt; src/main.rs:1:1<br>  |<br>1 | enum List &#123;<br>  | ^^^^^^^^^ recursive type has infinite size<br>2 |     Cons(i32, List),<br>  |               ---- recursive without indirection<br>  |<br>help: <span class="hljs-keyword">insert</span> <span class="hljs-keyword">some</span> indirection (<span class="hljs-built_in">e</span>.g., a <span class="hljs-symbol">`Box`</span>, <span class="hljs-symbol">`Rc`</span>, <span class="hljs-keyword">or</span> <span class="hljs-symbol">`&amp;`</span>) <span class="hljs-keyword">to</span> make <span class="hljs-symbol">`List`</span> representable<br>  |<br><span class="hljs-number">2</span> |     Cons(i32, Box&lt;List&gt;),<br>  |               ^^^^    ^<br><br>error[E0391]: cycle detected <span class="hljs-keyword">when</span> computing <span class="hljs-keyword">drop</span>-check constraints <span class="hljs-keyword">for</span> <span class="hljs-symbol">`List`</span><br> --&gt; src/main.rs:<span class="hljs-number">1</span>:<span class="hljs-number">1</span><br>  |<br><span class="hljs-number">1</span> | enum List &#123;<br>  | ^^^^^^^^^<br>  |<br>  = note: ...which again requires computing <span class="hljs-keyword">drop</span>-check constraints <span class="hljs-keyword">for</span> <span class="hljs-symbol">`List`</span>, completing the cycle<br>  = note: cycle used <span class="hljs-keyword">when</span> computing dropck types <span class="hljs-keyword">for</span> <span class="hljs-symbol">`Canonical &#123; max_universe: U0, variables: [], value: ParamEnvAnd &#123; param_env: ParamEnv &#123; caller_bounds: [], reveal: UserFacing &#125;, value: List &#125; &#125;`</span><br><br><span class="hljs-keyword">Some</span> errors have detailed explanations: E0072, E0391.<br><span class="hljs-keyword">For</span> more information about an error, try <span class="hljs-symbol">`rustc --explain E0072`</span>.<br>error: could <span class="hljs-keyword">not</span> compile <span class="hljs-symbol">`cons-list`</span> due <span class="hljs-keyword">to</span> <span class="hljs-number">2</span> previous errors<br></code></pre></td></tr></table></figure><br>这个错误表明这个类型“有无限的大小”。其原因是 List 的一个成员被定义为是递归的:它直接存放了另一个相同类型的值。这意味着 Rust 无法计算为了存放 List 值到底需要多少空间。让我们一点一点来看: 首先了解一下 Rust 如何决定需要多少空间来存放一个非递归类型。</p>
+<h6 id="计算非递归类型的大小"><a href="#计算非递归类型的大小" class="headerlink" title="计算非递归类型的大小"></a>计算非递归类型的大小</h6><p>当 Rust 需要知道要为 Message 值分配多少空间时，它可以检查每一个成员并发现 <code>Message::Quit</code> 并不需要任何空间，<code>Message::Move</code> 需要足够储存两个 i32 值的空间，依此类推。因此， Message 值所需的空间等于储存其最大成员的空间大小。<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">Message</span></span> &#123;<br>    Quit,<br>    Move &#123; x: <span class="hljs-built_in">i32</span>, y: <span class="hljs-built_in">i32</span> &#125;,<br>    Write(<span class="hljs-built_in">String</span>),<br>    ChangeColor(<span class="hljs-built_in">i32</span>, <span class="hljs-built_in">i32</span>, <span class="hljs-built_in">i32</span>),<br>&#125;<br></code></pre></td></tr></table></figure><br>与此相对当 Rust 编译器检查像cons中的 List 这样的递归类型时会发生什么呢。编译器尝试计算出储存一个 List 枚举需要多少内存，并开始检查 Cons 成员，那么 Cons 需要的空间等于 i32 的大小加上 List 的大小。为了计算 List 需要多少内存，它检查其成员，从 Cons 成员开始。 Cons 成员储存了一个 i32 值和一个 List 值，这样的计算将无限进行下去<br><img src="/img/Rust/6.png" alt="github"></p>
+<h6 id="使用-Box-给递归类型一个已知的大小"><a href="#使用-Box-给递归类型一个已知的大小" class="headerlink" title="使用 Box 给递归类型一个已知的大小"></a>使用 Box<T> 给递归类型一个已知的大小</h6><p>Rust 无法计算出要为定义为递归的类型分配多少空间，所以编译器给出了错误。这个错误也包括了有用的建议:<br><figure class="highlight n1ql"><table><tr><td class="code"><pre><code class="hljs n1ql">help: <span class="hljs-keyword">insert</span> <span class="hljs-keyword">some</span> indirection (<span class="hljs-built_in">e</span>.g., a <span class="hljs-symbol">`Box`</span>, <span class="hljs-symbol">`Rc`</span>, <span class="hljs-keyword">or</span> <span class="hljs-symbol">`&amp;`</span>) <span class="hljs-keyword">to</span> make <span class="hljs-symbol">`List`</span> representable<br>  |<br><span class="hljs-number">2</span> |     Cons(i32, Box&lt;List&gt;),<br>  |               ^^^^    ^<br></code></pre></td></tr></table></figure><br>在建议中，“indirection” 意味着不同于直接储存一个值，我们将间接的储存一个指向值的指针。</p>
+<p>因为 <code>Box&lt;T&gt;</code> 是一个指针，我们总是知道它需要多少空间：指针的大小并不会根据其指向的数据量而改变。这意味着可以将 Box 放入 Cons 成员中而不是直接存放另一个 List 值。Box 会指向另一个位于堆上的 List 值，而不是存放在 Cons 成员中。从概念上讲，我们仍然有一个通过在其中 “存放” 其他列表创建的列表，不过现在实现这个概念的方式更像是一个项挨着另一项，而不是一项包含另一项。</p>
+<figure class="highlight gauss"><table><tr><td class="code"><pre><code class="hljs gauss">enum List &#123;<br>    <span class="hljs-built_in">Cons</span>(i32, <span class="hljs-built_in">Box</span>&lt;List&gt;),<br>    Nil,<br>&#125;<br><br><span class="hljs-keyword">use</span> crate::List::&#123;<span class="hljs-built_in">Cons</span>, Nil&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span>(<span class="hljs-params"></span>) &#123;</span><br><span class="hljs-function">    <span class="hljs-title">let</span> <span class="hljs-title">list</span> </span>= <span class="hljs-built_in">Cons</span>(<span class="hljs-number">1</span>, <span class="hljs-built_in">Box</span>::<span class="hljs-keyword">new</span>(<span class="hljs-built_in">Cons</span>(<span class="hljs-number">2</span>, <span class="hljs-built_in">Box</span>::<span class="hljs-keyword">new</span>(<span class="hljs-built_in">Cons</span>(<span class="hljs-number">3</span>, <span class="hljs-built_in">Box</span>::<span class="hljs-keyword">new</span>(Nil))))));<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>Cons 成员将会需要一个 i32 的大小加上储存 box 指针数据的空间。 Nil 成员不储存值，所以它比 Cons 成员需要更少的空间。现在我们知道了任何 List 值最多需要一个 i32 加上 box 指针数据的大小。通过使用 box ，打破了这无限递归的连锁，这样编译器就能够计算出储存 List 值需要的大小了。<br><img src="/img/Rust/7.png" alt="github"></p>
+<p>box 只提供了间接存储和堆分配;他们并没有任何其他特殊的功能，比如我们将会见到的其他智能指针。他们也没有这些特殊功能带来的性能损失，所以他们可以用于像 cons list 这样间接存储是唯一所需功能的场景。</p>
+<p><code>Box&lt;T&gt;</code> 类型是一个智能指针，因为它实现了 <code>Deref trait</code>，它允许 <code>Box&lt;T&gt;</code> 值被当作引用对待。当 <code>Box&lt;T&gt;</code> 值离开作用域时，由于 <code>Box&lt;T&gt;</code> 类型 <code>Drop trait</code> 的实现，box 所指向的堆数据也会被清除。让我们更详细的探索一下这两个 <code>trait</code>。</p>
+<h2 id="二、通过-Deref-trait-将智能指针当作常规引用处理"><a href="#二、通过-Deref-trait-将智能指针当作常规引用处理" class="headerlink" title="二、通过 Deref trait 将智能指针当作常规引用处理"></a>二、通过 Deref trait 将智能指针当作常规引用处理</h2><p>实现 <code>Deref trait</code> 允许我们重载<strong>解引用运算符(dereference operator)</strong> <code>*</code> (与乘法运算符或 glob 运算符相区别)。通过这种方式实现 <code>Deref trait</code> 的智能指针可以被当作常规引用来对待，可以编写操作引用的代码并用于智能指针。</p>
+<p>让我们首先看看<strong>解引用运算符</strong>如何处理常规引用，接着尝试定义我们自己的类似 <code>Box&lt;T&gt;</code> 的类型并看看为何解引用运算符不能像引用一样工作。我们会探索如何实现 <code>Deref trait</code> 使得智能指针以类似引用的方式工作变为可能。最后，我们会讨论 Rust 的 <code>Deref</code> 强制转换（deref coercions）功能以及它是如何处理引用或智能指针的。</p>
+<blockquote>
+<p>我们将要构建的 MyBox<T> 类型与真正的 Box<T> 有一个很大的区别：我们的版本不会在堆上储存数据。这个例子重点关注 Deref，所以其数据实际存放在何处，相比其类似指针的行为来说不算重要。</p>
+</blockquote>
+<h3 id="通过-追踪指针的值"><a href="#通过-追踪指针的值" class="headerlink" title="通过 * 追踪指针的值"></a>通过 * 追踪指针的值</h3><p>常规引用是一个<code>指针类型</code>，一种理解指针的方式是将其看成指向储存在其他某处值的箭头。创建了一个 <code>i32</code> 值的引用接着使用解引用运算符来跟踪所引用的数据:<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() &#123;<br>    <span class="hljs-keyword">let</span> x = <span class="hljs-number">5</span>;<br>    <span class="hljs-keyword">let</span> y = &amp;x;<br><br>    <span class="hljs-built_in">assert_eq!</span>(<span class="hljs-number">5</span>, x);<br>    <span class="hljs-built_in">assert_eq!</span>(<span class="hljs-number">5</span>, *y);<br>&#125;<br></code></pre></td></tr></table></figure><br>变量 x 存放了一个 i32 值 5。y 等于 x 的一个引用。可以断言 x 等于 5。然而， 如果希望对 y 的值做出断言，必须使用 <code>*y</code> 来追踪引用所指向的值(也就是<strong>解引用</strong>)。一旦解引用了 y ，就可以访问 y 所指向的整型值并可以与 5 做比较。</p>
+<p>相反如果尝试编写 <code>assert_eq!(5, y);</code>，则会得到如下编译错误:<br><figure class="highlight maxima"><table><tr><td class="code"><pre><code class="hljs maxima">$ cargo run<br>   Compiling deref-<span class="hljs-built_in">example</span> v0<span class="hljs-number">.1</span><span class="hljs-number">.0</span> (file:///projects/deref-<span class="hljs-built_in">example</span>)<br><span class="hljs-built_in">error</span>[E0277]: can&#x27;t <span class="hljs-built_in">compare</span> `&#123;<span class="hljs-built_in">integer</span>&#125;` with `&amp;&#123;<span class="hljs-built_in">integer</span>&#125;`<br> --&gt; src/main.rs:<span class="hljs-number">6</span>:<span class="hljs-number">5</span><br>  |<br><span class="hljs-number">6</span> |     assert_eq!(<span class="hljs-number">5</span>, y);<br>  |     ^^^^^^^^^^^^^^^^^ no implementation <span class="hljs-keyword">for</span> `&#123;<span class="hljs-built_in">integer</span>&#125; == &amp;&#123;<span class="hljs-built_in">integer</span>&#125;`<br>  |<br>  = help: the trait `PartialEq&lt;&amp;&#123;<span class="hljs-built_in">integer</span>&#125;&gt;` <span class="hljs-built_in">is</span> <span class="hljs-keyword">not</span> implemented <span class="hljs-keyword">for</span> `&#123;<span class="hljs-built_in">integer</span>&#125;`<br>  = note: this <span class="hljs-built_in">error</span> originates <span class="hljs-keyword">in</span> the macro `assert_eq` (<span class="hljs-keyword">in</span> Nightly builds, run with -Z macro-<span class="hljs-built_in">backtrace</span> <span class="hljs-keyword">for</span> more info)<br><br>For more information about this <span class="hljs-built_in">error</span>, try `rustc --explain E0277`.<br><span class="hljs-built_in">error</span>: could <span class="hljs-keyword">not</span> <span class="hljs-built_in">compile</span> `deref-<span class="hljs-built_in">example</span>` due to previous <span class="hljs-built_in">error</span><br></code></pre></td></tr></table></figure><br>不允许比较数字的引用与数字，因为它们是不同的类型。必须使用 <code>*</code> 追踪引用所指向的值。</p>
+<h3 id="像引用一样使用-Box"><a href="#像引用一样使用-Box" class="headerlink" title="像引用一样使用 Box"></a>像引用一样使用 Box<T></h3><p>可以重写上面的代码来使用 <code>Box&lt;T&gt;</code> 而不是引用，同时借引用运算符也一样能工作<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() &#123;<br>    <span class="hljs-keyword">let</span> x = <span class="hljs-number">5</span>;<br>    <span class="hljs-keyword">let</span> y = <span class="hljs-built_in">Box</span>::new(x);<br><br>    <span class="hljs-built_in">assert_eq!</span>(<span class="hljs-number">5</span>, x);<br>    <span class="hljs-built_in">assert_eq!</span>(<span class="hljs-number">5</span>, *y);<br>&#125;<br></code></pre></td></tr></table></figure><br>主要不同的地方就是将 y 设置为一个指向 x 值拷贝的 box 实例，而不是指向 x 值的引用。在最后的断言中，可以使用解引用运算符以 y 为引用时相同的方式追踪 box 的指针。</p>
+<h3 id="自定义智能指针"><a href="#自定义智能指针" class="headerlink" title="自定义智能指针"></a>自定义智能指针</h3><p>为了体会默认智能指针的行为不同于引用，让我们创建一个类似于标准库提供的 <code>Box&lt;T&gt;</code> 类型的智能指针。接着会学习如何增加使用解引用运算符的功能。</p>
+<p>从根本上说， <code>Box&lt;T&gt;</code> 被定义为包含一个元素的元组结构体，所以下面以相同的方式定义了 <code>MyBox&lt;T&gt;</code> 类型。我们还定义了 <code>new</code> 函数来对应定义于 <code>Box&lt;T&gt;</code> 的 <code>new</code> 函数:<br><figure class="highlight excel"><table><tr><td class="code"><pre><code class="hljs excel">struct MyBox&lt;<span class="hljs-built_in">T</span>&gt;(<span class="hljs-built_in">T</span>);<br><br>impl&lt;<span class="hljs-built_in">T</span>&gt; MyBox&lt;<span class="hljs-built_in">T</span>&gt; &#123;<br>    fn new(<span class="hljs-symbol">x:</span> <span class="hljs-built_in">T</span>) -&gt; MyBox&lt;<span class="hljs-built_in">T</span>&gt; &#123;<br>        MyBox(x)<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>这里定义了一个结构体 MyBox 并声明了一个泛型 <code>T</code> ，因为我们希望其可以存放任何类型的值。 MyBox 是一个包含 <code>T</code> 类型元素的元组结构体。 <code>MyBox::new</code> 函数获取一个 <code>T</code> 类型的参数并返回一个存放传入值的 MyBox 实例。<br>代码不能编译，因为 Rust 不知道如何解引用 MyBox :<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() &#123;<br>    <span class="hljs-keyword">let</span> x = <span class="hljs-number">5</span>;<br>    <span class="hljs-keyword">let</span> y = MyBox::new(x);<br><br>    <span class="hljs-built_in">assert_eq!</span>(<span class="hljs-number">5</span>, x);<br>    <span class="hljs-built_in">assert_eq!</span>(<span class="hljs-number">5</span>, *y);<br>&#125;<br></code></pre></td></tr></table></figure><br>得到的编译错误是:<br><figure class="highlight mel"><table><tr><td class="code"><pre><code class="hljs mel">$ cargo run<br>   Compiling deref-example v0<span class="hljs-number">.1</span><span class="hljs-number">.0</span> (<span class="hljs-keyword">file</span>:<span class="hljs-comment">///projects/deref-example)</span><br><span class="hljs-keyword">error</span>[E0614]: type <span class="hljs-string">`MyBox&lt;&#123;integer&#125;&gt;`</span> cannot be dereferenced<br>  --&gt; src/main.rs:<span class="hljs-number">14</span>:<span class="hljs-number">19</span><br>   |<br><span class="hljs-number">14</span> |     assert_eq!(<span class="hljs-number">5</span>, *y);<br>   |                   ^^<br><br>For more information <span class="hljs-keyword">about</span> this <span class="hljs-keyword">error</span>, try <span class="hljs-string">`rustc --explain E0614`</span>.<br><span class="hljs-keyword">error</span>: could not compile <span class="hljs-string">`deref-example`</span> due to previous <span class="hljs-keyword">error</span><br></code></pre></td></tr></table></figure><br><code>MyBox&lt;T&gt;</code> 类型不能解引用我们并没有为其实现这个功能。为了启用 <code>*</code> 运算符的解引用功能，可以实现 <code>Deref trait</code>。</p>
+<h3 id="实现-Deref-trait-定义如何像引用一样对待某类型"><a href="#实现-Deref-trait-定义如何像引用一样对待某类型" class="headerlink" title="实现 Deref trait 定义如何像引用一样对待某类型"></a>实现 Deref trait 定义如何像引用一样对待某类型</h3><p>为了实现 <code>trait</code>，需要提供 <code>trait</code> 所需的方法实现。 <code>Deref trait</code>，由标准库提供，要求实现名为 <code>deref</code> 的方法，其借用 <code>self</code> 并返回一个内部数据的引用。<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">use</span> std::ops::Deref;<br><br><span class="hljs-keyword">impl</span>&lt;T&gt; Deref <span class="hljs-keyword">for</span> MyBox&lt;T&gt; &#123;<br>    <span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">Target</span></span> = T;<br><br>    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">deref</span></span>(&amp;<span class="hljs-keyword">self</span>) -&gt; &amp;Self::Target &#123;<br>        &amp;<span class="hljs-keyword">self</span>.<span class="hljs-number">0</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br><code>type Target = T;</code> 语法定义了用于此 <code>trait</code> 的关联类型。关联类型是一个稍有不同的定义泛型参数的方式，现在还无需过多的担心他。</p>
+<p><code>deref</code> 方法体中写入了 <code>&amp;self.0</code> ，这样 <code>deref</code> 返回了我希望通过 <code>*</code> 运算符访问的值的引用。</p>
+<p>没有 <code>Deref trait</code> 的话，编译器只会解引用 <code>&amp;</code> 引用类型。 <code>Deref trait</code> 的 <code>deref</code> 方法为编译器提供了获取任何实现了 <code>Deref</code> 的类型值的能力，为了获取其知道如何解引用的 <code>&amp;</code> 引用编译器可以调用 <code>deref</code> 方法。</p>
+<p>当我们输入 <code>*y</code> 时，Rust 事实上在底层运行了如下代码:<br><figure class="highlight lisp"><table><tr><td class="code"><pre><code class="hljs lisp">*(<span class="hljs-name">y</span>.deref())<br></code></pre></td></tr></table></figure><br>Rust 将 <code>*</code> 运算符替换为 <code>deref</code> 方法调用和一个普通解引用，如此我们便无需担心是否需要调用 <code>deref</code> 方法。Rust 的这个功能让我们可以编写同时处理常规引用或实现了 <code>Deref</code> 的类型的代码。</p>
+<p><code>deref</code> 方法返回值的引用，以及 <code>*(y.deref())</code> 括号外边的普通解引用仍为必须的原因在于所有权。如果 <code>deref</code> 方法直接返回值而不是值的引用，其值(的所有权)将被移出 self 。 在这里以及大部分使用解引用运算符的情况下我们并不希望获取 <code>MyBox&lt;T&gt;</code> 内部值的所有权。</p>
+<p>注意，每次当我们在代码中使用 <code>*</code> 时， <code>*</code> 运算符都被替换成了先调用 <code>deref</code> 方法再接着使用 <code>*</code> 解引用的操作，且只会发生一次，不会对 <code>*</code> 操作符无限递归替换，解引用出上面 i32 类型的值就停止了。</p>
+<h3 id="函数和方法的隐式解引用强制多态"><a href="#函数和方法的隐式解引用强制多态" class="headerlink" title="函数和方法的隐式解引用强制多态"></a>函数和方法的隐式解引用强制多态</h3><p><code>Deref 强制转换（deref coercions）</code>是 Rust 在函数或方法传参上的一种便利。Deref 强制转换只能作用于实现了 <code>Deref trait</code> 的类型。<code>Deref</code> 强制转换将这样一个类型的引用转换为另一个类型的引用。例如，Deref 强制转换可以将 <code>&amp;String</code> 转换为 <code>&amp;str</code>，因为 <code>String</code> 实现了 <code>Deref trait</code> 因此可以返回 <code>&amp;str</code>。当这种特定类型的引用作为实参传递给和形参类型不同的函数或方法时，<code>Deref</code> 强制转换将自动发生。这时会有一系列的 <code>deref</code> 方法被调用，把我们提供的类型转换成了参数所需的类型。</p>
+<p>解引用强制多态的加入使得 Rust 程序员编写函数和方法调用时无需增加过多显式使用 <code>&amp;</code> 和 <code>*</code> 的引用和解引用。这个功能也使得我们可以编写更多同时作用于引用或智能指针的代码。<br><figure class="highlight less"><table><tr><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">fn</span> <span class="hljs-selector-tag">hello</span>(<span class="hljs-attribute">name</span>: &amp;str) &#123;<br>    <span class="hljs-selector-tag">println</span>!(<span class="hljs-string">&quot;Hello, &#123;&#125;!&quot;</span>, name);<br>&#125;<br></code></pre></td></tr></table></figure><br>可以使用字符串 slice 作为参数调用 hello 函数，比如 hello(“Rust”); 。解引用强制多态使得用 <code>MyBox&lt;String&gt;</code> 类型值的引用调用 hello 成为可能。<br><figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">fn <span class="hljs-function"><span class="hljs-title">main</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">let</span> m = MyBox::<span class="hljs-keyword">new</span>(<span class="hljs-built_in">String</span>::<span class="hljs-keyword">from</span>(<span class="hljs-string">&quot;Rust&quot;</span>));<br>    hello(&amp;m);<br>&#125;<br></code></pre></td></tr></table></figure><br>这里使用 <code>&amp;m</code> 调用 hello 函数，其为 <code>MyBox&lt;String&gt;</code> 值的引用。<code>MyBox&lt;T&gt;</code> 上实现了 <code>Deref trait</code>，Rust可以通过 <code>deref</code> 调用将 <code>&amp;MyBox&lt;String&gt;</code> 变为 <code>&amp;String</code> 。标准库中提供了 <code>String</code> 上的 <code>Deref</code> 实现，其会返回字符串 slice，这可以在 <code>Deref</code> 的 API 文档中看到。Rust 再次调用 <code>deref</code> 将 <code>&amp;String</code> 变为 <code>&amp;str</code> ，这就符合 hello 函数的定义了。</p>
+<p>如果 Rust 没有实现解引用强制多态，为了使用 <code>&amp;MyBox&lt;String&gt;</code>类型的值调用 hello ，则不得不编写如下代码替换<br><figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">fn <span class="hljs-function"><span class="hljs-title">main</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">let</span> m = MyBox::<span class="hljs-keyword">new</span>(<span class="hljs-built_in">String</span>::<span class="hljs-keyword">from</span>(<span class="hljs-string">&quot;Rust&quot;</span>));<br>    hello(&amp;(*m)[..]); <br>&#125;<br></code></pre></td></tr></table></figure><br><code>(*m)</code> 将 <code>MyBox&lt;String&gt;</code> 解引用为 <code>String</code> 。接着 <code>&amp;</code> 和 <code>[..]</code> 获取了整个 <code>String</code> 的字符串 slice 来匹配 hello 的签名。没有解引用强制多态所有这些符号混在一起将更难以读写和理解。解引用强制多态使得 Rust 自动的帮我们处理这些转换。</p>
+<p>当所涉及到的类型定义了 <code>Deref trait</code>，Rust 会分析这些类型并使用任意多次 <code>Deref::deref</code> 调用以获得匹配参数的类型。<strong>这些解析都发生在编译时，所以利用解引用强制多态并没有运行时损耗!</strong></p>
+<h3 id="解引用强制多态如何与可变性交互"><a href="#解引用强制多态如何与可变性交互" class="headerlink" title="解引用强制多态如何与可变性交互"></a>解引用强制多态如何与可变性交互</h3><p>类似于如何使用 <code>Deref trait</code> 重载不可变引用的 <code>*</code> 运算符，Rust 提供了 <code>DerefMut trait</code> 用于重载可变引用的 <code>*</code> 运算符。<br>Rust 在发现类型和 <code>trait</code> 实现满足三种情况时会进行解引用强制多态:</p>
+<ul>
+<li>当 <code>T: Deref&lt;Target=U&gt;</code> 时从 <code>&amp;T</code> 到 <code>&amp;U</code> 。</li>
+<li>当 <code>T: DerefMut&lt;Target=U&gt;</code> 时从 <code>&amp;mut T</code> 到 <code>&amp;mut U</code> 。 </li>
+<li>当 <code>T: Deref&lt;Target=U&gt;</code> 时从 <code>&amp;mut T</code> 到 <code>&amp;U</code> 。</li>
+</ul>
+<p>头两个情况除了可变性之外是相同的:第一种情况表明如果有一个 <code>&amp;T</code> ，而 <code>T</code> 实现了返回 <code>U</code> 类型的 <code>Deref</code> ，则可以直接得到 <code>&amp;U</code> 。第二种情况表明对于可变引用也有着相同的行为。</p>
+<p>最后一个情况有些微妙:Rust 也会将可变引用强转为不可变引用。但是反之是 <strong>不可能</strong> 的: 不可变引用永远也不能强转为可变引用。因为根据借用规则，如果有一个可变引用，其必须是这些数据的唯一引用(否则程序将无法编译)。将一个可变引用转换为不可变引用永远也不会打破借用规则。将不可变引用转换为可变引用则需要数据只能有一个不可变引用，而借用规则无法保证这一点。因此，Rust 无法假设将不可变引用转换为可变引用是可能的。</p>
+<h2 id="三、Drop-Trait-运行清理代码"><a href="#三、Drop-Trait-运行清理代码" class="headerlink" title="三、Drop Trait 运行清理代码"></a>三、Drop Trait 运行清理代码</h2><p>对于智能指针模式来说另一个重要的 <code>trait</code> 是 <code>Drop</code> 。 <code>Drop</code> 允许我们在值要离开作用域时执行一些代码。可以为任何类型提供 <code>Drop trait</code> 的实现，同时所指定的代码被用于释放类似于文件或网络连接的资源。我们在智能指针上下文中讨论 <code>Drop</code> 是因为其功能几乎总是用于实现智能指针。例如， <code>Box&lt;T&gt;</code> 自定义了 <code>Drop</code> 用来释放 <code>box</code> 所指向的堆空间。</p>
+<p>在其他一些语言中，我们不得不记住在每次使用完智能指针实例后调用清理内存或资源的代码。如果忘记的话，运行代码的系统可能会因为负荷过重而崩溃。在 Rust 中，可以指定一些代码应该在值离开作用域时被执行，而编译器会自动插入这些代码。</p>
+<p>这意味着无需记住在所有处理完这些类型实例后调用清理代码，而仍然不会泄露资源!</p>
+<p>指定在值离开作用域时应该执行的代码的方式是实现 <code>Drop trait</code>。 <code>Drop trait</code> 要求实现一个叫做 <code>drop</code> 的方法，它获取一个 <code>self</code> 的可变引用。为了能够看出 Rust 何时调用 <code>drop</code> ，让我们暂时使用 <code>println!</code> 语句实现 <code>drop</code> 。<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">CustomSmartPointer</span></span> &#123;<br>    data: <span class="hljs-built_in">String</span>,<br>&#125;<br><br><span class="hljs-keyword">impl</span> <span class="hljs-built_in">Drop</span> <span class="hljs-keyword">for</span> CustomSmartPointer &#123;<br>    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">drop</span></span>(&amp;<span class="hljs-keyword">mut</span> <span class="hljs-keyword">self</span>) &#123;<br>        <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;Dropping CustomSmartPointer with data `&#123;&#125;`!&quot;</span>, <span class="hljs-keyword">self</span>.data);<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() &#123;<br>    <span class="hljs-keyword">let</span> c = CustomSmartPointer &#123;<br>        data: <span class="hljs-built_in">String</span>::from(<span class="hljs-string">&quot;my stuff&quot;</span>),<br>    &#125;;<br>    <span class="hljs-keyword">let</span> d = CustomSmartPointer &#123;<br>        data: <span class="hljs-built_in">String</span>::from(<span class="hljs-string">&quot;other stuff&quot;</span>),<br>    &#125;;<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;CustomSmartPointers created.&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure><br><code>Drop trait</code> 包含在 <code>prelude</code> 中，所以无需导入它。我们在 <code>CustomSmartPointer</code> 上实现了<code>Drop trait</code>，并提供了一个调用 <code>println!</code> 的 <code>drop</code> 方法实现。 <code>drop</code> 函数体是放置任何当类型实例离开作用域时期望运行的逻辑的地方。这里选择打印一些文本以展示 Rust 合适调用<code>drop</code> 。</p>
+<p>在 main 中，新建了一个 CustomSmartPointer 实例并打印出了 <code>CustomSmartPointer created.</code> 。在 main 的结尾， CustomSmartPointer 的实例会离开作用域，而 Rust 会调用放置于 drop 方法中的代码，打印出最后的信息。注意无需显示调用 <code>drop</code> 方法:<br>当运行这个程序，会出现如下输出:<br><figure class="highlight n1ql"><table><tr><td class="code"><pre><code class="hljs n1ql">$ cargo run<br>   Compiling <span class="hljs-keyword">drop</span>-example v0<span class="hljs-number">.1</span><span class="hljs-number">.0</span> (file:///projects/<span class="hljs-keyword">drop</span>-example)<br>    Finished dev [unoptimized + debuginfo] target(s) <span class="hljs-keyword">in</span> <span class="hljs-number">0.60</span>s<br>     Running <span class="hljs-symbol">`target/debug/drop-example`</span><br>CustomSmartPointers created.<br>Dropping CustomSmartPointer <span class="hljs-keyword">with</span> data <span class="hljs-symbol">`other stuff`</span>!<br>Dropping CustomSmartPointer <span class="hljs-keyword">with</span> data <span class="hljs-symbol">`my stuff`</span>!<br></code></pre></td></tr></table></figure><br>当实例离开作用域 Rust 会自动调用 <code>drop</code> ，并调用我们指定的代码。变量以被创创建时相反的顺序被丢弃，所以 d 在 c 之前被丢弃。这刚好给了我们一个 <code>drop</code> 方法如何工作的可视化指导，不过通常需要指定类型所需执行的清理代码而不是打印信息。</p>
+<h3 id="通过-std-mem-drop-提早丢弃值"><a href="#通过-std-mem-drop-提早丢弃值" class="headerlink" title="通过 std::mem::drop 提早丢弃值"></a>通过 std::mem::drop 提早丢弃值</h3><p>不幸的是，我们并不能直截了当的禁用 <code>drop</code> 这个功能。通常也不需要禁用 <code>drop</code> ；整个 <code>Drop trait</code> 存在的意义在于其是自动处理的。然而，有时你可能需要提早清理某个值。一个例子是当使用智能指针管理锁时；你可能希望强制运行 <code>drop</code> 方法来释放锁以便作用域中的其他代码可以获取锁。Rust 并不允许我们主动调用 <code>Drop trait</code> 的 <code>drop</code> 方法；当我们希望在作用域结束之前就强制释放变量的话，我们应该使用的是由标准库提供的 <code>std::mem::drop</code>。<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() &#123;<br>    <span class="hljs-keyword">let</span> c = CustomSmartPointer &#123;<br>        data: <span class="hljs-built_in">String</span>::from(<span class="hljs-string">&quot;some data&quot;</span>),<br>    &#125;;<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;CustomSmartPointer created.&quot;</span>);<br>    c.<span class="hljs-built_in">drop</span>();<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;CustomSmartPointer dropped before the end of main.&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure><br>如果尝试编译代码会得到如下错误:<br><figure class="highlight oxygene"><table><tr><td class="code"><pre><code class="hljs oxygene">$ cargo run<br>   Compiling drop-example v0.<span class="hljs-number">1.0</span> (file:<span class="hljs-comment">///projects/drop-example)</span><br>error[E0040]: explicit use <span class="hljs-keyword">of</span> <span class="hljs-function"><span class="hljs-keyword">destructor</span> <span class="hljs-title">method</span></span><br><span class="hljs-function">  --&gt; <span class="hljs-title">src</span>/<span class="hljs-title">main</span>.<span class="hljs-title">rs</span>:</span><span class="hljs-number">16</span>:<span class="hljs-number">7</span><br>   |<br><span class="hljs-number">16</span> |     c.drop();<br>   |     --^^^^--<br>   |     | |<br>   |     | explicit <span class="hljs-function"><span class="hljs-keyword">destructor</span> <span class="hljs-title">calls</span> <span class="hljs-title">not</span> <span class="hljs-title">allowed</span></span><br><span class="hljs-function">   |     <span class="hljs-title">help</span>:</span> consider <span class="hljs-keyword">using</span> `drop` <span class="hljs-function"><span class="hljs-keyword">function</span>:</span> `drop(c)`<br><br><span class="hljs-keyword">For</span> more information about this error, <span class="hljs-keyword">try</span> `rustc --explain E0040`.<br>error: could <span class="hljs-keyword">not</span> compile `drop-example` due <span class="hljs-keyword">to</span> previous error<br></code></pre></td></tr></table></figure><br>错误信息表明不允许显式调用 <code>drop</code> 。错误信息使用了术语 <strong>析构函数(destructor)</strong>，这是一个清理实例的函数的通用编程概念。<strong>析构函数</strong> 对应创建实例的 <strong>构造函数</strong>。Rust 中的 <code>drop</code> 函数就是这么一个析构函数。</p>
+<p>Rust 不允许我们显式调用 <code>drop</code> 因为 Rust 仍然会在 main 的结尾对值自动调用 <code>drop</code> ，这会导致一个 <code>double free 错误</code>，<strong>因为 Rust 会尝试清理相同的值两次。</strong></p>
+<p>因为不能禁用当值离开作用域时自动插入的 <code>drop</code> ，并且不能显示调用 <code>drop</code> ，如果我们需要提早清理值，可以使用 <code>std::mem::drop</code> 函数。</p>
+<p><code>std::mem::drop</code> 函数不同于 <code>Drop trait</code> 中的 <code>drop</code> 方法。可以通过传递希望提早强制丢弃的值作为参数。 <code>std::mem::drop</code> 位于 <code>prelude</code><br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() &#123;<br>    <span class="hljs-keyword">let</span> c = CustomSmartPointer &#123;<br>        data: <span class="hljs-built_in">String</span>::from(<span class="hljs-string">&quot;some data&quot;</span>),<br>    &#125;;<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;CustomSmartPointer created.&quot;</span>);<br>    <span class="hljs-built_in">drop</span>(c);<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;CustomSmartPointer dropped before the end of main.&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure><br>运行这段代码会打印出如下:<br><figure class="highlight n1ql"><table><tr><td class="code"><pre><code class="hljs n1ql">$ cargo run<br>   Compiling <span class="hljs-keyword">drop</span>-example v0<span class="hljs-number">.1</span><span class="hljs-number">.0</span> (file:///projects/<span class="hljs-keyword">drop</span>-example)<br>    Finished dev [unoptimized + debuginfo] target(s) <span class="hljs-keyword">in</span> <span class="hljs-number">0.73</span>s<br>     Running <span class="hljs-symbol">`target/debug/drop-example`</span><br>CustomSmartPointer created.<br>Dropping CustomSmartPointer <span class="hljs-keyword">with</span> data <span class="hljs-symbol">`some data`</span>!<br>CustomSmartPointer dropped before the <span class="hljs-keyword">end</span> of main.<br></code></pre></td></tr></table></figure><br><code>Dropping CustomSmartPointer with data some data!</code> 出现在 <code>CustomSmartPointer created.</code> 和 <code>CustomSmartPointer dropped before the end of main.</code> 之间，表明了 <code>drop</code> 方法被调用了并在此丢弃了 <code>c</code> 。</p>
+<p><code>Drop trait</code> 实现中指定的代码可以用于许多方面来使得清理变得方便和安全:比如可以用其创 建我们自己的内存分配器! 通过 <code>Drop trait</code> 和 Rust 所有权系统，你无需担心之后清理代码， Rust 会自动考虑这些问题。</p>
+<p>我们也无需担心意外的清理掉仍在使用的值，这会造成编译器错误:所有权系统确保引用总是有效的，也会确保 <code>drop</code> 只会在值不再被使用时被调用一次。</p>
+<p>使用 <code>Drop trait</code> 实现指定的代码在很多方面都使得清理值变得方便和安全:比如可以使用它来创建我们自己的内存分配器!通过 <code>Drop trait</code> 和 Rust 所有权系统，就无需担心之后清理代码，因为 Rust 会自动考虑这些问题。如果代码在值仍被使用时就清理它会出现编译错误，因为所有权系统确保了引用总是有效的，这也就保证了 <code>drop</code> 只会在值不再被使用时被调用一次。</p>
+<h2 id="四、Rc-引用计数智能指针"><a href="#四、Rc-引用计数智能指针" class="headerlink" title="四、Rc 引用计数智能指针"></a>四、Rc<T> 引用计数智能指针</h2><p>大部分情况下所有权是非常明确的:可以准确的知道哪个变量拥有某个值。然而，有些情况单个值可能会有多个所有者。例如，在图数据结构中，多个边可能指向相同的结点，而这个结点从概念上讲为所有指向它的边所拥有。结点直到没有任何边指向它之前都不应该被清理。</p>
+<p>为了启用多所有权，Rust 有一个叫做 <code>Rc&lt;T&gt;</code> 的类型。其名称为 <strong>引用计数(reference counting)</strong> 的缩写。引用计数意味着记录一个值引用的数量来知晓这个值是否仍在被使用。如果某个值有零个引用，就代表没有任何有效引用并可以被清理。</p>
+<p>可以将其想象为客厅中的电视。当一个人进来看电视时，他打开电视。其他人也可以进来看电视。当最后一个人离开房间时，他关掉电视因为它不再被使用了。如果某人在其他人还在看的时候就关掉了电视，正在看电视的人肯定会抓狂的!</p>
+<p><code>Rc&lt;T&gt;</code> 用于当我们希望在堆上分配一些内存供程序的多个部分读取，而且无法在编译时确定程序的那一部分会最后结束使用它的时候。如果确实知道哪部分会结束使用的话，就可以令其成为数据的所有者同时正常的所有权规则就可以在编译时生效。</p>
+<p>注意 <code>Rc&lt;T&gt;</code> 只能用于单线程场景。</p>
+<h3 id="使用-Rc-共享数据"><a href="#使用-Rc-共享数据" class="headerlink" title="使用 Rc 共享数据"></a>使用 Rc<T> 共享数据</h3><p><code>Box&lt;T&gt;</code> 定义 <code>cons list</code> 的例子。这一次，我们希望创建两个共享第三个列表所有权的列表，其概念将会看起来如下所示:<br><img src="/img/Rust/8.png" alt="github"><br>列表 a 包含5之后是10，之后是另两个列表: b 从3开始而 c 从4开始。 b 和 c 会 接上包含 5 和 10 的列表 a 。换句话说，这两个列表会尝试共享第一个列表所包含的 5 和 10。</p>
+<p>尝试使用 <code>Box&lt;T&gt;</code> 定义的 List 并实现不能工作，<br><figure class="highlight gauss"><table><tr><td class="code"><pre><code class="hljs gauss">enum List &#123;<br>    <span class="hljs-built_in">Cons</span>(i32, <span class="hljs-built_in">Box</span>&lt;List&gt;),<br>    Nil,<br>&#125;<br><br><span class="hljs-keyword">use</span> crate::List::&#123;<span class="hljs-built_in">Cons</span>, Nil&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span>(<span class="hljs-params"></span>) &#123;</span><br><span class="hljs-function">    <span class="hljs-title">let</span> <span class="hljs-title">a</span> </span>= <span class="hljs-built_in">Cons</span>(<span class="hljs-number">5</span>, <span class="hljs-built_in">Box</span>::<span class="hljs-keyword">new</span>(<span class="hljs-built_in">Cons</span>(<span class="hljs-number">10</span>, <span class="hljs-built_in">Box</span>::<span class="hljs-keyword">new</span>(Nil))));<br>    <span class="hljs-keyword">let</span> b = <span class="hljs-built_in">Cons</span>(<span class="hljs-number">3</span>, <span class="hljs-built_in">Box</span>::<span class="hljs-keyword">new</span>(a));<br>    <span class="hljs-keyword">let</span> c = <span class="hljs-built_in">Cons</span>(<span class="hljs-number">4</span>, <span class="hljs-built_in">Box</span>::<span class="hljs-keyword">new</span>(a));<br>&#125;<br></code></pre></td></tr></table></figure><br>编译会得出如下错误:<br><figure class="highlight gauss"><table><tr><td class="code"><pre><code class="hljs gauss">$ cargo <span class="hljs-keyword">run</span><br>   Compiling <span class="hljs-built_in">cons</span>-list v0<span class="hljs-number">.1</span><span class="hljs-number">.0</span> (file:<span class="hljs-comment">///projects/cons-list)</span><br><span class="hljs-built_in">error</span>[E0382]: <span class="hljs-keyword">use</span> of moved value: `a`<br>  --&gt; src/main.rs:<span class="hljs-number">11</span>:<span class="hljs-number">30</span><br>   |<br><span class="hljs-number">9</span>  |     <span class="hljs-keyword">let</span> a = <span class="hljs-built_in">Cons</span>(<span class="hljs-number">5</span>, <span class="hljs-built_in">Box</span>::<span class="hljs-keyword">new</span>(<span class="hljs-built_in">Cons</span>(<span class="hljs-number">10</span>, <span class="hljs-built_in">Box</span>::<span class="hljs-keyword">new</span>(Nil))));<br>   |         - move occurs because `a` has <span class="hljs-built_in">type</span> `List`, which does <span class="hljs-keyword">not</span> implement the `Copy` trait<br><span class="hljs-number">10</span> |     <span class="hljs-keyword">let</span> b = <span class="hljs-built_in">Cons</span>(<span class="hljs-number">3</span>, <span class="hljs-built_in">Box</span>::<span class="hljs-keyword">new</span>(a));<br>   |                              - value moved here<br><span class="hljs-number">11</span> |     <span class="hljs-keyword">let</span> c = <span class="hljs-built_in">Cons</span>(<span class="hljs-number">4</span>, <span class="hljs-built_in">Box</span>::<span class="hljs-keyword">new</span>(a));<br>   |                              ^ value used here after move<br><br><span class="hljs-keyword">For</span> more information about this error, try `rustc --explain E0382`.<br>error: could not compile `cons-list` due to previous error<br></code></pre></td></tr></table></figure><br>Cons 成员拥有其储存的数据，所以当创建 b 列表时， a 被移动进了 b 这样 b 就拥有了 a 。接着当再次尝使用 a 创建 c 时，这不被允许因为 a 的所有权已经被移动。</p>
+<p>可以改变 Cons 的定义来存放一个引用，不过接着必须指定生命周期参数。通过指定生命周期参数，表明列表中的每一个元素都至少与列表本身存在的一样久。例如，借用检查器不会允许 <code>let a = Cons(10, &amp;Nil);</code> 编译，因为临时值 <code>Nil</code> 会在 a 获取其引用之前就被丢弃 了。</p>
+<p>相反，我们修改 List 的定义为使用 <code>Rc&lt;T&gt;</code> 代替 <code>Box&lt;T&gt;</code> 。现在每一个 Cons 变量都包含一个值和一个指向 List 的 <code>Rc</code> 。当创建 b 时，不同于获取 a 的所有权，这里会克隆 a 所包含的 <code>Rc</code> ，这会将引用计数从1增加到2并允许 a 和 b <strong>共享</strong> <code>Rc</code> 中数据的所有权。创建 c 时也会克隆 a ，这会将引用计数从 2 增加为 3。每次调用 <code>Rc::clone</code> ， <strong>Rc 中数据的引用计数都会增加</strong>，直到有零个引用之前其数据都不会被清理:<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">List</span></span> &#123;<br>    Cons(<span class="hljs-built_in">i32</span>, Rc&lt;List&gt;),<br>    Nil,<br>&#125;<br><br><span class="hljs-keyword">use</span> crate::List::&#123;Cons, Nil&#125;;<br><span class="hljs-keyword">use</span> std::rc::Rc;<br><br><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() &#123;<br>    <span class="hljs-keyword">let</span> a = Rc::new(Cons(<span class="hljs-number">5</span>, Rc::new(Cons(<span class="hljs-number">10</span>, Rc::new(Nil)))));<br>    <span class="hljs-keyword">let</span> b = Cons(<span class="hljs-number">3</span>, Rc::clone(&amp;a));<br>    <span class="hljs-keyword">let</span> c = Cons(<span class="hljs-number">4</span>, Rc::clone(&amp;a));<br>&#125;<br></code></pre></td></tr></table></figure><br>需要使用 <code>use</code> 语句将 <code>Rc&lt;T&gt;</code> 引入作用域，因为它不在 <code>prelude</code> 中。在 main 中创建了存放 5 和 10 的列表并将其存放在 a 的新的 <code>Rc&lt;List&gt;</code> 中。接着当创建 b 和 c 时，调用 <code>Rc::clone</code> 函数并传递 a 中 <code>Rc&lt;List&gt;</code> 的引用作为参数。</p>
+<p>也可以调用 <code>a.clone()</code> 而不是 <code>Rc::clone(&amp;a)</code> ，不过在这里 Rust 的习惯是使用<code>Rc::clone</code> 。 <code>Rc::clone</code> 的实现并不像大部分类型的 <code>clone</code> 实现那样对所有数据进行深拷贝。 <code>Rc::clone</code> 只会增加引用计数，这并不会花费多少时间。深拷贝可能会花费很长时间， 所以通过使用 <code>Rc::clone</code> 进行引用计数，可以明显的区别可能会对运行时性能有巨大影响的深拷贝和不分配内存的对运行时性能影响相对较小的增加引用计数拷贝。</p>
+<h3 id="克隆-Rc-会增加引用计数"><a href="#克隆-Rc-会增加引用计数" class="headerlink" title="克隆 Rc 会增加引用计数"></a>克隆 Rc<T> 会增加引用计数</h3><p>在程序中每个引用计数变化的点，会打印出引用计数，其值可以通过调用 <code>Rc::strong_count</code> 函数获得。后面的部分讨论避免引用循环时会解释为何这个函数叫做 strong_count 而不是 count 。<br><figure class="highlight reasonml"><table><tr><td class="code"><pre><code class="hljs reasonml">fn main<span class="hljs-literal">()</span> &#123;<br>    <span class="hljs-keyword">let</span> a = Rc::<span class="hljs-keyword">new</span>(<span class="hljs-constructor">Cons(5, Rc::<span class="hljs-params">new</span>(Cons(10, Rc::<span class="hljs-params">new</span>(Nil)</span>))));<br>    println!(<span class="hljs-string">&quot;count after creating a = &#123;&#125;&quot;</span>, Rc::strong<span class="hljs-constructor">_count(&amp;<span class="hljs-params">a</span>)</span>);<br>    <span class="hljs-keyword">let</span> b = <span class="hljs-constructor">Cons(3, Rc::<span class="hljs-params">clone</span>(&amp;<span class="hljs-params">a</span>)</span>);<br>    println!(<span class="hljs-string">&quot;count after creating b = &#123;&#125;&quot;</span>, Rc::strong<span class="hljs-constructor">_count(&amp;<span class="hljs-params">a</span>)</span>);<br>    &#123;<br>        <span class="hljs-keyword">let</span> c = <span class="hljs-constructor">Cons(4, Rc::<span class="hljs-params">clone</span>(&amp;<span class="hljs-params">a</span>)</span>);<br>        println!(<span class="hljs-string">&quot;count after creating c = &#123;&#125;&quot;</span>, Rc::strong<span class="hljs-constructor">_count(&amp;<span class="hljs-params">a</span>)</span>);<br>    &#125;<br>    println!(<span class="hljs-string">&quot;count after c goes out of scope = &#123;&#125;&quot;</span>, Rc::strong<span class="hljs-constructor">_count(&amp;<span class="hljs-params">a</span>)</span>);<br>&#125;<br></code></pre></td></tr></table></figure><br>这会打印出:<br><figure class="highlight stata"><table><tr><td class="code"><pre><code class="hljs stata">$ cargo <span class="hljs-keyword">run</span><br>   Compiling <span class="hljs-keyword">cons</span>-<span class="hljs-keyword">list</span> v0.1.0 (<span class="hljs-keyword">file</span>:<span class="hljs-comment">///projects/cons-list)</span><br>    Finished dev [unoptimized + debuginfo] target(s) <span class="hljs-keyword">in</span> 0.45s<br>     Running `target/debug/<span class="hljs-keyword">cons</span>-<span class="hljs-keyword">list</span>`<br><span class="hljs-keyword">count</span> after creating a = 1<br><span class="hljs-keyword">count</span> after creating b = 2<br><span class="hljs-keyword">count</span> after creating c = 3<br><span class="hljs-keyword">count</span> after c goes <span class="hljs-keyword">out</span> of scope = 2<br></code></pre></td></tr></table></figure><br>我们能够看到 a 中 <code>Rc&lt;List&gt;</code> 的初始引用计数为 1，接着每次调用 <code>clone</code> ，计数会增加 1。当 c 离开作用域时，计数减 1。不必像调用 <code>Rc::clone</code> 增加引用计数那样调用一个函数来减少计数; <code>Drop trait</code> 的实现当 <code>Rc</code> 值离开作用域时自动减少引用计数。</p>
+<p>从这个例子我们所不能看到的是在 main 的结尾当 b 然后是 a 离开作用域时，此处计数会是 0，同时 Rc 被完全清理。使用 Rc 允许一个值有多个所有者，引用计数则确保只要任何所有者依然存在其值也保持有效。</p>
+<p><code>Rc&lt;T&gt;</code> 允许通过不可变引用来只读的在程序的多个部分共享数据。如果 <code>Rc&lt;T&gt;</code> 也允许多个可变引用，则会违反借用规则之一:相同位置的多个可变借用可能造成数据竞争和不一致。不过可以修改数据是非常有用的!在下一部分，我们将讨论内部可变性模式和<code>RefCell&lt;T&gt;</code> 类型，它可以与 <code>Rc&lt;T&gt;</code> 结合使用来处理不可变性的限制。</p>
+<h2 id="五、RefCell-和内部可变性模式"><a href="#五、RefCell-和内部可变性模式" class="headerlink" title="五、RefCell 和内部可变性模式"></a>五、RefCell<T> 和内部可变性模式</h2><p><strong>内部可变性(Interior mutability)</strong>是 Rust 中的一个设计模式，它允许你即使在有不可变引用时改变数据，这通常是借用规则所不允许的。为此，该模式在数据结构中使用 <code>unsafe</code> 代码 <code>来模糊 Rust 通常的可变性和借用规则</code>。当可以确保代码在运行时会遵守借用规则，即使编译器不能保证的情况，可以选择使用那些运用内部可变性模式的类型。所涉及的 <code>unsafe</code> 代码将被封装进安全的 API 中，而外部类型仍然是不可变的。</p>
+<p>让我们通过遵循内部可变性模式的 <code>RefCell&lt;T&gt;</code> 类型来开始探索。</p>
+<h3 id="通过-RefCell-在运行时检查借用规则"><a href="#通过-RefCell-在运行时检查借用规则" class="headerlink" title="通过 RefCell 在运行时检查借用规则"></a>通过 RefCell<T> 在运行时检查借用规则</h3><p>不同于 <code>Rc&lt;T&gt;</code> ， <code>RefCell&lt;T&gt;</code> 代表其数据的唯一的所有权。那么是什么让 <code>RefCell&lt;T&gt;</code> 不同于像 <code>Box&lt;T&gt;</code> 这样的类型呢?<br>借用规则:</p>
+<ul>
+<li><ol>
+<li>在任意给定时间，只能拥有如下中的一个:<ul>
+<li>一个可变引用。</li>
+<li>任意数量的不可变引用。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><ol>
+<li>引用必须总是有效的。</li>
+</ol>
+</li>
+</ul>
+<p>对于引用和 <code>Box&lt;T&gt;</code> ，借用规则的不可变性作用于<strong>编译时</strong>。对于 <code>RefCell&lt;T&gt;</code> ，这些不可变性作用于 <strong>运行时</strong>。对于引用，如果违反这些规则，会得到一个编译错误。而对于 <code>RefCell&lt;T&gt;</code> ， 违反这些规则会 <code>panic!</code> 并退出。</p>
+<p>在编译时检查借用规则的好处是这些错误将在开发过程的早期被捕获同时对没有运行时性能影响，因为所有的分析都提前完成了。为此，在编译时检查借用规则是大部分情况的最佳选择，这也正是其为何是 Rust 的默认行为。</p>
+<p>相反在运行时检查借用规则的好处是特定内存安全的场景是允许的，而它们在编译时检查中是不允许的。静态分析，正如 Rust 编译器，是天生保守的。</p>
+<p>因为一些分析是不可能的，如果 Rust 编译器不能通过所有权规则编译，它可能会拒绝一个正确的程序;从这种角度考虑它是保守的。如果 Rust 接受不正确的程序，那么人们也就不会相信 Rust 所做的保证了。然而，如果 Rust 拒绝正确的程序，会给程序员带来不便，但不会带来灾难。 <code>RefCell&lt;T&gt;</code> 正是用于当你确信代码遵守借用规则，而编译器不能理解和确定的时候。</p>
+<p>类似于 <code>Rc&lt;T&gt;</code> ， <code>RefCell&lt;T&gt;</code> 只能用于单线程场景。如果尝试在多线程上下文中使用 <code>RefCell&lt;T&gt;</code> ，会得到一个编译错误。</p>
+<p>如下为选择 <code>Box&lt;T&gt;</code> ， <code>Rc&lt;T&gt;</code> 或 <code>RefCell&lt;T&gt;</code> 的理由:</p>
+<ul>
+<li><code>Rc&lt;T&gt;</code> 允许相同数据有多个所有者; <code>Box&lt;T&gt;</code> 和 <code>RefCell&lt;T&gt;</code> 有单一所有者。</li>
+<li><code>Box&lt;T&gt;</code> 允许在编译时执行不可变(或可变)借用检查; <code>Rc&lt;T&gt;</code> 仅允许在编译时执行不可变借用检查; <code>RefCell&lt;T&gt;</code> 允许在运行时执行不可变(或可变)借用检查。</li>
+<li>因为 <code>RefCell&lt;T&gt;</code> 允许在运行时执行可变借用检查，所以我们可以在即便 <code>RefCell&lt;T&gt;</code> 自身是不可变的情况下修改其内部的值。</li>
+</ul>
+<p>最后一个理由便是指 <strong>内部可变性</strong> 模式。让我们看看何时内部可变性是有用的，并讨论这是如何成为可能的。</p>
+<h3 id="内部可变性-不可变值的可变借用"><a href="#内部可变性-不可变值的可变借用" class="headerlink" title="内部可变性:不可变值的可变借用"></a>内部可变性:不可变值的可变借用</h3><p>借用规则的一个推论是当有一个不可变值时，不能可变的借用它。例如，如下代码不能编译:<br><figure class="highlight javascript"><table><tr><td class="code"><pre><code class="hljs javascript">fn <span class="hljs-function"><span class="hljs-title">main</span>(<span class="hljs-params"></span>)</span> &#123;<br>    <span class="hljs-keyword">let</span> x = <span class="hljs-number">5</span>;<br>    <span class="hljs-keyword">let</span> y = &amp;mut x;<br>&#125;<br></code></pre></td></tr></table></figure><br>如果尝试编译，会得到如下错误:<br><figure class="highlight xquery"><table><tr><td class="code"><pre><code class="hljs xquery">$ cargo run<br>   Compiling borrowing v<span class="hljs-number">0</span>.<span class="hljs-number">1.0</span> (file:///projects/borrowing)<br>error[E0596]: cannot borrow `x` <span class="hljs-keyword">as</span> mutable, <span class="hljs-keyword">as</span> it <span class="hljs-literal">is</span><span class="hljs-built_in"> not</span> declared <span class="hljs-keyword">as</span> mutable<br> --&gt; src/main.rs:<span class="hljs-number">3</span>:<span class="hljs-number">13</span><br>  |<br><span class="hljs-number">2</span> |     <span class="hljs-keyword">let</span> x = <span class="hljs-number">5</span>;<br>  |         - help: consider changing this <span class="hljs-keyword">to</span> be mutable: `mut x`<br><span class="hljs-number">3</span> |     <span class="hljs-keyword">let</span> y = &amp;mut x;<br>  |             ^^^^^^ cannot borrow <span class="hljs-keyword">as</span> mutable<br><br>For more information about this<span class="hljs-built_in"> error</span>, <span class="hljs-keyword">try</span> `rustc --explain E0596`.<br>error: could<span class="hljs-built_in"> not</span> compile `borrowing` due <span class="hljs-keyword">to</span> <span class="hljs-keyword">previous</span><span class="hljs-built_in"> error</span><br></code></pre></td></tr></table></figure><br>然而，特定情况下，令一个值在其方法内部能够修改自身，而在其他代码中仍视为不可变，是很有用的。值方法外部的代码就不能修改其值了。<code>RefCell&lt;T&gt;</code> 是一个<strong>获得内部可变性的方法</strong>。<code>RefCell&lt;T&gt;</code> 并<strong>没有完全绕开借用规则</strong>，编译器中的借用检查器允许内部可变性并相应地在运行时检查借用规则。如果违反了这些规则，会出现 panic 而不是编译错误。</p>
+<p>让我们通过一个实际的例子来探索何处可以使用 <code>RefCell&lt;T&gt;</code> 来修改不可变值并看看为何这么做是有意义的。</p>
+<h6 id="内部可变性的用例-mock-对象"><a href="#内部可变性的用例-mock-对象" class="headerlink" title="内部可变性的用例:mock 对象"></a>内部可变性的用例:mock 对象</h6><p><strong>测试替身(test double)</strong>是一个通用编程概念，它代表一个在测试中替代某个类型的类型。 <code>mock 对象</code> 是特定类型的测试替身，它们记录测试过程中发生了什么以便可以断言操作是正确的。</p>
+<p>虽然 Rust 没有与其他语言中的对象完全相同的对象，Rust 也没有像其他语言那样在标准库中内建 <code>mock</code> 对象功能，不过我们确实可以创建一个与 <code>mock</code> 对象有着相同功能的结构体。</p>
+<p>如下是一个我们想要测试的场景: 我们在编写一个记录某个值与最大值的差距的库，并根据当前值与最大值的差距来发送消息。例如，这个库可以用于记录用户所允许的 API 调用数量限额。</p>
+<p>该库只提供记录与最大值的差距，以及何种情况发送什么消息的功能。使用此库的程序则期望提供实际发送消息的机制: 程序可以选择记录一条消息、发送 email、发送短信等等。库本身无需知道这些细节；只需实现其提供的 <code>Messenger trait</code> 即可。<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">pub</span> <span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">Messenger</span></span> &#123;<br>    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">send</span></span>(&amp;<span class="hljs-keyword">self</span>, msg: &amp;<span class="hljs-built_in">str</span>);<br>&#125;<br><br><span class="hljs-keyword">pub</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">LimitTracker</span></span>&lt;<span class="hljs-symbol">&#x27;a</span>, T: Messenger&gt; &#123;<br>    messenger: &amp;<span class="hljs-symbol">&#x27;a</span> T,<br>    value: <span class="hljs-built_in">usize</span>,<br>    max: <span class="hljs-built_in">usize</span>,<br>&#125;<br><br><span class="hljs-keyword">impl</span>&lt;<span class="hljs-symbol">&#x27;a</span>, T&gt; LimitTracker&lt;<span class="hljs-symbol">&#x27;a</span>, T&gt;<br><span class="hljs-keyword">where</span><br>    T: Messenger,<br>&#123;<br>    <span class="hljs-keyword">pub</span> <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">new</span></span>(messenger: &amp;T, max: <span class="hljs-built_in">usize</span>) -&gt; LimitTracker&lt;T&gt; &#123;<br>        LimitTracker &#123;<br>            messenger,<br>            value: <span class="hljs-number">0</span>,<br>            max,<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">pub</span> <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">set_value</span></span>(&amp;<span class="hljs-keyword">mut</span> <span class="hljs-keyword">self</span>, value: <span class="hljs-built_in">usize</span>) &#123;<br>        <span class="hljs-keyword">self</span>.value = value;<br><br>        <span class="hljs-keyword">let</span> percentage_of_max = <span class="hljs-keyword">self</span>.value <span class="hljs-keyword">as</span> <span class="hljs-built_in">f64</span> / <span class="hljs-keyword">self</span>.max <span class="hljs-keyword">as</span> <span class="hljs-built_in">f64</span>;<br><br>        <span class="hljs-keyword">if</span> percentage_of_max &gt;= <span class="hljs-number">1.0</span> &#123;<br>            <span class="hljs-keyword">self</span>.messenger.send(<span class="hljs-string">&quot;Error: You are over your quota!&quot;</span>);<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> percentage_of_max &gt;= <span class="hljs-number">0.9</span> &#123;<br>            <span class="hljs-keyword">self</span>.messenger<br>                .send(<span class="hljs-string">&quot;Urgent warning: You&#x27;ve used up over 90% of your quota!&quot;</span>);<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> percentage_of_max &gt;= <span class="hljs-number">0.75</span> &#123;<br>            <span class="hljs-keyword">self</span>.messenger<br>                .send(<span class="hljs-string">&quot;Warning: You&#x27;ve used up over 75% of your quota!&quot;</span>);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>这些代码中一个重要部分是拥有一个方法 <code>send</code> 的 <code>Messenger trait</code>，其获取一个 <code>self</code> 的不可变引用和文本信息。这个 <code>trait</code> 是 <code>mock</code> 对象所需要实现的接口库，这样 <code>mock</code> 就能像一个真正的对象那样使用了。另一个重要的部分是我们需要测试 LimitTracker 的 set_value 方法的行为。可以改变传递的 value 参数的值，不过 set_value 并没有返回任何可供断言的值。也就是说，如果使用某个实现了 <code>Messenger trait</code> 的值和特定的 max 创建 LimitTracker，当传递不同 value 值时，消息发送者应被告知发送合适的消息。</p>
+<p>我们所需的 <code>mock</code> 对象是，调用 <code>send</code> 并不实际发送 email 或消息，而是只记录信息被通知要发送了。可以新建一个 <code>mock</code> 对象实例，用其创建 LimitTracker，调用 LimitTracker 的 set_value 方法，然后检查 <code>mock</code> 对象是否有我们期望的消息。<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-meta">#[cfg(test)]</span><br><span class="hljs-keyword">mod</span> tests &#123;<br>    <span class="hljs-keyword">use</span> super::*;<br><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">MockMessenger</span></span> &#123;<br>        sent_messages: <span class="hljs-built_in">Vec</span>&lt;<span class="hljs-built_in">String</span>&gt;,<br>    &#125;<br><br>    <span class="hljs-keyword">impl</span> MockMessenger &#123;<br>        <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">new</span></span>() -&gt; MockMessenger &#123;<br>            MockMessenger &#123;<br>                sent_messages: <span class="hljs-built_in">vec!</span>[],<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">impl</span> Messenger <span class="hljs-keyword">for</span> MockMessenger &#123;<br>        <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">send</span></span>(&amp;<span class="hljs-keyword">self</span>, message: &amp;<span class="hljs-built_in">str</span>) &#123;<br>            <span class="hljs-keyword">self</span>.sent_messages.push(<span class="hljs-built_in">String</span>::from(message));<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-meta">#[test]</span><br>    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">it_sends_an_over_75_percent_warning_message</span></span>() &#123;<br>        <span class="hljs-keyword">let</span> mock_messenger = MockMessenger::new();<br>        <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> limit_tracker = LimitTracker::new(&amp;mock_messenger, <span class="hljs-number">100</span>);<br><br>        limit_tracker.set_value(<span class="hljs-number">80</span>);<br><br>        <span class="hljs-built_in">assert_eq!</span>(mock_messenger.sent_messages.len(), <span class="hljs-number">1</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>测试代码定义了一个 MockMessenger 结构体，其 sent_messages 字段为一个 <code>String</code> 值的 Vec 用来记录被告知发送的消息。我们还定义了一个关联函数 <code>new</code> 以便于新建从空消息列表开始的 MockMessenger 值。接着为 MockMessenger 实现 <code>Messenger trait</code>这样就可以为 LimitTracker 提供一个 MockMessenger 。在 <code>send</code> 方法的定义中，获取传入的消息作为参数并储存在 MockMessenger 的 sent_messages 列表中。</p>
+<p>在测试中，我们测试了当 LimitTracker 被告知将 value 设置为超过 max 值 75% 的某个值。首先新建一个 MockMessenger ，其从空消息列表开始。接着新建一个 LimitTracker 并传递新建 MockMessenger 的引用和 max 值 100。我们使用值 80 调用 LimitTracker 的set_value 方法，这超过了 100 的 75%。接着断言 MockMessenger 中记录的消息列表应该有一条消息。</p>
+<p>然而，这个测试是有问题的:<br><figure class="highlight mel"><table><tr><td class="code"><pre><code class="hljs mel">$ cargo test<br>   Compiling limit-tracker v0<span class="hljs-number">.1</span><span class="hljs-number">.0</span> (<span class="hljs-keyword">file</span>:<span class="hljs-comment">///projects/limit-tracker)</span><br><span class="hljs-keyword">error</span>[E0596]: cannot borrow <span class="hljs-string">`self.sent_messages`</span> as mutable, as it is behind a <span class="hljs-string">`&amp;`</span> <span class="hljs-keyword">reference</span><br>  --&gt; src/lib.rs:<span class="hljs-number">58</span>:<span class="hljs-number">13</span><br>   |<br><span class="hljs-number">2</span>  |     fn send(&amp;self, msg: &amp;str);<br>   |             ----- <span class="hljs-keyword">help</span>: consider changing that to be a mutable <span class="hljs-keyword">reference</span>: <span class="hljs-string">`&amp;mut self`</span><br>...<br><span class="hljs-number">58</span> |             self.sent_messages.push(String::from(message));<br>   |             ^^^^^^^^^^^^^^^^^^ <span class="hljs-string">`self`</span> is a <span class="hljs-string">`&amp;`</span> <span class="hljs-keyword">reference</span>, so the data it refers to cannot be borrowed as mutable<br><br>For more information <span class="hljs-keyword">about</span> this <span class="hljs-keyword">error</span>, try <span class="hljs-string">`rustc --explain E0596`</span>.<br><span class="hljs-keyword">error</span>: could not compile <span class="hljs-string">`limit-tracker`</span> due to previous <span class="hljs-keyword">error</span><br><span class="hljs-keyword">warning</span>: build failed, waiting <span class="hljs-keyword">for</span> other jobs to finish...<br><span class="hljs-keyword">error</span>: build failed<br></code></pre></td></tr></table></figure><br>不能修改 MockMessenger 来记录消息，因为 <code>send</code> 方法获取 <code>self</code> 的不可变引用。我们也不能参考错误文本的建议使用 <code>&amp;mut self</code> 替代，因为这样 send 的签名就不符合 <code>Messenger trait</code> 定义中的签名了(请随意尝试如此修改并看看会出现什么错误信息)。</p>
+<p>这正是内部可变性的用武之地!我们将通过 <code>RefCell</code> 来储存 sent_messages ，然后 <code>send</code> 将能够修改 sent_messages 并储存消息。<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-meta">#[cfg(test)]</span><br><span class="hljs-keyword">mod</span> tests &#123;<br>    <span class="hljs-keyword">use</span> super::*;<br>    <span class="hljs-keyword">use</span> std::cell::RefCell;<br><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">MockMessenger</span></span> &#123;<br>        sent_messages: RefCell&lt;<span class="hljs-built_in">Vec</span>&lt;<span class="hljs-built_in">String</span>&gt;&gt;,<br>    &#125;<br><br>    <span class="hljs-keyword">impl</span> MockMessenger &#123;<br>        <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">new</span></span>() -&gt; MockMessenger &#123;<br>            MockMessenger &#123;<br>                sent_messages: RefCell::new(<span class="hljs-built_in">vec!</span>[]),<br>            &#125;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">impl</span> Messenger <span class="hljs-keyword">for</span> MockMessenger &#123;<br>        <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">send</span></span>(&amp;<span class="hljs-keyword">self</span>, message: &amp;<span class="hljs-built_in">str</span>) &#123;<br>            <span class="hljs-keyword">self</span>.sent_messages.borrow_mut().push(<span class="hljs-built_in">String</span>::from(message));<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-meta">#[test]</span><br>    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">it_sends_an_over_75_percent_warning_message</span></span>() &#123;<br>        <span class="hljs-comment">// --snip--</span><br><br>        <span class="hljs-built_in">assert_eq!</span>(mock_messenger.sent_messages.borrow().len(), <span class="hljs-number">1</span>);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>现在 sent_messages 字段的类型是 <code>RefCell&lt;Vec&lt;String&gt;&gt;</code> 而不是 <code>Vec&lt;String&gt;</code> 。在 <code>new</code> 函数中新建了一个 <code>RefCell</code> 示例替代空 <code>vector</code>。</p>
+<p>对于 <code>send</code> 方法的实现，第一个参数仍为 <code>self</code> 的不可变借用，这是符合方法定义的。我们调用 <code>self.sent_messages</code> 中 <code>RefCell</code> 的 <code>borrow_mut</code> 方法来获取 <code>RefCell</code> 中值的可变引用，这是一个 <code>vector</code>。接着可以对 <code>vector</code> 的可变引用调用 <code>push</code> 以便记录测试过程中看到的消息。</p>
+<p>最后必须做出的修改位于断言中: 为了看到其内部 <code>vector</code> 中有多少个项，需要调用 <code>RefCell</code> 的 <code>borrow</code> 以获取 <code>vector</code> 的不可变引用。</p>
+<p>现在我们见识了如何使用 <code>RefCell&lt;T&gt;</code> ，让我们研究一下它怎样工作的!</p>
+<h6 id="RefCell-在运行时检查借用规则"><a href="#RefCell-在运行时检查借用规则" class="headerlink" title="RefCell 在运行时检查借用规则"></a>RefCell<T> 在运行时检查借用规则</h6><p>当创建不可变和可变引用时，我们分别使用 <code>&amp;</code> 和 <code>&amp;mut</code> 语法。对于 <code>RefCell&lt;T&gt;</code> 来说，则是 <code>borrow</code> 和 <code>borrow_mut</code> 方法，这属于 <code>RefCell&lt;T&gt;</code> 安全 API 的一部分。 <code>borrow</code> 方法返回 <code>Ref</code> 类型的<strong>智能指针</strong>， <code>borrow_mut</code> 方法返回 <code>RefMut</code> 类型的<strong>智能指针</strong>。这两个类型都实现了 <code>Deref</code> 所以可以当作常规引用对待。</p>
+<p><code>RefCell&lt;T&gt;</code> <strong>记录</strong>当前有多少个活动的 <code>Ref</code> 和 <code>RefMut</code> 智能指针。每次调用<code>borrow</code> ， <code>RefCell&lt;T&gt;</code> 将活动的不可变借用计数加一。当 <code>Ref</code> 值离开作用域时，不可变借用计数减一。<strong>就像编译时借用规则一样， <code>RefCell&lt;T&gt;</code> 在任何时候只允许有<code>多个不可变借用</code>或<code>一个可变借用</code>。</strong></p>
+<p>如果我们尝试违反这些规则，相比引用时的编译时错误， <code>RefCell&lt;T&gt;</code> 的实现会在运行时 <code>panic!</code> 。<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">impl</span> Messenger <span class="hljs-keyword">for</span> MockMessenger &#123;<br>    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">send</span></span>(&amp;<span class="hljs-keyword">self</span>, message: &amp;<span class="hljs-built_in">str</span>) &#123;<br>        <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> one_borrow = <span class="hljs-keyword">self</span>.sent_messages.borrow_mut();<br>        <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut</span> two_borrow = <span class="hljs-keyword">self</span>.sent_messages.borrow_mut();<br><br>        one_borrow.push(<span class="hljs-built_in">String</span>::from(message));<br>        two_borrow.push(<span class="hljs-built_in">String</span>::from(message));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>这里为 <code>borrow_mut</code> 返回的 <code>RefMut</code> 智能指针创建了 one_borrow 变量。接着用相同的方式 在变量 two_borrow 创建了另一个可变借用。这会在相同作用域中创建两个可变引用，这是不允许的，如果运行库的测试，编译时不会有任何错误，不过测试会失败:<br><figure class="highlight subunit"><table><tr><td class="code"><pre><code class="hljs subunit">$ cargo test<br>   Compiling limit-tracker v0.1.0 (file:///projects/limit-tracker)<br>    Finished test [unoptimized + debuginfo] target(s) in 0.91s<br>     Running unittests (target/debug/deps/limit_tracker-e599811fa246dbde)<br><br>running 1 test<br><span class="hljs-keyword">test test</span>s::it_sends_an_over_75_percent_warning_message ... FAILED<br><br>failures:<br><br>---- tests::it_sends_an_over_75_percent_warning_message stdout ----<br>thread &#x27;main&#x27; panicked at &#x27;already borrowed: BorrowMutError&#x27;, src/lib.rs:60:53<br>note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace<br><br><br>failures:<br>    tests::it_sends_an_over_75_percent_warning_message<br><br><span class="hljs-keyword">test </span>result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s<br><br><span class="hljs-keyword">error: test</span> failed, to rerun pass &#x27;--lib&#x27;<br></code></pre></td></tr></table></figure><br>可以看到代码 panic 和信息 <code>already borrowed: BorrowMutError</code> 。这也就是 <code>RefCell&lt;T&gt;</code> 如何在运行时处理违反借用规则的情况。<br>在运行时捕获借用错误而不是编译时意味着将会在开发过程的后期才会发现错误 ———— 甚至有可能发布到生产环境才发现。还会因为在运行时而不是编译时记录借用而导致少量的运行时性能错误。然而，使用 <code>RefCell</code> 使得在只允许不可变值的上下文中编写修改自身以记录消息的 <code>mock</code> 对象成为可能。虽然有取舍，但是我们可以选择使用 <code>RefCell&lt;T&gt;</code> 来获得比常规引用所能提供的更多的功能。</p>
+<h3 id="结合-Rc-和-RefCell-来拥有多个可变数据所有者"><a href="#结合-Rc-和-RefCell-来拥有多个可变数据所有者" class="headerlink" title="结合 Rc 和 RefCell 来拥有多个可变数据所有者"></a>结合 Rc<T> 和 RefCell<T> 来拥有多个可变数据所有者</h3><p><code>RefCell&lt;T&gt;</code> 的一个常见用法是与 <code>Rc&lt;T&gt;</code> 结合。回忆一下 <code>Rc&lt;T&gt;</code> 允许对相同数据有多个所有者，不过只能提供数据的不可变访问。如果有一个储存了 <code>RefCell&lt;T&gt;</code> 的 <code>Rc&lt;T&gt;</code> 的话，就可以得到有多个所有者并且可以修改的值了!<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-meta">#[derive(Debug)]</span><br><span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">List</span></span> &#123;<br>    Cons(Rc&lt;RefCell&lt;<span class="hljs-built_in">i32</span>&gt;&gt;, Rc&lt;List&gt;),<br>    Nil,<br>&#125;<br><br><span class="hljs-keyword">use</span> crate::List::&#123;Cons, Nil&#125;;<br><span class="hljs-keyword">use</span> std::cell::RefCell;<br><span class="hljs-keyword">use</span> std::rc::Rc;<br><br><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">main</span></span>() &#123;<br>    <span class="hljs-keyword">let</span> value = Rc::new(RefCell::new(<span class="hljs-number">5</span>));<br><br>    <span class="hljs-keyword">let</span> a = Rc::new(Cons(Rc::clone(&amp;value), Rc::new(Nil)));<br><br>    <span class="hljs-keyword">let</span> b = Cons(Rc::new(RefCell::new(<span class="hljs-number">3</span>)), Rc::clone(&amp;a));<br>    <span class="hljs-keyword">let</span> c = Cons(Rc::new(RefCell::new(<span class="hljs-number">4</span>)), Rc::clone(&amp;a));<br><br>    *value.borrow_mut() += <span class="hljs-number">10</span>;<br><br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;a after = &#123;:?&#125;&quot;</span>, a);<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;b after = &#123;:?&#125;&quot;</span>, b);<br>    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;c after = &#123;:?&#125;&quot;</span>, c);<br>&#125;<br></code></pre></td></tr></table></figure><br>这里创建了一个 <code>Rc&lt;RefCell&lt;i32&gt;</code> 实例并储存在变量 value 中以便之后直接访问。接着在 a 中用包含 value 的 Cons 成员创建了一个 List 。需要克隆 value 以便 a 和 value都能拥有其内部值 5 的所有权，而不是将所有权从 value 移动到 a 或者让 a 借用 value 。<br>我们将列表 a 封装进了 <code>Rc&lt;T&gt;</code> 这样当创建列表 b 和 c 时，他们都可以引用 a 。</p>
+<p>一旦创建了列表 a 、 b 和 c ，我们将 value 的值加 10。为此对 value 调用了 <code>borrow_mut</code> ，这里使用了自定解引用功能来解引用 <code>Rc&lt;T&gt;</code> 以获取其内部的 <code>RefCell&lt;T&gt;</code> 值。 <code>borrow_mut</code> 方法返回 <code>RefMut&lt;T&gt;</code> 智能指针，可以对其使用解引用运算符并修改其内部值。</p>
+<p>当我们打印出 a 、 b 和 c 时，可以看到他们都拥有修改后的值 15 而不是 5:<br><figure class="highlight gauss"><table><tr><td class="code"><pre><code class="hljs gauss">$ cargo <span class="hljs-keyword">run</span><br>   Compiling <span class="hljs-built_in">cons</span>-list v0<span class="hljs-number">.1</span><span class="hljs-number">.0</span> (file:<span class="hljs-comment">///projects/cons-list)</span><br>    Finished dev [unoptimized + debuginfo] <span class="hljs-built_in">target</span>(s) in <span class="hljs-number">0.63</span>s<br>     Running `target/<span class="hljs-keyword">debug</span>/<span class="hljs-built_in">cons</span>-list`<br>a after = <span class="hljs-built_in">Cons</span>(RefCell &#123; value: <span class="hljs-number">15</span> &#125;, Nil)<br>b after = <span class="hljs-built_in">Cons</span>(RefCell &#123; value: <span class="hljs-number">3</span> &#125;, <span class="hljs-built_in">Cons</span>(RefCell &#123; value: <span class="hljs-number">15</span> &#125;, Nil))<br>c after = <span class="hljs-built_in">Cons</span>(RefCell &#123; value: <span class="hljs-number">4</span> &#125;, <span class="hljs-built_in">Cons</span>(RefCell &#123; value: <span class="hljs-number">15</span> &#125;, Nil))<br></code></pre></td></tr></table></figure><br>这是非常巧妙的! 通过使用 <code>RefCell&lt;T&gt;</code> ，我们可以拥有一个表面上不可变的 List ，不过可以使用 <code>RefCell&lt;T&gt;</code> 中提供内部可变性的方法来在需要时修改数据。 <code>RefCell&lt;T&gt;</code> 的运行时借用规则检查也确实保护我们免于出现数据竞争，而且我们也决定牺牲一些速度来换取数据结构的灵活性。</p>
+<p>标准库中也有其他提供内部可变性的类型，比如 <code>Cell&lt;T&gt;</code> ，它有些类似( <code>RefCell&lt;T&gt;</code> )除了相比提供内部值的引用，其值被拷贝进和拷贝出 <code>Cell&lt;T&gt;</code> 。还有 <code>Mutex&lt;T&gt;</code> ，其提供线程间安全的内部可变性。</p>
+<h2 id="六、引用循环与内存泄漏"><a href="#六、引用循环与内存泄漏" class="headerlink" title="六、引用循环与内存泄漏"></a>六、引用循环与内存泄漏</h2><p>Rust 的内存安全性保证使其难以意外地制造永远也不会被清理的内存（被称为 <strong>内存泄漏（memory leak）</strong>），但并不是不可能。与在编译时拒绝数据竞争不同， Rust 并不保证完全地避免内存泄漏，这意味着内存泄漏在 Rust 被认为是内存安全的。这一点可以通过 <code>Rc&lt;T&gt;</code> 和 <code>RefCell&lt;T&gt;</code> 看出：<strong>创建引用循环的可能性是存在的。</strong>这会造成内存泄漏，因为每一项的引用计数永远也到不了 0，其值也永远不会被丢弃。</p>
+<h3 id="制造引用循环"><a href="#制造引用循环" class="headerlink" title="制造引用循环"></a>制造引用循环</h3><p>让我们看看引用循环是如何发生的以及如何避免它。<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">use</span> crate::List::&#123;Cons, Nil&#125;;<br><span class="hljs-keyword">use</span> std::cell::RefCell;<br><span class="hljs-keyword">use</span> std::rc::Rc;<br><br><span class="hljs-meta">#[derive(Debug)]</span><br><span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">List</span></span> &#123;<br>    Cons(<span class="hljs-built_in">i32</span>, RefCell&lt;Rc&lt;List&gt;&gt;),<br>    Nil,<br>&#125;<br><br><span class="hljs-keyword">impl</span> List &#123;<br>    <span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">tail</span></span>(&amp;<span class="hljs-keyword">self</span>) -&gt; <span class="hljs-built_in">Option</span>&lt;&amp;RefCell&lt;Rc&lt;List&gt;&gt;&gt; &#123;<br>        <span class="hljs-keyword">match</span> <span class="hljs-keyword">self</span> &#123;<br>            Cons(_, item) =&gt; <span class="hljs-literal">Some</span>(item),<br>            Nil =&gt; <span class="hljs-literal">None</span>,<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>现在 Cons 成员的第二个元素是 <code>RefCell&lt;Rc&lt;List&gt;&gt;</code> ，这意味着不同于之前那样能够修改 i32 的值，我们希望能够修改 Cons 成员所指向的 List 。这里还增加了一个 tail 方法来方便我们在有 Cons 成员的时候访问其第二项。</p>
+<p>这些代码在 a 中 创建了一个列表，一个指向 a 中列表的 b 列表，接着修改 b 中的列表指向 a 中的列表，这会创建一个引用循环。在这个过程的多个位置有 <code>println!</code> 语句展示引用计数。<br><figure class="highlight reasonml"><table><tr><td class="code"><pre><code class="hljs reasonml">fn main<span class="hljs-literal">()</span> &#123;<br>    <span class="hljs-keyword">let</span> a = Rc::<span class="hljs-keyword">new</span>(<span class="hljs-constructor">Cons(5, RefCell::<span class="hljs-params">new</span>(Rc::<span class="hljs-params">new</span>(Nil)</span>)));<br><br>    println!(<span class="hljs-string">&quot;a initial rc count = &#123;&#125;&quot;</span>, Rc::strong<span class="hljs-constructor">_count(&amp;<span class="hljs-params">a</span>)</span>);<br>    println!(<span class="hljs-string">&quot;a next item = &#123;:?&#125;&quot;</span>, a.tail<span class="hljs-literal">()</span>);<br><br>    <span class="hljs-keyword">let</span> b = Rc::<span class="hljs-keyword">new</span>(<span class="hljs-constructor">Cons(10, RefCell::<span class="hljs-params">new</span>(Rc::<span class="hljs-params">clone</span>(&amp;<span class="hljs-params">a</span>)</span>)));<br><br>    println!(<span class="hljs-string">&quot;a rc count after b creation = &#123;&#125;&quot;</span>, Rc::strong<span class="hljs-constructor">_count(&amp;<span class="hljs-params">a</span>)</span>);<br>    println!(<span class="hljs-string">&quot;b initial rc count = &#123;&#125;&quot;</span>, Rc::strong<span class="hljs-constructor">_count(&amp;<span class="hljs-params">b</span>)</span>);<br>    println!(<span class="hljs-string">&quot;b next item = &#123;:?&#125;&quot;</span>, b.tail<span class="hljs-literal">()</span>);<br><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">let</span> <span class="hljs-constructor">Some(<span class="hljs-params">link</span>)</span> = a.tail<span class="hljs-literal">()</span> &#123;<br>        *link.borrow<span class="hljs-constructor">_mut()</span> = Rc::clone(&amp;b);<br>    &#125;<br><br>    println!(<span class="hljs-string">&quot;b rc count after changing a = &#123;&#125;&quot;</span>, Rc::strong<span class="hljs-constructor">_count(&amp;<span class="hljs-params">b</span>)</span>);<br>    println!(<span class="hljs-string">&quot;a rc count after changing a = &#123;&#125;&quot;</span>, Rc::strong<span class="hljs-constructor">_count(&amp;<span class="hljs-params">a</span>)</span>);<br><br>    <span class="hljs-comment">// Uncomment the next line to see that we have a cycle;</span><br>    <span class="hljs-comment">// it will overflow the stack</span><br>    <span class="hljs-comment">// println!(&quot;a next item = &#123;:?&#125;&quot;, a.tail());</span><br>&#125;<br></code></pre></td></tr></table></figure><br>这里在变量 a 中创建了一个 <code>Rc&lt;List&gt;</code> 实例来存放初值为 5, <code>Nil</code> 的 List 值。接着在变量 b 中创建了存放包含值 10 和指向列表 a 的 List 的另一个 <code>Rc&lt;List&gt;</code> 实例。</p>
+<p>最后，修改 a 使其指向 b 而不是 <code>Nil</code>，这就创建了一个循环。为此需要使用 tail 方法获取 a 中 <code>RefCell&lt;Rc&lt;List&gt;&gt;</code> 的引用，并放入变量 link 中。接着使用 <code>RefCell&lt;Rc&lt;List&gt;&gt;</code> 的 <code>borrow_mut</code> 方法将其值从存放 <code>Nil</code> 的 <code>Rc&lt;List&gt;</code> 修改为 b 中的 <code>Rc&lt;List&gt;</code>。</p>
+<p>如果保持最后的 println! 行注释并运行代码，会得到如下输出:<br><figure class="highlight stylus"><table><tr><td class="code"><pre><code class="hljs stylus">$ cargo run<br>   Compiling cons-list v0.<span class="hljs-number">1.0</span> (file:<span class="hljs-comment">///projects/cons-list)</span><br>    Finished dev <span class="hljs-selector-attr">[unoptimized + debuginfo]</span> target(s) <span class="hljs-keyword">in</span> <span class="hljs-number">0.53s</span><br>     Running `target/debug/cons-list`<br><span class="hljs-selector-tag">a</span> <span class="hljs-attribute">initial</span> rc count = <span class="hljs-number">1</span><br><span class="hljs-selector-tag">a</span> next item = Some(RefCell &#123; value: Nil &#125;)<br><span class="hljs-selector-tag">a</span> rc count after <span class="hljs-selector-tag">b</span> creation = <span class="hljs-number">2</span><br><span class="hljs-selector-tag">b</span> <span class="hljs-attribute">initial</span> rc count = <span class="hljs-number">1</span><br><span class="hljs-selector-tag">b</span> next item = Some(RefCell &#123; value: Cons(<span class="hljs-number">5</span>, RefCell &#123; value: Nil &#125;) &#125;)<br><span class="hljs-selector-tag">b</span> rc count after changing <span class="hljs-selector-tag">a</span> = <span class="hljs-number">2</span><br><span class="hljs-selector-tag">a</span> rc count after changing <span class="hljs-selector-tag">a</span> = <span class="hljs-number">2</span><br></code></pre></td></tr></table></figure><br>可以看到将列表 a 修改为指向 b 之后， a 和 b 中的 <code>Rc&lt;List&gt;</code> 实例的引用计数都是 2。在 main 的结尾，Rust 丢弃 b，这会 b <code>Rc&lt;List&gt;</code> 实例的引用计数从 2 减为 1。然而，b <code>Rc&lt;List&gt;</code> 不能被回收，因为其引用计数是 1 而不是 0。接下来 Rust 会丢弃 a 将 a <code>Rc&lt;List&gt;</code> 实例的引用计数从 2 减为 1。这个实例也不能被回收，因为 b <code>Rc&lt;List&gt;</code> 实例依然引用它，所以其引用计数是 1。这些列表的内存将永远保持未被回收的状态。引用循环：<br><img src="/img/Rust/9.png" alt="github"><br>如果取消最后 <code>println!</code> 的注释并运行程序，Rust会尝试打印出 a 指向 b 指向 a 这样的循环直到栈溢出。</p>
+<p>这个特定的例子中，创建了引用循环之后程序立刻就结束了。这个循环的结果并不可怕。如果在更为复杂的程序中并在循环里分配了很多内存并占有很长时间，这个程序会使用多于它所需要的内存，并有可能压垮系统并造成没有内存可供使用。</p>
+<p>创建引用循环并不容易，但也不是不可能。如果你有包含 <code>Rc&lt;T&gt;</code> 的 <code>RefCell&lt;T&gt;</code> 值或类似的嵌套结合了内部可变性和引用计数的类型，请务必小心确保你没有形成一个引用循环；你无法指望 Rust 帮你捕获它们。创建引用循环是一个程序上的逻辑 bug，你应该使用自动化测试、 代码评审和其他软件开发最佳实践来使其最小化。</p>
+<p>另一个解决方案是重新组织数据结构，使得一部分引用拥有所有权而另一部分没有。换句话说，循环将由一些拥有所有权的关系和一些无所有权的关系组成，只有所有权关系才能影响值是否可以被丢弃。我们总是希望 Cons 成员拥有其列表，所以重新组织数据结构是不可能的。让我们看看一个由父节点和子节点构成的图的例子，观察何时是使用无所有权的关系来避免引用循环的合适时机。</p>
+<h3 id="避免引用循环-将-Rc-变为-Weak"><a href="#避免引用循环-将-Rc-变为-Weak" class="headerlink" title="避免引用循环:将 Rc 变为 Weak"></a>避免引用循环:将 Rc<T> 变为 Weak<T></h3><p>到目前为止，我们已经展示了调用 <code>Rc::clone</code> 会增加 <code>Rc&lt;T&gt;</code> 实例的 <code>strong_count</code>，和只在其 <code>strong_count</code> 为 0 时才会被清理的 <code>Rc&lt;T&gt;</code> 实例。你也可以通过调用 <code>Rc::downgrade</code> 并传递 <code>Rc&lt;T&gt;</code> 实例的引用来创建其值的 <strong>弱引用（weak reference）</strong>。调用 <code>Rc::downgrade</code> 时会得到 <code>Weak&lt;T&gt;</code> 类型的<strong>智能指针</strong>。不同于将 <code>Rc&lt;T&gt;</code> 实例的 <code>strong_count</code> 加 1，调用 <code>Rc::downgrade</code> 会将 <code>weak_count</code> 加 1。<code>Rc&lt;T&gt;</code> 类型使用 <code>weak_count</code> 来记录其存在多少个 <code>Weak&lt;T&gt;</code> 引用，类似于 <code>strong_count</code>。<strong>其区别在于 <code>weak_count</code> 无需计数为 0 就能使 <code>Rc&lt;T&gt;</code> 实例被清理。</strong></p>
+<p>强引用代表如何共享 <code>Rc&lt;T&gt;</code> 实例的所有权，但弱引用并不属于所有权关系。他们不会造成引用循环，因为任何弱引用的循环会在其相关的强引用计数为 0 时被打断。</p>
+<p>因为 <code>Weak&lt;T&gt;</code> 引用的值可能已经被丢弃了，为了使用 <code>Weak&lt;T&gt;</code> 所指向的值，我们必须确保其值仍然有效。为此可以调用 <code>Weak&lt;T&gt;</code> 实例的 <code>upgrade</code> 方法，这会返回 <code>Option&lt;Rc&lt;T&gt;&gt;</code>。如果 <code>Rc&lt;T&gt;</code> 值还未被丢弃，则结果是 <code>Some</code>；如果 <code>Rc&lt;T&gt;</code> 已被丢弃，则结果是 <code>None</code>。因为 <code>upgrade</code> 返回一个 <code>Option&lt;Rc&lt;T&gt;&gt;</code>，Rust 会确保处理 <code>Some</code> 和 <code>None</code> 的情况，所以它不会返回非法指针。</p>
+<p>作为一个例子，不同于使用一个某项只知道其下一项的列表，我们会创建一个某项知道其子项和父项的树形结构。</p>
+<h6 id="创建树形数据结构-带有子节点的-Node"><a href="#创建树形数据结构-带有子节点的-Node" class="headerlink" title="创建树形数据结构:带有子节点的 Node"></a>创建树形数据结构:带有子节点的 Node</h6><p>让我们从一个叫做 Node 的存放拥有所有权的 i32 值和其子 Node 值引用的结构体开始:<br><figure class="highlight rust"><table><tr><td class="code"><pre><code class="hljs rust"><span class="hljs-keyword">use</span> std::cell::RefCell;<br><span class="hljs-keyword">use</span> std::rc::Rc;<br><br><span class="hljs-meta">#[derive(Debug)]</span><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Node</span></span> &#123;<br>    value: <span class="hljs-built_in">i32</span>,<br>    children: RefCell&lt;<span class="hljs-built_in">Vec</span>&lt;Rc&lt;Node&gt;&gt;&gt;,<br>&#125;<br></code></pre></td></tr></table></figure><br>我们希望能够 Node 拥有其子节点，同时也希望通过变量来共享所有权，以便可以直接访问树中的每一个 Node，为此 <code>Vec&lt;T&gt;</code> 的项的类型被定义为 <code>Rc&lt;Node&gt;</code>。我们还希望能修改其他节点的子节点，所以 children 中 <code>Vec&lt;Rc&lt;Node&gt;&gt;</code> 被放进了 <code>RefCell&lt;T&gt;</code>。</p>
+<p>接下来，使用此结构体定义来创建一个叫做 leaf 的带有值 3 且没有子结点的 Node 实例，和另一个带有值 5 并以 leaf 作为子结点的实例 branch<br><figure class="highlight dts"><table><tr><td class="code"><pre><code class="hljs dts">fn main() &#123;<br>    let leaf = Rc::new(<span class="hljs-class">Node </span>&#123;<br><span class="hljs-symbol">        value:</span> <span class="hljs-number">3</span>,<br><span class="hljs-symbol">        children:</span> RefCell::new(vec![]),<br>    &#125;);<br><br>    let branch = Rc::new(<span class="hljs-class">Node </span>&#123;<br><span class="hljs-symbol">        value:</span> <span class="hljs-number">5</span>,<br><span class="hljs-symbol">        children:</span> RefCell::new(vec![Rc::clone(<span class="hljs-variable">&amp;leaf</span>)]),<br>    &#125;);<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<p>这里克隆了 leaf 中的 <code>Rc&lt;Node&gt;</code> 并储存在了 branch 中，这意味着 leaf 中的 Node 现在有两个所有者：leaf和branch。可以通过 branch.children 从 branch 中获得 leaf，不过无法从 leaf 到 branch。leaf 没有到 branch 的引用且并不知道他们相互关联。我们希望 leaf 知道 branch 是其父节点。稍后我们会这么做。</p>
+<h6 id="增加从子到父的引用"><a href="#增加从子到父的引用" class="headerlink" title="增加从子到父的引用"></a>增加从子到父的引用</h6><p>为了使子节点知道其父节点，需要在 Node 结构体定义中增加一个 parent 字段。问题是 parent 的类型应该是什么。我们知道其不能包含 <code>Rc&lt;T&gt;</code>，因为这样 leaf.parent 将会指向 branch 而 branch.children 会包含 leaf 的指针，这会形成引用循环，会造成其 <code>strong_count</code> 永远也不会为 0。</p>
+<p>现在换一种方式思考这个关系，父节点应该拥有其子节点：如果父节点被丢弃了，其子节点也应该被丢弃。然而子节点不应该拥有其父节点：如果丢弃子节点，其父节点应该依然存在。这正是弱引用的例子！</p>
+<p>所以 parent 使用 <code>Weak&lt;T&gt;</code> 类型而不是 <code>Rc&lt;T&gt;</code> ，具体来说是 <code>RefCell&lt;Weak&lt;Node&gt;&gt;</code> 。现在 Node 结构体定义看起来像这样:<br><figure class="highlight dts"><table><tr><td class="code"><pre><code class="hljs dts">use std::cell::RefCell;<br>use std::rc::&#123;Rc, Weak&#125;;<br><br><span class="hljs-meta">#[derive(Debug)]</span><br>struct <span class="hljs-class">Node </span>&#123;<br><span class="hljs-symbol">    value:</span> i32,<br><span class="hljs-symbol">    parent:</span> RefCell<span class="hljs-params">&lt;Weak&lt;Node&gt;</span>&gt;,<br><span class="hljs-symbol">    children:</span> RefCell<span class="hljs-params">&lt;Vec&lt;Rc&lt;Node&gt;</span>&gt;&gt;,<br>&#125;<br></code></pre></td></tr></table></figure><br>这样，一个节点就能够引用其父节点，但不拥有其父节点。我们更新 main 来使用新定义以便 leaf 节点可以引用其父节:<br><figure class="highlight dts"><table><tr><td class="code"><pre><code class="hljs dts">fn main() &#123;<br>    let leaf = Rc::new(<span class="hljs-class">Node </span>&#123;<br><span class="hljs-symbol">        value:</span> <span class="hljs-number">3</span>,<br><span class="hljs-symbol">        parent:</span> RefCell::new(Weak::new()),<br><span class="hljs-symbol">        children:</span> RefCell::new(vec![]),<br>    &#125;);<br><br>    println!(<span class="hljs-string">&quot;leaf parent = &#123;:?&#125;&quot;</span>, leaf.parent.borrow().upgrade());<br><br>    let branch = Rc::new(<span class="hljs-class">Node </span>&#123;<br><span class="hljs-symbol">        value:</span> <span class="hljs-number">5</span>,<br><span class="hljs-symbol">        parent:</span> RefCell::new(Weak::new()),<br><span class="hljs-symbol">        children:</span> RefCell::new(vec![Rc::clone(<span class="hljs-variable">&amp;leaf</span>)]),<br>    &#125;);<br><br>    *leaf.parent.borrow_mut() = Rc::downgrade(<span class="hljs-variable">&amp;branch</span>);<br><br>    println!(<span class="hljs-string">&quot;leaf parent = &#123;:?&#125;&quot;</span>, leaf.parent.borrow().upgrade());<br>&#125;<br></code></pre></td></tr></table></figure><br>创建 leaf 节点类似于之前如何创建 leaf 节点的，除了 parent 字段有所不同: leaf 开始时没有父节点，所以我们新建了一个空的 Weak 引用实例。<br>此时，当尝试使用 upgrade 方法获取 leaf 的父节点引用时，会得到一个 None 值。如第一个 println! 输出所示:<br><figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">leaf parent</span> = None<br></code></pre></td></tr></table></figure><br>当创建 branch 节点时，其也会新建一个 Weak 引用，因为 branch 并没有父节点。 leaf 仍然作为 branch 的一个子节点。一旦在 branch 中有了 Node 实例，就可以修改 leaf 使 其拥有指向父节点的 Weak 引用。这里使用了 leaf 中 parent 字段里的 <code>RefCell</code> 的<code>borrow_mut</code> 方法，接着使用了 <code>Rc::downgrade</code> 函数来从 branch 中的 <code>Rc</code> 值创建了一个指向 branch 的 Weak 引用。</p>
+<p>当再次打印出 leaf 的父节点时，这一次将会得到存放了 branch 的 Some 值:现在 leaf 可以访问其父结点了! 当打印出 leaf 时，我们也避免了最终会导致栈溢出的循环: Weak 引用被打印为 (Weak) :<br><figure class="highlight yaml"><table><tr><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">leaf</span> <span class="hljs-string">parent</span> <span class="hljs-string">=</span> <span class="hljs-string">Some(Node</span> &#123; <span class="hljs-attr">value:</span> <span class="hljs-number">5</span>, <span class="hljs-attr">parent:</span> <span class="hljs-string">RefCell</span> &#123; <span class="hljs-attr">value:</span> <span class="hljs-string">(Weak)</span> &#125;,<br><span class="hljs-attr">children:</span> <span class="hljs-string">RefCell</span> &#123; <span class="hljs-attr">value:</span> [<span class="hljs-string">Node</span> &#123; <span class="hljs-attr">value:</span> <span class="hljs-number">3</span>, <span class="hljs-attr">parent:</span> <span class="hljs-string">RefCell</span> &#123; <span class="hljs-attr">value:</span> <span class="hljs-string">(Weak)</span> &#125;,<br><span class="hljs-attr">children:</span> <span class="hljs-string">RefCell</span> &#123; <span class="hljs-attr">value:</span> [] &#125; &#125;] &#125; &#125;<span class="hljs-string">)</span><br></code></pre></td></tr></table></figure><br>没有无限的输出表明这段代码并没有造成引用循环。这一点也可以从观察 <code>Rc::strong_count</code> 和 <code>Rc::weak_count</code> 调用的结果看出。</p>
+<h3 id="可视化-strong-count-和-weak-count-的改变"><a href="#可视化-strong-count-和-weak-count-的改变" class="headerlink" title="可视化 strong_count 和 weak_count 的改变"></a>可视化 strong_count 和 weak_count 的改变</h3><p>让我们通过创建了一个新的内部作用域并将 branch 的创建放入其中，来观察 <code>Rc&lt;Node&gt;</code> 实例的 <code>strong_count</code> 和 <code>weak_count</code> 值的变化。这会展示当 branch 创建和离开作用域被丢弃时会发生什么。<br><figure class="highlight dts"><table><tr><td class="code"><pre><code class="hljs dts">fn main() &#123;<br>    let leaf = Rc::new(<span class="hljs-class">Node </span>&#123;<br><span class="hljs-symbol">        value:</span> <span class="hljs-number">3</span>,<br><span class="hljs-symbol">        parent:</span> RefCell::new(Weak::new()),<br><span class="hljs-symbol">        children:</span> RefCell::new(vec![]),<br>    &#125;);<br><br>    println!(<br>        <span class="hljs-string">&quot;leaf strong = &#123;&#125;, weak = &#123;&#125;&quot;</span>,<br><span class="hljs-symbol">        Rc:</span>:strong_count(<span class="hljs-variable">&amp;leaf</span>),<br><span class="hljs-symbol">        Rc:</span>:weak_count(<span class="hljs-variable">&amp;leaf</span>),<br>    );<br><br>    &#123;<br>        let branch = Rc::new(<span class="hljs-class">Node </span>&#123;<br><span class="hljs-symbol">            value:</span> <span class="hljs-number">5</span>,<br><span class="hljs-symbol">            parent:</span> RefCell::new(Weak::new()),<br><span class="hljs-symbol">            children:</span> RefCell::new(vec![Rc::clone(<span class="hljs-variable">&amp;leaf</span>)]),<br>        &#125;);<br><br>        *leaf.parent.borrow_mut() = Rc::downgrade(<span class="hljs-variable">&amp;branch</span>);<br><br>        println!(<br>            <span class="hljs-string">&quot;branch strong = &#123;&#125;, weak = &#123;&#125;&quot;</span>,<br><span class="hljs-symbol">            Rc:</span>:strong_count(<span class="hljs-variable">&amp;branch</span>),<br><span class="hljs-symbol">            Rc:</span>:weak_count(<span class="hljs-variable">&amp;branch</span>),<br>        );<br><br>        println!(<br>            <span class="hljs-string">&quot;leaf strong = &#123;&#125;, weak = &#123;&#125;&quot;</span>,<br><span class="hljs-symbol">            Rc:</span>:strong_count(<span class="hljs-variable">&amp;leaf</span>),<br><span class="hljs-symbol">            Rc:</span>:weak_count(<span class="hljs-variable">&amp;leaf</span>),<br>        );<br>    &#125;<br><br>    println!(<span class="hljs-string">&quot;leaf parent = &#123;:?&#125;&quot;</span>, leaf.parent.borrow().upgrade());<br>    println!(<br>        <span class="hljs-string">&quot;leaf strong = &#123;&#125;, weak = &#123;&#125;&quot;</span>,<br><span class="hljs-symbol">        Rc:</span>:strong_count(<span class="hljs-variable">&amp;leaf</span>),<br><span class="hljs-symbol">        Rc:</span>:weak_count(<span class="hljs-variable">&amp;leaf</span>),<br>    );<br>&#125;<br></code></pre></td></tr></table></figure><br>一旦创建了 leaf ，其 Rc 的强引用计数为 1，弱引用计数为 0。在内部作用域中创建了 branch 并与 leaf 相关联，此时 branch 中 Rc 的强引用计数为 1，弱引用计数为 1(因为 leaf.parent 通过 <code>Weak&lt;T&gt;</code> 指向 branch )。这里 leaf 的强引用计数为 2，因为现在 branch 的 branch.children 中储存了 leaf 的 Rc 的拷贝，不过弱引用计数仍然为0。</p>
+<p>当内部作用域结束时， branch 离开作用域，其强引用计数减少为 0，所以其 Node 被丢弃。来自 leaf.parent 的弱引用计数 1 与 Node 是否被丢弃无关，所以并没有产生任何内存泄露!</p>
+<p>如果在内部作用域结束后尝试访问 leaf 的父节点，会再次得到 None 。在程序的结尾， leaf 中 Rc 的强引用计数为 1，弱引用计数为 0，因为因为现在 leaf 又是 Rc 唯一 的引用了。</p>
+<p>所有这些管理计数和值的逻辑都内建于 Rc 和 Weak 以及它们的 <code>Drop trait</code>实现中。通过在 Node 定义中指定从子结点到父结点的关系为一个 <code>Weak&lt;T&gt;</code> 引用，就能够拥有父节点和子节之间的双向引用而不会造成引用循环和内存泄露。</p>
+
+      
+       
+    </div>
+</article>
+
+
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '07584e1e38d09c739a16',
+            clientSecret: '6a466750b46c76ed9cc8ee0fe0d78e0c33898937',
+            repo: 'yangandmore.github.io',
+            owner: 'Yangandmore',
+            admin: ['Yangandmore'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2016-2020 Yangandmore
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>

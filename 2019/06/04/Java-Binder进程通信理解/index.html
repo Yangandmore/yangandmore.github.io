@@ -1,0 +1,2456 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Java Binder进程通信理解 | 杨小杨的博客</title>
+  <meta name="keywords" content=" Android ">
+  <meta name="description" content="Java Binder进程通信理解 | 杨小杨的博客">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="整洁代码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="观看Clean Code(整洁代码)记录-1">
+<meta property="og:url" content="http://example.com/2023/01/28/%E9%87%8D%E6%9E%84%E4%BB%A3%E7%A0%811/index.html">
+<meta property="og:site_name" content="杨小杨的博客">
+<meta property="og:description" content="整洁代码">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/img/CleanCode/0.png">
+<meta property="og:image" content="http://example.com/img/CleanCode/1.png">
+<meta property="article:published_time" content="2023-01-28T08:02:25.000Z">
+<meta property="article:modified_time" content="2023-01-28T09:49:19.837Z">
+<meta property="article:author" content="Yang">
+<meta property="article:tag" content="整洁代码">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/CleanCode/0.png">
+
+
+<link rel="icon" href="/img/header.png">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/header.png"/>
+</a>
+<div class="author">
+    <span>Yang</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="github"
+               href="https://github.com/Yangandmore"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="email"
+               href="mailto:635408602@qq.com"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="qq"
+               href="http://wpa.qq.com/msgrd?v=3&uin=635408602&site=qq&menu=yes"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-qq"></use>
+                    </svg>
+                
+            </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(149)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                <li>
+                    <div data-rel="数据库">
+                        
+                        数据库
+                        <small>(4)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="包管理">
+                        
+                        包管理
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="编译的库">
+                        
+                        编译的库
+                        <small>(5)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="分布式事务">
+                        
+                        分布式事务
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="分布式搜索">
+                        
+                        分布式搜索
+                        <small>(5)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="后台">
+                        
+                        后台
+                        <small>(3)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="机器学习">
+                        
+                        机器学习
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="流程引擎">
+                        
+                        流程引擎
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="数据结构">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        数据结构
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="数据结构<--->算法分析">
+                                        
+                                        算法分析
+                                        
+                                            <small>(2
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="异常问题">
+                        
+                        异常问题
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="音视频">
+                        
+                        音视频
+                        <small>(13)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="整洁代码">
+                        
+                        整洁代码
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="正则表达式">
+                        
+                        正则表达式
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Android">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        Android
+                        <small>(17)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="Android<--->热更新">
+                                        
+                                        热更新
+                                        
+                                            <small>(2
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="C/C++">
+                        
+                        C/C++
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="git">
+                        
+                        git
+                        <small>(3)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Gradle">
+                        
+                        Gradle
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="java">
+                        
+                        java
+                        <small>(9)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="JavaScript">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        JavaScript
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="JavaScript<--->npm">
+                                        
+                                        npm
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="ReactNative">
+                        
+                        ReactNative
+                        <small>(10)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Redis">
+                        
+                        Redis
+                        <small>(4)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="rust">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        rust
+                        <small>(46)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="rust<--->p2p">
+                                        
+                                        p2p
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="spring">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        spring
+                        <small>(9)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="spring<--->java">
+                                        
+                                        java
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="ssr">
+                        
+                        ssr
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="149">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>包管理</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>贝塞尔曲线</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>分布式事务</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>分布式搜索</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>构建工具</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>后台</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>汇编</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>机器学习</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>跨域</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>流程引擎</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>热更新</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>视频格式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>数据结构与算法分析</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>数据库</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>图片格式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>异步</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>异常问题</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>音频</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>音视频</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>整洁代码</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>正则表达式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>直播</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>android</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Android</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>C</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>camera</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Cpp</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>es</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ffmpeg</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>git</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Gradle</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>java</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>javaScript</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libfaac</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libjpeg-turbo</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libx264</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libyuv</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Linux</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>NDK</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>react</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>React</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ReactNative</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Redis</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>RTMP</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>rust</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>seate</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>spring</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>springboot</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>SQL</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>srs</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ssr</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class="All 整洁代码 "
+           href="/2023/01/28/%E9%87%8D%E6%9E%84%E4%BB%A3%E7%A0%811/"
+           data-tag="整洁代码"
+           data-author="" >
+            <span class="post-title" title="观看Clean Code(整洁代码)记录-1">观看Clean Code(整洁代码)记录-1</span>
+            <span class="post-date" title="2023-01-28 08:02:25">2023/01/28</span>
+        </a>
+        
+        <a  class="All 异常问题 "
+           href="/2022/09/27/eclipse-mac-err/"
+           data-tag="异常问题"
+           data-author="" >
+            <span class="post-title" title="eclipse-mac-err">eclipse-mac-err</span>
+            <span class="post-date" title="2022-09-27 22:24:54">2022/09/27</span>
+        </a>
+        
+        <a  class="All 流程引擎 "
+           href="/2022/09/16/activiti7/"
+           data-tag="流程引擎"
+           data-author="" >
+            <span class="post-title" title="流程引擎-activiti7">流程引擎-activiti7</span>
+            <span class="post-date" title="2022-09-16 10:01:11">2022/09/16</span>
+        </a>
+        
+        <a  class="All 分布式事务 "
+           href="/2022/09/04/seate/"
+           data-tag="seate,分布式事务"
+           data-author="" >
+            <span class="post-title" title="配置seate">配置seate</span>
+            <span class="post-date" title="2022-09-04 19:11:24">2022/09/04</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/09/01/es-java/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="es在java环境中使用">es在java环境中使用</span>
+            <span class="post-date" title="2022-09-01 22:11:48">2022/09/01</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/09/01/es-ik/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="es配置ik分词器及热更新">es配置ik分词器及热更新</span>
+            <span class="post-date" title="2022-09-01 16:38:27">2022/09/01</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/06/es-7-change-password/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="es修改密码">es修改密码</span>
+            <span class="post-date" title="2022-08-06 23:37:16">2022/08/06</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/06/es-linux/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="elk在linux上简单安装">elk在linux上简单安装</span>
+            <span class="post-date" title="2022-08-06 21:02:25">2022/08/06</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/02/ELK/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="ELK学习">ELK学习</span>
+            <span class="post-date" title="2022-08-02 15:13:44">2022/08/02</span>
+        </a>
+        
+        <a  class="All 包管理 "
+           href="/2022/07/29/chocolatey/"
+           data-tag="包管理"
+           data-author="" >
+            <span class="post-title" title="chocolatey">chocolatey</span>
+            <span class="post-date" title="2022-07-29 16:56:39">2022/07/29</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/28/Spring-%E5%9F%BA%E7%A1%805/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础5">Spring-基础5</span>
+            <span class="post-date" title="2022-07-28 21:11:57">2022/07/28</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/28/Spring-%E5%9F%BA%E7%A1%804/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(四)">Spring-基础(四)</span>
+            <span class="post-date" title="2022-07-28 15:50:59">2022/07/28</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-%E5%9F%BA%E7%A1%803/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(三)">Spring-基础(三)</span>
+            <span class="post-date" title="2022-07-25 21:51:47">2022/07/25</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-%E5%9F%BA%E7%A1%802/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(二)">Spring-基础(二)</span>
+            <span class="post-date" title="2022-07-25 10:26:06">2022/07/25</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-%E5%9F%BA%E7%A1%801/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(一)">Spring-基础(一)</span>
+            <span class="post-date" title="2022-07-25 09:58:25">2022/07/25</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/07/17/P2P/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="P2P">P2P</span>
+            <span class="post-date" title="2022-07-17 10:46:24">2022/07/17</span>
+        </a>
+        
+        <a  class="All rust p2p "
+           href="/2022/07/16/Rust-libp2p/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-libp2p">Rust-libp2p</span>
+            <span class="post-date" title="2022-07-16 14:04:11">2022/07/16</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/07/06/%E5%8C%BA%E5%9D%97%E9%93%BE-%E8%AE%B0%E8%B4%A6%E6%A8%A1%E5%BC%8F/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="区块链-记账模式">区块链-记账模式</span>
+            <span class="post-date" title="2022-07-06 21:48:04">2022/07/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/06/26/Summer-boot%E4%B8%80%E6%9C%9F%E5%AE%8F%E9%83%A8%E5%88%86%E6%9E%84%E6%80%9D%E5%8F%8A%E5%AE%9E%E7%8E%B0/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Summer-boot一期宏部分构思及实现">Summer-boot一期宏部分构思及实现</span>
+            <span class="post-date" title="2022-06-26 10:12:27">2022/06/26</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2022/06/16/Git-fork%E9%A1%B9%E7%9B%AE%E6%9B%B4%E6%96%B0/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git-fork项目更新">Git-fork项目更新</span>
+            <span class="post-date" title="2022-06-16 15:11:56">2022/06/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/06/12/Rust-%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-编码规范">Rust-编码规范</span>
+            <span class="post-date" title="2022-06-12 09:05:33">2022/06/12</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2022/05/29/MySql-Some%E7%AD%89%E6%8C%87%E4%BB%A4/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="MySql_Some、Any、All的用法">MySql_Some、Any、All的用法</span>
+            <span class="post-date" title="2022-05-29 10:07:14">2022/05/29</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/12/Redis-%E8%81%9A%E5%90%88%E6%93%8D%E4%BD%9C/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-聚合操作">Redis-聚合操作</span>
+            <span class="post-date" title="2022-05-12 14:34:47">2022/05/12</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/11/Redis-%E5%88%87%E7%89%87%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-切片集群配置">Redis-切片集群配置</span>
+            <span class="post-date" title="2022-05-11 15:45:38">2022/05/11</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/10/Redis-%E5%93%A8%E5%85%B5%E6%9C%BA%E5%88%B6%E9%85%8D%E7%BD%AE/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-哨兵机制配置">Redis-哨兵机制配置</span>
+            <span class="post-date" title="2022-05-10 17:02:25">2022/05/10</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/10/Redis-%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%85%B3/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-开启远程访问">Redis-开启远程访问</span>
+            <span class="post-date" title="2022-05-10 14:24:32">2022/05/10</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/05/06/Rust-%E5%B1%9E%E6%80%A7/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-属性">Rust-属性</span>
+            <span class="post-date" title="2022-05-06 10:08:24">2022/05/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/20/Rust-build/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust编译过程图">Rust编译过程图</span>
+            <span class="post-date" title="2022-04-20 14:54:46">2022/04/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/08/Rust-Atomic/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-Atomic">Rust-Atomic</span>
+            <span class="post-date" title="2022-04-08 09:55:50">2022/04/08</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/06/Rust-%E6%AD%BB%E7%81%B5%E6%9C%AF3/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵术3">Rust-死灵术3</span>
+            <span class="post-date" title="2022-04-06 20:48:19">2022/04/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/06/Rust-%E6%AD%BB%E7%81%B5%E6%9C%AF2/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵术2">Rust-死灵术2</span>
+            <span class="post-date" title="2022-04-06 14:54:22">2022/04/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/02/Rust-AnyTrait/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-AnyTrait">Rust-AnyTrait</span>
+            <span class="post-date" title="2022-04-02 14:25:05">2022/04/02</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/02/Rust-Cow%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-Cow智能指针">Rust-Cow智能指针</span>
+            <span class="post-date" title="2022-04-02 10:16:00">2022/04/02</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/01/Rust-%E6%AD%BB%E7%81%B5%E6%9C%AF/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵书（一）">Rust-死灵书（一）</span>
+            <span class="post-date" title="2022-04-01 16:42:36">2022/04/01</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/03/09/Rust-%E5%8F%82%E8%80%83%E6%89%8B%E5%86%8C/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-参考手册">Rust-参考手册</span>
+            <span class="post-date" title="2022-03-09 10:15:21">2022/03/09</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/03/08/Rust-%E5%AE%8F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-小宏书(声明宏)">Rust-高级-小宏书(声明宏)</span>
+            <span class="post-date" title="2022-03-08 20:22:51">2022/03/08</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2022/03/03/Android%E9%9B%86%E6%88%90Rust/"
+           data-tag="Android,rust"
+           data-author="" >
+            <span class="post-title" title="Android集成Rust">Android集成Rust</span>
+            <span class="post-date" title="2022-03-03 10:56:49">2022/03/03</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/02/08/Rust-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-类型转换-From &amp; Into">Rust-类型转换-From &amp; Into</span>
+            <span class="post-date" title="2022-02-08 16:53:33">2022/02/08</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/16/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bbitflags/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之bitflags">Rust-高级-Crate之bitflags</span>
+            <span class="post-date" title="2022-01-16 22:36:28">2022/01/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Brayon/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之rayon">Rust-高级-Crate之rayon</span>
+            <span class="post-date" title="2022-01-12 21:55:30">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Blazy-static/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之lazy_static">Rust-高级-Crate之lazy_static</span>
+            <span class="post-date" title="2022-01-12 21:50:32">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8BWalkdir/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之Walkdir">Rust-高级-Crate之Walkdir</span>
+            <span class="post-date" title="2022-01-12 21:50:15">2022/01/12</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bthreadpool/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之threadpool">Rust-高级-Crate之threadpool</span>
+            <span class="post-date" title="2022-01-12 21:49:50">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Berror-chain/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之error_chain">Rust-高级-Crate之error_chain</span>
+            <span class="post-date" title="2022-01-12 21:49:39">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bcrossbeam/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之crossbeam">Rust-高级-Crate之crossbeam</span>
+            <span class="post-date" title="2022-01-12 21:16:24">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Btar/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之tar">Rust-高级-Crate之tar</span>
+            <span class="post-date" title="2022-01-12 10:29:50">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/11/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Brand/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之rand">Rust-高级-Crate之rand</span>
+            <span class="post-date" title="2022-01-11 14:52:45">2022/01/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/09/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bserde/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之serde">Rust-高级-Crate之serde</span>
+            <span class="post-date" title="2022-01-09 21:10:52">2022/01/09</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/09/Rust%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8%E4%B8%8E%E5%80%9F%E7%94%A8/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust中的引用与借用">Rust中的引用与借用</span>
+            <span class="post-date" title="2022-01-09 19:03:47">2022/01/09</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/09/graphQL/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="graphQL">graphQL</span>
+            <span class="post-date" title="2022-01-09 17:02:35">2022/01/09</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/05/Rust-%E9%AB%98%E7%BA%A7-%E6%9C%8D%E5%8A%A1%E4%B9%8BActix/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-服务之Actix">Rust-高级-服务之Actix</span>
+            <span class="post-date" title="2022-01-05 21:13:56">2022/01/05</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/05/Rust-%E9%AB%98%E7%BA%A7-%E5%BC%82%E6%AD%A5%E4%B9%8Bfutures/"
+           data-tag="rust,异步"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-异步之futures">Rust-高级-异步之futures</span>
+            <span class="post-date" title="2022-01-05 21:13:38">2022/01/05</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/30/Rust-%E6%9C%80%E5%90%8E%E7%9A%84%E9%A1%B9%E7%9B%AE/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-最后的项目">Rust-最后的项目</span>
+            <span class="post-date" title="2021-12-30 14:46:33">2021/12/30</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/21/Rust-%E9%AB%98%E7%BA%A7%E7%89%B9%E5%BE%81/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级特征">Rust-高级特征</span>
+            <span class="post-date" title="2021-12-21 22:22:15">2021/12/21</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-%E6%A8%A1%E5%BC%8F%E7%94%A8%E6%9D%A5%E5%8C%B9%E9%85%8D%E5%80%BC%E7%9A%84%E7%BB%93%E6%9E%84/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-模式与模式匹配">Rust-模式与模式匹配</span>
+            <span class="post-date" title="2021-12-20 20:53:44">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-面向对象">Rust-面向对象</span>
+            <span class="post-date" title="2021-12-20 15:15:04">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-%E6%97%A0%E7%95%8F%E5%B9%B6%E5%8F%91/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-无畏并发">Rust-无畏并发</span>
+            <span class="post-date" title="2021-12-20 09:44:35">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/19/Rust-%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-智能指针">Rust-智能指针</span>
+            <span class="post-date" title="2021-12-19 10:23:23">2021/12/19</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/16/Rust-CargoAndCratesIO/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-CargoAndCratesIO">Rust-CargoAndCratesIO</span>
+            <span class="post-date" title="2021-12-16 22:52:05">2021/12/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/16/Rust-%E5%87%BD%E6%95%B0%E5%BC%8F%E8%AF%AD%E8%A8%80%E5%8A%9F%E8%83%BD-%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E9%97%AD%E5%8C%85/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-函数式语言功能:迭代器与闭包">Rust-函数式语言功能:迭代器与闭包</span>
+            <span class="post-date" title="2021-12-16 16:08:22">2021/12/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/15/Rust-%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%A8%8B%E5%BA%8F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-IO">Rust-IO</span>
+            <span class="post-date" title="2021-12-15 17:07:26">2021/12/15</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/15/Rust-%E6%B5%8B%E8%AF%95/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-测试">Rust-测试</span>
+            <span class="post-date" title="2021-12-15 14:08:29">2021/12/15</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/14/Rust-%E6%B3%9B%E5%9E%8B%E3%80%81trait%E5%92%8C%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-泛型、trait和生命周期">Rust-泛型、trait和生命周期</span>
+            <span class="post-date" title="2021-12-14 20:57:17">2021/12/14</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/14/Rust-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-错误处理">Rust-错误处理</span>
+            <span class="post-date" title="2021-12-14 10:48:51">2021/12/14</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-%E5%B8%B8%E8%A7%81%E9%9B%86%E5%90%88/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-常见集合">Rust-常见集合</span>
+            <span class="post-date" title="2021-12-13 20:55:23">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%9D%97%E7%BB%84%E7%BB%87%E5%92%8C%E5%A4%8D%E7%94%A8%E4%BB%A3%E7%A0%81/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-使用模块组织和复用代码">Rust-使用模块组织和复用代码</span>
+            <span class="post-date" title="2021-12-13 16:26:05">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-枚举和模式匹配">Rust-枚举和模式匹配</span>
+            <span class="post-date" title="2021-12-13 10:44:04">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/12/Rust-%E7%BB%93%E6%9E%84%E4%BD%93/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-结构体">Rust-结构体</span>
+            <span class="post-date" title="2021-12-12 22:42:42">2021/12/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/12/Rust-%E6%89%80%E6%9C%89%E6%9D%83/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-所有权">Rust-所有权</span>
+            <span class="post-date" title="2021-12-12 11:32:16">2021/12/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/11/Rust-%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-基础技术">Rust-基础技术</span>
+            <span class="post-date" title="2021-12-11 20:25:09">2021/12/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/11/Rust-%E7%BC%96%E7%A8%8B%E7%8C%9C%E8%B0%9C%E6%B8%B8%E6%88%8F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-编程猜谜游戏">Rust-编程猜谜游戏</span>
+            <span class="post-date" title="2021-12-11 18:58:04">2021/12/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/10/Rust-%E5%85%A5%E9%97%A8/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-入门">Rust-入门</span>
+            <span class="post-date" title="2021-12-10 11:18:25">2021/12/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/10/Java-%E5%86%85%E9%83%A8%E7%B1%BB/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-内部类">Java-内部类</span>
+            <span class="post-date" title="2021-12-10 08:50:32">2021/12/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/09/Java-%E6%8E%A5%E5%8F%A3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-接口">Java-接口</span>
+            <span class="post-date" title="2021-12-09 14:54:05">2021/12/09</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/09/Java-%E5%A4%9A%E6%80%81/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-多态">Java-多态</span>
+            <span class="post-date" title="2021-12-09 08:42:47">2021/12/09</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/23/JavaNIO/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaNIO">JavaNIO</span>
+            <span class="post-date" title="2021-11-23 10:47:14">2021/11/23</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/23/JavaIO/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaIO">JavaIO</span>
+            <span class="post-date" title="2021-11-23 10:47:07">2021/11/23</span>
+        </a>
+        
+        <a  class="All spring java "
+           href="/2021/11/22/Spring%E5%B7%A5%E4%BD%9C%E5%AF%B9%E8%B1%A1/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring工作对象">Spring工作对象</span>
+            <span class="post-date" title="2021-11-22 09:44:06">2021/11/22</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/18/Java%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java函数式接口">Java函数式接口</span>
+            <span class="post-date" title="2021-11-18 10:50:22">2021/11/18</span>
+        </a>
+        
+        <a  class="All "
+           href="/2021/11/17/SpringBoot%E5%90%AF%E5%8A%A8-%E5%9F%BA%E7%A1%80/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="SpringBoot启动-基础">SpringBoot启动-基础</span>
+            <span class="post-date" title="2021-11-17 17:01:58">2021/11/17</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/16/JRebel/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JRebel">JRebel</span>
+            <span class="post-date" title="2021-11-16 08:58:18">2021/11/16</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/11/Spring%E5%90%AF%E5%8A%A8-%E5%9F%BA%E7%A1%80/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring启动-基础">Spring启动-基础</span>
+            <span class="post-date" title="2021-11-11 15:25:33">2021/11/11</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/10/%E5%8F%8D%E5%B0%84/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="反射">反射</span>
+            <span class="post-date" title="2021-11-10 20:57:08">2021/11/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/10/%E6%B3%A8%E8%A7%A3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="注解">注解</span>
+            <span class="post-date" title="2021-11-10 20:50:55">2021/11/10</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/09/SpringAOP-%E5%9F%BA%E7%A1%80/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="SpringAOP-基础">SpringAOP-基础</span>
+            <span class="post-date" title="2021-11-09 10:31:31">2021/11/09</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/08/SpringIOC-%E5%9F%BA%E7%A1%80/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="SpringIOC-基础">SpringIOC-基础</span>
+            <span class="post-date" title="2021-11-08 10:27:28">2021/11/08</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2021/11/02/%E9%9F%B3%E8%A7%86%E9%A2%91%E7%BC%96%E8%A7%A3%E7%A0%81%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/"
+           data-tag="音视频"
+           data-author="" >
+            <span class="post-title" title="音视频编解码技术基础">音视频编解码技术基础</span>
+            <span class="post-date" title="2021-11-02 12:06:49">2021/11/02</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2021/11/02/MysqlErrHosts/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="mysql安装时，Unable to connect to any of the specified MySQL hosts">mysql安装时，Unable to connect to any of the specified MySQL hosts</span>
+            <span class="post-date" title="2021-11-02 10:58:50">2021/11/02</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2021/10/08/H264%E7%BC%96%E7%A0%81-SPSPPS/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码 SPS &amp; PPS">H264编码 SPS &amp; PPS</span>
+            <span class="post-date" title="2021-10-08 21:20:12">2021/10/08</span>
+        </a>
+        
+        <a  class="All ssr "
+           href="/2021/01/18/centos%E7%BB%88%E7%AB%AFssr%E9%85%8D%E7%BD%AE/"
+           data-tag="ssr"
+           data-author="" >
+            <span class="post-title" title="centos终端ssr配置">centos终端ssr配置</span>
+            <span class="post-date" title="2021-01-18 08:21:35">2021/01/18</span>
+        </a>
+        
+        <a  class="All 数据结构 算法分析 "
+           href="/2020/12/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E5%85%B6%E4%BA%8C/"
+           data-tag="数据结构与算法分析"
+           data-author="" >
+            <span class="post-title" title="数据结构与算法分析阅读笔记其二">数据结构与算法分析阅读笔记其二</span>
+            <span class="post-date" title="2020-12-14 22:34:39">2020/12/14</span>
+        </a>
+        
+        <a  class="All 数据结构 算法分析 "
+           href="/2020/12/09/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"
+           data-tag="数据结构与算法分析"
+           data-author="" >
+            <span class="post-title" title="数据结构与算法分析阅读笔记">数据结构与算法分析阅读笔记</span>
+            <span class="post-date" title="2020-12-09 21:52:40">2020/12/09</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/10/27/FLV%E6%A0%BC%E5%BC%8F/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="FLV格式">FLV格式</span>
+            <span class="post-date" title="2020-10-27 15:33:56">2020/10/27</span>
+        </a>
+        
+        <a  class="All 机器学习 "
+           href="/2020/09/20/Mac%E4%B8%ADPython3-x%E7%BC%96%E8%AF%91Caffe/"
+           data-tag="机器学习"
+           data-author="" >
+            <span class="post-title" title="Mac中Python3.x编译Caffe">Mac中Python3.x编译Caffe</span>
+            <span class="post-date" title="2020-09-20 01:08:09">2020/09/20</span>
+        </a>
+        
+        <a  class="All JavaScript npm "
+           href="/2020/07/17/npm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%93%8D%E4%BD%9C/"
+           data-tag="直播"
+           data-author="" >
+            <span class="post-title" title="npm常用命令操作">npm常用命令操作</span>
+            <span class="post-date" title="2020-07-17 10:14:01">2020/07/17</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/16/MediaExtractorANDMediaMuxer/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="android端的音频处理工具MediaExtractor和MediaMuxer">android端的音频处理工具MediaExtractor和MediaMuxer</span>
+            <span class="post-date" title="2020-07-16 11:55:28">2020/07/16</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/15/AAC%E9%9F%B3%E9%A2%91%E7%A0%81%E6%B5%81/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="AAC音频码流">AAC音频码流</span>
+            <span class="post-date" title="2020-07-15 17:45:10">2020/07/15</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/15/Android-PCM%E5%A4%84%E7%90%86/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="Android-PCM">Android-PCM</span>
+            <span class="post-date" title="2020-07-15 13:29:49">2020/07/15</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/13/yuv-tool%E5%B7%A5%E5%85%B7%E7%B1%BB/"
+           data-tag="android,libyuv"
+           data-author="" >
+            <span class="post-title" title="yuv-tool工具类">yuv-tool工具类</span>
+            <span class="post-date" title="2020-07-13 22:58:21">2020/07/13</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/18/ffmpegforandroid%E7%BC%96%E8%AF%91/"
+           data-tag="ffmpeg"
+           data-author="" >
+            <span class="post-title" title="ffmpegforandroid编译">ffmpegforandroid编译</span>
+            <span class="post-date" title="2020-06-18 13:38:35">2020/06/18</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/11/libfaac%E7%BC%96%E8%AF%91/"
+           data-tag="libfaac"
+           data-author="" >
+            <span class="post-title" title="libfaac编译">libfaac编译</span>
+            <span class="post-date" title="2020-06-11 14:00:57">2020/06/11</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/11/libx264%E7%BC%96%E8%AF%91/"
+           data-tag="libx264"
+           data-author="" >
+            <span class="post-title" title="libx264编译">libx264编译</span>
+            <span class="post-date" title="2020-06-11 13:51:36">2020/06/11</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/06/10/RTMP%E8%A7%84%E8%8C%83%E5%AD%A6%E4%B9%A0/"
+           data-tag="RTMP,直播"
+           data-author="" >
+            <span class="post-title" title="RTMP规范学习">RTMP规范学习</span>
+            <span class="post-date" title="2020-06-10 11:35:52">2020/06/10</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/06/01/React-Native%E7%83%AD%E6%9B%B4%E6%96%B0/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native热更新">React-Native热更新</span>
+            <span class="post-date" title="2020-06-01 16:03:28">2020/06/01</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2020/06/01/JavaWeb/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaWeb">JavaWeb</span>
+            <span class="post-date" title="2020-06-01 11:09:17">2020/06/01</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2020/05/26/JDBC/"
+           data-tag="java,数据库"
+           data-author="" >
+            <span class="post-title" title="JDBC">JDBC</span>
+            <span class="post-date" title="2020-05-26 16:23:01">2020/05/26</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2020/03/29/%E4%BA%86%E8%A7%A3%E8%B7%A8%E5%9F%9F/"
+           data-tag="后台,跨域"
+           data-author="" >
+            <span class="post-title" title="了解跨域">了解跨域</span>
+            <span class="post-date" title="2020-03-29 21:31:15">2020/03/29</span>
+        </a>
+        
+        <a  class="All JavaScript "
+           href="/2020/03/08/JavaScript%E8%AF%AD%E6%B3%95%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="javaScript"
+           data-author="" >
+            <span class="post-title" title="JavaScript语法（一）">JavaScript语法（一）</span>
+            <span class="post-date" title="2020-03-08 10:29:30">2020/03/08</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/03/06/React-native-%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-native 高德地图">React-native 高德地图</span>
+            <span class="post-date" title="2020-03-06 10:07:45">2020/03/06</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/03/03/React-16-8-Hooks/"
+           data-tag="React"
+           data-author="" >
+            <span class="post-title" title="React 16.8 Hooks">React 16.8 Hooks</span>
+            <span class="post-date" title="2020-03-03 10:07:02">2020/03/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/01/06/React-Native%E5%8E%9F%E7%94%9F%E9%80%9A%E4%BF%A1/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native原生通信">React-Native原生通信</span>
+            <span class="post-date" title="2020-01-06 16:34:00">2020/01/06</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/27/React-Native%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native原理浅析">React-Native原理浅析</span>
+            <span class="post-date" title="2019-12-27 15:32:08">2019/12/27</span>
+        </a>
+        
+        <a  class="All 正则表达式 "
+           href="/2019/12/18/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
+           data-tag="正则表达式"
+           data-author="" >
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2019-12-18 21:45:36">2019/12/18</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/05/React-Native-%E5%8A%A8%E7%94%BB/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native-动画">React-Native-动画</span>
+            <span class="post-date" title="2019-12-05 16:20:25">2019/12/05</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/03/React-%E8%87%AA%E5%AD%A6%E4%B9%8B%E8%B7%AF%EF%BC%88%E4%BA%8C%EF%BC%89/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="React-自学之路（二）">React-自学之路（二）</span>
+            <span class="post-date" title="2019-12-03 13:06:53">2019/12/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/03/React-%E8%87%AA%E5%AD%A6%E4%B9%8B%E8%B7%AF%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="React"
+           data-author="" >
+            <span class="post-title" title="React-自学之路（一）">React-自学之路（一）</span>
+            <span class="post-date" title="2019-12-03 09:40:28">2019/12/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/10/12/React%E6%96%B0%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"
+           data-tag="react"
+           data-author="" >
+            <span class="post-title" title="React新的生命周期">React新的生命周期</span>
+            <span class="post-date" title="2019-10-12 15:41:02">2019/10/12</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2019/09/18/%E5%88%9B%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE%E6%97%B6%EF%BC%8C%E5%87%BA%E7%8E%B0Could-not-calculate-build-plan%E9%94%99%E8%AF%AF/"
+           data-tag="springboot"
+           data-author="" >
+            <span class="post-title" title="创建maven项目时，出现Could not calculate build plan错误">创建maven项目时，出现Could not calculate build plan错误</span>
+            <span class="post-date" title="2019-09-18 09:25:06">2019/09/18</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2019/09/07/MySQL%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="MySQL常用指令">MySQL常用指令</span>
+            <span class="post-date" title="2019-09-07 21:10:03">2019/09/07</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/07/05/RecycleView%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="RecycleView（一）">RecycleView（一）</span>
+            <span class="post-date" title="2019-07-05 14:03:06">2019/07/05</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/25/Android%E5%8A%A8%E7%94%BB%EF%BC%88%E4%B8%89%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（三）">Android动画（三）</span>
+            <span class="post-date" title="2019-06-25 14:15:26">2019/06/25</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/20/Android%E5%8A%A8%E7%94%BB%EF%BC%88%E4%BA%8C%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（二）">Android动画（二）</span>
+            <span class="post-date" title="2019-06-20 15:10:00">2019/06/20</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/19/Android%E5%8A%A8%E7%94%BB%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（一）">Android动画（一）</span>
+            <span class="post-date" title="2019-06-19 15:15:56">2019/06/19</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/18/Android%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%EF%BC%88%E4%BA%8C%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android自定义控件（二）">Android自定义控件（二）</span>
+            <span class="post-date" title="2019-06-18 13:43:11">2019/06/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/13/%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF/"
+           data-tag="Android,贝塞尔曲线"
+           data-author="" >
+            <span class="post-title" title="贝塞尔曲线">贝塞尔曲线</span>
+            <span class="post-date" title="2019-06-13 10:14:25">2019/06/13</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/04/Java-Binder%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%90%86%E8%A7%A3/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Java Binder进程通信理解">Java Binder进程通信理解</span>
+            <span class="post-date" title="2019-06-04 14:01:43">2019/06/04</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/05/30/arm-neon-h%E6%96%87%E4%BB%B6%E5%8A%9F%E8%83%BD/"
+           data-tag="汇编"
+           data-author="" >
+            <span class="post-title" title="arm-neon.h文件功能">arm-neon.h文件功能</span>
+            <span class="post-date" title="2019-05-30 08:45:08">2019/05/30</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/05/06/Handler%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6/"
+           data-tag="android"
+           data-author="" >
+            <span class="post-title" title="Handler消息机制">Handler消息机制</span>
+            <span class="post-date" title="2019-05-06 14:09:45">2019/05/06</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/05/06/H264%E7%BC%96%E7%A0%81-%E7%86%B5%E7%BC%96%E7%A0%81/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码-熵编码">H264编码-熵编码</span>
+            <span class="post-date" title="2019-05-06 13:42:57">2019/05/06</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/04/08/NDK%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E5%90%88%E9%9B%86/"
+           data-tag="NDK"
+           data-author="" >
+            <span class="post-title" title="NDK开发问题合集">NDK开发问题合集</span>
+            <span class="post-date" title="2019-04-08 10:53:30">2019/04/08</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/04/01/H264%E7%BC%96%E7%A0%81%E5%9F%BA%E7%A1%80/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码基础">H264编码基础</span>
+            <span class="post-date" title="2019-04-01 09:26:11">2019/04/01</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/31/srs%E7%9B%B4%E6%92%AD%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/"
+           data-tag="直播,srs"
+           data-author="" >
+            <span class="post-title" title="srs直播平台搭建">srs直播平台搭建</span>
+            <span class="post-date" title="2019-03-31 10:37:42">2019/03/31</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/27/%E5%9B%BE%E7%89%87RGB%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/"
+           data-tag="图片格式"
+           data-author="" >
+            <span class="post-title" title="图片RGB数据格式">图片RGB数据格式</span>
+            <span class="post-date" title="2019-03-27 22:24:49">2019/03/27</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/14/%E5%9B%BE%E7%89%87YUV%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/"
+           data-tag="图片格式"
+           data-author="" >
+            <span class="post-title" title="图片YUV数据格式">图片YUV数据格式</span>
+            <span class="post-date" title="2019-03-14 11:10:16">2019/03/14</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2019/03/08/libjpeg-turbo%E7%BC%96%E8%AF%91/"
+           data-tag="libjpeg-turbo"
+           data-author="" >
+            <span class="post-title" title="libjpeg-turbo编译">libjpeg-turbo编译</span>
+            <span class="post-date" title="2019-03-08 13:41:20">2019/03/08</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2019/03/07/libYUV%E7%BC%96%E8%AF%91/"
+           data-tag="libyuv"
+           data-author="" >
+            <span class="post-title" title="libYUV编译">libYUV编译</span>
+            <span class="post-date" title="2019-03-07 15:05:11">2019/03/07</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/02/18/Android-camera%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="camera"
+           data-author="" >
+            <span class="post-title" title="Android camera（一）">Android camera（一）</span>
+            <span class="post-date" title="2019-02-18 15:03:27">2019/02/18</span>
+        </a>
+        
+        <a  class="All C/C++ "
+           href="/2019/01/23/Cpp%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Cpp"
+           data-author="" >
+            <span class="post-title" title="Cpp基础（一）">Cpp基础（一）</span>
+            <span class="post-date" title="2019-01-23 10:52:13">2019/01/23</span>
+        </a>
+        
+        <a  class="All C/C++ "
+           href="/2019/01/18/C%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="C"
+           data-author="" >
+            <span class="post-title" title="C基础（一）">C基础（一）</span>
+            <span class="post-date" title="2019-01-18 14:08:23">2019/01/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/12/18/EasyPermission/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="EasyPermission">EasyPermission</span>
+            <span class="post-date" title="2018-12-18 13:20:30">2018/12/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/12/15/Android%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android自定义控件（一）">Android自定义控件（一）</span>
+            <span class="post-date" title="2018-12-15 21:44:34">2018/12/15</span>
+        </a>
+        
+        <a  class="All ssr "
+           href="/2018/12/10/Linux%E9%85%8D%E7%BD%AEShadowSocks-R/"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux配置ShadowSocks-R">Linux配置ShadowSocks-R</span>
+            <span class="post-date" title="2018-12-10 15:58:52">2018/12/10</span>
+        </a>
+        
+        <a  class="All Android 热更新 "
+           href="/2018/10/29/Sophix%E7%83%AD%E6%9B%B4%E6%96%B0/"
+           data-tag="android,热更新"
+           data-author="" >
+            <span class="post-title" title="Sophix热更新">Sophix热更新</span>
+            <span class="post-date" title="2018-10-29 16:50:36">2018/10/29</span>
+        </a>
+        
+        <a  class="All Android 热更新 "
+           href="/2018/10/18/TinkerPatch%E7%83%AD%E6%9B%B4%E6%96%B0/"
+           data-tag="android,热更新"
+           data-author="" >
+            <span class="post-title" title="TinkerPatch热更新">TinkerPatch热更新</span>
+            <span class="post-date" title="2018-10-18 20:11:30">2018/10/18</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2018/06/21/React-native-flex%E5%B8%83%E5%B1%80/"
+           data-tag="react"
+           data-author="" >
+            <span class="post-title" title="React-native flex布局">React-native flex布局</span>
+            <span class="post-date" title="2018-06-21 16:22:47">2018/06/21</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/01/25/Android%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android事件分发">Android事件分发</span>
+            <span class="post-date" title="2018-01-25 16:36:52">2018/01/25</span>
+        </a>
+        
+        <a  class="All Gradle "
+           href="/2018/01/25/Gradle%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="构建工具,Gradle"
+           data-author="" >
+            <span class="post-title" title="Gradle（一）">Gradle（一）</span>
+            <span class="post-date" title="2018-01-25 16:36:52">2018/01/25</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2017/11/24/firstBlod2/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git详细讲解(远程)">Git详细讲解(远程)</span>
+            <span class="post-date" title="2017-11-24 10:18:05">2017/11/24</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2017/10/19/firstBlod/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git详细讲解(本地)">Git详细讲解(本地)</span>
+            <span class="post-date" title="2017-10-19 21:49:28">2017/10/19</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-Java-Binder进程通信理解" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">Java Binder进程通信理解</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="Android">Android</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color3">Android</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2021-04-17 07:10:38'>2019-06-04 14:01</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                Comment:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E7%AE%80%E4%BB%8B"><span class="toc-text">一、简介</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux%E7%8E%AF%E5%A2%83"><span class="toc-text">Linux环境</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%B7%E6%BA%90"><span class="toc-text">起源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E5%8A%BF-%E7%AE%A1%E9%81%93%E3%80%81%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E3%80%81%E5%85%B1%E4%BA%AB%E5%86%85%E5%AD%98%E3%80%81%E5%A5%97%E6%8E%A5%E5%AD%97"><span class="toc-text">优势(管道、消息队列、共享内存、套接字)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B"><span class="toc-text">模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B6%89%E5%8F%8A%E7%9B%B8%E5%85%B3%E7%B1%BB"><span class="toc-text">涉及相关类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%BA%90%E7%A0%81%E8%B7%9F%E8%B8%AA"><span class="toc-text">二、源码跟踪</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#android-util-Binder-cpp-Binder%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-text">android_util_Binder.cpp Binder初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Binder%E7%B1%BB%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-text">Binder类初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BinderInternal%E7%B1%BB%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-text">BinderInternal类初始化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BinderProxy%E7%B1%BB%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-text">BinderProxy类初始化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%A5%E5%8F%A3ActivityManagerService"><span class="toc-text">入口ActivityManagerService</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#BinderInternal-getContextObject"><span class="toc-text">BinderInternal.getContextObject()</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ProcessState-%E4%BC%A0%E9%80%92%E7%BB%99Binder%E9%A9%B1%E5%8A%A8%E7%9A%84%E7%BA%BF%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="toc-text">ProcessState 传递给Binder驱动的线程管理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BpBinder%E5%92%8CBBinder"><span class="toc-text">BpBinder和BBinder</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#javaObjectForIBinder-%E7%BB%91%E5%AE%9AbpBinder%E5%92%8CBinderProxy"><span class="toc-text">javaObjectForIBinder() 绑定bpBinder和BinderProxy</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ServiceManagerNative-asInterface"><span class="toc-text">ServiceManagerNative.asInterface()</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ServiceManagerNative"><span class="toc-text">ServiceManagerNative</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ServiceManagerProxy-%E7%9C%9F%E6%AD%A3%E8%B0%83%E7%94%A8addService%E5%87%BD%E6%95%B0"><span class="toc-text">ServiceManagerProxy 真正调用addService函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9E%E5%88%B0asInterface%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="toc-text">回到asInterface函数：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A2%B3%E7%90%86%E4%B8%80%E6%B3%A2"><span class="toc-text">梳理一波</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IServiceManager"><span class="toc-text">IServiceManager</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DECLARE-META-INTERFACE-amp-IMPLEMENT-META-INTERFACE-%E9%A2%84%E7%BC%96%E8%AF%91%E7%B1%BB"><span class="toc-text">DECLARE_META_INTERFACE &amp; IMPLEMENT_META_INTERFACE 预编译类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BpServiceManager-amp-BnServiceManager"><span class="toc-text">BpServiceManager &amp; BnServiceManager</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#addService"><span class="toc-text">addService()</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#writeStrongBinder"><span class="toc-text">writeStrongBinder()</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ibinderForJavaObject"><span class="toc-text">ibinderForJavaObject()</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#JavaBBinderHolder"><span class="toc-text">JavaBBinderHolder</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#JavaBBinder"><span class="toc-text">JavaBBinder</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#writeStrongBinder-1"><span class="toc-text">writeStrongBinder</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#transact"><span class="toc-text">transact()</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#IPCThreadState"><span class="toc-text">IPCThreadState</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#writeTransactionData"><span class="toc-text">writeTransactionData</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#waitForResponse"><span class="toc-text">waitForResponse</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#executeCommand"><span class="toc-text">executeCommand</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#talkWiteDriver"><span class="toc-text">talkWiteDriver</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#startThreadPool-amp-joinThreadPool"><span class="toc-text">startThreadPool &amp; joinThreadPool</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#startThreadPool"><span class="toc-text">startThreadPool</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#joinThreadPool"><span class="toc-text">joinThreadPool</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A2%B3%E7%90%86%E4%B8%80%E6%B3%A2-1"><span class="toc-text">梳理一波</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ServiceManager"><span class="toc-text">ServiceManager</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#binder-open"><span class="toc-text">binder_open()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#binder-become-context-manager"><span class="toc-text">binder_become_context_manager()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#binder-loop"><span class="toc-text">binder_loop()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#svcmgr-handler"><span class="toc-text">svcmgr_handler()</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#do-add-service"><span class="toc-text">do_add_service</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#svc-can-register"><span class="toc-text">svc_can_register</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81AIDL"><span class="toc-text">三、AIDL</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ServiceManager-1"><span class="toc-text">ServiceManager</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87ServiceManager"><span class="toc-text">准备ServiceManager</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E9%80%9A%E4%BF%A1%E5%86%85%E5%AE%B9"><span class="toc-text">准备通信内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AFBpTest%E5%92%8C%E6%9C%8D%E5%8A%A1%E7%AB%AFBnTest"><span class="toc-text">客户端BpTest和服务端BnTest</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#AIDL"><span class="toc-text">AIDL</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#aidl%E6%96%87%E4%BB%B6"><span class="toc-text">.aidl文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Parcelable"><span class="toc-text">Parcelable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#aidl%E6%96%87%E4%BB%B6-1"><span class="toc-text">.aidl文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E5%AF%B9%E8%B1%A1"><span class="toc-text">传输对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E5%87%86%E5%A4%87"><span class="toc-text">接口准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="toc-text">服务端</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAService"><span class="toc-text">创建Service</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%86%E5%A4%87ITest%E6%9C%8D%E5%8A%A1"><span class="toc-text">准备ITest服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E6%9C%8D%E5%8A%A1Action"><span class="toc-text">注册服务Action</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-text">客户端</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ServiceConnection"><span class="toc-text">ServiceConnection</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p>Binder是Android系统中的一种进程间通信机制，但是Binder相对于其他IPC机制，更加灵活和方便。而应用中最多的就是AIDL机制。整片也是为自己的Binder理解加深影响。</p>
+<h1 id="Linux环境"><a href="#Linux环境" class="headerlink" title="Linux环境"></a>Linux环境</h1><p>在Linux系统中，系统会给每个进程分配虚拟内存，然后系统会将这个虚拟内存空间映射到物理内存空间，只有操作系统才能操作物理空间。由于进程只能操作虚拟内存，无法操作其他进程内存空间，因此需要一个跨进程通信机制。</p>
+<h2 id="起源"><a href="#起源" class="headerlink" title="起源"></a>起源</h2><p>在我们需要调用物理内存时，需要从一个进程跨越另一个进程，就需要操作系统来支持，而Linux的动态加载内核模块机制可以完成，模块是具有独立功能的程序。在Android系统中添加这个内核模块，就可以让他来完成两个进程中间的传输媒介，即Binder驱动。</p>
+<h2 id="优势-管道、消息队列、共享内存、套接字"><a href="#优势-管道、消息队列、共享内存、套接字" class="headerlink" title="优势(管道、消息队列、共享内存、套接字)"></a>优势(管道、消息队列、共享内存、套接字)</h2><ul>
+<li>传输性能：复杂数据类型传递可以复用内存，需要拷贝1次数据</li>
+<li>安全性：支持通信身份校验，提高安全性。</li>
+</ul>
+<h2 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h2><p><a href="/img/Binder/1.png">github</a><br>可以看到这里都会想ServerManager传输消息</p>
+<blockquote>
+<p>Server端通过Binder驱动在ServiceManager中注册<br>Client端通过Binder驱动获取ServiceManager中注册的Server端<br>Client端通过Binder驱动和Server端进行通讯</p>
+</blockquote>
+<h2 id="涉及相关类"><a href="#涉及相关类" class="headerlink" title="涉及相关类"></a>涉及相关类</h2><p>下图为Binder机制中使用到的Java类和Native层类：<br><a href="/img/Binder/0.png">github</a></p>
+<blockquote>
+<p>Binder和BinderProxy都实现了IBinder接口<br>ActivityManagerService继承自ActivityManagerNative<br>Native层的的重要文件中有android_util_Binder.cpp和android_os_Parcel.cpp<br>ServiceManager为重要的类，Server进程要先注册到这里。</p>
+</blockquote>
+<h2 id="二、源码跟踪"><a href="#二、源码跟踪" class="headerlink" title="二、源码跟踪"></a>二、源码跟踪</h2><p>下面一步步跟进源码，版本或有不同，可能会找不到相关类。</p>
+<h1 id="android-util-Binder-cpp-Binder初始化"><a href="#android-util-Binder-cpp-Binder初始化" class="headerlink" title="android_util_Binder.cpp Binder初始化"></a>android_util_Binder.cpp Binder初始化</h1><p>在Java调用前期，系统会提前注册JNI函数，他们专门负责连接Java层和Native层的交互。<br>frameworks/base/core/jni/android_util_Binder.cpp:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 负责专门搭建JavaBinder和NativeBinder交互的函数</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">register_android_os_Binder</span><span class="hljs-params">(JNIEnv* env)</span></span><br><span class="hljs-function"></span>&#123;<br>		<span class="hljs-comment">// 初始化Java Binder类和Native层的关系</span><br>    <span class="hljs-keyword">if</span> (int_register_android_os_Binder(env) &lt; <span class="hljs-number">0</span>)<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>		<span class="hljs-comment">// 初始化Java BinderInternal类和Native层的关系</span><br>    <span class="hljs-keyword">if</span> (int_register_android_os_BinderInternal(env) &lt; <span class="hljs-number">0</span>)<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>		<span class="hljs-comment">// 初始化Java Proxy类和Native层的关系</span><br>    <span class="hljs-keyword">if</span> (int_register_android_os_BinderProxy(env) &lt; <span class="hljs-number">0</span>)<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br><br>		......<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure><br>这里是主注册点，可以看到里面的三个函数分别调用其他的注册功能。</p>
+<h2 id="Binder类初始化"><a href="#Binder类初始化" class="headerlink" title="Binder类初始化"></a>Binder类初始化</h2><p>frameworks/base/core/jni/android_util_Binder.cpp:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Binder类初始化</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">int_register_android_os_Binder</span><span class="hljs-params">(JNIEnv* env)</span></span><br><span class="hljs-function"></span>&#123;<br>		<span class="hljs-comment">// android/os/Binder</span><br>    jclass clazz = FindClassOrDie(env, kBinderPathName);<br><br>		<span class="hljs-comment">// gBinderOffsets是一个静态类对象，专门保护Binder类的一些JNI层中使用的信息</span><br>    gBinderOffsets.mClass = MakeGlobalRefOrDie(env, clazz);<br>    gBinderOffsets.mExecTransact = GetMethodIDOrDie(env, clazz, <span class="hljs-string">&quot;execTransact&quot;</span>, <span class="hljs-string">&quot;(IJJI)Z&quot;</span>);<br>    gBinderOffsets.mObject = GetFieldIDOrDie(env, clazz, <span class="hljs-string">&quot;mObject&quot;</span>, <span class="hljs-string">&quot;J&quot;</span>);<br><br>		<span class="hljs-comment">// 注册Binder类中native函数的实现</span><br>    <span class="hljs-keyword">return</span> RegisterMethodsOrDie(<br>        env, kBinderPathName,<br>        gBinderMethods, NELEM(gBinderMethods));<br>&#125;<br><br></code></pre></td></tr></table></figure><br>最后保存到<code>gBinderOffsets</code>参数。</p>
+<h2 id="BinderInternal类初始化"><a href="#BinderInternal类初始化" class="headerlink" title="BinderInternal类初始化"></a>BinderInternal类初始化</h2><p>frameworks/base/core/jni/android_util_Binder.cpp:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * BinderInternal类初始化</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">int_register_android_os_BinderInternal</span><span class="hljs-params">(JNIEnv* env)</span></span><br><span class="hljs-function"></span>&#123;<br>		<span class="hljs-comment">// 根据全路径名找到jclass对象</span><br>		<span class="hljs-comment">// com/android/internal/os/BinderInternal</span><br>    jclass clazz = FindClassOrDie(env, kBinderInternalPathName);<br><br>		<span class="hljs-comment">// gBinderInternalOffsets也是一个静态对象，用来保存BinderInternal类的一些信息</span><br>    gBinderInternalOffsets.mClass = MakeGlobalRefOrDie(env, clazz);<br>		<span class="hljs-comment">// 获取forceBinderGc的methodID</span><br>    gBinderInternalOffsets.mForceGc = GetStaticMethodIDOrDie(env, clazz, <span class="hljs-string">&quot;forceBinderGc&quot;</span>, <span class="hljs-string">&quot;()V&quot;</span>);<br><br>		<span class="hljs-comment">// 注册BinderInternal类中native函数的实现</span><br>    <span class="hljs-keyword">return</span> RegisterMethodsOrDie(<br>        env, kBinderInternalPathName,<br>        gBinderInternalMethods, NELEM(gBinderInternalMethods));<br>&#125;<br></code></pre></td></tr></table></figure><br>最后保存到<code>gBinderInternalOffsets</code>参数。</p>
+<h2 id="BinderProxy类初始化"><a href="#BinderProxy类初始化" class="headerlink" title="BinderProxy类初始化"></a>BinderProxy类初始化</h2><p>frameworks/base/core/jni/android_util_Binder.cpp:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * BinderProxy类初始化</span><br><span class="hljs-comment"> */</span><br><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">int_register_android_os_BinderProxy</span><span class="hljs-params">(JNIEnv* env)</span></span><br><span class="hljs-function"></span>&#123;<br>		<span class="hljs-comment">// Error</span><br>    jclass clazz = FindClassOrDie(env, <span class="hljs-string">&quot;java/lang/Error&quot;</span>);<br>		<span class="hljs-comment">// gErrorOffsets用来和Error类交互</span><br>    gErrorOffsets.mClass = MakeGlobalRefOrDie(env, clazz);<br><br>		<span class="hljs-comment">// gBinderProxyOffsets用来和BinderProxy类交互</span><br>    clazz = FindClassOrDie(env, kBinderProxyPathName);<br>    gBinderProxyOffsets.mClass = MakeGlobalRefOrDie(env, clazz);<br>    gBinderProxyOffsets.mConstructor = GetMethodIDOrDie(env, clazz, <span class="hljs-string">&quot;&lt;init&gt;&quot;</span>, <span class="hljs-string">&quot;()V&quot;</span>);<br>    gBinderProxyOffsets.mSendDeathNotice = GetStaticMethodIDOrDie(env, clazz, <span class="hljs-string">&quot;sendDeathNotice&quot;</span>,<br>            <span class="hljs-string">&quot;(Landroid/os/IBinder$DeathRecipient;)V&quot;</span>);<br><br>    gBinderProxyOffsets.mObject = GetFieldIDOrDie(env, clazz, <span class="hljs-string">&quot;mObject&quot;</span>, <span class="hljs-string">&quot;J&quot;</span>);<br>		<span class="hljs-comment">// 获取WeakRefere</span><br>    gBinderProxyOffsets.mSelf = GetFieldIDOrDie(env, clazz, <span class="hljs-string">&quot;mSelf&quot;</span>,<br>                                                <span class="hljs-string">&quot;Ljava/lang/ref/WeakReference;&quot;</span>);<br>    gBinderProxyOffsets.mOrgue = GetFieldIDOrDie(env, clazz, <span class="hljs-string">&quot;mOrgue&quot;</span>, <span class="hljs-string">&quot;J&quot;</span>);<br><br>		<span class="hljs-comment">// gClassOffsets用来和Class类交互</span><br>    clazz = FindClassOrDie(env, <span class="hljs-string">&quot;java/lang/Class&quot;</span>);<br>    gClassOffsets.mGetName = GetMethodIDOrDie(env, clazz, <span class="hljs-string">&quot;getName&quot;</span>, <span class="hljs-string">&quot;()Ljava/lang/String;&quot;</span>);<br><br>		<span class="hljs-comment">// 注册BinderProxy</span><br>    <span class="hljs-keyword">return</span> RegisterMethodsOrDie(<br>        env, kBinderProxyPathName,<br>        gBinderProxyMethods, NELEM(gBinderProxyMethods));<br>&#125;<br><br></code></pre></td></tr></table></figure><br>最后保存到<code>gBinderProxyOffsets</code>参数。</p>
+<p>可以看到这里的三个功能分别对应了三个参数：gBinderOffsets、gBinderInternalOffsets、gBinderProxyOffsets。</p>
+<p>准备好这些后，就开始进入Java源码</p>
+<h1 id="入口ActivityManagerService"><a href="#入口ActivityManagerService" class="headerlink" title="入口ActivityManagerService"></a>入口ActivityManagerService</h1><p>frameworks/base/services/core/java/com/android/server/am/ActivityManagerService.java:<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setSystemProcess</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">try</span> &#123;<br>						<span class="hljs-comment">// 将ActivityManagerService服务注册到ServiceManager中</span><br>            ServiceManager.addService(Context.ACTIVITY_SERVICE, <span class="hljs-keyword">this</span>, <span class="hljs-keyword">true</span>);<br>            ServiceManager.addService(ProcessStats.SERVICE_NAME, mProcessStats);<br><br>						......<br>&#125;<br></code></pre></td></tr></table></figure><br>这里就是我们Activity开始的地方，也是Binder的入口点。<br>可以看到，调用的是ServiceManager的addService方法将自己传递进去，而<code>Context.ACTIVITY_SERVICE</code>就是<code>activity</code>字符串。</p>
+<p>frameworks/base/tools/layoutlib/bridge/src/android/os/ServiceManager.java:<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addService</span><span class="hljs-params">(String name, IBinder service, <span class="hljs-keyword">boolean</span> allowIsolated)</span> </span>&#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>        getIServiceManager().addService(name, service, allowIsolated);<br>    &#125; <span class="hljs-keyword">catch</span> (RemoteException e) &#123;<br>        Log.e(TAG, <span class="hljs-string">&quot;error in addService&quot;</span>, e);<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> IServiceManager <span class="hljs-title">getIServiceManager</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (sServiceManager != <span class="hljs-keyword">null</span>) &#123;<br>        <span class="hljs-keyword">return</span> sServiceManager;<br>    &#125;<br>    sServiceManager = ServiceManagerNative.asInterface(BinderInternal.getContextObject());<br>    <span class="hljs-keyword">return</span> sServiceManager;<br>&#125;<br><br></code></pre></td></tr></table></figure><br>这里有调用addService函数的是<code>getIServiceManager()</code>。而这个函数中调用的是ServiceManagerNative的<code>asInterface()</code>函数。另外一个就是<code>BinderInternal.getContextObject()</code>参数。</p>
+<h2 id="BinderInternal-getContextObject"><a href="#BinderInternal-getContextObject" class="headerlink" title="BinderInternal.getContextObject()"></a>BinderInternal.getContextObject()</h2><p>该函数调用至Native层<br>frameworks/base/core/jni/android_util_Binder.cpp:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// ServiceManager 中调用至此，</span><br><span class="hljs-function"><span class="hljs-keyword">static</span> jobject <span class="hljs-title">android_os_BinderInternal_getContextObject</span><span class="hljs-params">(JNIEnv* env, jobject clazz)</span></span><br><span class="hljs-function"></span>&#123;<br>    sp&lt;IBinder&gt; b = ProcessState::self()-&gt;getContextObject(<span class="hljs-literal">NULL</span>);<br>    <span class="hljs-keyword">return</span> javaObjectForIBinder(env, b);<br>&#125;<br></code></pre></td></tr></table></figure><br>这里调用ProcessState的getContextObject()函数。这里传递NULL，即0。</p>
+<h3 id="ProcessState-传递给Binder驱动的线程管理"><a href="#ProcessState-传递给Binder驱动的线程管理" class="headerlink" title="ProcessState 传递给Binder驱动的线程管理"></a>ProcessState 传递给Binder驱动的线程管理</h3><p>frameworks/native/libs/binder/ProcessState.cpp:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function">sp&lt;IBinder&gt; <span class="hljs-title">ProcessState::getContextObject</span><span class="hljs-params">(<span class="hljs-keyword">const</span> sp&lt;IBinder&gt;&amp; <span class="hljs-comment">/*caller*/</span>)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">return</span> getStrongProxyForHandle(<span class="hljs-number">0</span>);<br>&#125;<br><span class="hljs-function">sp&lt;IBinder&gt; <span class="hljs-title">ProcessState::getStrongProxyForHandle</span><span class="hljs-params">(<span class="hljs-keyword">int32_t</span> handle)</span></span><br><span class="hljs-function"></span>&#123;<br>    sp&lt;IBinder&gt; result;<br>    AutoMutex _l(mLock);<br>    handle_entry* e = lookupHandleLocked(handle);<br>    <span class="hljs-keyword">if</span> (e != <span class="hljs-literal">NULL</span>) &#123;<br>        IBinder* b = e-&gt;binder;<br>        <span class="hljs-keyword">if</span> (b == <span class="hljs-literal">NULL</span> || !e-&gt;refs-&gt;attemptIncWeak(<span class="hljs-keyword">this</span>)) &#123;<br>						<span class="hljs-comment">// 对于新创建的资源项，他的Binder为空时</span><br>            <span class="hljs-keyword">if</span> (handle == <span class="hljs-number">0</span>) &#123;<br>                Parcel data;<br>                <span class="hljs-keyword">status_t</span> status = IPCThreadState::self()-&gt;transact(<span class="hljs-number">0</span>, IBinder::PING_TRANSACTION, data, <span class="hljs-literal">NULL</span>, <span class="hljs-number">0</span>);<br>                <span class="hljs-keyword">if</span> (status == DEAD_OBJECT)<br>                   <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;<br>            &#125;<br>						<span class="hljs-comment">// 创建新的容器</span><br>            b = <span class="hljs-keyword">new</span> BpBinder(handle); <br>						<span class="hljs-comment">// 填充entry的内容</span><br>            e-&gt;binder = b;<br>            <span class="hljs-keyword">if</span> (b) e-&gt;refs = b-&gt;getWeakRefs();<br>            result = b;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            result.force_set(b);<br>            e-&gt;refs-&gt;decWeak(<span class="hljs-keyword">this</span>);<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> result;<br>&#125;<br></code></pre></td></tr></table></figure><br>进入ProcessState.h文件中可以看到，ProcessState继承自RefBase。<br>在这里看到<code>new了一个BpBinder对象</code>，并returb出去。那么BpBinder是什么：</p>
+<h3 id="BpBinder和BBinder"><a href="#BpBinder和BBinder" class="headerlink" title="BpBinder和BBinder"></a>BpBinder和BBinder</h3><p>他们都继承自Binder类，他们是一一对应的。</p>
+<blockquote>
+<p>BpBinder是客户端用来与Server交互的代理类，也即BinderProxy<br>BBinder则是和proxy相对的一端，他是proxy交互的目的端。也即服务端</p>
+</blockquote>
+<p>这里传入的<code>handler</code>则是用来标识他们是值，这里传0就代表的就是ServiceManager所对应的BpBinder。</p>
+<p>我们看一下BpBinder的源码<br>frameworks/native/libs/binder/BpBinder.cpp:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c">BpBinder::BpBinder(<span class="hljs-keyword">int32_t</span> handle)<br>    : mHandle(handle)<br>    , mAlive(<span class="hljs-number">1</span>)<br>    , mObitsSent(<span class="hljs-number">0</span>)<br>    , mObituaries(<span class="hljs-literal">NULL</span>)<br>&#123;<br>    extendObjectLifetime(OBJECT_LIFETIME_WEAK);<br>    IPCThreadState::self()-&gt;incWeakHandle(handle);<br>&#125;<br></code></pre></td></tr></table></figure><br>这里初始化BpBinder，重要地方是<code>IPCThreadState</code>对象。</p>
+<h3 id="javaObjectForIBinder-绑定bpBinder和BinderProxy"><a href="#javaObjectForIBinder-绑定bpBinder和BinderProxy" class="headerlink" title="javaObjectForIBinder() 绑定bpBinder和BinderProxy"></a>javaObjectForIBinder() 绑定bpBinder和BinderProxy</h3><p>最后就是调用了下面这个函数：<br>frameworks/base/core/jni/android_util_Binder.cpp:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function">jobject <span class="hljs-title">javaObjectForIBinder</span><span class="hljs-params">(JNIEnv* env, <span class="hljs-keyword">const</span> sp&lt;IBinder&gt;&amp; val.<span class="hljs-comment">/////i)</span></span></span><br><span class="hljs-function"><span class="hljs-params">&#123;</span></span><br><span class="hljs-function"><span class="hljs-params">    jobject object = (jobject)val-&gt;findObject(&amp;gBinderProxyOffsets);</span></span><br><span class="hljs-function"><span class="hljs-params">    <span class="hljs-keyword">if</span> (object != <span class="hljs-literal">NULL</span>) &#123;</span></span><br><span class="hljs-function"><span class="hljs-params">        jobject res = jniGetReferent(env, object);</span></span><br><span class="hljs-function"><span class="hljs-params">        <span class="hljs-keyword">if</span> (res != <span class="hljs-literal">NULL</span>) &#123;</span></span><br><span class="hljs-function"><span class="hljs-params">            <span class="hljs-keyword">return</span> res;</span></span><br><span class="hljs-function"><span class="hljs-params">        &#125;</span></span><br><span class="hljs-function"><span class="hljs-params">        android_atomic_dec(&amp;gNumProxyRefs);</span></span><br><span class="hljs-function"><span class="hljs-params">        val-&gt;detachObject(&amp;gBinderProxyOffsets);</span></span><br><span class="hljs-function"><span class="hljs-params">        env-&gt;DeleteGlobalRef(object);</span></span><br><span class="hljs-function"><span class="hljs-params">    &#125;</span></span><br><span class="hljs-function"><span class="hljs-params">    object = env-&gt;NewObject(gBinderProxyOffsets.mClass, gBinderProxyOffsets.mConstructor);</span></span><br><span class="hljs-function"><span class="hljs-params">    <span class="hljs-keyword">if</span> (object != <span class="hljs-literal">NULL</span>) &#123;</span></span><br><span class="hljs-function"><span class="hljs-params">        env-&gt;SetLongField(object, gBinderProxyOffsets.mObject, (jlong)val.get());</span></span><br><span class="hljs-function"><span class="hljs-params">        val-&gt;incStrong((<span class="hljs-keyword">void</span>*)javaObjectForIBinder);</span></span><br><span class="hljs-function"><span class="hljs-params">        jobject refObject = env-&gt;NewGlobalRef(</span></span><br><span class="hljs-function"><span class="hljs-params">                env-&gt;GetObjectField(object, gBinderProxyOffsets.mSelf));</span></span><br><span class="hljs-function"><span class="hljs-params">        val-&gt;attachObject(&amp;gBinderProxyOffsets, refObject,</span></span><br><span class="hljs-function"><span class="hljs-params">                jnienv_to_javavm(env), proxy_cleanup);</span></span><br><span class="hljs-function"><span class="hljs-params">    &#125;</span></span><br><span class="hljs-function"><span class="hljs-params">    <span class="hljs-keyword">return</span> object;</span></span><br><span class="hljs-function"><span class="hljs-params">&#125;</span></span><br></code></pre></td></tr></table></figure><br>这里代码很多：</p>
+<ul>
+<li>首先调用调用BpBinder的<code>findObject()</code>函数，在BpBinder中有一个ObjectManager来管理创建的Java BpBinder对象<code>KeyedVector&lt;const void*, entry_t&gt; mObjects;</code>。这里回去寻找gBinderProxyOffsets是否保存在ObjectManager中。如果有，则删除。</li>
+<li>根据gBinderProxyOffsets创建一个新的object，也即BinderProxy对象，并注册到BpBinder的ObjectManager中。</li>
+</ul>
+<p>这里使BpBinder与BinderProxy产生关联。</p>
+<p>好，这里结束后就知道返回去的是一个BpBinder参数给asInterface()函数</p>
+<h2 id="ServiceManagerNative-asInterface"><a href="#ServiceManagerNative-asInterface" class="headerlink" title="ServiceManagerNative.asInterface()"></a>ServiceManagerNative.asInterface()</h2><p>继续让我们看看<code>ServiceManagerNative</code>类的大致和<code>asInterface()</code>函数<br>frameworks/base/core/java/android/os/ServiceManagerNative.java:<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ServiceManagerNative</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Binder</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">IServiceManager</span></span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">public</span> IServiceManager <span class="hljs-title">asInterface</span><span class="hljs-params">(IBinder obj)</span></span>&#123;<br>        <span class="hljs-keyword">if</span> (obj == <span class="hljs-keyword">null</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>        &#125;<br>        IServiceManager in = (IServiceManager)obj.queryLocalInterface(descriptor);<br>        <span class="hljs-keyword">if</span> (in != <span class="hljs-keyword">null</span>) &#123;<br>            <span class="hljs-keyword">return</span> in;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ServiceManagerProxy(obj);<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ServiceManagerNative</span><span class="hljs-params">()</span> </span>&#123;<br>        attachInterface(<span class="hljs-keyword">this</span>, descriptor);<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">onTransact</span><span class="hljs-params">(<span class="hljs-keyword">int</span> code, Parcel data, Parcel reply, <span class="hljs-keyword">int</span> flags)</span> </span>&#123;<br>			......<br>    &#125;<br>		......<br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ServiceManagerProxy</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">IServiceManager</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> IBinder mRemote;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">ServiceManagerProxy</span><span class="hljs-params">(IBinder remote)</span> </span>&#123;<br>        mRemote = remote;<br>    &#125;<br>		......<br>&#125;<br></code></pre></td></tr></table></figure><br>这里有两个类，我们一个个看。</p>
+<h3 id="ServiceManagerNative"><a href="#ServiceManagerNative" class="headerlink" title="ServiceManagerNative"></a>ServiceManagerNative</h3><p>该类是ActivityManagerService的父类，而又是Binder的子类。在该构造函数中调用了<code>attachInterface()</code>函数，该函数的实现在<code>Binder</code>类中<br>frameworks/base/core/java/android/os/Binder.java:<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">attachInterface</span><span class="hljs-params">(IInterface owner, String descriptor)</span> </span>&#123;<br>    mOwner = owner;<br>    mDescriptor = descriptor;<br>&#125;<br></code></pre></td></tr></table></figure><br>这里只是正常初始化。</p>
+<h3 id="ServiceManagerProxy-真正调用addService函数"><a href="#ServiceManagerProxy-真正调用addService函数" class="headerlink" title="ServiceManagerProxy 真正调用addService函数"></a>ServiceManagerProxy 真正调用addService函数</h3><p>初始化使会传入一个IBinder接口类型。继承自<code>IServiceManager</code></p>
+<h3 id="回到asInterface函数："><a href="#回到asInterface函数：" class="headerlink" title="回到asInterface函数："></a>回到asInterface函数：</h3><p><code>asInterface()</code>函数中又分为两个部分：</p>
+<ul>
+<li><p>强转为IServiceManager类型：上述我们知道了参数进来的是BinderProxy，而<code>queryLocalInterface是IBinder</code>的接口函数。将传进来的descriptor与mDescriptor比较，若相同，说明这是进程内调用，返回mOwner。<br>frameworks/base/core/java/android/os/Binder.java:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">public</span> IInterface <span class="hljs-title">queryLocalInterface</span><span class="hljs-params">(String descriptor)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (mDescriptor.equals(descriptor)) &#123;<br>            <span class="hljs-keyword">return</span> mOwner;<br>        &#125;<br>        <span class="hljs-keyword">return</span> null;<br>    &#125;<br></code></pre></td></tr></table></figure>
+<p>注意这里将<code>mOwner</code>即实现的this强转为IServiceManager类型。</p>
+</li>
+<li><p>创建了接下来的<code>ServiceManagerProxy</code>对象，该对象实现了<code>IServiceManager</code>接口。将传递的BinderProxy对象保存在了<code>mRemote</code>参数中，以后面使用。</p>
+</li>
+<li><p>这里注意<code>asInterface()</code>函数在返回是会根据<code>in</code>是否为空，判断是否是进程内调用。</p>
+</li>
+</ul>
+<h2 id="梳理一波"><a href="#梳理一波" class="headerlink" title="梳理一波"></a>梳理一波</h2><p>这里梳理一下前面的内容，好在能给后面的源码跟踪留下文档。</p>
+<ul>
+<li>首先，我们知道在<code>android_util_Binder.cpp</code>中初始化了很多关于Binder的java层和Native层的桥梁参数：gBinderOffsets、gBinderInternalOffsets、gBinderProxyOffsets。</li>
+<li>接着，从<code>ActivityManagerService</code>的<code>setSystemProcess()</code>函数入手，进入到<code>ServiceManager</code>的<code>addService()</code>函数</li>
+<li>在发现了<code>asInterface()</code>这个复杂的函数，他的参数是调用了<code>android_util_Binder.cpp</code>文件下的<code>android_os_BinderInternal_getContextObject()</code>函数中，知道了在里面创建了一个BpBinder，并且BpBinder中还有一个注意的IPCThreadState这个类。最后再创建一个新的BinderProxy对象绑定在将BpBinder中。最后返回给Java层，也即asInterface()函数的参数值。</li>
+<li>在拿到BinderProxy参数后，asInterface()会判断此时是进程间通信还是跨进程通信，根据其不同返回IServiceManager或者ServiceManagerProxy。也即调用<code>addService</code>函数的真正类。</li>
+</ul>
+<p><a href="/img/Binder/2.png">github</a></p>
+<h2 id="IServiceManager"><a href="#IServiceManager" class="headerlink" title="IServiceManager"></a>IServiceManager</h2><p>上面的返回类型发现，无论是否跨进程，他都只需要<code>IServiceManager</code>接口类型的返回值即可。<br>frameworks/native/include/binder/IServiceManager.h:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IServiceManager</span> :</span> <span class="hljs-keyword">public</span> IInterface<br>&#123;<br><span class="hljs-keyword">public</span>:<br>    DECLARE_META_INTERFACE(ServiceManager);<br><br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> sp&lt;IBinder&gt;         <span class="hljs-title">getService</span><span class="hljs-params">( <span class="hljs-keyword">const</span> String16&amp; name)</span> <span class="hljs-keyword">const</span> </span>= <span class="hljs-number">0</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> sp&lt;IBinder&gt;         <span class="hljs-title">checkService</span><span class="hljs-params">( <span class="hljs-keyword">const</span> String16&amp; name)</span> <span class="hljs-keyword">const</span> </span>= <span class="hljs-number">0</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">status_t</span>            <span class="hljs-title">addService</span><span class="hljs-params">( <span class="hljs-keyword">const</span> String16&amp; name,</span></span><br><span class="hljs-function"><span class="hljs-params">                                            <span class="hljs-keyword">const</span> sp&lt;IBinder&gt;&amp; service,</span></span><br><span class="hljs-function"><span class="hljs-params">                                            <span class="hljs-keyword">bool</span> allowIsolated = <span class="hljs-literal">false</span>)</span> </span>= <span class="hljs-number">0</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> Vector&lt;String16&gt;    <span class="hljs-title">listServices</span><span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>;<br>		......<br>&#125;;<br></code></pre></td></tr></table></figure></p>
+<h3 id="DECLARE-META-INTERFACE-amp-IMPLEMENT-META-INTERFACE-预编译类"><a href="#DECLARE-META-INTERFACE-amp-IMPLEMENT-META-INTERFACE-预编译类" class="headerlink" title="DECLARE_META_INTERFACE &amp; IMPLEMENT_META_INTERFACE 预编译类"></a>DECLARE_META_INTERFACE &amp; IMPLEMENT_META_INTERFACE 预编译类</h3><p>可以看到关键函数<code>DECLARE_META_INTERFACE(ServiceManager)</code>的格式：<br>frameworks/native/include/binder/IInterface.h:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> DECLARE_META_INTERFACE(INTERFACE)                               \</span><br>    <span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> android::String16 descriptor;                          \<br>    static android::sp&lt;I##INTERFACE&gt; asInterface(                       \<br>            <span class="hljs-keyword">const</span> android::sp&lt;android::IBinder&gt;&amp; obj);                  \<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">const</span> android::String16&amp; <span class="hljs-title">getInterfaceDescriptor</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;    \<br>    I##INTERFACE();                                                     \<br>    <span class="hljs-keyword">virtual</span> ~I##INTERFACE();                                            \<br><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> IMPLEMENT_META_INTERFACE(INTERFACE, NAME)                       \</span><br>    <span class="hljs-keyword">const</span> android::String16 I##INTERFACE::descriptor(NAME);             \<br>    <span class="hljs-keyword">const</span> android::String16&amp;                                            \<br>            I##INTERFACE::getInterfaceDescriptor() <span class="hljs-keyword">const</span> &#123;              \<br>        <span class="hljs-keyword">return</span> I##INTERFACE::descriptor;                                \<br>    &#125;                                                                   \<br>    android::sp&lt;I##INTERFACE&gt; I##INTERFACE::asInterface(                \<br>            <span class="hljs-keyword">const</span> android::sp&lt;android::IBinder&gt;&amp; obj)                   \<br>    &#123;                                                                   \<br>        android::sp&lt;I##INTERFACE&gt; intr;                                 \<br>        <span class="hljs-keyword">if</span> (obj != <span class="hljs-literal">NULL</span>) &#123;                                              \<br>            intr = <span class="hljs-keyword">static_cast</span>&lt;I##INTERFACE*&gt;(                          \<br>                obj-&gt;queryLocalInterface(                               \<br>                        I##INTERFACE::descriptor).get());               \<br>            <span class="hljs-keyword">if</span> (intr == <span class="hljs-literal">NULL</span>) &#123;                                         \<br>                intr = <span class="hljs-keyword">new</span> Bp##INTERFACE(obj);                          \<br>            &#125;                                                           \<br>        &#125;                                                               \<br>        <span class="hljs-keyword">return</span> intr;                                                    \<br>    &#125;                                                                   \<br>    I##INTERFACE::I##INTERFACE() &#123; &#125;                                    \<br>    I##INTERFACE::~I##INTERFACE() &#123; &#125;                                   \<br><br></code></pre></td></tr></table></figure><br>这里将ServiceManager放进去就是<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">static</span> <span class="hljs-keyword">const</span> android::String16 descriptor;<br><span class="hljs-function"><span class="hljs-keyword">static</span> android::sp&lt;IServiceManager&gt; <span class="hljs-title">asInterface</span><span class="hljs-params">(<span class="hljs-keyword">const</span> android::sp&lt;android::IBinder&gt;&amp; obj)</span></span>;<br><span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">const</span> android::String16&amp; <span class="hljs-title">getInterfaceDescriptor</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span></span>;<br>IServiceManager();<br><span class="hljs-keyword">virtual</span> ~IServiceManager();<br><br><span class="hljs-function"><span class="hljs-keyword">const</span> android::String16 <span class="hljs-title">IServiceManager::descriptor</span><span class="hljs-params">(<span class="hljs-string">&quot;android.os.IServiceManager&quot;</span>)</span></span>;<br><span class="hljs-function"><span class="hljs-keyword">const</span> android::String16&amp; <span class="hljs-title">IServiceManager::getInterfaceDescriptor</span><span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>&#123;<br>	<span class="hljs-keyword">return</span> IServiceManager::descriptor;<br>&#125;<br><span class="hljs-function">android::sp&lt;IServiceManager&gt; <span class="hljs-title">IServiceManager::asInterface</span><span class="hljs-params">(<span class="hljs-keyword">const</span> android::sp&lt;android::IBinder&gt;&amp; obj)</span></span><br><span class="hljs-function"></span>&#123;<br>	android::sp&lt;IServiceManager&gt; intr;<br>	<span class="hljs-keyword">if</span> (obj != <span class="hljs-literal">NULL</span>) &#123;<br>		intr = <span class="hljs-keyword">static_cast</span>&lt;IServiceManager *&gt;(obj-&gt;queryLocalInterface(IServiceManager::descriptor).ge());<br>		<span class="hljs-keyword">if</span> (intr == <span class="hljs-literal">NULL</span>) &#123;<br>			intr = <span class="hljs-keyword">new</span> BpServiceManager(obj)<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> intr;<br>&#125;<br>IServiceManager::IServiceManager()&#123;&#125;<br>IServiceManager::~IServiceManager()&#123;&#125;<br></code></pre></td></tr></table></figure></p>
+<ul>
+<li><p>在DECLARE_META_INTERFACE(INTERFACE)中<br>这里定义了asInterface函数、getInterfaceDescriptor函数、以及IServiceManager的构造和析构函数。</p>
+</li>
+<li><p>在IMPLEMENT_META_INTERFACE(INTERFACE, NAME)中<br>函数在IServiceManager.cpp中调用<code>IMPLEMENT_META_INTERFACE(ServiceManager, &quot;android.os.IServiceManager&quot;);</code><br>实现了上述的getInterfaceDescriptor函数，asInterface函数、以及IServiceManager的构造和析构函数。<br><strong> getInterfaceDescriptor()返回的即是”android.os.IServiceManager”
+</strong> asInterface()返回的是创建的<code>BpServiceManager</code>对象，传入的参数为<code>BpBinder(0)</code>的对象。</p>
+</li>
+</ul>
+<p>他们分别完成了定义接口和实现的功能。</p>
+<h3 id="BpServiceManager-amp-BnServiceManager"><a href="#BpServiceManager-amp-BnServiceManager" class="headerlink" title="BpServiceManager &amp; BnServiceManager"></a>BpServiceManager &amp; BnServiceManager</h3><p>这里突然又出现了这样一对类。和我们刚刚看的BpBinder &amp; BBinder很类似。<br><a href="/img/Binder/3.png">github</a></p>
+<p>BpServiceManager中mRemote参数会保存BpBinder类型数据，那么就是说BpServiceManager绑定了BpBinder类，而BpServiceManager有实现了IServiceManager接口。</p>
+<h2 id="addService"><a href="#addService" class="headerlink" title="addService()"></a>addService()</h2><p>在完成上述一大片代码后，终于回到了我们最开始的问题，谁调用了<code>addService</code>函数。<br>在这里即也即实现了IServiceManager的实现类<code>ServiceManagerProxy类</code>。<br>frameworks/base/core/java/android/os/ServiceManagerNative.java:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">addService</span><span class="hljs-params">(String name, IBinder service, boolean allowIsolated)</span></span><br><span class="hljs-function">        throws RemoteException </span>&#123;<br>    Parcel data = Parcel.obtain();<br>    Parcel reply = Parcel.obtain();<br>    data.writeInterfaceToken(IServiceManager.descriptor);<br>    data.writeString(name);<br>    data.writeStrongBinder(service);<br>    data.writeInt(allowIsolated ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>);<br>    mRemote.transact(ADD_SERVICE_TRANSACTION, data, reply, <span class="hljs-number">0</span>);<br>    reply.recycle();<br>    data.recycle();<br>&#125;<br></code></pre></td></tr></table></figure><br>之前讲过这里的mRemote是在ServiceManagerProxy类初始化的时候传入的<code>BinderProxy</code>的对象。这里的data、reply为需要传输的数据包，整个过程包括初始化、写入、传递、销毁。<br>需要注意<code>data.writeStrongBinder</code>函数，因为会将<code>Binder</code>对象传进去。而<code>transact</code>函数就是发送的函数</p>
+<h3 id="writeStrongBinder"><a href="#writeStrongBinder" class="headerlink" title="writeStrongBinder()"></a>writeStrongBinder()</h3><p>该函数对应与native<br>frameworks/base/core/jni/android_os_Parcel.cpp:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">android_os_Parcel_writeStrongBinder</span><span class="hljs-params">(JNIEnv* env, jclass clazz, jlong nativePtr, jobject object)</span></span><br><span class="hljs-function"></span>&#123;<br>    Parcel* parcel = <span class="hljs-keyword">reinterpret_cast</span>&lt;Parcel*&gt;(nativePtr);<br>    <span class="hljs-keyword">if</span> (parcel != <span class="hljs-literal">NULL</span>) &#123;<br>        <span class="hljs-keyword">const</span> <span class="hljs-keyword">status_t</span> err = parcel-&gt;writeStrongBinder(ibinderForJavaObject(env, object));<br>        <span class="hljs-keyword">if</span> (err != NO_ERROR) &#123;<br>            signalExceptionForError(env, clazz, err);<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>这里分两个部分，一个是<code>ibinderForJavaObject</code>、另一个是<code>writeStrongBinder</code></p>
+<h4 id="ibinderForJavaObject"><a href="#ibinderForJavaObject" class="headerlink" title="ibinderForJavaObject()"></a>ibinderForJavaObject()</h4><p>frameworks/base/core/jni/android_util_Binder.cpp:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function">sp&lt;IBinder&gt; <span class="hljs-title">ibinderForJavaObject</span><span class="hljs-params">(JNIEnv* env, jobject obj)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span> (env-&gt;IsInstanceOf(obj, gBinderOffsets.mClass)) &#123;<br>        JavaBBinderHolder* jbh = (JavaBBinderHolder*)<br>            env-&gt;GetLongField(obj, gBinderOffsets.mObject);<br>        <span class="hljs-keyword">return</span> jbh != <span class="hljs-literal">NULL</span> ? jbh-&gt;get(env, obj) : <span class="hljs-literal">NULL</span>;<br>    &#125;<br><br>		<span class="hljs-comment">// 如果是BinderProxy类，则返回Native的BpBinder对象</span><br>    <span class="hljs-keyword">if</span> (env-&gt;IsInstanceOf(obj, gBinderProxyOffsets.mClass)) &#123;<br>        <span class="hljs-keyword">return</span> (IBinder*)<br>            env-&gt;GetLongField(obj, gBinderProxyOffsets.mObject);<br>    &#125;<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<ul>
+<li>判断是否为Binder类，如果是则返回<code>JavaBBinderHolder</code>对象，并调用<code>get</code>函数</li>
+<li>判断是否为BinderProxy类，如果是则返回<code>BinderProxy</code>对象</li>
+</ul>
+<p>这里又出来一个类：JavaBBinderHolder，他和BBinder很像。在上面我们提了一下和他相对的BpBinder。</p>
+<h5 id="JavaBBinderHolder"><a href="#JavaBBinderHolder" class="headerlink" title="JavaBBinderHolder"></a>JavaBBinderHolder</h5><p>frameworks/base/core/jni/android_util_Binder.cpp:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JavaBBinderHolder</span> :</span> <span class="hljs-keyword">public</span> RefBase<br>&#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function">sp&lt;JavaBBinder&gt; <span class="hljs-title">get</span><span class="hljs-params">(JNIEnv* env, jobject obj)</span></span><br><span class="hljs-function">    </span>&#123;<br>        AutoMutex _l(mLock);<br>        sp&lt;JavaBBinder&gt; b = mBinder.promote();<br>        <span class="hljs-keyword">if</span> (b == <span class="hljs-literal">NULL</span>) &#123;<br>            b = <span class="hljs-keyword">new</span> JavaBBinder(env, obj);<br>            mBinder = b;<br>        &#125;<br>        <span class="hljs-keyword">return</span> b;<br>    &#125;<br><span class="hljs-keyword">private</span>:<br>    Mutex           mLock;<br>    wp&lt;JavaBBinder&gt; mBinder;<br>&#125;;<br></code></pre></td></tr></table></figure><br>在<code>get</code>函数中发现又创建了JavaBBinder对象，obj为Java层的Binder对象</p>
+<h5 id="JavaBBinder"><a href="#JavaBBinder" class="headerlink" title="JavaBBinder"></a>JavaBBinder</h5><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JavaBBinder</span> :</span> <span class="hljs-keyword">public</span> BBinder<br>&#123;<br><span class="hljs-keyword">public</span>:<br>    JavaBBinder(JNIEnv* env, jobject object)<br>        : mVM(jnienv_to_javavm(env)), mObject(env-&gt;NewGlobalRef(object)) &#123;<br>        android_atomic_inc(&amp;gNumLocalRefs);<br>        incRefsCreated(env);<br>    &#125;<br><span class="hljs-keyword">private</span>:<br>    JavaVM* <span class="hljs-keyword">const</span>   mVM;<br>    jobject <span class="hljs-keyword">const</span>   mObject;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>我们终于看到了熟悉的东西<code>BBinder</code>，也大致清理一下关系<br><a href="/img/Binder/4.png">github</a></p>
+<h4 id="writeStrongBinder-1"><a href="#writeStrongBinder-1" class="headerlink" title="writeStrongBinder"></a>writeStrongBinder</h4><p>frameworks/base/core/jni/android_os_Parcel.cpp:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">status_t</span> <span class="hljs-title">Parcel::writeStrongBinder</span><span class="hljs-params">(<span class="hljs-keyword">const</span> sp&lt;IBinder&gt;&amp; val)</span> </span>&#123;<br>    <span class="hljs-keyword">return</span> flatten_binder(ProcessState::self(), val, <span class="hljs-keyword">this</span>);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">status_t</span> <span class="hljs-title">flatten_binder</span><span class="hljs-params">(<span class="hljs-keyword">const</span> sp&lt;ProcessState&gt;&amp; <span class="hljs-comment">/*proc*/</span>,</span></span><br><span class="hljs-function"><span class="hljs-params">    <span class="hljs-keyword">const</span> sp&lt;IBinder&gt;&amp; binder, Parcel* out)</span></span><br><span class="hljs-function"></span>&#123;<br>    flat_binder_object obj;<br>    obj.flags = <span class="hljs-number">0x7f</span> | FLAT_BINDER_FLAG_ACCEPTS_FDS;<br>    <span class="hljs-keyword">if</span> (binder != <span class="hljs-literal">NULL</span>) &#123;<br>				<span class="hljs-comment">// 返回BBinder对象</span><br>        IBinder *local = binder-&gt;localBinder();<br>        <span class="hljs-keyword">if</span> (!local) &#123;<br>            BpBinder *proxy = binder-&gt;remoteBinder();<br>            <span class="hljs-keyword">if</span> (proxy == <span class="hljs-literal">NULL</span>) &#123;<br><br>            &#125;<br>            <span class="hljs-keyword">const</span> <span class="hljs-keyword">int32_t</span> handle = proxy ? proxy-&gt;handle() : <span class="hljs-number">0</span>;<br>            obj.type = BINDER_TYPE_HANDLE;<br>            obj.binder = <span class="hljs-number">0</span>; <span class="hljs-comment">/* Don&#x27;t pass uninitialized stack data to a remote process */</span><br>            obj.handle = handle;<br>            obj.cookie = <span class="hljs-number">0</span>;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            obj.type = BINDER_TYPE_BINDER;<br>            obj.binder = <span class="hljs-keyword">reinterpret_cast</span>&lt;<span class="hljs-keyword">uintptr_t</span>&gt;(local-&gt;getWeakRefs());<br>            obj.cookie = <span class="hljs-keyword">reinterpret_cast</span>&lt;<span class="hljs-keyword">uintptr_t</span>&gt;(local);<br>        &#125;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        obj.type = BINDER_TYPE_BINDER;<br>        obj.binder = <span class="hljs-number">0</span>;<br>        obj.cookie = <span class="hljs-number">0</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> finish_flatten_binder(binder, obj, out);<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">status_t</span> <span class="hljs-title">finish_flatten_binder</span><span class="hljs-params">(</span></span><br><span class="hljs-function"><span class="hljs-params">    <span class="hljs-keyword">const</span> sp&lt;IBinder&gt;&amp; <span class="hljs-comment">/*binder*/</span>, <span class="hljs-keyword">const</span> flat_binder_object&amp; flat, Parcel* out)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">return</span> out-&gt;writeObject(flat, <span class="hljs-literal">false</span>);<br>&#125;<br></code></pre></td></tr></table></figure><br>这里传入的JavaBBinder继承自BBinder。因此在调用localBinder获取的是BBinder类型。</p>
+<h3 id="transact"><a href="#transact" class="headerlink" title="transact()"></a>transact()</h3><p>frameworks/native/libs/binder/BpBinder.cpp:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">status_t</span> <span class="hljs-title">BpBinder::transact</span><span class="hljs-params">(</span></span><br><span class="hljs-function"><span class="hljs-params">    <span class="hljs-keyword">uint32_t</span> code, <span class="hljs-keyword">const</span> Parcel&amp; data, Parcel* reply, <span class="hljs-keyword">uint32_t</span> flags)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span> (mAlive) &#123;<br>        <span class="hljs-keyword">status_t</span> status = IPCThreadState::self()-&gt;transact(<br>            mHandle, code, data, reply, flags);<br>        <span class="hljs-keyword">if</span> (status == DEAD_OBJECT) mAlive = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">return</span> status;<br>    &#125;<br>    <span class="hljs-keyword">return</span> DEAD_OBJECT;<br>&#125;<br></code></pre></td></tr></table></figure><br>这里再次看到了<code>IPCThreadState</code>。</p>
+<h4 id="IPCThreadState"><a href="#IPCThreadState" class="headerlink" title="IPCThreadState"></a>IPCThreadState</h4><p>真正和Binder驱动交互的是IPCThreadState<br>TLS为Thread Local Storage，线程本地存储空间。这些不共享的空间通过pthread_getspecific/pthread_setspecific函数获取/设置这些空间内容。我们只需要知道对于线程是相互独立的存储空间即可<br>frameworks/native/libs/binder/IPCThreadState.cpp:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c">IPCThreadState::IPCThreadState()<br>    : mProcess(ProcessState::self()),<br>      mMyThreadId(gettid()),<br>      mStrictModePolicy(<span class="hljs-number">0</span>),<br>      mLastTransactionBinderFlags(<span class="hljs-number">0</span>)<br>&#123;<br>		<span class="hljs-comment">// 向key:gTLS添加IPCThreadState对象</span><br>    pthread_setspecific(gTLS, <span class="hljs-keyword">this</span>);<br>    clearCaller();<br>    mIn.setDataCapacity(<span class="hljs-number">256</span>);<br>    mOut.setDataCapacity(<span class="hljs-number">256</span>);<br>&#125;<br></code></pre></td></tr></table></figure><br>这是IPCThreadState的构造函数，每个线程都有一个IPCThreadState，每个IPCThreadState都有一个mIn、mOut，mIn是用来接收来自Binder设备的数据，而mOut则是用来存储发往Binder设备的数据。<br>frameworks/native/include/binder/IPCThreadState.h:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">IPCThreadState</span></span><br><span class="hljs-class">&#123;</span><br>            Parcel              mIn;<br>            Parcel              mOut;<br>&#125;<br></code></pre></td></tr></table></figure><br>构造函数中将自己设置到线程本地存储。并且添加两个Parcel的缓冲区。</p>
+<p>frameworks/native/libs/binder/IPCThreadState.cpp:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function">IPCThreadState* <span class="hljs-title">IPCThreadState::self</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span> (gHaveTLS) &#123;<br>restart:<br>        <span class="hljs-keyword">const</span> <span class="hljs-keyword">pthread_key_t</span> k = gTLS;<br>        IPCThreadState* st = (IPCThreadState*)pthread_getspecific(k);<br>        <span class="hljs-keyword">if</span> (st) <span class="hljs-keyword">return</span> st;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> IPCThreadState;<br>    &#125;<br>    pthread_mutex_lock(&amp;gTLSMutex);<br>    <span class="hljs-keyword">if</span> (!gHaveTLS) &#123;<br>        <span class="hljs-keyword">if</span> (pthread_key_create(&amp;gTLS, threadDestructor) != <span class="hljs-number">0</span>) &#123;<br>            pthread_mutex_unlock(&amp;gTLSMutex);<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;<br>        &#125;<br>        gHaveTLS = <span class="hljs-literal">true</span>;<br>    &#125;<br>    pthread_mutex_unlock(&amp;gTLSMutex);<br>    <span class="hljs-keyword">goto</span> restart;<br>&#125;<br></code></pre></td></tr></table></figure><br>获取到相应的IPCThreadState对象。</p>
+<p>frameworks/native/libs/binder/IPCThreadState.cpp:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">status_t</span> <span class="hljs-title">IPCThreadState::transact</span><span class="hljs-params">(<span class="hljs-keyword">int32_t</span> handle,</span></span><br><span class="hljs-function"><span class="hljs-params">                                  <span class="hljs-keyword">uint32_t</span> code, <span class="hljs-keyword">const</span> Parcel&amp; data,</span></span><br><span class="hljs-function"><span class="hljs-params">                                  Parcel* reply, <span class="hljs-keyword">uint32_t</span> flags)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">status_t</span> err = data.errorCheck();<br><br>        err = writeTransactionData(BC_TRANSACTION, flags, handle, code, data, <span class="hljs-literal">NULL</span>);<br>		......<br>				err = waitForResponse(reply);<br><br>    <span class="hljs-keyword">return</span> err;<br>&#125;<br></code></pre></td></tr></table></figure><br>最后就是transact函数，在BpBinder中调用的就是该函数。</p>
+<ul>
+<li>在<code>writeTransactionData</code>函数的第一个参数<code>BC_TRANSACTION</code>为应用程序向binder设备发送消息的消息码，而binder设备向应用程序回复消息以BR_开头。消息码定义在<code>binder_module.h</code>中。</li>
+</ul>
+<h5 id="writeTransactionData"><a href="#writeTransactionData" class="headerlink" title="writeTransactionData"></a>writeTransactionData</h5><p>frameworks/native/libs/binder/IPCThreadState.cpp:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">status_t</span> <span class="hljs-title">IPCThreadState::writeTransactionData</span><span class="hljs-params">(<span class="hljs-keyword">int32_t</span> cmd, <span class="hljs-keyword">uint32_t</span> binderFlags,</span></span><br><span class="hljs-function"><span class="hljs-params">    <span class="hljs-keyword">int32_t</span> handle, <span class="hljs-keyword">uint32_t</span> code, <span class="hljs-keyword">const</span> Parcel&amp; data, <span class="hljs-keyword">status_t</span>* statusBuffer)</span></span><br><span class="hljs-function"></span>&#123;<br>    binder_transaction_data tr;<br><br>    tr.target.ptr = <span class="hljs-number">0</span>; <span class="hljs-comment">/* Don&#x27;t pass uninitialized stack data to a remote process */</span><br>    tr.target.handle = handle;<br>    tr.code = code;<br>    tr.flags = binderFlags;<br>    tr.cookie = <span class="hljs-number">0</span>;<br>    tr.sender_pid = <span class="hljs-number">0</span>;<br>    tr.sender_euid = <span class="hljs-number">0</span>;<br><br>    <span class="hljs-keyword">const</span> <span class="hljs-keyword">status_t</span> err = data.errorCheck();<br>    <span class="hljs-keyword">if</span> (err == NO_ERROR) &#123;<br>        tr.data_size = data.ipcDataSize();<br>        tr.data.ptr.buffer = data.ipcData();<br>        tr.offsets_size = data.ipcObjectsCount()*<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">binder_size_t</span>);<br>        tr.data.ptr.offsets = data.ipcObjects();<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (statusBuffer) &#123;<br>        tr.flags |= TF_STATUS_CODE;<br>        *statusBuffer = err;<br>        tr.data_size = <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">status_t</span>);<br>        tr.data.ptr.buffer = <span class="hljs-keyword">reinterpret_cast</span>&lt;<span class="hljs-keyword">uintptr_t</span>&gt;(statusBuffer);<br>        tr.offsets_size = <span class="hljs-number">0</span>;<br>        tr.data.ptr.offsets = <span class="hljs-number">0</span>;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">return</span> (mLastError = err);<br>    &#125;<br><br>    mOut.writeInt32(cmd);<br>    mOut.write(&amp;tr, <span class="hljs-keyword">sizeof</span>(tr));<br><br>    <span class="hljs-keyword">return</span> NO_ERROR;<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<ul>
+<li>binder_transaction_data是和binder设备通信的数据结构</li>
+<li>这里传入的handle为0，标识目的端，0是ServiceManager的标识</li>
+<li>code为消息码</li>
+<li>flags为标记</li>
+<li>最后把命令协作mOut中，但不是直接发出去</li>
+</ul>
+<h5 id="waitForResponse"><a href="#waitForResponse" class="headerlink" title="waitForResponse"></a>waitForResponse</h5><p>frameworks/native/libs/binder/IPCThreadState.cpp:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">status_t</span> <span class="hljs-title">IPCThreadState::waitForResponse</span><span class="hljs-params">(Parcel *reply, <span class="hljs-keyword">status_t</span> *acquireResult)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">uint32_t</span> cmd;<br>    <span class="hljs-keyword">int32_t</span> err;<br><br>    <span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>) &#123;<br>        <span class="hljs-keyword">if</span> ((err=talkWithDriver()) &lt; NO_ERROR) <span class="hljs-keyword">break</span>;<br>        err = mIn.errorCheck();<br>        <span class="hljs-keyword">if</span> (err &lt; NO_ERROR) <span class="hljs-keyword">break</span>;<br>        <span class="hljs-keyword">if</span> (mIn.dataAvail() == <span class="hljs-number">0</span>) <span class="hljs-keyword">continue</span>;<br>        <br>        cmd = (<span class="hljs-keyword">uint32_t</span>)mIn.readInt32();<br>        <br>        IF_LOG_COMMANDS() &#123;<br>            alog &lt;&lt; <span class="hljs-string">&quot;Processing waitForResponse Command: &quot;</span><br>                &lt;&lt; getReturnString(cmd) &lt;&lt; <span class="hljs-built_in">endl</span>;<br>        &#125;<br><br>        <span class="hljs-keyword">switch</span> (cmd) &#123;<br>        <span class="hljs-keyword">case</span> BR_TRANSACTION_COMPLETE:<br>            <span class="hljs-keyword">if</span> (!reply &amp;&amp; !acquireResult) <span class="hljs-keyword">goto</span> finish;<br>            <span class="hljs-keyword">break</span>;<br>        <br>				......<br>finish:<br>    <span class="hljs-keyword">if</span> (err != NO_ERROR) &#123;<br>        <span class="hljs-keyword">if</span> (acquireResult) *acquireResult = err;<br>        <span class="hljs-keyword">if</span> (reply) reply-&gt;setError(err);<br>        mLastError = err;<br>    &#125;<br>    <br>    <span class="hljs-keyword">return</span> err;<br>&#125;<br></code></pre></td></tr></table></figure><br>这里完成发送请求数据到Binder驱动。<br>这里的<code>talkWithDriver</code>函数需要注意，因为这里就是和Binder驱动进行数据收发的函数。<br>在switch中的BR_XXX就是解析来自服务器端的回应，由Binder进行回应。</p>
+<h5 id="executeCommand"><a href="#executeCommand" class="headerlink" title="executeCommand"></a>executeCommand</h5><p>frameworks/native/libs/binder/IPCThreadState.cpp:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">status_t</span> <span class="hljs-title">IPCThreadState::executeCommand</span><span class="hljs-params">(<span class="hljs-keyword">int32_t</span> cmd)</span></span><br><span class="hljs-function"></span>&#123;<br>    BBinder* obj;<br>    RefBase::weakref_type* refs;<br>    <span class="hljs-keyword">status_t</span> result = NO_ERROR;<br><br>    <span class="hljs-keyword">switch</span> ((<span class="hljs-keyword">uint32_t</span>)cmd) &#123;<br>    <span class="hljs-keyword">case</span> BR_ERROR:<br>        result = mIn.readInt32();<br>        <span class="hljs-keyword">break</span>;<br>    <span class="hljs-keyword">case</span> BR_TRANSACTION:<br>        &#123;<br>            binder_transaction_data tr;<br>            result = mIn.read(&amp;tr, <span class="hljs-keyword">sizeof</span>(tr));<br>            <span class="hljs-keyword">if</span> (result != NO_ERROR) <span class="hljs-keyword">break</span>;<br>            Parcel buffer;<br>            Parcel reply;<br>            <span class="hljs-keyword">status_t</span> error;<br>            <span class="hljs-keyword">if</span> (tr.target.ptr) &#123;<br>                <span class="hljs-keyword">if</span> (<span class="hljs-keyword">reinterpret_cast</span>&lt;RefBase::weakref_type*&gt;(<br>                        tr.target.ptr)-&gt;attemptIncStrong(<span class="hljs-keyword">this</span>)) &#123;<br>                    error = <span class="hljs-keyword">reinterpret_cast</span>&lt;BBinder*&gt;(tr.cookie)-&gt;transact(tr.code, buffer,<br>                            &amp;reply, tr.flags);<br>                    <span class="hljs-keyword">reinterpret_cast</span>&lt;BBinder*&gt;(tr.cookie)-&gt;decStrong(<span class="hljs-keyword">this</span>);<br>                &#125; <span class="hljs-keyword">else</span> &#123;<br>                    error = UNKNOWN_TRANSACTION;<br>                &#125;<br><br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                error = the_context_object-&gt;transact(tr.code, buffer, &amp;reply, tr.flags);<br>            &#125;<br><br>        &#125;<br>        <span class="hljs-keyword">break</span>;<br>    <span class="hljs-keyword">case</span> BR_DEAD_BINDER:<br>        &#123;<br>            BpBinder *proxy = (BpBinder*)mIn.readPointer();<br>            proxy-&gt;sendObituary();<br>            mOut.writeInt32(BC_DEAD_BINDER_DONE);<br>            mOut.writePointer((<span class="hljs-keyword">uintptr_t</span>)proxy);<br>        &#125; <span class="hljs-keyword">break</span>;<br>    <span class="hljs-keyword">case</span> BR_SPAWN_LOOPER:<br>        mProcess-&gt;spawnPooledThread(<span class="hljs-literal">false</span>);<br>        <span class="hljs-keyword">break</span>;<br>		&#125;<br>    <span class="hljs-keyword">if</span> (result != NO_ERROR) &#123;<br>        mLastError = result;<br>    &#125;<br>    <span class="hljs-keyword">return</span> result;<br>&#125;<br></code></pre></td></tr></table></figure><br>这里的主要工作就是解析来自Binder驱动对指定code的响应解析。</p>
+<ul>
+<li>BR_TRANSACTION：可以看到<code>reinterpret_cast&lt;BBInder*&gt;(tr.cookie)</code>，这里的b是BnServiceManager，因此可以将它转为BBinder类型。the_context_object是IPCThreadState.cpp中定义的全局变量，可以通过setTheContextObject函数设置。</li>
+<li>BR_DEAD_BINDER：收到Binder驱动发来的service死掉的消息</li>
+<li>BR_SPAWN_LOOPER：这里将收到来自驱动的指示以创建一个新线程，用于和Binder通信。</li>
+</ul>
+<h5 id="talkWiteDriver"><a href="#talkWiteDriver" class="headerlink" title="talkWiteDriver"></a>talkWiteDriver</h5><p>那么真正和Binder驱动通信的就是上面的<code>talkWithDriver</code>函数<br>frameworks/native/libs/binder/IPCThreadState.cpp:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">status_t</span> <span class="hljs-title">IPCThreadState::talkWithDriver</span><span class="hljs-params">(<span class="hljs-keyword">bool</span> doReceive)</span></span><br><span class="hljs-function"></span>&#123;<br>    binder_write_read bwr;<br>    <span class="hljs-keyword">const</span> <span class="hljs-keyword">bool</span> needRead = mIn.dataPosition() &gt;= mIn.dataSize();<br>    <span class="hljs-keyword">const</span> <span class="hljs-keyword">size_t</span> outAvail = (!doReceive || needRead) ? mOut.dataSize() : <span class="hljs-number">0</span>;<br>    bwr.write_size = outAvail;<br>    bwr.write_buffer = (<span class="hljs-keyword">uintptr_t</span>)mOut.data();<br><br>    <span class="hljs-keyword">if</span> (doReceive &amp;&amp; needRead) &#123;<br>        bwr.read_size = mIn.dataCapacity();<br>        bwr.read_buffer = (<span class="hljs-keyword">uintptr_t</span>)mIn.data();<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        bwr.read_size = <span class="hljs-number">0</span>;<br>        bwr.read_buffer = <span class="hljs-number">0</span>;<br>    &#125;<br><br>		......<br><br>    <span class="hljs-keyword">do</span> &#123;<br><span class="hljs-meta">#<span class="hljs-meta-keyword">if</span> defined(HAVE_ANDROID_OS)</span><br>        <span class="hljs-keyword">if</span> (ioctl(mProcess-&gt;mDriverFD, BINDER_WRITE_READ, &amp;bwr) &gt;= <span class="hljs-number">0</span>)<br>            err = NO_ERROR;<br>        <span class="hljs-keyword">else</span><br>            err = -errno;<br><span class="hljs-meta">#<span class="hljs-meta-keyword">else</span></span><br>        err = INVALID_OPERATION;<br><span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span><br>        <span class="hljs-keyword">if</span> (mProcess-&gt;mDriverFD &lt;= <span class="hljs-number">0</span>) &#123;<br>            err = -EBADF;<br>        &#125;<br>    &#125; <span class="hljs-keyword">while</span> (err == -EINTR);<br><br>		......<br><br>		<span class="hljs-keyword">return</span> err;<br>&#125;<br></code></pre></td></tr></table></figure><br>设置mIn数据访问的大小、长度、数据的起始地址；回应数据的大小、数据地址；然后还是与Binder驱动通行(do-while循环)<code>ioctl(mProcess-&gt;mDriverFD, BINDER_WRITE_READ, &amp;bwr)</code>。</p>
+<h4 id="startThreadPool-amp-joinThreadPool"><a href="#startThreadPool-amp-joinThreadPool" class="headerlink" title="startThreadPool &amp; joinThreadPool"></a>startThreadPool &amp; joinThreadPool</h4><p>这里就是完成上述<code>PoolThread</code>线程的创建和run的功能类</p>
+<h5 id="startThreadPool"><a href="#startThreadPool" class="headerlink" title="startThreadPool"></a>startThreadPool</h5><p>frameworks/native/libs/binder/ProcessState.cpp:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ProcessState::startThreadPool</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    AutoMutex _l(mLock);<br>    <span class="hljs-keyword">if</span> (!mThreadPoolStarted) &#123;<br>        mThreadPoolStarted = <span class="hljs-literal">true</span>;<br>        spawnPooledThread(<span class="hljs-literal">true</span>);<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">ProcessState::spawnPooledThread</span><span class="hljs-params">(<span class="hljs-keyword">bool</span> isMain)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">if</span> (mThreadPoolStarted) &#123;<br>        String8 name = makeBinderThreadName();<br>        sp&lt;Thread&gt; t = <span class="hljs-keyword">new</span> PoolThread(isMain);<br>        t-&gt;run(name.<span class="hljs-built_in">string</span>());<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure><br>检测并开启一个threadPool。并且在调用<code>spawnPooledThread()</code>时传入true参数。<br>这里创建了一个<code>PoolThread</code>对象：<br>frameworks/native/libs/binder/ProcessState.cpp:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PoolThread</span> :</span> <span class="hljs-keyword">public</span> Thread<br>&#123;<br><span class="hljs-keyword">public</span>:<br>    PoolThread(<span class="hljs-keyword">bool</span> isMain)<br>        : mIsMain(isMain) &#123; &#125;<br>    <br><span class="hljs-keyword">protected</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">threadLoop</span><span class="hljs-params">()</span></span><br><span class="hljs-function">    </span>&#123;<br>        IPCThreadState::self()-&gt;joinThreadPool(mIsMain);<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>    <span class="hljs-keyword">const</span> <span class="hljs-keyword">bool</span> mIsMain;<br>&#125;;<br></code></pre></td></tr></table></figure><br>在调用<code>threadLoop</code>函数内看到了<code>IPCThreadState</code>类。调用了<code>joinThreadPool</code>函数。</p>
+<h5 id="joinThreadPool"><a href="#joinThreadPool" class="headerlink" title="joinThreadPool"></a>joinThreadPool</h5><p>线程调用了<code>IPCThreadState</code>的<code>joinThreadPool</code>函数<br>frameworks/native/libs/binder/IPCThreadState.cpp:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">IPCThreadState::joinThreadPool</span><span class="hljs-params">(<span class="hljs-keyword">bool</span> isMain)</span></span><br><span class="hljs-function"></span>&#123;<br>    mOut.writeInt32(isMain ? BC_ENTER_LOOPER : BC_REGISTER_LOOPER);<br>    set_sched_policy(mMyThreadId, SP_FOREGROUND);<br>    <span class="hljs-keyword">status_t</span> result;<br>    <span class="hljs-keyword">do</span> &#123;<br>        processPendingDerefs();<br><br>				<span class="hljs-keyword">int32_t</span> cmd;<br>				<span class="hljs-comment">// 发送命令，读取请求</span><br>				result = talkWithDriver();<br>				<span class="hljs-keyword">if</span> (result &gt;= NO_ERROR) &#123;<br>					<span class="hljs-keyword">size_t</span> IN = mIn.dataAvail();<br>        	<span class="hljs-keyword">if</span> (IN &lt; <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">int32_t</span>)) <span class="hljs-keyword">return</span> result;<br>        	cmd = mIn.readInt32();<br><br>        	pthread_mutex_lock(&amp;mProcess-&gt;mThreadCountLock);<br>        	mProcess-&gt;mExecutingThreadsCount++;<br>        	pthread_mutex_unlock(&amp;mProcess-&gt;mThreadCountLock);<br><br>					<span class="hljs-comment">// 处理消息</span><br>        	result = executeCommand(cmd);<br>					......<br>    		&#125;<br>				......<br><br>    &#125; <span class="hljs-keyword">while</span> (result != -ECONNREFUSED &amp;&amp; result != -EBADF);<br><br>    mOut.writeInt32(BC_EXIT_LOOPER);<br>    talkWithDriver(<span class="hljs-literal">false</span>);<br>&#125;<br></code></pre></td></tr></table></figure><br>由于函数差不多，我将两个函数拼到一起。<br>可以看到这是一下循环状态，在不断的读取<code>talkWithDriver</code>、处理<code>executeCommand</code>。</p>
+<h2 id="梳理一波-1"><a href="#梳理一波-1" class="headerlink" title="梳理一波"></a>梳理一波</h2><ul>
+<li>首先是调用addService的类对象为<code>ServiceManagerProxy</code>，并且调用addService的类都继承了<code>IServiceManager</code>。</li>
+<li>我们看到<code>addService</code>函数中重要的函数<code>writeStrongBinder</code>和<code>transact</code>两个函数。在<code>writeStrongBinder</code>中我们又发现了传递数据的是<code>JavaBBinder</code>对象，也即BBinder类型；在<code>transact</code>中发现最终调用的是<code>IPCThreadState</code>类。</li>
+<li>所以我们进入<code>IPCThreadState</code>类中，知道他是一个线程本地存储。根据<code>self</code>函数知道这是一个单例，线程在ThreadState类中，他们会检查mOut是否有数据需要向BD发送。这里面存储这和服务端/客户端存储交互的mIn/mOut。而IPCThreadState，使用<code>transact</code>、<code>writeTransactionData</code>、<code>talkWithDriver</code>、<code>executeCommand</code>这一系列函数会对数据进行管理收发。<br><a href="/img/Binder/5.png">github</a></li>
+</ul>
+<p>从上述的整个流程，也已经大致分析清楚了一点点。<br><a href="/img/Binder/6.png">github</a></p>
+<h1 id="ServiceManager"><a href="#ServiceManager" class="headerlink" title="ServiceManager"></a>ServiceManager</h1><p>接着我们看看ServiceManager里面到底有什么。<br>frameworks/native/cmds/servicemanager/service_manager.c:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> **argv)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">binder_state</span> *<span class="hljs-title">bs</span>;</span><br><br>		<span class="hljs-comment">// 打开Binder设备</span><br>    bs = binder_open(<span class="hljs-number">128</span>*<span class="hljs-number">1024</span>);<br><br>		<span class="hljs-comment">// 成为manager</span><br>    <span class="hljs-keyword">if</span> (binder_become_context_manager(bs)) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>    &#125;<br>    selinux_enabled = is_selinux_enabled();<br>    sehandle = selinux_android_service_context_handle();<br>    selinux_status_open(<span class="hljs-literal">true</span>);<br><br>		<span class="hljs-comment">// 处理客户端发送的请求</span><br>    binder_loop(bs, svcmgr_handler);<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure><br>来分析上述的三个函数，在最后的<code>binder_loop</code>函数的参数<code>svcmgr_handler</code>需要注意，他是一个函数。</p>
+<h2 id="binder-open"><a href="#binder-open" class="headerlink" title="binder_open()"></a>binder_open()</h2><p>frameworks/native/cmds/servicemanager/binder.c:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function">struct binder_state *<span class="hljs-title">binder_open</span><span class="hljs-params">(<span class="hljs-keyword">size_t</span> mapsize)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">binder_state</span> *<span class="hljs-title">bs</span>;</span><br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">binder_version</span> <span class="hljs-title">vers</span>;</span><br><br>    bs = <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(*bs));<br><br>    bs-&gt;fd = open(<span class="hljs-string">&quot;/dev/binder&quot;</span>, O_RDWR);<br><br>    bs-&gt;mapsize = mapsize;<br>    bs-&gt;mapped = mmap(<span class="hljs-literal">NULL</span>, mapsize, PROT_READ, MAP_PRIVATE, bs-&gt;fd, <span class="hljs-number">0</span>);<br>		<br>    <span class="hljs-keyword">return</span> bs;<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<ul>
+<li>打开binder设备</li>
+<li>内存映射</li>
+</ul>
+<h2 id="binder-become-context-manager"><a href="#binder-become-context-manager" class="headerlink" title="binder_become_context_manager()"></a>binder_become_context_manager()</h2><p>frameworks/native/cmds/servicemanager/binder.c:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">binder_become_context_manager</span><span class="hljs-params">(struct binder_state *bs)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">return</span> ioctl(bs-&gt;fd, BINDER_SET_CONTEXT_MGR, <span class="hljs-number">0</span>);<br>&#125;<br></code></pre></td></tr></table></figure><br>之前我们在调用addService的时候，一直强调<code>new BpBinder(0)</code>这里是设置其目的端为ServiceManager，那么这里就知道设置自己。</p>
+<h2 id="binder-loop"><a href="#binder-loop" class="headerlink" title="binder_loop()"></a>binder_loop()</h2><p>frameworks/native/cmds/servicemanager/binder.c:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">binder_loop</span><span class="hljs-params">(struct binder_state *bs, binder_handler func)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> res;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">binder_write_read</span> <span class="hljs-title">bwr</span>;</span><br>    <span class="hljs-keyword">uint32_t</span> readbuf[<span class="hljs-number">32</span>];<br><br>    bwr.write_size = <span class="hljs-number">0</span>;<br>    bwr.write_consumed = <span class="hljs-number">0</span>;<br>    bwr.write_buffer = <span class="hljs-number">0</span>;<br><br>    readbuf[<span class="hljs-number">0</span>] = BC_ENTER_LOOPER;<br>    binder_write(bs, readbuf, <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">uint32_t</span>));<br><br>    <span class="hljs-keyword">for</span> (;;) &#123;<br>        bwr.read_size = <span class="hljs-keyword">sizeof</span>(readbuf);<br>        bwr.read_consumed = <span class="hljs-number">0</span>;<br>        bwr.read_buffer = (<span class="hljs-keyword">uintptr_t</span>) readbuf;<br><br>        res = ioctl(bs-&gt;fd, BINDER_WRITE_READ, &amp;bwr);<br><br>				<span class="hljs-comment">// 调用了函数func</span><br>        res = binder_parse(bs, <span class="hljs-number">0</span>, (<span class="hljs-keyword">uintptr_t</span>) readbuf, bwr.read_consumed, func);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>这里看到里面是一个for的死循环，接收到请求后使用binder_parse函数调用。之前提过最后一个参数为函数<code>svcmgr_handler</code></p>
+<h2 id="svcmgr-handler"><a href="#svcmgr-handler" class="headerlink" title="svcmgr_handler()"></a>svcmgr_handler()</h2><p>frameworks/native/cmds/servicemanager/service_manager.c:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">svcmgr_handler</span><span class="hljs-params">(struct binder_state *bs,</span></span><br><span class="hljs-function"><span class="hljs-params">                   struct binder_transaction_data *txn,</span></span><br><span class="hljs-function"><span class="hljs-params">                   struct binder_io *msg,</span></span><br><span class="hljs-function"><span class="hljs-params">                   struct binder_io *reply)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">svcinfo</span> *<span class="hljs-title">si</span>;</span><br>    <span class="hljs-keyword">uint16_t</span> *s;<br>    <span class="hljs-keyword">size_t</span> len;<br>    <span class="hljs-keyword">uint32_t</span> handle;<br>    <span class="hljs-keyword">uint32_t</span> strict_policy;<br>    <span class="hljs-keyword">int</span> allow_isolated;<br><br>		<span class="hljs-comment">// 这里的BINDER_SERVICE_MANAGER是类型为uint的数字0</span><br>    <span class="hljs-keyword">if</span> (txn-&gt;target.ptr != BINDER_SERVICE_MANAGER)<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br><br>    <span class="hljs-keyword">if</span> (txn-&gt;code == PING_TRANSACTION)<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br><br>    strict_policy = bio_get_uint32(msg);<br>    s = bio_get_string16(msg, &amp;len);<br><br>    <span class="hljs-keyword">if</span> ((len != (<span class="hljs-keyword">sizeof</span>(svcmgr_id) / <span class="hljs-number">2</span>)) ||<br>        <span class="hljs-built_in">memcmp</span>(svcmgr_id, s, <span class="hljs-keyword">sizeof</span>(svcmgr_id))) &#123;<br>        <span class="hljs-built_in">fprintf</span>(<span class="hljs-built_in">stderr</span>,<span class="hljs-string">&quot;invalid id %s\n&quot;</span>, str8(s, len));<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">switch</span>(txn-&gt;code) &#123;<br>    <span class="hljs-keyword">case</span> SVC_MGR_GET_SERVICE:<span class="hljs-comment">// 得到某个service的信息，service用字符串表示</span><br>    <span class="hljs-keyword">case</span> SVC_MGR_CHECK_SERVICE:<br>        s = bio_get_string16(msg, &amp;len);<span class="hljs-comment">// 表示service的名称</span><br>        <span class="hljs-keyword">if</span> (s == <span class="hljs-literal">NULL</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>        &#125;<br>        handle = do_find_service(bs, s, len, txn-&gt;sender_euid, txn-&gt;sender_pid);<br>        <span class="hljs-keyword">if</span> (!handle)<br>            <span class="hljs-keyword">break</span>;<br>        bio_put_ref(reply, handle);<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br><br>    <span class="hljs-keyword">case</span> SVC_MGR_ADD_SERVICE: <span class="hljs-comment">// 对于addService的请求</span><br>        s = bio_get_string16(msg, &amp;len);<br>        <span class="hljs-keyword">if</span> (s == <span class="hljs-literal">NULL</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>        &#125;<br>        handle = bio_get_ref(msg);<br>        allow_isolated = bio_get_uint32(msg) ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">if</span> (do_add_service(bs, s, len, handle, txn-&gt;sender_euid,<br>            allow_isolated, txn-&gt;sender_pid))<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>        <span class="hljs-keyword">break</span>;<br><br>    <span class="hljs-keyword">case</span> SVC_MGR_LIST_SERVICES: &#123; <span class="hljs-comment">// 获取已经注册的所有service名字</span><br>        <span class="hljs-keyword">uint32_t</span> n = bio_get_uint32(msg);<br><br>        <span class="hljs-keyword">if</span> (!svc_can_list(txn-&gt;sender_pid)) &#123;<br>            ALOGE(<span class="hljs-string">&quot;list_service() uid=%d - PERMISSION DENIED\n&quot;</span>,<br>                    txn-&gt;sender_euid);<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>        &#125;<br>        si = svclist;<br>        <span class="hljs-keyword">while</span> ((n-- &gt; <span class="hljs-number">0</span>) &amp;&amp; si)<br>            si = si-&gt;next;<br>        <span class="hljs-keyword">if</span> (si) &#123;<br>            bio_put_string16(reply, si-&gt;name);<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>    &#125;<br>    <span class="hljs-keyword">default</span>:<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>    &#125;<br><br>    bio_put_uint32(reply, <span class="hljs-number">0</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<h3 id="do-add-service"><a href="#do-add-service" class="headerlink" title="do_add_service"></a>do_add_service</h3><p>在上面<code>switch</code>语句中<code>SVC_MGR_ADD_SERVICE</code>case看名字就知道是addService的请求，其中函数do_add_service为重要函数：<br>frameworks/native/cmds/servicemanager/service_manager.c:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">do_add_service</span><span class="hljs-params">(struct binder_state *bs,</span></span><br><span class="hljs-function"><span class="hljs-params">                   <span class="hljs-keyword">const</span> <span class="hljs-keyword">uint16_t</span> *s, <span class="hljs-keyword">size_t</span> len,</span></span><br><span class="hljs-function"><span class="hljs-params">                   <span class="hljs-keyword">uint32_t</span> handle, <span class="hljs-keyword">uid_t</span> uid, <span class="hljs-keyword">int</span> allow_isolated,</span></span><br><span class="hljs-function"><span class="hljs-params">                   <span class="hljs-keyword">pid_t</span> spid)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">svcinfo</span> *<span class="hljs-title">si</span>;</span><br>    <span class="hljs-keyword">if</span> (!handle || (len == <span class="hljs-number">0</span>) || (len &gt; <span class="hljs-number">127</span>))<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>		<span class="hljs-comment">// 判断是否可以注册</span><br>    <span class="hljs-keyword">if</span> (!svc_can_register(s, len, spid, uid)) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>    &#125;<br>		si = find_svc(s, len);<br>    <span class="hljs-keyword">if</span> (si) &#123;<br>        <span class="hljs-keyword">if</span> (si-&gt;handle) &#123;<br>            ALOGE(<span class="hljs-string">&quot;add_service(&#x27;%s&#x27;,%x) uid=%d - ALREADY REGISTERED, OVERRIDE\n&quot;</span>,<br>                 str8(s, len), handle, uid);<br>            svcinfo_death(bs, si);<br>        &#125;<br>        si-&gt;handle = handle;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        si = <span class="hljs-built_in">malloc</span>(<span class="hljs-keyword">sizeof</span>(*si) + (len + <span class="hljs-number">1</span>) * <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">uint16_t</span>));<br>        <span class="hljs-keyword">if</span> (!si) &#123;<br>            ALOGE(<span class="hljs-string">&quot;add_service(&#x27;%s&#x27;,%x) uid=%d - OUT OF MEMORY\n&quot;</span>,<br>                 str8(s, len), handle, uid);<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>        &#125;<br>        si-&gt;handle = handle;<br>        si-&gt;len = len;<br>        <span class="hljs-built_in">memcpy</span>(si-&gt;name, s, (len + <span class="hljs-number">1</span>) * <span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">uint16_t</span>));<br>        si-&gt;name[len] = <span class="hljs-string">&#x27;\0&#x27;</span>;<br>        si-&gt;death.func = (<span class="hljs-keyword">void</span>*) svcinfo_death;<br>        si-&gt;death.ptr = si;<br>        si-&gt;allow_isolated = allow_isolated;<br>				<span class="hljs-comment">// 是一个list，用于保存当前注册到ServiceManager的信息</span><br>        si-&gt;next = svclist;<br>        svclist = si;<br>    &#125;<br><br>    binder_acquire(bs, handle);<br>		<span class="hljs-comment">// 完成内存释放功能</span><br>    binder_link_to_death(bs, handle, &amp;si-&gt;death);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<h4 id="svc-can-register"><a href="#svc-can-register" class="headerlink" title="svc_can_register"></a>svc_can_register</h4><p>frameworks/native/cmds/servicemanager/service_manager.c:<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">svc_can_register</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">uint16_t</span> *name, <span class="hljs-keyword">size_t</span> name_len, <span class="hljs-keyword">pid_t</span> spid, <span class="hljs-keyword">uid_t</span> uid)</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *perm = <span class="hljs-string">&quot;add&quot;</span>;<br><br>    <span class="hljs-keyword">if</span> (multiuser_get_app_id(uid) &gt;= AID_APP) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; <span class="hljs-comment">/* Don&#x27;t allow apps to register services */</span><br>    &#125;<br><br>    <span class="hljs-keyword">return</span> check_mac_perms_from_lookup(spid, perm, str8(name, name_len)) ? <span class="hljs-number">1</span> : <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure><br>这里会判断权限是否达标(root、system)。<br>添加注册服务，当然是需要有授权控制。并且会保存相应信息内容。</p>
+<h2 id="三、AIDL"><a href="#三、AIDL" class="headerlink" title="三、AIDL"></a>三、AIDL</h2><p>没错，上面已经介绍完了，自己还是没看懂，代码太长，跳跃太频繁，相关类太多，而且至今连数据是什么都不知道。<br>而这里也是AIDL的范围，AIDL用于我们完成Binder接口通信的工具。因此在之前自己先模拟一下之前的Binder。</p>
+<h1 id="ServiceManager-1"><a href="#ServiceManager-1" class="headerlink" title="ServiceManager"></a>ServiceManager</h1><h2 id="准备ServiceManager"><a href="#准备ServiceManager" class="headerlink" title="准备ServiceManager"></a>准备ServiceManager</h2><p>我们需要准备好的ServiceManager<br>Test.cpp<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>	<span class="hljs-function">sp&lt;ProcessState&gt; <span class="hljs-title">proc</span><span class="hljs-params">(ProcessState::self())</span></span>;<br>	sp&lt;IServiceManager&gt; sm = defaultServiceManager();<br><br>	sm-&gt;addService(<span class="hljs-string">&quot;service.name&quot;</span>, <span class="hljs-keyword">new</span> Test());<br>	ProcessState::self()-&gt;startThreadPool();<br>	IPCThreadState::self()-&gt;joinThreadPool();<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<h2 id="准备通信内容"><a href="#准备通信内容" class="headerlink" title="准备通信内容"></a>准备通信内容</h2><p>回想一下，我们在通信时需要服务端的BnTest和客户端代理的BpTest。但首先他们都需要一个IInterface的派生类来定义服务功能。<br>ITest.h<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ITest</span>:</span> <span class="hljs-keyword">public</span> IInterface &#123;<br><span class="hljs-keyword">public</span>:<br>	DECLARE_META_INTERFACE(Test);<br>	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">getTest</span><span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>;<br>	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setTest</span><span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure><br>这里的<code>DECLARE_META_INTERFACE</code>在之前说个，是一个定义<code>I##ServiceManager</code>这里也即<code>ITest</code>的接口功能。<br>当然，两个宏定义缺一不可，会在ITest.cpp文件中调用<code>IMPLEMENT_META_INTERFACE</code>函数实现。<br>ITest.cpp<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c">IMPLEMENT_META_INTERFACE(Test, <span class="hljs-string">&quot;android.Test.ITest&quot;</span>);<br></code></pre></td></tr></table></figure></p>
+<h2 id="客户端BpTest和服务端BnTest"><a href="#客户端BpTest和服务端BnTest" class="headerlink" title="客户端BpTest和服务端BnTest"></a>客户端BpTest和服务端BnTest</h2><p>为了传递ITest，此时需要服务端的BnTest和服务端的BpTest。<br>ITest.h<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BnTest</span>:</span> <span class="hljs-keyword">public</span> BnInterface&lt;ITest&gt; &#123;<br><span class="hljs-keyword">public</span>:<br>	<span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">status_t</span> <span class="hljs-title">onTransact</span><span class="hljs-params">(uint32 code,<span class="hljs-keyword">const</span> Parcel&amp; data, Parcel* reply, <span class="hljs-keyword">uint32_t</span> flag)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure><br>和他的实现<br>ITest.cpp<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">status_t</span> <span class="hljs-title">BnTest::onTransact</span><span class="hljs-params">(...)</span> </span>&#123;<br>	<span class="hljs-keyword">switch</span>(code) &#123;<br>		<span class="hljs-keyword">case</span> GET_Test: &#123;<br>			...<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<p>ITest.cpp<br><figure class="highlight c"><table><tr><td class="code"><pre><code class="hljs c"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BpTest</span>:</span> <span class="hljs-keyword">public</span> BpInterface&lt;ITest&gt; &#123;<br>	<span class="hljs-function">vitural <span class="hljs-title">getTest</span><span class="hljs-params">()</span> </span>&#123;<br>		Parcel data, reply;<br>		...<br>		remote()-&gt;transact(Get_Test, data, &amp;reply);<br>		<span class="hljs-keyword">return</span>;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>突然发现这些代码我们都看过了一边。这里简洁的写法更能体现代码在Binder中的重要性。</p>
+<h1 id="AIDL"><a href="#AIDL" class="headerlink" title="AIDL"></a>AIDL</h1><p>Android Interface Definition Language 即Android接口定义语言。它依托Binder机制，使的跨进程通信能力和速度都很高。</p>
+<h2 id="aidl文件"><a href="#aidl文件" class="headerlink" title=".aidl文件"></a>.aidl文件</h2><p>首先我们创建aidl文件，aidl文件只能调用aidl文件，也就是说我们平常创建的类需要再度封装才能在进程通信中使用。</p>
+<h3 id="Parcelable"><a href="#Parcelable" class="headerlink" title="Parcelable"></a>Parcelable</h3><p>这个类我们在C/C++中看到很多<code>Parcel</code>，他在native层中作为进程通信的数据是重要的组成部分，我们如果需要使用，只要将它实现在我们的java类中，重写里面的方法即可。并且大部分方法都会自动重写。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">User</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Parcelable</span> </span>&#123;<br><br>    String name;<br>    <span class="hljs-keyword">int</span> age;<br>    String sex;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">User</span><span class="hljs-params">()</span> </span>&#123;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-title">User</span><span class="hljs-params">(Parcel in)</span> </span>&#123;<br>        name = in.readString();<br>        age = in.readInt();<br>        sex = in.readString();<br>    &#125;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> Creator&lt;User&gt; CREATOR = <span class="hljs-keyword">new</span> Creator&lt;User&gt;() &#123;<br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> User <span class="hljs-title">createFromParcel</span><span class="hljs-params">(Parcel in)</span> </span>&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> User(in);<br>        &#125;<br><br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-keyword">public</span> User[] newArray(<span class="hljs-keyword">int</span> size) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> User[size];<br>        &#125;<br>    &#125;;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">describeContents</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">writeToParcel</span><span class="hljs-params">(Parcel dest, <span class="hljs-keyword">int</span> flags)</span> </span>&#123;<br>        dest.writeString(name);<br>        dest.writeInt(age);<br>        dest.writeString(sex);<br>    &#125;<br>		<span class="hljs-comment">// 在实现过程中并不会重写该函数。这里也没有Override的标签</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">readFromParcel</span><span class="hljs-params">(Parcel reply)</span> </span>&#123;<br>        name = reply.readString();<br>        age = reply.readInt();<br>        sex = reply.readString();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>这样我们就可以在aidl文件中添加这个类，并在跨进程中使用它了。这里需要注意<code>readFromParcel</code>函数，因为它并没有Override的标签，在实现的时候它并不存在，稍后在介绍。</p>
+<h3 id="aidl文件-1"><a href="#aidl文件-1" class="headerlink" title=".aidl文件"></a>.aidl文件</h3><p>在将java对象准备好后，我们就可以创建aidl文件了。这里有一类是专门为上述类做定义的，还有一类是专门为接口做定义的。<br>既然是通讯，自然有两端：服务端和客户端，而数据流则会有从Client到Service;Client到Service后，再传回Client。</p>
+<h2 id="传输对象"><a href="#传输对象" class="headerlink" title="传输对象"></a>传输对象</h2><p>在准备传输对象知道首先需要实现<code>Parcelable</code>，然后在aidl文件中引用它：<br>User.aidl:<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.test.yang.binderdemo;<br><br><span class="hljs-comment">// 这里就是引用了Java层的User到aidl文件中</span><br>parcelable User;<br></code></pre></td></tr></table></figure><br>除基本类型外，我们都需要如此来添加自定义类。</p>
+<h2 id="接口准备"><a href="#接口准备" class="headerlink" title="接口准备"></a>接口准备</h2><p>这些接口就是需要的业务功能。<br>ITest.aidl:<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.test.yang.binderdemo;<br><br><span class="hljs-keyword">import</span> com.test.yang.binderdemo.User;<br><span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">ITest</span> </span>&#123;<br>     <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setUser</span><span class="hljs-params">(out User user)</span></span>;<br>     <span class="hljs-function">User <span class="hljs-title">getUser</span><span class="hljs-params">(in User a)</span></span>;<br>     <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">inOutUser</span><span class="hljs-params">(inout User a)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure><br>首先是引用的<code>User</code>包名需要手写；另外在添加的接口函数中形参的前面有<code>in</code>、<code>out</code>、<code>inout</code>三种类型，<code>in</code>表示数据从客户端流入服务端的数据，也是我们使用的默认类型，如果在服务端修改了这个对象的数据，在客户端是不会知道的(值不变)；<code>out</code>表示与<code>in</code>相反的功能，在传入到服务端后，如果服务端对其内容进行修改，return后会再次流回到客户端，并且修改后的数据也会返回；<code>inout</code>即上述的合并版本。</p>
+<p>完成上述功能后，<code>build</code> 项目，就会得到给我们写好的java代码:<br><a href="/img/Binder/7.png">github</a></p>
+<p>可以看到很多我们之前见过的代码</p>
+<blockquote>
+<p>继承自IInterface<br>Stub继承自Binder和ITest，会实现asInterface和onTransact函数，而asInterface函数会创建一个内部类Proxy，也上述的ServiceManagerProxy一模一样<br>Proxy实现了ITest，这里就会写入该真正功能，而功能又和上述类似，使用了Parcel来包装数据，使用remote来调用onTransact函数，使其与IPC交互。</p>
+</blockquote>
+<h2 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h2><h3 id="创建Service"><a href="#创建Service" class="headerlink" title="创建Service"></a>创建Service</h3><p>首先需要创建一个Service<br>TestService.java:<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TestService</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Service</span> </span>&#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> IBinder <span class="hljs-title">onBind</span><span class="hljs-params">(Intent intent)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<h3 id="准备ITest服务"><a href="#准备ITest服务" class="headerlink" title="准备ITest服务"></a>准备ITest服务</h3><p>准备我们监听的Stub对象：<br>TestService.java：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">...<br>		<span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> IBinder <span class="hljs-title">onBind</span><span class="hljs-params">(Intent intent)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> stub;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> ITest.Stub stub = <span class="hljs-keyword">new</span> ITest.Stub() &#123;<br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setUser</span><span class="hljs-params">(User user)</span> <span class="hljs-keyword">throws</span> RemoteException </span>&#123;<br>            user.name = <span class="hljs-string">&quot;C&quot;</span>;<br>            user.age = <span class="hljs-number">31</span>;<br>            user.sex = <span class="hljs-string">&quot;V&quot;</span>;<br>        &#125;<br><br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> User <span class="hljs-title">getUser</span><span class="hljs-params">(User a)</span> <span class="hljs-keyword">throws</span> RemoteException </span>&#123;<br>            <span class="hljs-keyword">return</span> a;<br>        &#125;<br><br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">inOutUser</span><span class="hljs-params">(User a)</span> <span class="hljs-keyword">throws</span> RemoteException </span>&#123;<br>            a.age = <span class="hljs-number">13333</span>;<br>            a.sex = <span class="hljs-string">&quot;a&quot;</span>;<br>        &#125;<br>    &#125;;<br></code></pre></td></tr></table></figure><br>记住我们aidl接口中的形参流向：in、out、inout。数据在从Client流进来修改后会被返回给客户端。完成进程间通信机制。</p>
+<h3 id="注册服务Action"><a href="#注册服务Action" class="headerlink" title="注册服务Action"></a>注册服务Action</h3><p>AndroidManifest.xml:<br><figure class="highlight xml"><table><tr><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">service</span> <span class="hljs-attr">android:name</span>=<span class="hljs-string">&quot;.TestService&quot;</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">intent-filter</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">action</span> <span class="hljs-attr">android:name</span>=<span class="hljs-string">&quot;com.test.yang.binderdemo&quot;</span>/&gt;</span><br>            <span class="hljs-tag">&lt;/<span class="hljs-name">intent-filter</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">service</span>&gt;</span><br></code></pre></td></tr></table></figure></p>
+<p>Activity:<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">Intent i = <span class="hljs-keyword">new</span> Intent(<span class="hljs-keyword">this</span>, TestService.class);<br>i.setAction(<span class="hljs-string">&quot;com.test.yang.binderdemo&quot;</span>);<br>startService(i);<br></code></pre></td></tr></table></figure></p>
+<p>以上，服务端就准备好了。</p>
+<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><p>同样，完成User类的实现，aidl文件的编写，代码build生成ITest.java文件。</p>
+<h3 id="ServiceConnection"><a href="#ServiceConnection" class="headerlink" title="ServiceConnection"></a>ServiceConnection</h3><p>进入客户端：<br>Activity:<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">......<br>		<span class="hljs-keyword">private</span> ITest iTest;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCreate</span><span class="hljs-params">(Bundle savedInstanceState)</span> </span>&#123;<br>        <span class="hljs-keyword">super</span>.onCreate(savedInstanceState);<br>        setContentView(R.layout.activity_main);<br><br>        Intent intent = <span class="hljs-keyword">new</span> Intent();<br>        intent.setPackage(<span class="hljs-string">&quot;com.test.yang.binderdemo&quot;</span>);<br>        intent.setAction(<span class="hljs-string">&quot;com.test.yang.binderdemo&quot;</span>);<br>        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);<br>    &#125;<br><br>    <span class="hljs-keyword">private</span> ServiceConnection serviceConnection = <span class="hljs-keyword">new</span> ServiceConnection() &#123;<br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onServiceConnected</span><span class="hljs-params">(ComponentName name, IBinder service)</span> </span>&#123;<br>            iTest = ITest.Stub.asInterface(service);<br>        &#125;<br><br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onServiceDisconnected</span><span class="hljs-params">(ComponentName name)</span> </span>&#123;<br>            iTest = <span class="hljs-keyword">null</span>;<br>        &#125;<br>    &#125;;<br></code></pre></td></tr></table></figure><br>可以看到我们调用asInterface获取类的代理。</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>在获取到服务端的代理后，我们就可以直接使用了：<br>Activity.java:<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java">.....<br>		<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onOne</span><span class="hljs-params">(View view)</span> </span>&#123;<br>        User user = <span class="hljs-keyword">new</span> User();<br>        user.name = <span class="hljs-string">&quot;a&quot;</span>;<br>        user.age = <span class="hljs-number">12</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            iTest.getUser(user);<br>        &#125; <span class="hljs-keyword">catch</span> (RemoteException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onTwo</span><span class="hljs-params">(View view)</span> </span>&#123;<br>        User user = <span class="hljs-keyword">new</span> User();<br>        <span class="hljs-keyword">try</span> &#123;<br>            iTest.setUser(user);<br>        &#125; <span class="hljs-keyword">catch</span> (RemoteException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onThree</span><span class="hljs-params">(View view)</span> </span>&#123;<br>        User user = <span class="hljs-keyword">new</span> User();<br>        user.name = <span class="hljs-string">&quot;b&quot;</span>;<br>        <span class="hljs-keyword">try</span> &#123;<br>            iTest.inOutUser(user);<br>        &#125; <span class="hljs-keyword">catch</span> (RemoteException e) &#123;<br>            e.printStackTrace();<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure></p>
+<p>以上就是AIDL的功能调试了，也是整个文件的结束。</p>
+
+      
+       
+    </div>
+</article>
+
+
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '07584e1e38d09c739a16',
+            clientSecret: '6a466750b46c76ed9cc8ee0fe0d78e0c33898937',
+            repo: 'yangandmore.github.io',
+            owner: 'Yangandmore',
+            admin: ['Yangandmore'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2016-2020 Yangandmore
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
