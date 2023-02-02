@@ -1738,7 +1738,7 @@
         
         <a  class="All 数据库 "
            href="/2020/05/26/JDBC/"
-           data-tag="java,数据库"
+           data-tag="数据库,java"
            data-author="" >
             <span class="post-title" title="JDBC">JDBC</span>
             <span class="post-date" title="2020-05-26 16:23:01">2020/05/26</span>
@@ -2133,7 +2133,7 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2023-02-01 07:45:47'>2023-01-28 08:02</time>
+            Created At : <time class="date" title='Updated At: 2023-02-02 06:05:55'>2023-01-28 08:02</time>
         
     </div>
     <div class="article-meta">
@@ -2166,7 +2166,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E7%A1%80"><span class="toc-text">一、基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%95%8C%E9%9D%A2%E7%AE%A1%E7%90%86"><span class="toc-text">二、界面管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%BB%A3%E7%A0%81%E7%BB%86%E8%8A%82"><span class="toc-text">三、代码细节</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C"><span class="toc-text">四、编译运行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%9F%A5%E6%89%BE"><span class="toc-text">五、查找</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#N%E3%80%81%E5%85%B6%E4%BB%96%E5%8A%9F%E8%83%BD"><span class="toc-text">N、其他功能</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E7%A1%80"><span class="toc-text">一、基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%95%8C%E9%9D%A2%E7%AE%A1%E7%90%86"><span class="toc-text">二、界面管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%BB%A3%E7%A0%81%E7%BB%86%E8%8A%82"><span class="toc-text">三、代码细节</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E4%BB%A3%E7%A0%81%E8%B7%B3%E8%BD%AC"><span class="toc-text">四、代码跳转</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E4%BB%A3%E7%A0%81%E9%87%8D%E6%9E%84"><span class="toc-text">五、代码重构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C"><span class="toc-text">六、编译运行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E6%9F%A5%E6%89%BE"><span class="toc-text">七、查找</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#N%E3%80%81%E5%85%B6%E4%BB%96%E5%8A%9F%E8%83%BD"><span class="toc-text">N、其他功能</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -2218,6 +2218,11 @@
 <td style="text-align:left">Cmd + 1</td>
 </tr>
 <tr>
+<td style="text-align:left">打开<code>find</code>界面</td>
+<td style="text-align:center">*</td>
+<td style="text-align:left">Cmd + 3</td>
+</tr>
+<tr>
 <td style="text-align:left">打开<code>service</code>界面</td>
 <td style="text-align:center">*</td>
 <td style="text-align:left">Cmd + 8</td>
@@ -2245,6 +2250,11 @@
 <td style="text-align:left">跳转到文件展示UI顶部的tab，并打开当前包下所有文件列表</td>
 <td style="text-align:center"></td>
 <td style="text-align:left">Cmd + 上箭头</td>
+</tr>
+<tr>
+<td style="text-align:left">关闭活动的tab页面</td>
+<td style="text-align:center">*</td>
+<td style="text-align:left">Cmd + w</td>
 </tr>
 </tbody>
 </table>
@@ -2290,9 +2300,14 @@
 <td style="text-align:left">Cmd + Back</td>
 </tr>
 <tr>
-<td style="text-align:left">将当前方法块代码展开 / 折叠</td>
+<td style="text-align:left">将当前代码块展开 / 折叠</td>
 <td style="text-align:center">*</td>
 <td style="text-align:left">Cmd + -/+</td>
+</tr>
+<tr>
+<td style="text-align:left">将所有代码块展开 / 折叠</td>
+<td style="text-align:center"></td>
+<td style="text-align:left">Cmd + Shift + -/+</td>
 </tr>
 <tr>
 <td style="text-align:left">添加注释和取消注释</td>
@@ -2304,6 +2319,23 @@
 <td style="text-align:center">*</td>
 <td style="text-align:left">Cmd + Shift + /</td>
 </tr>
+<tr>
+<td style="text-align:left">大小写切换 ｜</td>
+<td style="text-align:center">Cmd + Shift + u</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="四、代码跳转"><a href="#四、代码跳转" class="headerlink" title="四、代码跳转"></a>四、代码跳转</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">说明</th>
+<th style="text-align:center">重要性</th>
+<th style="text-align:left">快捷键</th>
+</tr>
+</thead>
+<tbody>
 <tr>
 <td style="text-align:left">快速定位到某一行代码</td>
 <td style="text-align:center">*</td>
@@ -2327,7 +2359,51 @@
 </tbody>
 </table>
 </div>
-<h2 id="四、编译运行"><a href="#四、编译运行" class="headerlink" title="四、编译运行"></a>四、编译运行</h2><div class="table-container">
+<h2 id="五、代码重构"><a href="#五、代码重构" class="headerlink" title="五、代码重构"></a>五、代码重构</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">说明</th>
+<th style="text-align:center">重要性</th>
+<th style="text-align:left">快捷键</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">重命名</td>
+<td style="text-align:center">*</td>
+<td style="text-align:left">Shift + F6</td>
+</tr>
+<tr>
+<td style="text-align:left">更改函数整体签名</td>
+<td style="text-align:center">*</td>
+<td style="text-align:left">Cmd + F6</td>
+</tr>
+<tr>
+<td style="text-align:left">提取选中代码为方法</td>
+<td style="text-align:center">*</td>
+<td style="text-align:left">Cmd + Opt + m</td>
+</tr>
+<tr>
+<td style="text-align:left">提取为变量 ｜ *</td>
+<td style="text-align:center">Cmd + Opt + v</td>
+</tr>
+<tr>
+<td style="text-align:left">提取为类字段 ｜ *</td>
+<td style="text-align:center">Cmd + Opt + f</td>
+</tr>
+<tr>
+<td style="text-align:left">提取为常数 ｜ *</td>
+<td style="text-align:center">Cmd + Opt + c</td>
+</tr>
+<tr>
+<td style="text-align:left">提取为参数 ｜ *</td>
+<td style="text-align:center">Cmd + Opt + p</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="六、编译运行"><a href="#六、编译运行" class="headerlink" title="六、编译运行"></a>六、编译运行</h2><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -2352,10 +2428,25 @@
 <td style="text-align:center">*</td>
 <td style="text-align:left">Ctrl + d</td>
 </tr>
+<tr>
+<td style="text-align:left">弹出可运行菜单</td>
+<td style="text-align:center"></td>
+<td style="text-align:left">Ctrl + Opt + r</td>
+</tr>
+<tr>
+<td style="text-align:left">弹出可Debug允许菜单</td>
+<td style="text-align:center"></td>
+<td style="text-align:left">Ctrl + Opt + d</td>
+</tr>
+<tr>
+<td style="text-align:left">停止运行</td>
+<td style="text-align:center">*</td>
+<td style="text-align:left">Cmd + F2</td>
+</tr>
 </tbody>
 </table>
 </div>
-<h2 id="五、查找"><a href="#五、查找" class="headerlink" title="五、查找"></a>五、查找</h2><div class="table-container">
+<h2 id="七、查找"><a href="#七、查找" class="headerlink" title="七、查找"></a>七、查找</h2><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -2394,6 +2485,21 @@
 <td style="text-align:left">所有文件中根据内容替换</td>
 <td style="text-align:center">*</td>
 <td style="text-align:left">Cmd + Shift + r</td>
+</tr>
+<tr>
+<td style="text-align:left">在文件中查找，下拉选</td>
+<td style="text-align:center">*</td>
+<td style="text-align:left">Cmd + Opt + F7</td>
+</tr>
+<tr>
+<td style="text-align:left">在文件中查找，显示到<code>find</code>中</td>
+<td style="text-align:center">*</td>
+<td style="text-align:left">Opt + F7</td>
+</tr>
+<tr>
+<td style="text-align:left">在文件中标记该参数</td>
+<td style="text-align:center"></td>
+<td style="text-align:left">Cmd + F7</td>
 </tr>
 </tbody>
 </table>
