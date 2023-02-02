@@ -2133,7 +2133,7 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2023-01-30 08:24:15'>2023-01-28 08:02</time>
+            Created At : <time class="date" title='Updated At: 2023-02-01 07:45:47'>2023-01-28 08:02</time>
         
     </div>
     <div class="article-meta">
@@ -2166,7 +2166,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E7%A1%80"><span class="toc-text">一、基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Cmd"><span class="toc-text">二、Cmd</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81Opt"><span class="toc-text">三、Opt</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81Ctrl"><span class="toc-text">四、Ctrl</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%9F%BA%E7%A1%80"><span class="toc-text">一、基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%95%8C%E9%9D%A2%E7%AE%A1%E7%90%86"><span class="toc-text">二、界面管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E4%BB%A3%E7%A0%81%E7%BB%86%E8%8A%82"><span class="toc-text">三、代码细节</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C"><span class="toc-text">四、编译运行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%9F%A5%E6%89%BE"><span class="toc-text">五、查找</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#N%E3%80%81%E5%85%B6%E4%BB%96%E5%8A%9F%E8%83%BD"><span class="toc-text">N、其他功能</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -2202,7 +2202,7 @@
 </tbody>
 </table>
 </div>
-<h2 id="二、Cmd"><a href="#二、Cmd" class="headerlink" title="二、Cmd"></a>二、Cmd</h2><div class="table-container">
+<h2 id="二、界面管理"><a href="#二、界面管理" class="headerlink" title="二、界面管理"></a>二、界面管理</h2><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -2218,14 +2218,56 @@
 <td style="text-align:left">Cmd + 1</td>
 </tr>
 <tr>
-<td style="text-align:left">光标所在行的头部/尾部</td>
+<td style="text-align:left">打开<code>service</code>界面</td>
 <td style="text-align:center">*</td>
-<td style="text-align:left">Cmd + 左箭头/右箭头</td>
+<td style="text-align:left">Cmd + 8</td>
+</tr>
+<tr>
+<td style="text-align:left">打开<code>Project Structure</code></td>
+<td style="text-align:center"></td>
+<td style="text-align:left">Cmd + ;;</td>
+</tr>
+<tr>
+<td style="text-align:left">打开<code>terminal</code>界面</td>
+<td style="text-align:center"></td>
+<td style="text-align:left">Opt + F12</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Generate</code> 界面</td>
+<td style="text-align:center">*</td>
+<td style="text-align:left">Cmd + n</td>
+</tr>
+<tr>
+<td style="text-align:left">tab标签左/右切换</td>
+<td style="text-align:center">Cmd + Shift + [/]</td>
 </tr>
 <tr>
 <td style="text-align:left">跳转到文件展示UI顶部的tab，并打开当前包下所有文件列表</td>
 <td style="text-align:center"></td>
 <td style="text-align:left">Cmd + 上箭头</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="三、代码细节"><a href="#三、代码细节" class="headerlink" title="三、代码细节"></a>三、代码细节</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">说明</th>
+<th style="text-align:center">重要性</th>
+<th style="text-align:left">快捷键</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">快速打开光标所在方法、类的定义</td>
+<td style="text-align:center">*</td>
+<td style="text-align:left">Opt + Space</td>
+</tr>
+<tr>
+<td style="text-align:left">光标所在行的头部/尾部</td>
+<td style="text-align:center">*</td>
+<td style="text-align:left">Cmd + 左箭头/右箭头</td>
 </tr>
 <tr>
 <td style="text-align:left">移动代码/代码块</td>
@@ -2263,49 +2305,9 @@
 <td style="text-align:left">Cmd + Shift + /</td>
 </tr>
 <tr>
-<td style="text-align:left">当前文件查询</td>
-<td style="text-align:center">*</td>
-<td style="text-align:left">Cmd + f</td>
-</tr>
-<tr>
-<td style="text-align:left">所有文件中查询</td>
-<td style="text-align:center">*</td>
-<td style="text-align:left">Cmd + Shift + f</td>
-</tr>
-<tr>
-<td style="text-align:left">当前文件替换</td>
-<td style="text-align:center">*</td>
-<td style="text-align:left">Cmd + r</td>
-</tr>
-<tr>
-<td style="text-align:left">所有文件中替换</td>
-<td style="text-align:center">*</td>
-<td style="text-align:left">Cmd + Shift + r</td>
-</tr>
-<tr>
-<td style="text-align:left">截取全屏/指定大小</td>
-<td style="text-align:center"></td>
-<td style="text-align:left">Cmd + Shift + 3/4</td>
-</tr>
-<tr>
-<td style="text-align:left">打开<code>Project Structure</code></td>
-<td style="text-align:center"></td>
-<td style="text-align:left">Cmd + ;;</td>
-</tr>
-<tr>
 <td style="text-align:left">快速定位到某一行代码</td>
 <td style="text-align:center">*</td>
 <td style="text-align:left">Cmd + l</td>
-</tr>
-<tr>
-<td style="text-align:left"><code>Generate</code> 界面</td>
-<td style="text-align:center">*</td>
-<td style="text-align:left">Cmd + n</td>
-</tr>
-<tr>
-<td style="text-align:left">查找类</td>
-<td style="text-align:center">*</td>
-<td style="text-align:left">Cmd + o</td>
 </tr>
 <tr>
 <td style="text-align:left">代码浏览记录向后/向前</td>
@@ -2313,39 +2315,33 @@
 <td style="text-align:left">Cmd + [/]</td>
 </tr>
 <tr>
+<td style="text-align:left">进入光标所在的方法/变量的接口或是定义处</td>
+<td style="text-align:center">*</td>
+<td style="text-align:left">Cmd + b</td>
+</tr>
+<tr>
+<td style="text-align:left">在某个调用的方法名上使用会跳到具体的实现处，可以跳过接口</td>
+<td style="text-align:center">*</td>
+<td style="text-align:left">Cmd + Opt + b</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="四、编译运行"><a href="#四、编译运行" class="headerlink" title="四、编译运行"></a>四、编译运行</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">说明</th>
+<th style="text-align:center">重要性</th>
+<th style="text-align:left">快捷键</th>
+</tr>
+</thead>
+<tbody>
+<tr>
 <td style="text-align:left">编译</td>
 <td style="text-align:center">*</td>
 <td style="text-align:left">Cmd + F9</td>
 </tr>
-</tbody>
-</table>
-</div>
-<h2 id="三、Opt"><a href="#三、Opt" class="headerlink" title="三、Opt"></a>三、Opt</h2><div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">说明</th>
-<th style="text-align:center">重要性</th>
-<th style="text-align:left">快捷键</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left"></td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 id="四、Ctrl"><a href="#四、Ctrl" class="headerlink" title="四、Ctrl"></a>四、Ctrl</h2><div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:left">说明</th>
-<th style="text-align:center">重要性</th>
-<th style="text-align:left">快捷键</th>
-</tr>
-</thead>
-<tbody>
 <tr>
 <td style="text-align:left">运行代码</td>
 <td style="text-align:center">*</td>
@@ -2355,6 +2351,67 @@
 <td style="text-align:left">debug运行</td>
 <td style="text-align:center">*</td>
 <td style="text-align:left">Ctrl + d</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="五、查找"><a href="#五、查找" class="headerlink" title="五、查找"></a>五、查找</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">说明</th>
+<th style="text-align:center">重要性</th>
+<th style="text-align:left">快捷键</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">文件查找</td>
+<td style="text-align:center">*</td>
+<td style="text-align:left">Shift + Shift</td>
+</tr>
+<tr>
+<td style="text-align:left">查找类</td>
+<td style="text-align:center">*</td>
+<td style="text-align:left">Cmd + o</td>
+</tr>
+<tr>
+<td style="text-align:left">当前文件查询</td>
+<td style="text-align:center">*</td>
+<td style="text-align:left">Cmd + f</td>
+</tr>
+<tr>
+<td style="text-align:left">所有文件中根据内容查询</td>
+<td style="text-align:center">*</td>
+<td style="text-align:left">Cmd + Shift + f</td>
+</tr>
+<tr>
+<td style="text-align:left">当前文件替换</td>
+<td style="text-align:center">*</td>
+<td style="text-align:left">Cmd + r</td>
+</tr>
+<tr>
+<td style="text-align:left">所有文件中根据内容替换</td>
+<td style="text-align:center">*</td>
+<td style="text-align:left">Cmd + Shift + r</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="N、其他功能"><a href="#N、其他功能" class="headerlink" title="N、其他功能"></a>N、其他功能</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">说明</th>
+<th style="text-align:center">重要性</th>
+<th style="text-align:left">快捷键</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">截取全屏/指定大小</td>
+<td style="text-align:center"></td>
+<td style="text-align:left">Cmd + Shift + 3/4</td>
 </tr>
 </tbody>
 </table>
