@@ -6,7 +6,7 @@
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
-  <updated>2023-02-06T13:10:47.040Z</updated>
+  <updated>2023-02-07T13:37:51.768Z</updated>
   <id>http://example.com/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>设计模式-装饰</title>
+    <link href="http://example.com/2023/02/07/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F9/"/>
+    <id>http://example.com/2023/02/07/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F9/</id>
+    <published>2023-02-07T18:47:30.000Z</published>
+    <updated>2023-02-07T13:37:51.768Z</updated>
+    
+    <content type="html"><![CDATA[<p>最好的例子就是ui图，在针对富文本进行编辑的时候，工具栏、文本栏、保存/取消栏等，都是是在其基础上进行装饰的效果。</p><h2 id="适用性"><a href="#适用性" class="headerlink" title="适用性"></a>适用性</h2><ol><li>在不影响其他对象的情况下，以动态、透明的方式给单个对象添加职责。</li><li>处理那些可能撤销的职责</li><li>当不能采用生成子类的方法进行扩充时。一种情况是，可能有大量独立的扩展，为支持每一种组合将产生大量的子类，使得子类数目呈爆炸性增长。另一种情况可能是因为类定义被隐藏，或类定义不能用于生成子类。</li></ol><h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><p><img src="/img/DesignPatterns/9.png" alt="github"></p>]]></content>
+    
+    
+    <summary type="html">装饰</summary>
+    
+    
+    
+    <category term="设计模式" scheme="http://example.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="设计模式" scheme="http://example.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>设计模式- 桥接</title>
@@ -38,16 +59,16 @@
   </entry>
   
   <entry>
-    <title>设计模式-单例</title>
-    <link href="http://example.com/2023/02/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F5/"/>
-    <id>http://example.com/2023/02/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F5/</id>
-    <published>2023-02-02T18:00:35.000Z</published>
-    <updated>2023-02-02T13:22:46.396Z</updated>
+    <title>设计模式- 组合</title>
+    <link href="http://example.com/2023/02/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F8/"/>
+    <id>http://example.com/2023/02/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F8/</id>
+    <published>2023-02-06T19:46:00.000Z</published>
+    <updated>2023-02-07T10:49:04.114Z</updated>
     
-    <content type="html"><![CDATA[<p>整个系统针对他只提供一个创建点。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">World</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> World world;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">World</span><span class="hljs-params">()</span> </span>&#123;<br>        <br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> World <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (world == <span class="hljs-keyword">null</span>)<br>            world = <span class="hljs-keyword">new</span> World();<br>        <span class="hljs-keyword">return</span> world;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>这里需要注意的一点就是构造函数使用了访问权限private修饰，表示别的地方无法构建该对象，除了他自己。</p><p>另外由于多线程安全问题，这里一般推荐下面的写法：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">World</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> World world;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">World</span><span class="hljs-params">()</span> </span>&#123;<br>        <br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> World <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">synchronized</span>(World.class) &#123;<br>            <span class="hljs-keyword">if</span> (world == <span class="hljs-keyword">null</span>) &#123;<br>                <span class="hljs-keyword">synchronized</span>(World.class) &#123;<br>                    world = <span class="hljs-keyword">new</span> World();<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> world;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></p><h2 id="适用性"><a href="#适用性" class="headerlink" title="适用性"></a>适用性</h2><ol><li>当类只能有一个实例而且客户可以从一个众所周知的访问点访问他</li><li>当这个唯一实例应该是通过子类化可扩展的，而且客户应该无需更改代码就能使用一个扩展的实例</li></ol><h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><p><img src="/img/DesignPatterns/5.png" alt="github"></p>]]></content>
+    <content type="html"><![CDATA[<p>组合很好的例子就是画图的时候，图中有图，有文字，有线条等。</p><p>基础接口<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Graphic</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">draw</span><span class="hljs-params">()</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(Graphic graphic)</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">remove</span><span class="hljs-params">(Graphic graphic)</span></span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">getChild</span><span class="hljs-params">(<span class="hljs-keyword">int</span> child)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure></p><p>看看普通leaf组建<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Text</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Graphic</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">draw</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.println(<span class="hljs-string">&quot;文本&quot;</span>)<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(Graphic graphic)</span> </span>&#123;&#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">remove</span><span class="hljs-params">(Graphic graphic)</span> </span>&#123;&#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">getChild</span><span class="hljs-params">(<span class="hljs-keyword">int</span> child)</span> </span>&#123;&#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>他并不具备子部件功能</p><p>看看Composite组建<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Picture</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Graphic</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">draw</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">for</span>(Graphic g : list) <br>            g.draw();<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(Graphic graphic)</span> </span>&#123;<br>        list.add(graphic);<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">remove</span><span class="hljs-params">(Graphic graphic)</span> </span>&#123;<br>        list.remove(graphic);<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">getChild</span><span class="hljs-params">(<span class="hljs-keyword">int</span> child)</span> </span>&#123;<br>        ...<br>    &#125;<br>    <br>&#125;<br></code></pre></td></tr></table></figure></p><h2 id="适用性"><a href="#适用性" class="headerlink" title="适用性"></a>适用性</h2><ol><li>想表示对象的部分-整体层次结构</li><li>希望用户忽略组合对象与单个对象的不同，用户将统一的使用组合结构中的所有对象</li></ol><h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><p><img src="/img/DesignPatterns/8.png" alt="github"></p>]]></content>
     
     
-    <summary type="html">单例</summary>
+    <summary type="html">组合</summary>
     
     
     
@@ -69,6 +90,27 @@
     
     
     <summary type="html">原型</summary>
+    
+    
+    
+    <category term="设计模式" scheme="http://example.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+    
+    <category term="设计模式" scheme="http://example.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计模式-单例</title>
+    <link href="http://example.com/2023/02/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F5/"/>
+    <id>http://example.com/2023/02/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F5/</id>
+    <published>2023-02-02T18:00:35.000Z</published>
+    <updated>2023-02-02T13:22:46.396Z</updated>
+    
+    <content type="html"><![CDATA[<p>整个系统针对他只提供一个创建点。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">World</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> World world;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">World</span><span class="hljs-params">()</span> </span>&#123;<br>        <br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> World <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (world == <span class="hljs-keyword">null</span>)<br>            world = <span class="hljs-keyword">new</span> World();<br>        <span class="hljs-keyword">return</span> world;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>这里需要注意的一点就是构造函数使用了访问权限private修饰，表示别的地方无法构建该对象，除了他自己。</p><p>另外由于多线程安全问题，这里一般推荐下面的写法：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">World</span> </span>&#123;<br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> World world;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">World</span><span class="hljs-params">()</span> </span>&#123;<br>        <br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> World <span class="hljs-title">getInstance</span><span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-keyword">synchronized</span>(World.class) &#123;<br>            <span class="hljs-keyword">if</span> (world == <span class="hljs-keyword">null</span>) &#123;<br>                <span class="hljs-keyword">synchronized</span>(World.class) &#123;<br>                    world = <span class="hljs-keyword">new</span> World();<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> world;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></p><h2 id="适用性"><a href="#适用性" class="headerlink" title="适用性"></a>适用性</h2><ol><li>当类只能有一个实例而且客户可以从一个众所周知的访问点访问他</li><li>当这个唯一实例应该是通过子类化可扩展的，而且客户应该无需更改代码就能使用一个扩展的实例</li></ol><h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><p><img src="/img/DesignPatterns/5.png" alt="github"></p>]]></content>
+    
+    
+    <summary type="html">单例</summary>
     
     
     
@@ -399,48 +441,6 @@
     
     
     <category term="包管理" scheme="http://example.com/tags/%E5%8C%85%E7%AE%A1%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spring-基础5</title>
-    <link href="http://example.com/2022/07/28/Spring-%E5%9F%BA%E7%A1%805/"/>
-    <id>http://example.com/2022/07/28/Spring-%E5%9F%BA%E7%A1%805/</id>
-    <published>2022-07-28T21:11:57.000Z</published>
-    <updated>2022-07-28T13:12:57.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>一、AOP<br>-</p><h1 id="1-1-AOP核心概念"><a href="#1-1-AOP核心概念" class="headerlink" title="1.1 AOP核心概念"></a>1.1 AOP核心概念</h1><h1 id="1-2-AOP作用"><a href="#1-2-AOP作用" class="headerlink" title="1.2 AOP作用"></a>1.2 AOP作用</h1>]]></content>
-    
-    
-    <summary type="html">讨论Spring基础知识</summary>
-    
-    
-    
-    <category term="spring" scheme="http://example.com/categories/spring/"/>
-    
-    
-    <category term="spring" scheme="http://example.com/tags/spring/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Spring-基础(四)</title>
-    <link href="http://example.com/2022/07/28/Spring-%E5%9F%BA%E7%A1%804/"/>
-    <id>http://example.com/2022/07/28/Spring-%E5%9F%BA%E7%A1%804/</id>
-    <published>2022-07-28T15:50:59.000Z</published>
-    <updated>2022-07-28T13:11:48.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>一、注解开发<br>-</p><h1 id="1-1-注解开发定义bean"><a href="#1-1-注解开发定义bean" class="headerlink" title="1.1 注解开发定义bean"></a>1.1 注解开发定义bean</h1><ul><li>使用<code>@Component</code>定义bean<figure class="highlight less"><table><tr><td class="code"><pre><code class="hljs less"><span class="hljs-variable">@Component</span>(<span class="hljs-string">&quot;bookDao&quot;</span>)<br>public class BookDaoImpl impl BookDao &#123;<br><br>&#125;<br><span class="hljs-variable">@Component</span>()<br>public class BookServiceImpl impl BookService &#123;<br><br>&#125;<br></code></pre></td></tr></table></figure></li><li>核心配置文件中通过组件扫描加载bean<figure class="highlight vhdl"><table><tr><td class="code"><pre><code class="hljs vhdl">&lt;<span class="hljs-keyword">context</span>:<span class="hljs-keyword">component</span>-scan base-<span class="hljs-keyword">package</span>=<span class="hljs-string">&quot;com.itheima&quot;</span>/&gt;<br></code></pre></td></tr></table></figure></li></ul><h2 id="1-1-1-注解衍生"><a href="#1-1-1-注解衍生" class="headerlink" title="1.1.1 注解衍生"></a>1.1.1 注解衍生</h2><p>spring提供<code>@Component</code>注解的三个衍生注解</p><ul><li><code>@Controller</code> 用于表现层bean定义</li><li><code>@Service</code> 用于业务层bean定义</li><li><code>@Repository</code> 用于数据层bean定义<figure class="highlight less"><table><tr><td class="code"><pre><code class="hljs less"><span class="hljs-variable">@Repository</span>(<span class="hljs-string">&quot;bookDao&quot;</span>)<br>public class BookDaoImpl impl BookDao &#123;&#125;<br><span class="hljs-variable">@Service</span><br>public class BookServiceImpl impl BookService &#123;&#125;<br></code></pre></td></tr></table></figure></li></ul><h1 id="1-2-纯注解开发"><a href="#1-2-纯注解开发" class="headerlink" title="1.2 纯注解开发"></a>1.2 纯注解开发</h1><p>Spring3.0升级了纯注解开发模式，使用java类替代配置文件。<br><figure class="highlight less"><table><tr><td class="code"><pre><code class="hljs less"><span class="hljs-variable">@Configuration</span><br><span class="hljs-variable">@ConponentScan</span>(<span class="hljs-string">&quot;conxxx.xxx&quot;</span>)<br>public class SpringConfig &#123;&#125;<br></code></pre></td></tr></table></figure></p><ul><li><code>@Configuration</code>注解用于设定当前类为配置类</li><li><code>@ComponentScan</code>注解用于设定扫描路径，此注解只能添加一次，多个数据使用数组格式</li><li>读取spring核心配置文件初始化容器对象切换为读取java配置类初始化容器对象<figure class="highlight reasonml"><table><tr><td class="code"><pre><code class="hljs reasonml">ApplicationContext ctx = <span class="hljs-keyword">new</span> <span class="hljs-constructor">AnnotationCOnfigApplicationContext(SpringConfig.<span class="hljs-params">class</span>)</span>;<br></code></pre></td></tr></table></figure></li></ul><h1 id="1-3-bean管理"><a href="#1-3-bean管理" class="headerlink" title="1.3 bean管理"></a>1.3 bean管理</h1><h2 id="1-3-1-bean作用范围"><a href="#1-3-1-bean作用范围" class="headerlink" title="1.3.1 bean作用范围"></a>1.3.1 bean作用范围</h2><h2 id="1-3-2-bean生命周期"><a href="#1-3-2-bean生命周期" class="headerlink" title="1.3.2 bean生命周期"></a>1.3.2 bean生命周期</h2><ul><li>使用<code>@Scope</code>定义bean作用范围<figure class="highlight less"><table><tr><td class="code"><pre><code class="hljs less"><span class="hljs-variable">@Repository</span><br><span class="hljs-variable">@Scope</span>(<span class="hljs-string">&quot;singleton&quot;</span>)<br>public class BookDaoImpl impl BookDao &#123;&#125;<br></code></pre></td></tr></table></figure></li><li>使用<code>@PostConstruct</code>、<code>@PreDestroy</code>定义bean生命周期<figure class="highlight less"><table><tr><td class="code"><pre><code class="hljs less"><span class="hljs-variable">@PostConstruct</span><br>public void init() &#123;&#125;<br><span class="hljs-variable">@PreDestroy</span><br>public void des() &#123;&#125;<br></code></pre></td></tr></table></figure></li></ul><p>二、自动装配<br>-</p><h1 id="2-1-依赖注入"><a href="#2-1-依赖注入" class="headerlink" title="2.1 依赖注入"></a>2.1 依赖注入</h1><ul><li>使用<code>@Autowired</code>注解开启自动装配模式（按类型）<figure class="highlight angelscript"><table><tr><td class="code"><pre><code class="hljs angelscript">@Service<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-symbol">BookServiceImpl</span> <span class="hljs-symbol">impl</span> <span class="hljs-symbol">BookService</span> &#123;<br><br>  @Autowired<br>  <span class="hljs-keyword">private</span> BookDao bookDao;<br>&#125;<br></code></pre></td></tr></table></figure></li><li>注意：自动装配基于反射设计创建对象并暴力反射对应属性为私有属性初始化数据，因此无需提供setter方法</li><li>注意：自动装配建议使用无参构造方法创建对象（默认），如果不提供对应构造方法，请提供唯一的构造方法</li><li>使用<code>@Qualifier</code>注解开启指定名称装配bean<figure class="highlight less"><table><tr><td class="code"><pre><code class="hljs less"><span class="hljs-variable">@Service</span><br>public class BookServiceImpl impl BookService &#123;<br>  <span class="hljs-variable">@Autowired</span><br>  <span class="hljs-variable">@Qualifier</span>(<span class="hljs-string">&quot;bookDao&quot;</span>)<br>  private BookDao bookDao;<br>&#125;<br></code></pre></td></tr></table></figure></li><li><p>注意：<code>@Qualifier</code>注解无法单独使用，必须配合<code>@Autowired</code>注解使用</p></li><li><p>使用<code>@Value</code>实现简单类型注入</p><figure class="highlight kotlin"><table><tr><td class="code"><pre><code class="hljs kotlin"><span class="hljs-meta">@Repository(<span class="hljs-meta-string">&quot;bookDao&quot;</span>)</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BookDaoImpl</span> <span class="hljs-title">impl</span> <span class="hljs-title">BookDao</span> </span>&#123;<br>  <span class="hljs-meta">@Value(<span class="hljs-meta-string">&quot;100&quot;</span>)</span><br>  <span class="hljs-keyword">private</span> String a;<br>&#125;<br></code></pre></td></tr></table></figure></li></ul><h1 id="2-2-加载properties文件"><a href="#2-2-加载properties文件" class="headerlink" title="2.2 加载properties文件"></a>2.2 加载properties文件</h1><ul><li>使用<code>PropertySource</code>注解加载properties文件<figure class="highlight less"><table><tr><td class="code"><pre><code class="hljs less"><span class="hljs-variable">@Configuration</span><br><span class="hljs-variable">@ComponentScan</span>(<span class="hljs-string">&quot;xxx.xxx&quot;</span>)<br><span class="hljs-variable">@PropertySource</span>(<span class="hljs-string">&quot;classpath:jdbc.properties&quot;</span>)<br>public class SpringConfig &#123;&#125;<br></code></pre></td></tr></table></figure></li><li>注意：路径仅支持单一文件配置，多文件请使用数组格式配置，不允许使用通配符<code>*</code></li></ul><p>三、第三方bean管理<br>-</p><h1 id="3-1-使用-Bean配置第三方bean"><a href="#3-1-使用-Bean配置第三方bean" class="headerlink" title="3.1 使用@Bean配置第三方bean"></a>3.1 使用<code>@Bean</code>配置第三方bean</h1><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SpringConfig</span> </span>&#123;<br>  <span class="hljs-meta">@Bean</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> DataSource <span class="hljs-title">dataSource</span><span class="hljs-params">()</span> </span>&#123;<br>      ...<br>      <span class="hljs-keyword">return</span> ds;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><h1 id="3-2-将独立的配置类加入核心配置"><a href="#3-2-将独立的配置类加入核心配置" class="headerlink" title="3.2 将独立的配置类加入核心配置"></a>3.2 将独立的配置类加入核心配置</h1><ul><li>方式一：导入式<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JdbcConfig</span> </span>&#123;<br>  <span class="hljs-meta">@Bean</span><br>  <span class="hljs-keyword">public</span> DataSource...<br>&#125;<br></code></pre></td></tr></table></figure></li><li>使用<code>@Import</code>注解手动加入配置类到核心配置，此注解只能添加于此，多个数据使用数组格式<figure class="highlight less"><table><tr><td class="code"><pre><code class="hljs less"><span class="hljs-variable">@Configuration</span><br><span class="hljs-variable">@Import</span>(JdbcConfig.class)<br>public class SpringConfig &#123;&#125;<br></code></pre></td></tr></table></figure></li><li>方式二：扫描式<figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JdbcConfig</span> </span>&#123;<br>  <span class="hljs-meta">@Bean</span><br>  <span class="hljs-keyword">public</span> DataSource...<br>&#125;<br></code></pre></td></tr></table></figure></li><li>使用<code>@ComponentScan</code>注解扫描配置类所在的包，加载对应的配置类信息<figure class="highlight less"><table><tr><td class="code"><pre><code class="hljs less"><span class="hljs-variable">@Configuration</span><br><span class="hljs-variable">@ComponentScan</span>(&#123;<span class="hljs-string">&quot;xx.xx.xx&quot;</span>&#125;)<br>public class SpringConfig &#123;&#125;<br></code></pre></td></tr></table></figure></li></ul><h1 id="3-3-类型依赖注入"><a href="#3-3-类型依赖注入" class="headerlink" title="3.3 类型依赖注入"></a>3.3 类型依赖注入</h1><h2 id="3-3-1-简单类型依赖注入"><a href="#3-3-1-简单类型依赖注入" class="headerlink" title="3.3.1 简单类型依赖注入"></a>3.3.1 简单类型依赖注入</h2><figure class="highlight typescript"><table><tr><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JdbcConfig</span> </span>&#123;<br>  <span class="hljs-meta">@Value</span>(<span class="hljs-string">&quot;xxx.aaa.xxx.xxx&quot;</span>)<br>  <span class="hljs-keyword">private</span> <span class="hljs-built_in">String</span> driver;<br><br>  <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> DataSource <span class="hljs-function"><span class="hljs-title">dataSource</span>(<span class="hljs-params"></span>)</span> &#123;<br>      ...<br>      ds.setDriver(driver);<br>      <span class="hljs-keyword">return</span> ds;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><h2 id="3-3-2-引用类型依赖注入"><a href="#3-3-2-引用类型依赖注入" class="headerlink" title="3.3.2 引用类型依赖注入"></a>3.3.2 引用类型依赖注入</h2><figure class="highlight typescript"><table><tr><td class="code"><pre><code class="hljs typescript"><span class="hljs-meta">@Bean</span><br>  <span class="hljs-keyword">public</span> DataSource <span class="hljs-function"><span class="hljs-title">dataSource</span>(<span class="hljs-params">BookService bookService</span>)</span> &#123;<br>    ...<br>    ds.setDriver(driver);<br>    <span class="hljs-keyword">return</span> ds;<br>  &#125;<br></code></pre></td></tr></table></figure><ul><li>引用类型依赖注入只需要为bean定义方法设置型参即可，容器会根据类型自动装配对象。</li></ul><p>四、总结<br>-<br><img src="/img/Spring/12.png" alt="github"></p>]]></content>
-    
-    
-    <summary type="html">讨论Spring基础知识</summary>
-    
-    
-    
-    <category term="spring" scheme="http://example.com/categories/spring/"/>
-    
-    
-    <category term="spring" scheme="http://example.com/tags/spring/"/>
     
   </entry>
   
