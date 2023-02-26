@@ -1009,18 +1009,18 @@
         </a>
         
         <a  class="All 设计模式 "
-           href="/2023/02/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F8/"
-           data-tag="设计模式"
-           data-author="" >
-            <span class="post-title" title="设计模式- 组合">设计模式- 组合</span>
-            <span class="post-date" title="2023-02-06 19:46:00">2023/02/06</span>
-        </a>
-        
-        <a  class="All 设计模式 "
            href="/2023/02/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F7/"
            data-tag="设计模式"
            data-author="" >
             <span class="post-title" title="设计模式- 桥接">设计模式- 桥接</span>
+            <span class="post-date" title="2023-02-06 19:46:00">2023/02/06</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F8/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式- 组合">设计模式- 组合</span>
             <span class="post-date" title="2023-02-06 19:46:00">2023/02/06</span>
         </a>
         
@@ -2317,7 +2317,7 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2023-02-20 05:27:25'>2023-02-02 15:10</time>
+            Created At : <time class="date" title='Updated At: 2023-02-26 09:49:45'>2023-02-02 15:10</time>
         
     </div>
     <div class="article-meta">
@@ -2379,7 +2379,7 @@
 <li>生成器处理导向器的请求，并将部件添加到该产品中。</li>
 <li>客户从生成器中检索产品。</li>
 </ol>
-<p><img src="/img/DesignPatterns/2-1.png" alt="github"></p>
+<p><img src="/img/DesignPatterns/2_1.png" alt="github"></p>
 <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><ol>
 <li>它使你可以改变一个产品的内部表示Builder对象提供给导向器一个构造产品的抽象接口。该接口使得生成器可以隐藏这个产品的表示和内部结构。它同时也隐藏了该产品是如何装配的。</li>
 <li>它将构造代码和表示代码分开Builder模式通过封装一个复杂对象的创建和表示方式提高了对象的模块性。客户不需要知道定义产品内部结构的类的所有信息;这些类是不出现在Builder接口中的。每个ConcreteBuilder包含了创建和装配一个特定产品的所有代码。这些代码只需要写一次;然后不同的Director可以复用它以在相同部件集合的基础上构作不同的Product。</li>
