@@ -15,7 +15,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/img/DesignPatterns/00.png">
 <meta property="article:published_time" content="2023-02-18T15:04:05.000Z">
-<meta property="article:modified_time" content="2023-02-20T02:23:35.843Z">
+<meta property="article:modified_time" content="2023-02-20T05:33:52.796Z">
 <meta property="article:author" content="Yang">
 <meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
@@ -1009,18 +1009,18 @@
         </a>
         
         <a  class="All 设计模式 "
-           href="/2023/02/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F8/"
-           data-tag="设计模式"
-           data-author="" >
-            <span class="post-title" title="设计模式- 组合">设计模式- 组合</span>
-            <span class="post-date" title="2023-02-06 19:46:00">2023/02/06</span>
-        </a>
-        
-        <a  class="All 设计模式 "
            href="/2023/02/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F7/"
            data-tag="设计模式"
            data-author="" >
             <span class="post-title" title="设计模式- 桥接">设计模式- 桥接</span>
+            <span class="post-date" title="2023-02-06 19:46:00">2023/02/06</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F8/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式- 组合">设计模式- 组合</span>
             <span class="post-date" title="2023-02-06 19:46:00">2023/02/06</span>
         </a>
         
@@ -1044,7 +1044,7 @@
            href="/2023/02/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F3/"
            data-tag="设计模式"
            data-author="" >
-            <span class="post-title" title="设计模式-构建者">设计模式-构建者</span>
+            <span class="post-title" title="设计模式-构建者模式">设计模式-构建者模式</span>
             <span class="post-date" title="2023-02-02 15:10:25">2023/02/02</span>
         </a>
         
@@ -1052,7 +1052,7 @@
            href="/2023/01/31/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F2/"
            data-tag="设计模式"
            data-author="" >
-            <span class="post-title" title="设计模式-静态工厂">设计模式-静态工厂</span>
+            <span class="post-title" title="设计模式-抽象工厂">设计模式-抽象工厂</span>
             <span class="post-date" title="2023-01-31 15:55:25">2023/01/31</span>
         </a>
         
@@ -2317,7 +2317,7 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2023-01-31 14:43:07'>2023-01-28 08:02</time>
+            Created At : <time class="date" title='Updated At: 2023-02-20 02:50:13'>2023-01-28 08:02</time>
         
     </div>
     <div class="article-meta">
@@ -2350,7 +2350,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%82%E7%94%A8%E6%80%A7"><span class="toc-text">适用性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84"><span class="toc-text">结构</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%84%8F%E5%9B%BE"><span class="toc-text">意图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-text">例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%82%E7%94%A8%E6%80%A7"><span class="toc-text">适用性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84"><span class="toc-text">结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%8F%E4%BD%9C"><span class="toc-text">协作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%88%E6%9E%9C"><span class="toc-text">效果</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -2366,7 +2366,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>准备了动物的父类和基本的叫声<code>sing</code>和可以唱歌的方式<code>show</code>。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span> </span>&#123;<br>    <span class="hljs-keyword">protected</span> String sing;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Animal</span><span class="hljs-params">(String sing)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.sing = sing;<br>    &#125;<br>    <br>    <span class="hljs-comment">// 抽象方法，用于子类使用</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">show</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure></p>
+        <h2 id="意图"><a href="#意图" class="headerlink" title="意图"></a>意图</h2><p>定义一个用于创建对象的接口，让子类决定实例化哪一个类。 Factory Method使一个类的 实例化延迟到其子类。</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>准备了动物的父类和基本的叫声<code>sing</code>和可以唱歌的方式<code>show</code>。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span> </span>&#123;<br>    <span class="hljs-keyword">protected</span> String sing;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Animal</span><span class="hljs-params">(String sing)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.sing = sing;<br>    &#125;<br>    <br>    <span class="hljs-comment">// 抽象方法，用于子类使用</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">show</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure></p>
 <p>简单的小狗：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Dog</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Animal</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Dog</span><span class="hljs-params">(String sing)</span> </span>&#123;<br>        <span class="hljs-keyword">super</span>(sing);<br>    &#125;<br>    <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">show</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.pringln(<span class="hljs-string">&quot;dog：&quot;</span>+sing);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></p>
 <p>简单的小猫：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cat</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Animal</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Cat</span><span class="hljs-params">(String sing)</span> </span>&#123;<br>        <span class="hljs-keyword">super</span>(sing);<br>    &#125;<br>    <br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">show</span><span class="hljs-params">()</span> </span>&#123;<br>        System.out.pringln(<span class="hljs-string">&quot;cat：&quot;</span>+sing);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>当然了，甚至更多…</p>
 <p>这样我们可以尝试让他们出来活动一下:<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Garden</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] arg)</span> </span>&#123;<br>        Animal cat = <span class="hljs-keyword">new</span> Cat(<span class="hljs-string">&quot;miao~&quot;</span>);<br>        cat.show();<br>        <br>        Animal dog = <span class="hljs-keyword">new</span> Dog(<span class="hljs-string">&quot;wang!&quot;</span>);<br>        dog.show();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>很基础的功能，但是貌似很多重复的代码，当这个逻辑更复杂的时候，重复的代码只会更多。<br>现在来试试工厂开发：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SimpleFactory</span> </span>&#123;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Animal <span class="hljs-title">create</span><span class="hljs-params">(String type, String sing)</span> </span>&#123;<br>        Animal animal = <span class="hljs-keyword">null</span>;<br>        <span class="hljs-keyword">switch</span>(type) &#123;<br>            <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;Dog&quot;</span>:<br>                animal = <span class="hljs-keyword">new</span> Dog(sing);<br>                <span class="hljs-keyword">break</span>;<br>            <span class="hljs-keyword">case</span> <span class="hljs-string">&quot;Cat&quot;</span>:<br>                animal = <span class="hljs-keyword">new</span> Cat(sing);<br>                <span class="hljs-keyword">break</span>;<br>        &#125;<br>        <span class="hljs-keyword">return</span> animal;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>试用一下：<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Garden</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] arg)</span> </span>&#123;<br>        SimpleFactory factory = <span class="hljs-keyword">new</span> SimpleFactory();<br>        factory.create(<span class="hljs-string">&quot;Dog&quot;</span>).show();<br>        factory.create(<span class="hljs-string">&quot;Cat&quot;</span>).show();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure><br>此时这里是一个简单的逻辑优化，如果需要成为设计模式，需要抽象。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">interface</span> <span class="hljs-title">Factory</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> Animal <span class="hljs-title">create</span><span class="hljs-params">(String type, String sing)</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure><br>这就是抽象出来的工厂方法。可以让其他工厂来构建类似的功能。是代理者这一信息局部化的时候</p>
@@ -2376,6 +2377,8 @@
 <li>当类将创建对象的职责委托给多个帮助子类中的某一个，并且你希望将哪一个帮助子类</li>
 </ol>
 <h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><p><img src="/img/DesignPatterns/0.png" alt="github"></p>
+<h2 id="协作"><a href="#协作" class="headerlink" title="协作"></a>协作</h2><p>Creator依赖于它的子类来定义工厂方法，所以它返回一个适当的ConcreteProduct实例。</p>
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>工厂方法不再将与特定应用有关的类绑定到你的代码中。代码仅处理Product接 口 ; 因此它可以与用户定义的任何ConcreteProduct类一起使用 。<br>工厂方法的一个潜在缺点在于客户可能仅仅为了创建一个特定的ConcreteProduct对象， 就不得不创建Creator的子类。当Creator子类不必需时，客户现在必然要处理类演化的其他方面;但是当客户无论如何必须创建Creator的子类时，创建子类也是可行的 。</p>
 
       
        

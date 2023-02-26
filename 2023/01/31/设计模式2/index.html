@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>设计模式-静态工厂 | 杨小杨的博客</title>
+  <title>设计模式-抽象工厂 | 杨小杨的博客</title>
   <meta name="keywords" content=" 设计模式 ">
-  <meta name="description" content="设计模式-静态工厂 | 杨小杨的博客">
+  <meta name="description" content="设计模式-抽象工厂 | 杨小杨的博客">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="设计模式-目录">
 <meta property="og:type" content="article">
@@ -15,7 +15,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/img/DesignPatterns/00.png">
 <meta property="article:published_time" content="2023-02-18T15:04:05.000Z">
-<meta property="article:modified_time" content="2023-02-20T02:23:35.843Z">
+<meta property="article:modified_time" content="2023-02-20T05:33:52.796Z">
 <meta property="article:author" content="Yang">
 <meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
@@ -1009,18 +1009,18 @@
         </a>
         
         <a  class="All 设计模式 "
-           href="/2023/02/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F8/"
-           data-tag="设计模式"
-           data-author="" >
-            <span class="post-title" title="设计模式- 组合">设计模式- 组合</span>
-            <span class="post-date" title="2023-02-06 19:46:00">2023/02/06</span>
-        </a>
-        
-        <a  class="All 设计模式 "
            href="/2023/02/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F7/"
            data-tag="设计模式"
            data-author="" >
             <span class="post-title" title="设计模式- 桥接">设计模式- 桥接</span>
+            <span class="post-date" title="2023-02-06 19:46:00">2023/02/06</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F8/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式- 组合">设计模式- 组合</span>
             <span class="post-date" title="2023-02-06 19:46:00">2023/02/06</span>
         </a>
         
@@ -1044,7 +1044,7 @@
            href="/2023/02/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F3/"
            data-tag="设计模式"
            data-author="" >
-            <span class="post-title" title="设计模式-构建者">设计模式-构建者</span>
+            <span class="post-title" title="设计模式-构建者模式">设计模式-构建者模式</span>
             <span class="post-date" title="2023-02-02 15:10:25">2023/02/02</span>
         </a>
         
@@ -1052,7 +1052,7 @@
            href="/2023/01/31/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F2/"
            data-tag="设计模式"
            data-author="" >
-            <span class="post-title" title="设计模式-静态工厂">设计模式-静态工厂</span>
+            <span class="post-title" title="设计模式-抽象工厂">设计模式-抽象工厂</span>
             <span class="post-date" title="2023-01-31 15:55:25">2023/01/31</span>
         </a>
         
@@ -2292,7 +2292,7 @@
     <div class="pjax">
         <article id="post-设计模式2" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">设计模式-静态工厂</h1>
+        <h1 class="article-title">设计模式-抽象工厂</h1>
     
     <div class="article-meta">
         
@@ -2317,7 +2317,7 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2023-01-31 14:41:00'>2023-01-31 15:55</time>
+            Created At : <time class="date" title='Updated At: 2023-02-20 03:00:04'>2023-01-31 15:55</time>
         
     </div>
     <div class="article-meta">
@@ -2350,7 +2350,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%82%E7%94%A8%E6%80%A7"><span class="toc-text">适用性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84"><span class="toc-text">结构</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%84%8F%E5%9B%BE"><span class="toc-text">意图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-text">例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%82%E7%94%A8%E6%80%A7"><span class="toc-text">适用性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84"><span class="toc-text">结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%8F%E4%BD%9C"><span class="toc-text">协作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%88%E6%9E%9C"><span class="toc-text">效果</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -2366,8 +2366,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>工厂方法的变种。提供一个创建一系列相关或互相依赖对象的接口，而无需指定具体的类。</p>
-<p>针对动物，不同种类做具体创建。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span> </span>&#123;<br>    <span class="hljs-keyword">protected</span> String sing;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Animal</span><span class="hljs-params">(String sing)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.sing = sing;<br>    &#125;<br>    <br>    <span class="hljs-comment">// 抽象方法，用于子类使用</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">show</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure><br>那么我就就针对下面的动物进行创建</p>
+        <h2 id="意图"><a href="#意图" class="headerlink" title="意图"></a>意图</h2><p>工厂方法的变种。提供一个创建一系列相关或互相依赖对象的接口，而无需指定具体的类。</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>针对动物，不同种类做具体创建。<br><figure class="highlight java"><table><tr><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span> </span>&#123;<br>    <span class="hljs-keyword">protected</span> String sing;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Animal</span><span class="hljs-params">(String sing)</span> </span>&#123;<br>        <span class="hljs-keyword">this</span>.sing = sing;<br>    &#125;<br>    <br>    <span class="hljs-comment">// 抽象方法，用于子类使用</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">abstract</span> <span class="hljs-keyword">void</span> <span class="hljs-title">show</span><span class="hljs-params">()</span></span>;<br>&#125;<br></code></pre></td></tr></table></figure><br>那么我就就针对下面的动物进行创建</p>
 <ul>
 <li>陆地动物</li>
 <li>海洋动物</li>
@@ -2382,6 +2382,17 @@
 <li>当你提供一个产品类库，而只想显示他们的接口而不是实现时</li>
 </ol>
 <h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><p><img src="/img/DesignPatterns/1.png" alt="github"></p>
+<h2 id="协作"><a href="#协作" class="headerlink" title="协作"></a>协作</h2><ul>
+<li>通常在运行时刻创建一个ConcreteFactory类的实例。这一具体的工厂创建具有特定实现的产品对象。为创建不同的产品对象，客户应使用不同的具体工厂。</li>
+<li>AbstractFactory将产品对象的创建延迟到它的ConcreteFactory子类。</li>
+</ul>
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p>AbstractFactory模式有下面的一些优点和缺点:</p>
+<ol>
+<li>它分离了具体的类，AbstractFactory模式帮助你控制一个应用创建的对象的类。因为一个工厂封装创建产品对象的责任和过程，它将客户与类的实现分离。客户通过它们的抽象接口操纵实例。产品的类名也在具体工厂的实现中被分离;它们不出现在客户代码中。</li>
+<li>它使得易于交换产品系列一个具体工厂类在一个应用中仅出现一次—即在它初始化的时候。这使得改变一个应用的具体工厂变得很容易。它只需改变具体的工厂即可使用不同的产品配置，这是因为一个抽象工厂创建了一个完整的产品系列，所以整个产品系列会立刻改变。</li>
+<li>它有利于产品的一致性当一个系列中的产品对象被设计成一起工作时，一个应用一次只能使用同一个系列中的对象，这一点很重要。而AbstractFactory很容易实现这一点。</li>
+<li>难以支持新种类的产品难以扩展抽象工厂以生产新种类的产品。这是因为AbstractFactory接口确定了可以被创建的产品集合。支持新种类的产品就需要扩展该工厂接口，这将涉及AbstractFactory类及其所有子类的改变。我们会在实现一节讨论这个问题的一个解决办法。</li>
+</ol>
 
       
        

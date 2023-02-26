@@ -15,7 +15,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://example.com/img/DesignPatterns/00.png">
 <meta property="article:published_time" content="2023-02-18T15:04:05.000Z">
-<meta property="article:modified_time" content="2023-02-20T02:23:35.843Z">
+<meta property="article:modified_time" content="2023-02-20T05:33:52.796Z">
 <meta property="article:author" content="Yang">
 <meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
@@ -1009,18 +1009,18 @@
         </a>
         
         <a  class="All 设计模式 "
-           href="/2023/02/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F8/"
-           data-tag="设计模式"
-           data-author="" >
-            <span class="post-title" title="设计模式- 组合">设计模式- 组合</span>
-            <span class="post-date" title="2023-02-06 19:46:00">2023/02/06</span>
-        </a>
-        
-        <a  class="All 设计模式 "
            href="/2023/02/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F7/"
            data-tag="设计模式"
            data-author="" >
             <span class="post-title" title="设计模式- 桥接">设计模式- 桥接</span>
+            <span class="post-date" title="2023-02-06 19:46:00">2023/02/06</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F8/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式- 组合">设计模式- 组合</span>
             <span class="post-date" title="2023-02-06 19:46:00">2023/02/06</span>
         </a>
         
@@ -1044,7 +1044,7 @@
            href="/2023/02/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F3/"
            data-tag="设计模式"
            data-author="" >
-            <span class="post-title" title="设计模式-构建者">设计模式-构建者</span>
+            <span class="post-title" title="设计模式-构建者模式">设计模式-构建者模式</span>
             <span class="post-date" title="2023-02-02 15:10:25">2023/02/02</span>
         </a>
         
@@ -1052,7 +1052,7 @@
            href="/2023/01/31/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F2/"
            data-tag="设计模式"
            data-author="" >
-            <span class="post-title" title="设计模式-静态工厂">设计模式-静态工厂</span>
+            <span class="post-title" title="设计模式-抽象工厂">设计模式-抽象工厂</span>
             <span class="post-date" title="2023-01-31 15:55:25">2023/01/31</span>
         </a>
         
@@ -2317,7 +2317,7 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2023-02-02 13:10:05'>2023-02-02 18:00</time>
+            Created At : <time class="date" title='Updated At: 2023-02-20 05:51:03'>2023-02-02 18:00</time>
         
     </div>
     <div class="article-meta">
@@ -2350,7 +2350,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%82%E7%94%A8%E6%80%A7"><span class="toc-text">适用性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84"><span class="toc-text">结构</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%84%8F%E5%9B%BE"><span class="toc-text">意图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-text">例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%82%E7%94%A8%E6%80%A7"><span class="toc-text">适用性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84"><span class="toc-text">结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%8F%E4%BD%9C"><span class="toc-text">协作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%88%E6%9E%9C"><span class="toc-text">效果</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -2366,7 +2366,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>克隆（clone）非常适合这里的说明，复制一个类实例。</p>
+        <h2 id="意图"><a href="#意图" class="headerlink" title="意图"></a>意图</h2><p>用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>克隆（clone）非常适合这里的说明，复制一个类实例。</p>
 <p>但是这里涉及到了：浅拷贝和深拷贝。<br>他们在java中有原始类型和引用类型（这真对引用类型）。所谓浅拷贝只是拷贝对象的引用，而非里面这个对象里面的所有值；深拷贝则相反，并不知拷贝引用，而是新建一个引用并复制原始对象中的所有值。</p>
 <p><img src="/img/DesignPatterns/4.png" alt="github"></p>
 <h2 id="适用性"><a href="#适用性" class="headerlink" title="适用性"></a>适用性</h2><ol>
@@ -2377,6 +2378,14 @@
 </ol>
 <p>建立相应数目的原型并克隆他可能比每次用合适的手工实例更方便。</p>
 <h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><p><img src="/img/DesignPatterns/3.png" alt="github"></p>
+<h2 id="协作"><a href="#协作" class="headerlink" title="协作"></a>协作</h2><p>客户请求一个原型克隆自身。</p>
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><ol>
+<li>它对客户隐藏了具体的产品类，因此减少了客户知道的名字的数目。此外，这些模式使客户无需改变即可使用与特定应用相关的类。</li>
+<li>运行时刻增加和删除产品Prototype允许只通过客户注册原型实例就可以将一个新的具体产品类并入系统。它比其他创建型模式更为灵活，因为客户可以在运行时刻建立和删除原型。</li>
+<li>改变值以指定新对象高度动态的系统允许你通过对象复合定义新的行为-例如，通过为一个对象变量指定值—并且不定义新的类。你通过实例化已有类并且将这些实例注册 为客户对象的原型，就可以有效定义新类别的对象。客户可以将职责代理给原型，从而表现出新的行为。</li>
+<li>改变结构以指定新对象许多应用由部件和子部件来创建对象。例如电路设计编辑器就是由子电路来构造电路的。为方便起见，这样的应用通常允许你实例化复杂的、用户定义的结构，比方说，一次又一次的重复使用一个特定的子电路。</li>
+<li>用类动态配置应用一些运行时刻环境允许你动态将类装载到应用中。</li>
+</ol>
 
       
        
