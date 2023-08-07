@@ -6,30 +6,18 @@
   <meta name="keywords" content=" java ">
   <meta name="description" content="JavaNIO | 杨小杨的博客">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="GC学习">
+<meta name="description" content="Java中Unsafe">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GC学习">
-<meta property="og:url" content="http://example.com/2023/07/01/gc/index.html">
+<meta property="og:title" content="Java中Unsafe">
+<meta property="og:url" content="http://example.com/2023/08/05/UnSafe/index.html">
 <meta property="og:site_name" content="杨小杨的博客">
-<meta property="og:description" content="GC学习">
+<meta property="og:description" content="Java中Unsafe">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://example.com/img/Gc/0.png">
-<meta property="og:image" content="http://example.com/img/Gc/1.png">
-<meta property="og:image" content="http://example.com/img/Gc/2.png">
-<meta property="og:image" content="http://example.com/img/Gc/3.png">
-<meta property="og:image" content="http://example.com/img/Gc/4.png">
-<meta property="og:image" content="http://example.com/img/Gc/5.png">
-<meta property="og:image" content="http://example.com/img/Gc/6.png">
-<meta property="og:image" content="http://example.com/img/Gc/7.png">
-<meta property="og:image" content="http://example.com/img/Gc/8.png">
-<meta property="og:image" content="http://example.com/img/Gc/9.png">
-<meta property="og:image" content="http://example.com/img/Gc/10.png">
-<meta property="article:published_time" content="2023-07-01T23:02:35.000Z">
-<meta property="article:modified_time" content="2023-07-11T03:19:41.278Z">
+<meta property="article:published_time" content="2023-08-05T08:31:32.000Z">
+<meta property="article:modified_time" content="2023-08-07T09:06:32.758Z">
 <meta property="article:author" content="Yang">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/img/Gc/0.png">
 
 
 <link rel="icon" href="/img/header.png">
@@ -128,7 +116,7 @@
     <li>
         <div class="all active" data-rel="All">All
             
-                <small>(191)</small>
+                <small>(198)</small>
             
         </div>
     </li>
@@ -310,6 +298,20 @@
     
         
             
+                <li>
+                    <div data-rel="算法">
+                        
+                        算法
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
         
     
         
@@ -461,7 +463,7 @@
                     <div data-rel="java">
                         
                         java
-                        <small>(19)</small>
+                        <small>(25)</small>
                         
                     </div>
                     
@@ -657,7 +659,7 @@
         
     </div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="191">
+<input type="hidden" id="yelog_site_posts_number" value="198">
 
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
@@ -763,6 +765,10 @@
         
             <li class="article-tag-list-item">
                 <i class="iconfont icon-tag"></i><a>数据库</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>算法</a>
             </li>
         
             <li class="article-tag-list-item">
@@ -935,6 +941,62 @@
     </div>
     
     <nav id="title-list-nav">
+        
+        <a  class="All java "
+           href="/2023/08/05/UnSafe/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java中Unsafe">Java中Unsafe</span>
+            <span class="post-date" title="2023-08-05 08:31:32">2023/08/05</span>
+        </a>
+        
+        <a  class="All 算法 "
+           href="/2023/07/31/%E7%BA%A2%E9%BB%91%E6%A0%91/"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="红黑树">红黑树</span>
+            <span class="post-date" title="2023-07-31 20:11:01">2023/07/31</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2023/07/25/HashMap/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="HashMap">HashMap</span>
+            <span class="post-date" title="2023-07-25 22:31:46">2023/07/25</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2023/07/25/Java_JNI/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java中使用JNI构建环境">Java中使用JNI构建环境</span>
+            <span class="post-date" title="2023-07-25 19:22:35">2023/07/25</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2023/07/25/JNI_1/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JNI 一">JNI 一</span>
+            <span class="post-date" title="2023-07-25 12:00:01">2023/07/25</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2023/07/19/%E6%B3%9B%E5%9E%8B/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java 泛型 关于 ? extends super">Java 泛型 关于 ? extends super</span>
+            <span class="post-date" title="2023-07-19 20:14:22">2023/07/19</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2023/07/11/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="线程池">线程池</span>
+            <span class="post-date" title="2023-07-11 19:22:35">2023/07/11</span>
+        </a>
         
         <a  class="All java "
            href="/2023/07/01/gc/"
@@ -1161,18 +1223,18 @@
         </a>
         
         <a  class="All 设计模式 "
-           href="/2023/02/11/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F13/"
-           data-tag="设计模式"
-           data-author="" >
-            <span class="post-title" title="设计模式-职责链">设计模式-职责链</span>
-            <span class="post-date" title="2023-02-11 07:43:01">2023/02/11</span>
-        </a>
-        
-        <a  class="All 设计模式 "
            href="/2023/02/11/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F12/"
            data-tag="设计模式"
            data-author="" >
             <span class="post-title" title="设计模式-代理">设计模式-代理</span>
+            <span class="post-date" title="2023-02-11 07:43:01">2023/02/11</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/11/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F13/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-职责链">设计模式-职责链</span>
             <span class="post-date" title="2023-02-11 07:43:01">2023/02/11</span>
         </a>
         

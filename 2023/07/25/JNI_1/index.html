@@ -1,0 +1,3349 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>JNI 一 | 杨小杨的博客</title>
+  <meta name="keywords" content=" java ">
+  <meta name="description" content="JNI 一 | 杨小杨的博客">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="Java中Unsafe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java中Unsafe">
+<meta property="og:url" content="http://example.com/2023/08/05/UnSafe/index.html">
+<meta property="og:site_name" content="杨小杨的博客">
+<meta property="og:description" content="Java中Unsafe">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-08-05T08:31:32.000Z">
+<meta property="article:modified_time" content="2023-08-07T09:06:32.758Z">
+<meta property="article:author" content="Yang">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="icon" href="/img/header.png">
+
+<link href="/css/style.css?v=1.1.0" rel="stylesheet">
+
+<link href="/css/hl_theme/atom-light.css?v=1.1.0" rel="stylesheet">
+
+<link href="//cdn.jsdelivr.net/npm/animate.css@4.1.0/animate.min.css" rel="stylesheet">
+
+<script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+<script src="/js/titleTip.js?v=1.1.0" ></script>
+
+<script src="//cdn.jsdelivr.net/npm/highlightjs@9.16.2/highlight.pack.min.js"></script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+
+<script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js"></script>
+
+
+
+<script src="//cdn.jsdelivr.net/npm/jquery.cookie@1.4.1/jquery.cookie.min.js" ></script>
+
+<script src="/js/iconfont.js?v=1.1.0" ></script>
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="杨小杨的博客" type="application/atom+xml">
+</head>
+<div style="display: none">
+  <input class="theme_disqus_on" value="false">
+  <input class="theme_preload_comment" value="">
+  <input class="theme_blog_path" value="">
+  <input id="theme_shortcut" value="true" />
+  <input id="theme_highlight_on" value="true" />
+  <input id="theme_code_copy" value="true" />
+</div>
+
+
+
+<body>
+<aside class="nav">
+    <div class="nav-left">
+        <a href="/"
+   class="avatar_target">
+    <img class="avatar"
+         src="/img/header.png"/>
+</a>
+<div class="author">
+    <span>Yang</span>
+</div>
+
+<div class="icon">
+    
+        
+            <a title="github"
+               href="https://github.com/Yangandmore"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-github"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="email"
+               href="mailto:635408602@qq.com"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-email"></use>
+                    </svg>
+                
+            </a>
+        
+    
+        
+            <a title="qq"
+               href="http://wpa.qq.com/msgrd?v=3&uin=635408602&site=qq&menu=yes"
+               target="_blank">
+                
+                    <svg class="iconfont-svg" aria-hidden="true">
+                        <use xlink:href="#icon-qq"></use>
+                    </svg>
+                
+            </a>
+        
+    
+</div>
+
+
+
+
+<ul>
+    <li>
+        <div class="all active" data-rel="All">All
+            
+                <small>(198)</small>
+            
+        </div>
+    </li>
+    
+        
+            
+                <li>
+                    <div data-rel="数据库">
+                        
+                        数据库
+                        <small>(4)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="包管理">
+                        
+                        包管理
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="编译的库">
+                        
+                        编译的库
+                        <small>(5)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="分布式事务">
+                        
+                        分布式事务
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="分布式搜索">
+                        
+                        分布式搜索
+                        <small>(5)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="后台">
+                        
+                        后台
+                        <small>(3)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="机器学习">
+                        
+                        机器学习
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="快捷键">
+                        
+                        快捷键
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="流程引擎">
+                        
+                        流程引擎
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="设计模式">
+                        
+                        设计模式
+                        <small>(27)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="数据结构">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        数据结构
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="数据结构<--->算法分析">
+                                        
+                                        算法分析
+                                        
+                                            <small>(2
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="算法">
+                        
+                        算法
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="相机">
+                        
+                        相机
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="异常问题">
+                        
+                        异常问题
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="音视频">
+                        
+                        音视频
+                        <small>(13)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="整洁代码">
+                        
+                        整洁代码
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="正则表达式">
+                        
+                        正则表达式
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Android">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        Android
+                        <small>(17)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="Android<--->热更新">
+                                        
+                                        热更新
+                                        
+                                            <small>(2
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="C/C++">
+                        
+                        C/C++
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="git">
+                        
+                        git
+                        <small>(3)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Gradle">
+                        
+                        Gradle
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="java">
+                        
+                        java
+                        <small>(25)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="JavaScript">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        JavaScript
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="JavaScript<--->npm">
+                                        
+                                        npm
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="jvm">
+                        
+                        jvm
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="nginx">
+                        
+                        nginx
+                        <small>(1)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+        
+    
+        
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="ReactNative">
+                        
+                        ReactNative
+                        <small>(10)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="Redis">
+                        
+                        Redis
+                        <small>(4)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="rust">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        rust
+                        <small>(46)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="rust<--->p2p">
+                                        
+                                        p2p
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="spring">
+                        <i class="fold iconfont icon-right"></i>
+                        
+                        spring
+                        <small>(9)</small>
+                        
+                    </div>
+                    
+                        <ul class="sub hide">
+                            
+                                <li>
+                                    <div data-rel="spring<--->java">
+                                        
+                                        java
+                                        
+                                            <small>(1
+                                                )</small>
+                                        
+                                    </div>
+                                    
+                                </li>
+                            
+                        </ul>
+                    
+                </li>
+            
+        
+    
+        
+            
+                <li>
+                    <div data-rel="ssr">
+                        
+                        ssr
+                        <small>(2)</small>
+                        
+                    </div>
+                    
+                </li>
+            
+        
+    
+</ul>
+<div class="left-bottom">
+    <div class="menus">
+        
+            
+            
+            
+    </div>
+    <div>
+        
+        
+    </div>
+</div>
+<input type="hidden" id="yelog_site_posts_number" value="198">
+
+<div style="display: none">
+    <span id="busuanzi_value_site_uv"></span>
+    <span id="busuanzi_value_site_pv"></span>
+</div>
+
+    </div>
+    <div class="nav-right">
+        <div class="friends-area">
+    <div class="friends-title">
+        Links
+        <i class="iconfont icon-left"></i>
+    </div>
+    <div class="friends-content">
+        <ul>
+            
+        </ul>
+    </div>
+</div>
+        <div class="title-list">
+    <div class="right-top">
+        <div id="default-panel">
+            <i class="iconfont icon-search" data-title="搜索 快捷键 i"></i>
+            <div class="right-title">All</div>
+            <i class="iconfont icon-file-tree" data-title="切换到大纲视图 快捷键 w"></i>
+        </div>
+        <div id="search-panel">
+            <i class="iconfont icon-left" data-title="返回"></i>
+            <input id="local-search-input" autocomplete="off"/>
+            <label class="border-line" for="input"></label>
+            <i class="iconfont icon-case-sensitive" data-title="大小写敏感"></i>
+            <i class="iconfont icon-tag" data-title="标签"></i>
+        </div>
+        <div id="outline-panel" style="display: none">
+            <div class="right-title">大纲</div>
+            <i class="iconfont icon-list" data-title="切换到文章列表"></i>
+        </div>
+    </div>
+
+    <div class="tags-list">
+    <input id="tag-search" />
+    <div class="tag-wrapper">
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>包管理</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>贝塞尔曲线</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>分布式事务</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>分布式搜索</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>构建工具</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>后台</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>汇编</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>机器学习</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>跨域</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>快捷键</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>流程引擎</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>热更新</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>设计模式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>视频格式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>数据结构与算法分析</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>数据库</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>算法</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>图片格式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>相机</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>异步</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>异常问题</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>音频</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>音视频</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>整洁代码</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>正则表达式</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>直播</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>android</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Android</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>C</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>camera</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Cpp</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>es</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ffmpeg</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>git</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Gradle</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>java</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>javaScript</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>jvm</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libfaac</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libjpeg-turbo</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libx264</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>libyuv</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Linux</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>NDK</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>nginx</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>react</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>React</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ReactNative</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>Redis</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>RTMP</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>rust</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>seate</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>spring</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>springboot</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>SQL</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>srs</a>
+            </li>
+        
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>ssr</a>
+            </li>
+        
+    </div>
+
+</div>
+
+    
+    <div id="local-search-result">
+
+    </div>
+    
+    <nav id="title-list-nav">
+        
+        <a  class="All java "
+           href="/2023/08/05/UnSafe/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java中Unsafe">Java中Unsafe</span>
+            <span class="post-date" title="2023-08-05 08:31:32">2023/08/05</span>
+        </a>
+        
+        <a  class="All 算法 "
+           href="/2023/07/31/%E7%BA%A2%E9%BB%91%E6%A0%91/"
+           data-tag="算法"
+           data-author="" >
+            <span class="post-title" title="红黑树">红黑树</span>
+            <span class="post-date" title="2023-07-31 20:11:01">2023/07/31</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2023/07/25/HashMap/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="HashMap">HashMap</span>
+            <span class="post-date" title="2023-07-25 22:31:46">2023/07/25</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2023/07/25/Java_JNI/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java中使用JNI构建环境">Java中使用JNI构建环境</span>
+            <span class="post-date" title="2023-07-25 19:22:35">2023/07/25</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2023/07/25/JNI_1/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JNI 一">JNI 一</span>
+            <span class="post-date" title="2023-07-25 12:00:01">2023/07/25</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2023/07/19/%E6%B3%9B%E5%9E%8B/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java 泛型 关于 ? extends super">Java 泛型 关于 ? extends super</span>
+            <span class="post-date" title="2023-07-19 20:14:22">2023/07/19</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2023/07/11/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="线程池">线程池</span>
+            <span class="post-date" title="2023-07-11 19:22:35">2023/07/11</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2023/07/01/gc/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="GC学习">GC学习</span>
+            <span class="post-date" title="2023-07-01 23:02:35">2023/07/01</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2023/06/19/jvm/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="jvm学习">jvm学习</span>
+            <span class="post-date" title="2023-06-19 09:22:35">2023/06/19</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2023/06/09/lambada/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="lambda表达式">lambda表达式</span>
+            <span class="post-date" title="2023-06-09 09:22:35">2023/06/09</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2023/06/09/javaStream/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java Stream管道数据处理操作">Java Stream管道数据处理操作</span>
+            <span class="post-date" title="2023-06-09 09:22:35">2023/06/09</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2023/06/01/%E5%85%A8%E5%B1%80id/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="全局ID">全局ID</span>
+            <span class="post-date" title="2023-06-01 09:02:25">2023/06/01</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2023/05/23/JVM%E5%B7%A5%E5%85%B7/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JVM-工具">JVM-工具</span>
+            <span class="post-date" title="2023-05-23 08:02:25">2023/05/23</span>
+        </a>
+        
+        <a  class="All 相机 "
+           href="/2023/04/24/%E7%9B%B8%E6%9C%BA%E5%AD%A6%E4%B9%A02/"
+           data-tag="相机"
+           data-author="" >
+            <span class="post-title" title="相机学习2-我的富士学习">相机学习2-我的富士学习</span>
+            <span class="post-date" title="2023-04-24 18:02:25">2023/04/24</span>
+        </a>
+        
+        <a  class="All 相机 "
+           href="/2023/04/09/%E7%9B%B8%E6%9C%BA%E5%AD%A6%E4%B9%A01/"
+           data-tag="相机"
+           data-author="" >
+            <span class="post-title" title="相机学习1-基础部分">相机学习1-基础部分</span>
+            <span class="post-date" title="2023-04-09 08:59:25">2023/04/09</span>
+        </a>
+        
+        <a  class="All nginx "
+           href="/2023/03/15/NginxProxyManager%E5%A2%9E%E5%8A%A0ssl/"
+           data-tag="nginx"
+           data-author="" >
+            <span class="post-title" title="NginxProxyManager增加ssl">NginxProxyManager增加ssl</span>
+            <span class="post-date" title="2023-03-15 23:24:22">2023/03/15</span>
+        </a>
+        
+        <a  class="All jvm "
+           href="/2023/03/15/JVM_SafePoint/"
+           data-tag="jvm"
+           data-author="" >
+            <span class="post-title" title="JVM—SafePoint">JVM—SafePoint</span>
+            <span class="post-date" title="2023-03-15 23:24:22">2023/03/15</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2023/03/15/java%E5%AD%97%E8%8A%82%E7%A0%81%E6%8C%87%E4%BB%A4%E5%A4%A7%E5%85%A8/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java字节码指令大全">Java字节码指令大全</span>
+            <span class="post-date" title="2023-03-15 23:24:22">2023/03/15</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2023/03/15/java%E9%94%81/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java锁">Java锁</span>
+            <span class="post-date" title="2023-03-15 23:24:22">2023/03/15</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2023/03/15/java%E4%B8%AD%E7%9A%84CAS/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="java中的CAS操作">java中的CAS操作</span>
+            <span class="post-date" title="2023-03-15 22:01:12">2023/03/15</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/03/13/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F26/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-行为型模式的讨论">设计模式-行为型模式的讨论</span>
+            <span class="post-date" title="2023-03-13 22:14:00">2023/03/13</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/27/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F24/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-结构型模式的讨论">设计模式-结构型模式的讨论</span>
+            <span class="post-date" title="2023-02-27 07:43:01">2023/02/27</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/25/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F25/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-创建型模式的讨论">设计模式-创建型模式的讨论</span>
+            <span class="post-date" title="2023-02-25 17:01:24">2023/02/25</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/18/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F0/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-目录">设计模式-目录</span>
+            <span class="post-date" title="2023-02-18 15:04:05">2023/02/18</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/17/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F22/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-模版模式">设计模式-模版模式</span>
+            <span class="post-date" title="2023-02-17 15:13:59">2023/02/17</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/17/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F21/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-策略模式">设计模式-策略模式</span>
+            <span class="post-date" title="2023-02-17 15:13:59">2023/02/17</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/17/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F23/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-访问者模式">设计模式-访问者模式</span>
+            <span class="post-date" title="2023-02-17 15:13:59">2023/02/17</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2023/02/15/spire%E5%8C%85%E5%A4%84%E7%90%86%E6%96%87%E6%A1%A3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="使用Spire包处理文档">使用Spire包处理文档</span>
+            <span class="post-date" title="2023-02-15 16:54:16">2023/02/15</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/15/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F20/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-状态模式">设计模式-状态模式</span>
+            <span class="post-date" title="2023-02-15 16:54:16">2023/02/15</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F17/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-中介者">设计模式-中介者</span>
+            <span class="post-date" title="2023-02-14 10:50:00">2023/02/14</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F18/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-备忘录">设计模式-备忘录</span>
+            <span class="post-date" title="2023-02-14 10:50:00">2023/02/14</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F19/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-观察者">设计模式-观察者</span>
+            <span class="post-date" title="2023-02-14 10:50:00">2023/02/14</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/12/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F15/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-解释器">设计模式-解释器</span>
+            <span class="post-date" title="2023-02-12 20:34:01">2023/02/12</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/12/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F16/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-迭代器">设计模式-迭代器</span>
+            <span class="post-date" title="2023-02-12 20:34:01">2023/02/12</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/11/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F14/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-命令">设计模式-命令</span>
+            <span class="post-date" title="2023-02-11 13:12:56">2023/02/11</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/11/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F12/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-代理">设计模式-代理</span>
+            <span class="post-date" title="2023-02-11 07:43:01">2023/02/11</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/11/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F13/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-职责链">设计模式-职责链</span>
+            <span class="post-date" title="2023-02-11 07:43:01">2023/02/11</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/10/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F11/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-享元">设计模式-享元</span>
+            <span class="post-date" title="2023-02-10 23:12:38">2023/02/10</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F10/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-外观">设计模式-外观</span>
+            <span class="post-date" title="2023-02-08 19:59:30">2023/02/08</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/07/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F9/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-装饰">设计模式-装饰</span>
+            <span class="post-date" title="2023-02-07 18:47:30">2023/02/07</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F8/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式- 组合">设计模式- 组合</span>
+            <span class="post-date" title="2023-02-06 19:46:00">2023/02/06</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/06/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F7/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式- 桥接">设计模式- 桥接</span>
+            <span class="post-date" title="2023-02-06 19:46:00">2023/02/06</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F4/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-原型">设计模式-原型</span>
+            <span class="post-date" title="2023-02-02 18:00:35">2023/02/02</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F5/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-单例">设计模式-单例</span>
+            <span class="post-date" title="2023-02-02 18:00:35">2023/02/02</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F3/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-构建者模式">设计模式-构建者模式</span>
+            <span class="post-date" title="2023-02-02 15:10:25">2023/02/02</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/01/31/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F2/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-抽象工厂">设计模式-抽象工厂</span>
+            <span class="post-date" title="2023-01-31 15:55:25">2023/01/31</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/01/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F6/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-适配器">设计模式-适配器</span>
+            <span class="post-date" title="2023-01-28 23:30:00">2023/01/28</span>
+        </a>
+        
+        <a  class="All 快捷键 "
+           href="/2023/01/28/idea%E5%BF%AB%E6%8D%B7%E9%94%AE/"
+           data-tag="快捷键"
+           data-author="" >
+            <span class="post-title" title="idea快捷键(mac)-持续更新">idea快捷键(mac)-持续更新</span>
+            <span class="post-date" title="2023-01-28 08:02:25">2023/01/28</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/01/28/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F1/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-工厂方法">设计模式-工厂方法</span>
+            <span class="post-date" title="2023-01-28 08:02:25">2023/01/28</span>
+        </a>
+        
+        <a  class="All 整洁代码 "
+           href="/2023/01/28/%E9%87%8D%E6%9E%84%E4%BB%A3%E7%A0%811/"
+           data-tag="整洁代码"
+           data-author="" >
+            <span class="post-title" title="观看Clean Code(整洁代码)记录-1">观看Clean Code(整洁代码)记录-1</span>
+            <span class="post-date" title="2023-01-28 08:02:25">2023/01/28</span>
+        </a>
+        
+        <a  class="All 异常问题 "
+           href="/2022/09/27/eclipse-mac-err/"
+           data-tag="异常问题"
+           data-author="" >
+            <span class="post-title" title="eclipse-mac-err">eclipse-mac-err</span>
+            <span class="post-date" title="2022-09-27 22:24:54">2022/09/27</span>
+        </a>
+        
+        <a  class="All 流程引擎 "
+           href="/2022/09/16/activiti7/"
+           data-tag="流程引擎"
+           data-author="" >
+            <span class="post-title" title="流程引擎-activiti7">流程引擎-activiti7</span>
+            <span class="post-date" title="2022-09-16 10:01:11">2022/09/16</span>
+        </a>
+        
+        <a  class="All 分布式事务 "
+           href="/2022/09/04/seate/"
+           data-tag="seate,分布式事务"
+           data-author="" >
+            <span class="post-title" title="配置seate">配置seate</span>
+            <span class="post-date" title="2022-09-04 19:11:24">2022/09/04</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/09/01/es-java/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="es在java环境中使用">es在java环境中使用</span>
+            <span class="post-date" title="2022-09-01 22:11:48">2022/09/01</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/09/01/es-ik/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="es配置ik分词器及热更新">es配置ik分词器及热更新</span>
+            <span class="post-date" title="2022-09-01 16:38:27">2022/09/01</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/06/es-7-change-password/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="es修改密码">es修改密码</span>
+            <span class="post-date" title="2022-08-06 23:37:16">2022/08/06</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/06/es-linux/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="elk在linux上简单安装">elk在linux上简单安装</span>
+            <span class="post-date" title="2022-08-06 21:02:25">2022/08/06</span>
+        </a>
+        
+        <a  class="All 分布式搜索 "
+           href="/2022/08/02/ELK/"
+           data-tag="es,分布式搜索"
+           data-author="" >
+            <span class="post-title" title="ELK学习">ELK学习</span>
+            <span class="post-date" title="2022-08-02 15:13:44">2022/08/02</span>
+        </a>
+        
+        <a  class="All 包管理 "
+           href="/2022/07/29/chocolatey/"
+           data-tag="包管理"
+           data-author="" >
+            <span class="post-title" title="chocolatey">chocolatey</span>
+            <span class="post-date" title="2022-07-29 16:56:39">2022/07/29</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/28/Spring-%E5%9F%BA%E7%A1%805/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础5">Spring-基础5</span>
+            <span class="post-date" title="2022-07-28 21:11:57">2022/07/28</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/28/Spring-%E5%9F%BA%E7%A1%804/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(四)">Spring-基础(四)</span>
+            <span class="post-date" title="2022-07-28 15:50:59">2022/07/28</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-%E5%9F%BA%E7%A1%803/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(三)">Spring-基础(三)</span>
+            <span class="post-date" title="2022-07-25 21:51:47">2022/07/25</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-%E5%9F%BA%E7%A1%802/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(二)">Spring-基础(二)</span>
+            <span class="post-date" title="2022-07-25 10:26:06">2022/07/25</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2022/07/25/Spring-%E5%9F%BA%E7%A1%801/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring-基础(一)">Spring-基础(一)</span>
+            <span class="post-date" title="2022-07-25 09:58:25">2022/07/25</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/07/17/P2P/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="P2P">P2P</span>
+            <span class="post-date" title="2022-07-17 10:46:24">2022/07/17</span>
+        </a>
+        
+        <a  class="All rust p2p "
+           href="/2022/07/16/Rust-libp2p/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-libp2p">Rust-libp2p</span>
+            <span class="post-date" title="2022-07-16 14:04:11">2022/07/16</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/07/06/%E5%8C%BA%E5%9D%97%E9%93%BE-%E8%AE%B0%E8%B4%A6%E6%A8%A1%E5%BC%8F/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="区块链-记账模式">区块链-记账模式</span>
+            <span class="post-date" title="2022-07-06 21:48:04">2022/07/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/06/26/Summer-boot%E4%B8%80%E6%9C%9F%E5%AE%8F%E9%83%A8%E5%88%86%E6%9E%84%E6%80%9D%E5%8F%8A%E5%AE%9E%E7%8E%B0/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Summer-boot一期宏部分构思及实现">Summer-boot一期宏部分构思及实现</span>
+            <span class="post-date" title="2022-06-26 10:12:27">2022/06/26</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2022/06/16/Git-fork%E9%A1%B9%E7%9B%AE%E6%9B%B4%E6%96%B0/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git-fork项目更新">Git-fork项目更新</span>
+            <span class="post-date" title="2022-06-16 15:11:56">2022/06/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/06/12/Rust-%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-编码规范">Rust-编码规范</span>
+            <span class="post-date" title="2022-06-12 09:05:33">2022/06/12</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2022/05/29/MySql-Some%E7%AD%89%E6%8C%87%E4%BB%A4/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="MySql_Some、Any、All的用法">MySql_Some、Any、All的用法</span>
+            <span class="post-date" title="2022-05-29 10:07:14">2022/05/29</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/12/Redis-%E8%81%9A%E5%90%88%E6%93%8D%E4%BD%9C/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-聚合操作">Redis-聚合操作</span>
+            <span class="post-date" title="2022-05-12 14:34:47">2022/05/12</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/11/Redis-%E5%88%87%E7%89%87%E9%9B%86%E7%BE%A4%E9%85%8D%E7%BD%AE/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-切片集群配置">Redis-切片集群配置</span>
+            <span class="post-date" title="2022-05-11 15:45:38">2022/05/11</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/10/Redis-%E5%93%A8%E5%85%B5%E6%9C%BA%E5%88%B6%E9%85%8D%E7%BD%AE/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-哨兵机制配置">Redis-哨兵机制配置</span>
+            <span class="post-date" title="2022-05-10 17:02:25">2022/05/10</span>
+        </a>
+        
+        <a  class="All Redis "
+           href="/2022/05/10/Redis-%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%85%B3/"
+           data-tag="Redis"
+           data-author="" >
+            <span class="post-title" title="Redis-开启远程访问">Redis-开启远程访问</span>
+            <span class="post-date" title="2022-05-10 14:24:32">2022/05/10</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/05/06/Rust-%E5%B1%9E%E6%80%A7/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-属性">Rust-属性</span>
+            <span class="post-date" title="2022-05-06 10:08:24">2022/05/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/20/Rust-build/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust编译过程图">Rust编译过程图</span>
+            <span class="post-date" title="2022-04-20 14:54:46">2022/04/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/08/Rust-Atomic/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-Atomic">Rust-Atomic</span>
+            <span class="post-date" title="2022-04-08 09:55:50">2022/04/08</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/06/Rust-%E6%AD%BB%E7%81%B5%E6%9C%AF3/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵术3">Rust-死灵术3</span>
+            <span class="post-date" title="2022-04-06 20:48:19">2022/04/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/06/Rust-%E6%AD%BB%E7%81%B5%E6%9C%AF2/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵术2">Rust-死灵术2</span>
+            <span class="post-date" title="2022-04-06 14:54:22">2022/04/06</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/02/Rust-AnyTrait/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-AnyTrait">Rust-AnyTrait</span>
+            <span class="post-date" title="2022-04-02 14:25:05">2022/04/02</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/02/Rust-Cow%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-Cow智能指针">Rust-Cow智能指针</span>
+            <span class="post-date" title="2022-04-02 10:16:00">2022/04/02</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/04/01/Rust-%E6%AD%BB%E7%81%B5%E6%9C%AF/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-死灵书（一）">Rust-死灵书（一）</span>
+            <span class="post-date" title="2022-04-01 16:42:36">2022/04/01</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/03/09/Rust-%E5%8F%82%E8%80%83%E6%89%8B%E5%86%8C/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-参考手册">Rust-参考手册</span>
+            <span class="post-date" title="2022-03-09 10:15:21">2022/03/09</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/03/08/Rust-%E5%AE%8F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-小宏书(声明宏)">Rust-高级-小宏书(声明宏)</span>
+            <span class="post-date" title="2022-03-08 20:22:51">2022/03/08</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2022/03/03/Android%E9%9B%86%E6%88%90Rust/"
+           data-tag="Android,rust"
+           data-author="" >
+            <span class="post-title" title="Android集成Rust">Android集成Rust</span>
+            <span class="post-date" title="2022-03-03 10:56:49">2022/03/03</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/02/08/Rust-%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-类型转换-From &amp; Into">Rust-类型转换-From &amp; Into</span>
+            <span class="post-date" title="2022-02-08 16:53:33">2022/02/08</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/16/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bbitflags/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之bitflags">Rust-高级-Crate之bitflags</span>
+            <span class="post-date" title="2022-01-16 22:36:28">2022/01/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Brayon/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之rayon">Rust-高级-Crate之rayon</span>
+            <span class="post-date" title="2022-01-12 21:55:30">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Blazy-static/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之lazy_static">Rust-高级-Crate之lazy_static</span>
+            <span class="post-date" title="2022-01-12 21:50:32">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8BWalkdir/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之Walkdir">Rust-高级-Crate之Walkdir</span>
+            <span class="post-date" title="2022-01-12 21:50:15">2022/01/12</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bthreadpool/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之threadpool">Rust-高级-Crate之threadpool</span>
+            <span class="post-date" title="2022-01-12 21:49:50">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Berror-chain/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之error_chain">Rust-高级-Crate之error_chain</span>
+            <span class="post-date" title="2022-01-12 21:49:39">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bcrossbeam/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之crossbeam">Rust-高级-Crate之crossbeam</span>
+            <span class="post-date" title="2022-01-12 21:16:24">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/12/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Btar/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之tar">Rust-高级-Crate之tar</span>
+            <span class="post-date" title="2022-01-12 10:29:50">2022/01/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/11/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Brand/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之rand">Rust-高级-Crate之rand</span>
+            <span class="post-date" title="2022-01-11 14:52:45">2022/01/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/09/Rust-%E9%AB%98%E7%BA%A7-Crate%E4%B9%8Bserde/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-Crate之serde">Rust-高级-Crate之serde</span>
+            <span class="post-date" title="2022-01-09 21:10:52">2022/01/09</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/09/Rust%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8%E4%B8%8E%E5%80%9F%E7%94%A8/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust中的引用与借用">Rust中的引用与借用</span>
+            <span class="post-date" title="2022-01-09 19:03:47">2022/01/09</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/09/graphQL/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="graphQL">graphQL</span>
+            <span class="post-date" title="2022-01-09 17:02:35">2022/01/09</span>
+        </a>
+        
+        <a  class="All "
+           href="/2022/01/05/Rust-%E9%AB%98%E7%BA%A7-%E6%9C%8D%E5%8A%A1%E4%B9%8BActix/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="Rust-高级-服务之Actix">Rust-高级-服务之Actix</span>
+            <span class="post-date" title="2022-01-05 21:13:56">2022/01/05</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2022/01/05/Rust-%E9%AB%98%E7%BA%A7-%E5%BC%82%E6%AD%A5%E4%B9%8Bfutures/"
+           data-tag="rust,异步"
+           data-author="" >
+            <span class="post-title" title="Rust-高级-异步之futures">Rust-高级-异步之futures</span>
+            <span class="post-date" title="2022-01-05 21:13:38">2022/01/05</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/30/Rust-%E6%9C%80%E5%90%8E%E7%9A%84%E9%A1%B9%E7%9B%AE/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-最后的项目">Rust-最后的项目</span>
+            <span class="post-date" title="2021-12-30 14:46:33">2021/12/30</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/21/Rust-%E9%AB%98%E7%BA%A7%E7%89%B9%E5%BE%81/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-高级特征">Rust-高级特征</span>
+            <span class="post-date" title="2021-12-21 22:22:15">2021/12/21</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-%E6%A8%A1%E5%BC%8F%E7%94%A8%E6%9D%A5%E5%8C%B9%E9%85%8D%E5%80%BC%E7%9A%84%E7%BB%93%E6%9E%84/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-模式与模式匹配">Rust-模式与模式匹配</span>
+            <span class="post-date" title="2021-12-20 20:53:44">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-面向对象">Rust-面向对象</span>
+            <span class="post-date" title="2021-12-20 15:15:04">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/20/Rust-%E6%97%A0%E7%95%8F%E5%B9%B6%E5%8F%91/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-无畏并发">Rust-无畏并发</span>
+            <span class="post-date" title="2021-12-20 09:44:35">2021/12/20</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/19/Rust-%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-智能指针">Rust-智能指针</span>
+            <span class="post-date" title="2021-12-19 10:23:23">2021/12/19</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/16/Rust-CargoAndCratesIO/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-CargoAndCratesIO">Rust-CargoAndCratesIO</span>
+            <span class="post-date" title="2021-12-16 22:52:05">2021/12/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/16/Rust-%E5%87%BD%E6%95%B0%E5%BC%8F%E8%AF%AD%E8%A8%80%E5%8A%9F%E8%83%BD-%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E9%97%AD%E5%8C%85/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-函数式语言功能:迭代器与闭包">Rust-函数式语言功能:迭代器与闭包</span>
+            <span class="post-date" title="2021-12-16 16:08:22">2021/12/16</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/15/Rust-%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%A8%8B%E5%BA%8F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-IO">Rust-IO</span>
+            <span class="post-date" title="2021-12-15 17:07:26">2021/12/15</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/15/Rust-%E6%B5%8B%E8%AF%95/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-测试">Rust-测试</span>
+            <span class="post-date" title="2021-12-15 14:08:29">2021/12/15</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/14/Rust-%E6%B3%9B%E5%9E%8B%E3%80%81trait%E5%92%8C%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-泛型、trait和生命周期">Rust-泛型、trait和生命周期</span>
+            <span class="post-date" title="2021-12-14 20:57:17">2021/12/14</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/14/Rust-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-错误处理">Rust-错误处理</span>
+            <span class="post-date" title="2021-12-14 10:48:51">2021/12/14</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-%E5%B8%B8%E8%A7%81%E9%9B%86%E5%90%88/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-常见集合">Rust-常见集合</span>
+            <span class="post-date" title="2021-12-13 20:55:23">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%9D%97%E7%BB%84%E7%BB%87%E5%92%8C%E5%A4%8D%E7%94%A8%E4%BB%A3%E7%A0%81/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-使用模块组织和复用代码">Rust-使用模块组织和复用代码</span>
+            <span class="post-date" title="2021-12-13 16:26:05">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/13/Rust-%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-枚举和模式匹配">Rust-枚举和模式匹配</span>
+            <span class="post-date" title="2021-12-13 10:44:04">2021/12/13</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/12/Rust-%E7%BB%93%E6%9E%84%E4%BD%93/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-结构体">Rust-结构体</span>
+            <span class="post-date" title="2021-12-12 22:42:42">2021/12/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/12/Rust-%E6%89%80%E6%9C%89%E6%9D%83/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-所有权">Rust-所有权</span>
+            <span class="post-date" title="2021-12-12 11:32:16">2021/12/12</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/11/Rust-%E5%9F%BA%E7%A1%80%E6%8A%80%E6%9C%AF/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-基础技术">Rust-基础技术</span>
+            <span class="post-date" title="2021-12-11 20:25:09">2021/12/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/11/Rust-%E7%BC%96%E7%A8%8B%E7%8C%9C%E8%B0%9C%E6%B8%B8%E6%88%8F/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-编程猜谜游戏">Rust-编程猜谜游戏</span>
+            <span class="post-date" title="2021-12-11 18:58:04">2021/12/11</span>
+        </a>
+        
+        <a  class="All rust "
+           href="/2021/12/10/Rust-%E5%85%A5%E9%97%A8/"
+           data-tag="rust"
+           data-author="" >
+            <span class="post-title" title="Rust-入门">Rust-入门</span>
+            <span class="post-date" title="2021-12-10 11:18:25">2021/12/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/10/Java-%E5%86%85%E9%83%A8%E7%B1%BB/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-内部类">Java-内部类</span>
+            <span class="post-date" title="2021-12-10 08:50:32">2021/12/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/09/Java-%E6%8E%A5%E5%8F%A3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-接口">Java-接口</span>
+            <span class="post-date" title="2021-12-09 14:54:05">2021/12/09</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/12/09/Java-%E5%A4%9A%E6%80%81/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java-多态">Java-多态</span>
+            <span class="post-date" title="2021-12-09 08:42:47">2021/12/09</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/23/JavaNIO/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaNIO">JavaNIO</span>
+            <span class="post-date" title="2021-11-23 10:47:14">2021/11/23</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/23/JavaIO/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaIO">JavaIO</span>
+            <span class="post-date" title="2021-11-23 10:47:07">2021/11/23</span>
+        </a>
+        
+        <a  class="All spring java "
+           href="/2021/11/22/Spring%E5%B7%A5%E4%BD%9C%E5%AF%B9%E8%B1%A1/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring中的VO、BO、DTO、PO、DO">Spring中的VO、BO、DTO、PO、DO</span>
+            <span class="post-date" title="2021-11-22 09:44:06">2021/11/22</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/18/Java%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="Java函数式接口">Java函数式接口</span>
+            <span class="post-date" title="2021-11-18 10:50:22">2021/11/18</span>
+        </a>
+        
+        <a  class="All "
+           href="/2021/11/17/SpringBoot%E5%90%AF%E5%8A%A8-%E5%9F%BA%E7%A1%80/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="SpringBoot启动-基础">SpringBoot启动-基础</span>
+            <span class="post-date" title="2021-11-17 17:01:58">2021/11/17</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/16/JRebel/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JRebel">JRebel</span>
+            <span class="post-date" title="2021-11-16 08:58:18">2021/11/16</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/11/Spring%E5%90%AF%E5%8A%A8-%E5%9F%BA%E7%A1%80/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="Spring启动-基础">Spring启动-基础</span>
+            <span class="post-date" title="2021-11-11 15:25:33">2021/11/11</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/10/%E5%8F%8D%E5%B0%84/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="反射">反射</span>
+            <span class="post-date" title="2021-11-10 20:57:08">2021/11/10</span>
+        </a>
+        
+        <a  class="All java "
+           href="/2021/11/10/%E6%B3%A8%E8%A7%A3/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="注解">注解</span>
+            <span class="post-date" title="2021-11-10 20:50:55">2021/11/10</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/09/SpringAOP-%E5%9F%BA%E7%A1%80/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="SpringAOP-基础">SpringAOP-基础</span>
+            <span class="post-date" title="2021-11-09 10:31:31">2021/11/09</span>
+        </a>
+        
+        <a  class="All spring "
+           href="/2021/11/08/SpringIOC-%E5%9F%BA%E7%A1%80/"
+           data-tag="spring"
+           data-author="" >
+            <span class="post-title" title="SpringIOC-基础">SpringIOC-基础</span>
+            <span class="post-date" title="2021-11-08 10:27:28">2021/11/08</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2021/11/02/%E9%9F%B3%E8%A7%86%E9%A2%91%E7%BC%96%E8%A7%A3%E7%A0%81%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/"
+           data-tag="音视频"
+           data-author="" >
+            <span class="post-title" title="音视频编解码技术基础">音视频编解码技术基础</span>
+            <span class="post-date" title="2021-11-02 12:06:49">2021/11/02</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2021/11/02/MysqlErrHosts/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="mysql安装时，Unable to connect to any of the specified MySQL hosts">mysql安装时，Unable to connect to any of the specified MySQL hosts</span>
+            <span class="post-date" title="2021-11-02 10:58:50">2021/11/02</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2021/10/08/H264%E7%BC%96%E7%A0%81-SPSPPS/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码 SPS &amp; PPS">H264编码 SPS &amp; PPS</span>
+            <span class="post-date" title="2021-10-08 21:20:12">2021/10/08</span>
+        </a>
+        
+        <a  class="All ssr "
+           href="/2021/01/18/centos%E7%BB%88%E7%AB%AFssr%E9%85%8D%E7%BD%AE/"
+           data-tag="ssr"
+           data-author="" >
+            <span class="post-title" title="centos终端ssr配置">centos终端ssr配置</span>
+            <span class="post-date" title="2021-01-18 08:21:35">2021/01/18</span>
+        </a>
+        
+        <a  class="All 数据结构 算法分析 "
+           href="/2020/12/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%E5%85%B6%E4%BA%8C/"
+           data-tag="数据结构与算法分析"
+           data-author="" >
+            <span class="post-title" title="数据结构与算法分析阅读笔记其二">数据结构与算法分析阅读笔记其二</span>
+            <span class="post-date" title="2020-12-14 22:34:39">2020/12/14</span>
+        </a>
+        
+        <a  class="All 数据结构 算法分析 "
+           href="/2020/12/09/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"
+           data-tag="数据结构与算法分析"
+           data-author="" >
+            <span class="post-title" title="数据结构与算法分析阅读笔记">数据结构与算法分析阅读笔记</span>
+            <span class="post-date" title="2020-12-09 21:52:40">2020/12/09</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/10/27/FLV%E6%A0%BC%E5%BC%8F/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="FLV格式">FLV格式</span>
+            <span class="post-date" title="2020-10-27 15:33:56">2020/10/27</span>
+        </a>
+        
+        <a  class="All 机器学习 "
+           href="/2020/09/20/Mac%E4%B8%ADPython3-x%E7%BC%96%E8%AF%91Caffe/"
+           data-tag="机器学习"
+           data-author="" >
+            <span class="post-title" title="Mac中Python3.x编译Caffe">Mac中Python3.x编译Caffe</span>
+            <span class="post-date" title="2020-09-20 01:08:09">2020/09/20</span>
+        </a>
+        
+        <a  class="All JavaScript npm "
+           href="/2020/07/17/npm%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E6%93%8D%E4%BD%9C/"
+           data-tag="直播"
+           data-author="" >
+            <span class="post-title" title="npm常用命令操作">npm常用命令操作</span>
+            <span class="post-date" title="2020-07-17 10:14:01">2020/07/17</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/16/MediaExtractorANDMediaMuxer/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="android端的音频处理工具MediaExtractor和MediaMuxer">android端的音频处理工具MediaExtractor和MediaMuxer</span>
+            <span class="post-date" title="2020-07-16 11:55:28">2020/07/16</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/15/AAC%E9%9F%B3%E9%A2%91%E7%A0%81%E6%B5%81/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="AAC音频码流">AAC音频码流</span>
+            <span class="post-date" title="2020-07-15 17:45:10">2020/07/15</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/15/Android-PCM%E5%A4%84%E7%90%86/"
+           data-tag="android,音频"
+           data-author="" >
+            <span class="post-title" title="Android-PCM">Android-PCM</span>
+            <span class="post-date" title="2020-07-15 13:29:49">2020/07/15</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/07/13/yuv-tool%E5%B7%A5%E5%85%B7%E7%B1%BB/"
+           data-tag="android,libyuv"
+           data-author="" >
+            <span class="post-title" title="yuv-tool工具类">yuv-tool工具类</span>
+            <span class="post-date" title="2020-07-13 22:58:21">2020/07/13</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/18/ffmpegforandroid%E7%BC%96%E8%AF%91/"
+           data-tag="ffmpeg"
+           data-author="" >
+            <span class="post-title" title="ffmpegforandroid编译">ffmpegforandroid编译</span>
+            <span class="post-date" title="2020-06-18 13:38:35">2020/06/18</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/11/libfaac%E7%BC%96%E8%AF%91/"
+           data-tag="libfaac"
+           data-author="" >
+            <span class="post-title" title="libfaac编译">libfaac编译</span>
+            <span class="post-date" title="2020-06-11 14:00:57">2020/06/11</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2020/06/11/libx264%E7%BC%96%E8%AF%91/"
+           data-tag="libx264"
+           data-author="" >
+            <span class="post-title" title="libx264编译">libx264编译</span>
+            <span class="post-date" title="2020-06-11 13:51:36">2020/06/11</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2020/06/10/RTMP%E8%A7%84%E8%8C%83%E5%AD%A6%E4%B9%A0/"
+           data-tag="RTMP,直播"
+           data-author="" >
+            <span class="post-title" title="RTMP规范学习">RTMP规范学习</span>
+            <span class="post-date" title="2020-06-10 11:35:52">2020/06/10</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/06/01/React-Native%E7%83%AD%E6%9B%B4%E6%96%B0/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native热更新">React-Native热更新</span>
+            <span class="post-date" title="2020-06-01 16:03:28">2020/06/01</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2020/06/01/JavaWeb/"
+           data-tag="java"
+           data-author="" >
+            <span class="post-title" title="JavaWeb">JavaWeb</span>
+            <span class="post-date" title="2020-06-01 11:09:17">2020/06/01</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2020/05/26/JDBC/"
+           data-tag="数据库,java"
+           data-author="" >
+            <span class="post-title" title="JDBC">JDBC</span>
+            <span class="post-date" title="2020-05-26 16:23:01">2020/05/26</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2020/03/29/%E4%BA%86%E8%A7%A3%E8%B7%A8%E5%9F%9F/"
+           data-tag="后台,跨域"
+           data-author="" >
+            <span class="post-title" title="了解跨域">了解跨域</span>
+            <span class="post-date" title="2020-03-29 21:31:15">2020/03/29</span>
+        </a>
+        
+        <a  class="All JavaScript "
+           href="/2020/03/08/JavaScript%E8%AF%AD%E6%B3%95%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="javaScript"
+           data-author="" >
+            <span class="post-title" title="JavaScript语法（一）">JavaScript语法（一）</span>
+            <span class="post-date" title="2020-03-08 10:29:30">2020/03/08</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/03/06/React-native-%E9%AB%98%E5%BE%B7%E5%9C%B0%E5%9B%BE/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-native 高德地图">React-native 高德地图</span>
+            <span class="post-date" title="2020-03-06 10:07:45">2020/03/06</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/03/03/React-16-8-Hooks/"
+           data-tag="React"
+           data-author="" >
+            <span class="post-title" title="React 16.8 Hooks">React 16.8 Hooks</span>
+            <span class="post-date" title="2020-03-03 10:07:02">2020/03/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2020/01/06/React-Native%E5%8E%9F%E7%94%9F%E9%80%9A%E4%BF%A1/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native原生通信">React-Native原生通信</span>
+            <span class="post-date" title="2020-01-06 16:34:00">2020/01/06</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/27/React-Native%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native原理浅析">React-Native原理浅析</span>
+            <span class="post-date" title="2019-12-27 15:32:08">2019/12/27</span>
+        </a>
+        
+        <a  class="All 正则表达式 "
+           href="/2019/12/18/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
+           data-tag="正则表达式"
+           data-author="" >
+            <span class="post-title" title="正则表达式">正则表达式</span>
+            <span class="post-date" title="2019-12-18 21:45:36">2019/12/18</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/05/React-Native-%E5%8A%A8%E7%94%BB/"
+           data-tag="ReactNative"
+           data-author="" >
+            <span class="post-title" title="React-Native-动画">React-Native-动画</span>
+            <span class="post-date" title="2019-12-05 16:20:25">2019/12/05</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/03/React-%E8%87%AA%E5%AD%A6%E4%B9%8B%E8%B7%AF%EF%BC%88%E4%BA%8C%EF%BC%89/"
+           data-tag=""
+           data-author="" >
+            <span class="post-title" title="React-自学之路（二）">React-自学之路（二）</span>
+            <span class="post-date" title="2019-12-03 13:06:53">2019/12/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/12/03/React-%E8%87%AA%E5%AD%A6%E4%B9%8B%E8%B7%AF%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="React"
+           data-author="" >
+            <span class="post-title" title="React-自学之路（一）">React-自学之路（一）</span>
+            <span class="post-date" title="2019-12-03 09:40:28">2019/12/03</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2019/10/12/React%E6%96%B0%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"
+           data-tag="react"
+           data-author="" >
+            <span class="post-title" title="React新的生命周期">React新的生命周期</span>
+            <span class="post-date" title="2019-10-12 15:41:02">2019/10/12</span>
+        </a>
+        
+        <a  class="All 后台 "
+           href="/2019/09/18/%E5%88%9B%E5%BB%BAmaven%E9%A1%B9%E7%9B%AE%E6%97%B6%EF%BC%8C%E5%87%BA%E7%8E%B0Could-not-calculate-build-plan%E9%94%99%E8%AF%AF/"
+           data-tag="springboot"
+           data-author="" >
+            <span class="post-title" title="创建maven项目时，出现Could not calculate build plan错误">创建maven项目时，出现Could not calculate build plan错误</span>
+            <span class="post-date" title="2019-09-18 09:25:06">2019/09/18</span>
+        </a>
+        
+        <a  class="All 数据库 "
+           href="/2019/09/07/MySQL%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/"
+           data-tag="SQL"
+           data-author="" >
+            <span class="post-title" title="MySQL常用指令">MySQL常用指令</span>
+            <span class="post-date" title="2019-09-07 21:10:03">2019/09/07</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/07/05/RecycleView%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="RecycleView（一）">RecycleView（一）</span>
+            <span class="post-date" title="2019-07-05 14:03:06">2019/07/05</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/25/Android%E5%8A%A8%E7%94%BB%EF%BC%88%E4%B8%89%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（三）">Android动画（三）</span>
+            <span class="post-date" title="2019-06-25 14:15:26">2019/06/25</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/20/Android%E5%8A%A8%E7%94%BB%EF%BC%88%E4%BA%8C%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（二）">Android动画（二）</span>
+            <span class="post-date" title="2019-06-20 15:10:00">2019/06/20</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/19/Android%E5%8A%A8%E7%94%BB%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android动画（一）">Android动画（一）</span>
+            <span class="post-date" title="2019-06-19 15:15:56">2019/06/19</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/18/Android%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%EF%BC%88%E4%BA%8C%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android自定义控件（二）">Android自定义控件（二）</span>
+            <span class="post-date" title="2019-06-18 13:43:11">2019/06/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/13/%E8%B4%9D%E5%A1%9E%E5%B0%94%E6%9B%B2%E7%BA%BF/"
+           data-tag="Android,贝塞尔曲线"
+           data-author="" >
+            <span class="post-title" title="贝塞尔曲线">贝塞尔曲线</span>
+            <span class="post-date" title="2019-06-13 10:14:25">2019/06/13</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/06/04/Java-Binder%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%90%86%E8%A7%A3/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Java Binder进程通信理解">Java Binder进程通信理解</span>
+            <span class="post-date" title="2019-06-04 14:01:43">2019/06/04</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/05/30/arm-neon-h%E6%96%87%E4%BB%B6%E5%8A%9F%E8%83%BD/"
+           data-tag="汇编"
+           data-author="" >
+            <span class="post-title" title="arm-neon.h文件功能">arm-neon.h文件功能</span>
+            <span class="post-date" title="2019-05-30 08:45:08">2019/05/30</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/05/06/Handler%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6/"
+           data-tag="android"
+           data-author="" >
+            <span class="post-title" title="Handler消息机制">Handler消息机制</span>
+            <span class="post-date" title="2019-05-06 14:09:45">2019/05/06</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/05/06/H264%E7%BC%96%E7%A0%81-%E7%86%B5%E7%BC%96%E7%A0%81/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码-熵编码">H264编码-熵编码</span>
+            <span class="post-date" title="2019-05-06 13:42:57">2019/05/06</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/04/08/NDK%E5%BC%80%E5%8F%91%E9%97%AE%E9%A2%98%E5%90%88%E9%9B%86/"
+           data-tag="NDK"
+           data-author="" >
+            <span class="post-title" title="NDK开发问题合集">NDK开发问题合集</span>
+            <span class="post-date" title="2019-04-08 10:53:30">2019/04/08</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/04/01/H264%E7%BC%96%E7%A0%81%E5%9F%BA%E7%A1%80/"
+           data-tag="视频格式"
+           data-author="" >
+            <span class="post-title" title="H264编码基础">H264编码基础</span>
+            <span class="post-date" title="2019-04-01 09:26:11">2019/04/01</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/31/srs%E7%9B%B4%E6%92%AD%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/"
+           data-tag="直播,srs"
+           data-author="" >
+            <span class="post-title" title="srs直播平台搭建">srs直播平台搭建</span>
+            <span class="post-date" title="2019-03-31 10:37:42">2019/03/31</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/27/%E5%9B%BE%E7%89%87RGB%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/"
+           data-tag="图片格式"
+           data-author="" >
+            <span class="post-title" title="图片RGB数据格式">图片RGB数据格式</span>
+            <span class="post-date" title="2019-03-27 22:24:49">2019/03/27</span>
+        </a>
+        
+        <a  class="All 音视频 "
+           href="/2019/03/14/%E5%9B%BE%E7%89%87YUV%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/"
+           data-tag="图片格式"
+           data-author="" >
+            <span class="post-title" title="图片YUV数据格式">图片YUV数据格式</span>
+            <span class="post-date" title="2019-03-14 11:10:16">2019/03/14</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2019/03/08/libjpeg-turbo%E7%BC%96%E8%AF%91/"
+           data-tag="libjpeg-turbo"
+           data-author="" >
+            <span class="post-title" title="libjpeg-turbo编译">libjpeg-turbo编译</span>
+            <span class="post-date" title="2019-03-08 13:41:20">2019/03/08</span>
+        </a>
+        
+        <a  class="All 编译的库 "
+           href="/2019/03/07/libYUV%E7%BC%96%E8%AF%91/"
+           data-tag="libyuv"
+           data-author="" >
+            <span class="post-title" title="libYUV编译">libYUV编译</span>
+            <span class="post-date" title="2019-03-07 15:05:11">2019/03/07</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2019/02/18/Android-camera%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="camera"
+           data-author="" >
+            <span class="post-title" title="Android camera（一）">Android camera（一）</span>
+            <span class="post-date" title="2019-02-18 15:03:27">2019/02/18</span>
+        </a>
+        
+        <a  class="All C/C++ "
+           href="/2019/01/23/Cpp%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Cpp"
+           data-author="" >
+            <span class="post-title" title="Cpp基础（一）">Cpp基础（一）</span>
+            <span class="post-date" title="2019-01-23 10:52:13">2019/01/23</span>
+        </a>
+        
+        <a  class="All C/C++ "
+           href="/2019/01/18/C%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="C"
+           data-author="" >
+            <span class="post-title" title="C基础（一）">C基础（一）</span>
+            <span class="post-date" title="2019-01-18 14:08:23">2019/01/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/12/18/EasyPermission/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="EasyPermission">EasyPermission</span>
+            <span class="post-date" title="2018-12-18 13:20:30">2018/12/18</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/12/15/Android%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android自定义控件（一）">Android自定义控件（一）</span>
+            <span class="post-date" title="2018-12-15 21:44:34">2018/12/15</span>
+        </a>
+        
+        <a  class="All ssr "
+           href="/2018/12/10/Linux%E9%85%8D%E7%BD%AEShadowSocks-R/"
+           data-tag="Linux"
+           data-author="" >
+            <span class="post-title" title="Linux配置ShadowSocks-R">Linux配置ShadowSocks-R</span>
+            <span class="post-date" title="2018-12-10 15:58:52">2018/12/10</span>
+        </a>
+        
+        <a  class="All Android 热更新 "
+           href="/2018/10/29/Sophix%E7%83%AD%E6%9B%B4%E6%96%B0/"
+           data-tag="android,热更新"
+           data-author="" >
+            <span class="post-title" title="Sophix热更新">Sophix热更新</span>
+            <span class="post-date" title="2018-10-29 16:50:36">2018/10/29</span>
+        </a>
+        
+        <a  class="All Android 热更新 "
+           href="/2018/10/18/TinkerPatch%E7%83%AD%E6%9B%B4%E6%96%B0/"
+           data-tag="android,热更新"
+           data-author="" >
+            <span class="post-title" title="TinkerPatch热更新">TinkerPatch热更新</span>
+            <span class="post-date" title="2018-10-18 20:11:30">2018/10/18</span>
+        </a>
+        
+        <a  class="All ReactNative "
+           href="/2018/06/21/React-native-flex%E5%B8%83%E5%B1%80/"
+           data-tag="react"
+           data-author="" >
+            <span class="post-title" title="React-native flex布局">React-native flex布局</span>
+            <span class="post-date" title="2018-06-21 16:22:47">2018/06/21</span>
+        </a>
+        
+        <a  class="All Android "
+           href="/2018/01/25/Android%E4%BA%8B%E4%BB%B6%E5%88%86%E5%8F%91/"
+           data-tag="Android"
+           data-author="" >
+            <span class="post-title" title="Android事件分发">Android事件分发</span>
+            <span class="post-date" title="2018-01-25 16:36:52">2018/01/25</span>
+        </a>
+        
+        <a  class="All Gradle "
+           href="/2018/01/25/Gradle%EF%BC%88%E4%B8%80%EF%BC%89/"
+           data-tag="构建工具,Gradle"
+           data-author="" >
+            <span class="post-title" title="Gradle（一）">Gradle（一）</span>
+            <span class="post-date" title="2018-01-25 16:36:52">2018/01/25</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2017/11/24/firstBlod2/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git详细讲解(远程)">Git详细讲解(远程)</span>
+            <span class="post-date" title="2017-11-24 10:18:05">2017/11/24</span>
+        </a>
+        
+        <a  class="All git "
+           href="/2017/10/19/firstBlod/"
+           data-tag="git"
+           data-author="" >
+            <span class="post-title" title="Git详细讲解(本地)">Git详细讲解(本地)</span>
+            <span class="post-date" title="2017-10-19 21:49:28">2017/10/19</span>
+        </a>
+        
+        <div id="no-item-tips">
+
+        </div>
+    </nav>
+    <div id="outline-list">
+    </div>
+</div>
+
+    </div>
+    <div class="hide-list">
+        <div class="semicircle" data-title="切换全屏 快捷键 s">
+            <div class="brackets first"><</div>
+            <div class="brackets">&gt;</div>
+        </div>
+    </div>
+</aside>
+<div id="post">
+    <div class="pjax">
+        <article id="post-JNI_1" class="article article-type-post" itemscope itemprop="blogPost">
+    
+        <h1 class="article-title">JNI 一</h1>
+    
+    <div class="article-meta">
+        
+        
+        
+        <span class="book">
+            <i class="iconfont icon-category"></i>
+            
+            
+            <a  data-rel="java">java</a>
+            
+        </span>
+        
+        
+        <span class="tag">
+            <i class="iconfont icon-tag"></i>
+            
+            <a class="color5">java</a>
+            
+        </span>
+        
+    </div>
+    <div class="article-meta">
+        
+            Created At : <time class="date" title='Updated At: 2023-07-26 06:04:34'>2023-07-25 12:00</time>
+        
+    </div>
+    <div class="article-meta">
+        
+        
+        <span id="busuanzi_container_page_pv">
+            Views 👀 :<span id="busuanzi_value_page_pv">
+                <span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </span>
+        </span>
+        
+        
+        <span class="top-comment" title="跳转至评论区">
+            <a href="#comments">
+                Comment:<span class="count-comment">
+                    <span class="spinner">
+                      <div class="cube1"></div>
+                      <div class="cube2"></div>
+                    </span>
+                </span>
+            </a>
+        </span>
+        
+    </div>
+    
+    <div class="toc-ref">
+    
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JNI%E6%A6%82%E8%BF%B0"><span class="toc-text">JNI概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JNI-%E5%85%83%E7%B4%A0"><span class="toc-text">JNI 元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JNI%E7%BB%84%E7%BB%87%E7%BB%93%E6%9E%84"><span class="toc-text">JNI组织结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%A7%8B%E6%95%B0%E6%8D%AE"><span class="toc-text">原始数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E6%93%8D%E4%BD%9C"><span class="toc-text">函数操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%9F%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="toc-text">域描述符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JNIEnv%E4%B8%8EJavaVM"><span class="toc-text">JNIEnv与JavaVM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JNI%E5%87%BD%E6%95%B0%E5%AE%9E%E6%88%98"><span class="toc-text">JNI函数实战</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#so%E7%9A%84%E5%85%A5%E5%8F%A3%E5%87%BD%E6%95%B0"><span class="toc-text">so的入口函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="toc-text">返回值</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">返回字符串</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E6%95%B0%E7%BB%84"><span class="toc-text">返回数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AF%B9%E8%B1%A1"><span class="toc-text">返回自定义对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%95%B0%E7%BB%84"><span class="toc-text">返回自定义对象的数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%93%8D%E4%BD%9CJava%E5%B1%82%E7%9A%84%E7%B1%BB"><span class="toc-text">操作Java层的类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9E%E8%B0%83Java%E5%B1%82%E6%96%B9%E6%B3%95"><span class="toc-text">回调Java层方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jbytearray%E8%BD%ACc-byte%E6%95%B0%E7%BB%84"><span class="toc-text">jbytearray转c++byte数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jbyteArray-%E8%BD%AC-c-%E4%B8%AD%E7%9A%84BYTE"><span class="toc-text">jbyteArray 转 c++中的BYTE[]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#C-%E4%B8%AD%E7%9A%84BYTE-%E8%BD%ACjbyteArray"><span class="toc-text">C++中的BYTE[]转jbyteArray</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jbyteArray-%E8%BD%AC-char"><span class="toc-text">jbyteArray 转 char *</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#char-%E8%BD%ACjstring"><span class="toc-text">char* 转jstring</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#jstring-%E8%BD%ACchar"><span class="toc-text">jstring 转char*</span></a></li></ol></li></ol></li></ol>
+    
+<style>
+    .left-col .switch-btn,
+    .left-col .switch-area {
+        display: none;
+    }
+    .toc-level-3 i,
+    .toc-level-3 ol {
+        display: none !important;
+    }
+</style>
+</div>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="JNI概述"><a href="#JNI概述" class="headerlink" title="JNI概述"></a>JNI概述</h2><p>JNI(Java Native Interface)意为JAVA本地调用，它允许Java代码和其他语言写的代码进行交互，简单的说，一种在Java虚拟机控制下执行代码的标准机制。<br>Android NDK（Native Development Kit ）是一套工具集合，允许你用像C/C++语言那样实现应用程序的一部分。</p>
+<p>JNI和NDK的区别？</p>
+<ul>
+<li>从工具上说，NDK其实多了一个把.so和.apk打包的工具，而JNI开发并没有打包，只是把.so文件放到文件系统的特定位置。</li>
+<li>从编译库说，NDK开发C/C++只能能使用NDK自带的有限的头文件，而使用JNI则可以使用文件系统中带的头文件。</li>
+<li>从编写方式说，它们一样。</li>
+</ul>
+<h2 id="JNI-元素"><a href="#JNI-元素" class="headerlink" title="JNI 元素"></a>JNI 元素</h2><h2 id="JNI组织结构"><a href="#JNI组织结构" class="headerlink" title="JNI组织结构"></a>JNI组织结构</h2><p>JNI函数表的组成就像C++的虚函数表，虚拟机可以运行多张函数表。<br>JNI接口指针仅在当前线程中起作用，指针不能从一个线程进入另一个线程，但可以在不同的线程中调用本地方法。</p>
+<p><img src="/img/JNI/0.png" alt="github"></p>
+<h2 id="原始数据"><a href="#原始数据" class="headerlink" title="原始数据"></a>原始数据</h2><p>jobject 对象引用类型<br><img src="/img/JNI/1.png" alt="github"></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Java类型</th>
+<th>本地类型（JNI）</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>boolean（布尔型）</td>
+<td>jboolean</td>
+<td>无符号8个比特</td>
+</tr>
+<tr>
+<td>byte(字节型)</td>
+<td>jbyte</td>
+<td>有符号8个比特</td>
+</tr>
+<tr>
+<td>char(字符型)</td>
+<td>jchar</td>
+<td>无符号16个比特</td>
+</tr>
+<tr>
+<td>short(短整型)</td>
+<td>jshort</td>
+<td>有符号16个比特</td>
+</tr>
+<tr>
+<td>int(整型)</td>
+<td>jint</td>
+<td>有符号32个比特</td>
+</tr>
+<tr>
+<td>long(长整型)</td>
+<td>jlong</td>
+<td>有符号64个比特</td>
+</tr>
+<tr>
+<td>float(浮点型)</td>
+<td>jfloat</td>
+<td>32个比特</td>
+</tr>
+<tr>
+<td>double(双精度浮点型)</td>
+<td>jdouble</td>
+<td>64个比特</td>
+</tr>
+<tr>
+<td>void(空型)</td>
+<td>void</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="函数操作"><a href="#函数操作" class="headerlink" title="函数操作"></a>函数操作</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>Java 数组类型</th>
+<th>本地类型</th>
+<th>说明        </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GetBooleanArrayElements</td>
+<td>jbooleanArray</td>
+<td>jboolean</td>
+<td>ReleaseBooleanArrayElements 释放</td>
+</tr>
+<tr>
+<td>GetByteArrayElements</td>
+<td>jbyteArray</td>
+<td>jbyte</td>
+<td>ReleaseByteArrayElements 释放</td>
+</tr>
+<tr>
+<td>GetCharArrayElements</td>
+<td>jcharArray</td>
+<td>jchar</td>
+<td>ReleaseShortArrayElements 释放</td>
+</tr>
+<tr>
+<td>GetShortArrayElements</td>
+<td>jshortArray</td>
+<td>jshort</td>
+<td>ReleaseBooleanArrayElements 释放</td>
+</tr>
+<tr>
+<td>GetIntArrayElements</td>
+<td>jintArray</td>
+<td>jint</td>
+<td>ReleaseIntArrayElements 释放</td>
+</tr>
+<tr>
+<td>GetLongArrayElements</td>
+<td>jlongArray</td>
+<td>jlong</td>
+<td>ReleaseLongArrayElements 释放</td>
+</tr>
+<tr>
+<td>GetFloatArrayElements</td>
+<td>jfloatArray</td>
+<td>jfloat</td>
+<td>ReleaseFloatArrayElements 释放</td>
+</tr>
+<tr>
+<td>GetDoubleArrayElements</td>
+<td>jdoubleArray</td>
+<td>jdouble</td>
+<td>ReleaseDoubleArrayElements 释放</td>
+</tr>
+<tr>
+<td>GetObjectArrayElement</td>
+<td>自定义对象</td>
+<td>object</td>
+<td></td>
+</tr>
+<tr>
+<td>SetObjectArrayElement</td>
+<td>自定义对象</td>
+<td>object</td>
+<td></td>
+</tr>
+<tr>
+<td>GetArrayLength</td>
+<td></td>
+<td></td>
+<td>获取数组大小</td>
+</tr>
+<tr>
+<td><code>New&lt;Type&gt;Array</code></td>
+<td></td>
+<td></td>
+<td>创建一个指定长度的原始数据类型的数组</td>
+</tr>
+<tr>
+<td>GetPrimitiveArrayCritical</td>
+<td></td>
+<td></td>
+<td>得到指向原始数据类型内容的指针，该方法可能使垃圾回收不能执行，该方法可能返回数组的拷贝，因此必须释放此资源。</td>
+</tr>
+<tr>
+<td>ReleasePrimitiveArrayCritical</td>
+<td></td>
+<td></td>
+<td>释放指向原始数据类型内容的指针，该方法可能使垃圾回收不能执行，该方法可能返回数组的拷贝，因此必须释放此资源。</td>
+</tr>
+<tr>
+<td>NewStringUTF</td>
+<td></td>
+<td></td>
+<td>jstring类型的方法转换</td>
+</tr>
+<tr>
+<td>GetStringUTFChars</td>
+<td></td>
+<td></td>
+<td>jstring类型的方法转换</td>
+</tr>
+<tr>
+<td>DefineClass</td>
+<td></td>
+<td></td>
+<td>从原始类数据的缓冲区中加载类</td>
+</tr>
+<tr>
+<td>FindClass</td>
+<td></td>
+<td></td>
+<td>该函数用于加载本地定义的类。它将搜索由CLASSPATH 环境变量为具有指定名称的类所指定的目录和 zip文件</td>
+</tr>
+<tr>
+<td>GetObjectClass</td>
+<td></td>
+<td></td>
+<td>通过对象获取这个类。该函数比较简单，唯一注意的是对象不能为NULL，否则获取的class肯定返回也为NULL</td>
+</tr>
+<tr>
+<td>GetSuperclass</td>
+<td></td>
+<td></td>
+<td>获取父类或者说超类 。 如果 clazz 代表类class而非类 object，则该函数返回由 clazz 所指定的类的超类。 如果 clazz指定类 object 或代表某个接口，则该函数返回NULL</td>
+</tr>
+<tr>
+<td>IsAssignableFrom</td>
+<td></td>
+<td></td>
+<td>确定 clazz1 的对象是否可安全地强制转换为clazz2</td>
+</tr>
+<tr>
+<td>Throw</td>
+<td></td>
+<td></td>
+<td>抛出 java.lang.Throwable 对象</td>
+</tr>
+<tr>
+<td>ThrowNew</td>
+<td></td>
+<td></td>
+<td>利用指定类的消息（由 message 指定）构造异常对象并抛出该异常</td>
+</tr>
+<tr>
+<td>ExceptionOccurred</td>
+<td></td>
+<td></td>
+<td>确定是否某个异常正被抛出。在平台相关代码调用 ExceptionClear() 或 Java 代码处理该异常前，异常将始终保持抛出状态</td>
+</tr>
+<tr>
+<td>ExceptionDescribe</td>
+<td></td>
+<td></td>
+<td>将异常及堆栈的回溯输出到系统错误报告信道（例如 stderr）。该例程可便利调试操作</td>
+</tr>
+<tr>
+<td>ExceptionClear</td>
+<td></td>
+<td></td>
+<td>清除当前抛出的任何异常。如果当前无异常，则此例程不产生任何效果</td>
+</tr>
+<tr>
+<td>FatalError</td>
+<td></td>
+<td></td>
+<td>抛出致命错误并且不希望虚拟机进行修复。该函数无返回值</td>
+</tr>
+<tr>
+<td>NewGlobalRef</td>
+<td></td>
+<td></td>
+<td>创建 obj 参数所引用对象的新全局引用。obj 参数既可以是全局引用，也可以是局部引用。全局引用通过调用DeleteGlobalRef() 来显式撤消。</td>
+</tr>
+<tr>
+<td>DeleteGlobalRef</td>
+<td></td>
+<td></td>
+<td>删除 globalRef 所指向的全局引用</td>
+</tr>
+<tr>
+<td>DeleteLocalRef</td>
+<td></td>
+<td></td>
+<td>删除 localRef所指向的局部引用</td>
+</tr>
+<tr>
+<td>AllocObject</td>
+<td></td>
+<td></td>
+<td>分配新 Java 对象而不调用该对象的任何构造函数。返回该对象的引用。clazz 参数务必不要引用数组类。</td>
+</tr>
+<tr>
+<td>getObjectClass</td>
+<td></td>
+<td></td>
+<td>返回对象的类</td>
+</tr>
+<tr>
+<td>IsSameObject</td>
+<td></td>
+<td></td>
+<td>测试两个引用是否引用同一 Java 对象</td>
+</tr>
+<tr>
+<td>NewString</td>
+<td></td>
+<td></td>
+<td>利用 Unicode 字符数组构造新的 java.lang.String 对象</td>
+</tr>
+<tr>
+<td>GetStringLength</td>
+<td></td>
+<td></td>
+<td>返回 Java 字符串的长度（Unicode 字符数）</td>
+</tr>
+<tr>
+<td>GetStringChars</td>
+<td></td>
+<td></td>
+<td>返回指向字符串的 Unicode 字符数组的指针。该指针在调用 ReleaseStringchars() 前一直有效</td>
+</tr>
+<tr>
+<td>ReleaseStringChars</td>
+<td></td>
+<td></td>
+<td>通知虚拟机平台相关代码无需再访问 chars。参数chars 是一个指针，可通过 GetStringChars() 从 string 获得</td>
+</tr>
+<tr>
+<td>NewStringUTF</td>
+<td></td>
+<td></td>
+<td>利用 UTF-8 字符数组构造新 java.lang.String 对象</td>
+</tr>
+<tr>
+<td>GetStringUTFLength</td>
+<td></td>
+<td></td>
+<td>以字节为单位返回字符串的 UTF-8 长度</td>
+</tr>
+<tr>
+<td>GetStringUTFChars</td>
+<td></td>
+<td></td>
+<td>返回指向字符串的 UTF-8 字符数组的指针。该数组在被ReleaseStringUTFChars() 释放前将一直有效</td>
+</tr>
+<tr>
+<td>ReleaseStringUTFChars</td>
+<td></td>
+<td></td>
+<td>通知虚拟机平台相关代码无需再访问 utf。utf 参数是一个指针，可利用 GetStringUTFChars() 获得</td>
+</tr>
+<tr>
+<td>NewObjectArray</td>
+<td></td>
+<td></td>
+<td>构造新的数组，它将保存类 elementClass 中的对象。所有元素初始值均设为 initialElement</td>
+</tr>
+<tr>
+<td><code>Set&lt;PrimitiveType&gt;ArrayRegion</code></td>
+<td></td>
+<td></td>
+<td>将基本类型数组的某一区域从缓冲区中复制回来的一组函数</td>
+</tr>
+<tr>
+<td>GetFieldID</td>
+<td></td>
+<td></td>
+<td>返回类的实例（非静态）域的属性 ID。该域由其名称及签名指定。访问器函数的<code>Get&lt;type&gt;Field</code> 及 <code>Set&lt;type&gt;Field</code>系列使用域 ID 检索对象域。GetFieldID() 不能用于获取数组的长度域。应使用GetArrayLength()。</td>
+</tr>
+<tr>
+<td><code>Get&lt;type&gt;Field</code></td>
+<td></td>
+<td></td>
+<td>该访问器例程系列返回对象的实例（非静态）域的值。要访问的域由通过调用GetFieldID() 而得到的域 ID 指定。 </td>
+</tr>
+<tr>
+<td><code>Set&lt;type&gt;Field</code></td>
+<td></td>
+<td></td>
+<td>该访问器例程系列设置对象的实例（非静态）属性的值。要访问的属性由通过调用SetFieldID() 而得到的属性 ID指定。</td>
+</tr>
+<tr>
+<td><code>GetStaticFieldID</code>  <code>GetStatic&lt;type&gt;Field</code> <code>SetStatic&lt;type&gt;Field</code></td>
+<td></td>
+<td></td>
+<td>同上，只不过是静态属性。</td>
+</tr>
+<tr>
+<td>GetMethodID</td>
+<td></td>
+<td></td>
+<td>返回类或接口实例（非静态）方法的方法 ID。方法可在某个 clazz 的超类中定义，也可从 clazz 继承。该方法由其名称和签名决定。 GetMethodID() 可使未初始化的类初始化。要获得构造函数的方法 ID，应将<init> 作为方法名，同时将void (V) 作为返回类型。</td>
+</tr>
+<tr>
+<td>CallVoidMethod</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CallObjectMethod</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CallBooleanMethod</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CallByteMethod</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CallCharMethod</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CallShortMethod</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CallIntMethod</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CallLongMethod</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CallFloatMethod</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>CallDoubleMethod</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>GetStaticMethodID</td>
+<td></td>
+<td></td>
+<td>调用静态方法</td>
+</tr>
+<tr>
+<td><code>Call&lt;type&gt;Method</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>RegisterNatives</td>
+<td></td>
+<td></td>
+<td>向 clazz 参数指定的类注册本地方法。methods 参数将指定 JNINativeMethod 结构的数组，其中包含本地方法的名称、签名和函数指针。nMethods 参数将指定数组中的本地方法数。</td>
+</tr>
+<tr>
+<td>UnregisterNatives</td>
+<td></td>
+<td></td>
+<td>取消注册类的本地方法。类将返回到链接或注册了本地方法函数前的状态。该函数不应在常规平台相关代码中使用。相反，它可以为某些程序提供一种重新加载和重新链接本地库的途径。    </td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="域描述符"><a href="#域描述符" class="headerlink" title="域描述符"></a>域描述符</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>域</th>
+<th>Java 语言</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Z</td>
+<td>boolean</td>
+</tr>
+<tr>
+<td>B</td>
+<td>byte</td>
+</tr>
+<tr>
+<td>C</td>
+<td>char</td>
+</tr>
+<tr>
+<td>S</td>
+<td>short</td>
+</tr>
+<tr>
+<td>I</td>
+<td>int</td>
+</tr>
+<tr>
+<td>J</td>
+<td>long</td>
+</tr>
+<tr>
+<td>F</td>
+<td>float</td>
+</tr>
+<tr>
+<td>D</td>
+<td>double</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>引用类型则为 L + 该类型类描述符。</li>
+<li>数组，其为 :  [ + 其类型的域描述符。</li>
+<li>多维数组则是 n个[ +该类型的域描述符, N代表的是几维数组。<figure class="highlight gradle"><table><tr><td class="code"><pre><code class="hljs gradle">String类型的域描述符为 Ljava<span class="hljs-regexp">/lang/</span>String;    <br>  <br>[ + 其类型的域描述符 + ;  <br><span class="hljs-keyword">int</span>[]     其描述符为[I  <br><span class="hljs-keyword">float</span>[]   其描述符为[F  <br>String[]  其描述符为[Ljava<span class="hljs-regexp">/lang/</span>String;  <br>Object[]类型的域描述符为[Ljava<span class="hljs-regexp">/lang/</span>Object;  <br><span class="hljs-keyword">int</span>  [][] 其描述符为[[I  <br><span class="hljs-keyword">float</span>[][] 其描述符为[[F  <br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>将参数类型的域描述符按照申明顺序放入一对括号中后跟返回值类型的域描述符，规则如下： (参数的域描述符的叠加)返回类型描述符。对于没有返回值的，用V(表示void型)表示。<br><figure class="highlight processing"><table><tr><td class="code"><pre><code class="hljs processing">Java层方法                                               JNI函数签名  <br><span class="hljs-keyword">String</span> test ()                                          Ljava/lang/<span class="hljs-keyword">String</span>;  <br><span class="hljs-built_in">int</span> f (<span class="hljs-built_in">int</span> i, <span class="hljs-keyword">Object</span> object)                            (ILjava/lang/<span class="hljs-keyword">Object</span>;)I  <br><span class="hljs-keyword">void</span> <span class="hljs-built_in">set</span> (<span class="hljs-built_in">byte</span>[] bytes)                                ([B)V  <br></code></pre></td></tr></table></figure></p>
+<h2 id="JNIEnv与JavaVM"><a href="#JNIEnv与JavaVM" class="headerlink" title="JNIEnv与JavaVM"></a>JNIEnv与JavaVM</h2><p>JNIEnv 概念 : 是一个线程相关的结构体, 该结构体代表了 Java 在本线程的运行环境 ; </p>
+<p>JNIEnv 与 JavaVM : 注意区分这两个概念; </p>
+<ul>
+<li>JavaVM : JavaVM 是 Java虚拟机在 JNI 层的代表, JNI 全局只有一个;</li>
+<li>JNIEnv : JavaVM 在线程中的代表, 每个线程都有一个, JNI 中可能有很多个 JNIEnv;</li>
+</ul>
+<p>JNIEnv 体系结构<br>线程相关 : JNIEnv 是线程相关的, 即 在 每个线程中 都有一个 JNIEnv 指针, 每个JNIEnv 都是线程专有的, 其它线程不能使用本线程中的 JNIEnv, 线程 A 不能调用 线程 B 的 JNIEnv。</p>
+<p>JNIEnv 不能跨线程 : </p>
+<ul>
+<li>当前线程有效 : JNIEnv 只在当前线程有效, JNIEnv 不能在线程之间进行传递, 在同一个线程中, 多次调用 JNI层方法, 传入的 JNIEnv 是相同的;</li>
+<li>本地方法匹配多JNIEnv : 在 Java 层定义的本地方法, 可以在不同的线程调用, 因此可以接受不同的 JNIEnv;</li>
+</ul>
+<p>JNIEnv 结构 :<br>由上面的代码可以得出, JNIEnv 是一个指针,  指向一个线程相关的结构, 线程相关结构指向 JNI 函数指针 数组, 这个数组中存放了大量的 JNI 函数指针, 这些指针指向了具体的 JNI 函数; </p>
+<p>UTF-8编码<br>JNI使用改进的UTF-8字符串来表示不同的字符类型。Java使用UTF-16编码。UTF-8编码主要使用于C语言，因为它的编码用\u000表示为0xc0，而不是通常的0×00。非空ASCII字符改进后的字符串编码中可以用一个字节表示。</p>
+<p>异常<br>JNI允许用户使用Java异常处理。大部分JNI方法会返回错误代码但本身并不会报出异常。因此，很有必要在代码本身进行处理，将异常抛给Java。在JNI内部，首先会检查调用函数返回的错误代码，之后会调用ExpectOccurred()返回一个错误对象。</p>
+<h2 id="JNI函数实战"><a href="#JNI函数实战" class="headerlink" title="JNI函数实战"></a>JNI函数实战</h2><h2 id="so的入口函数"><a href="#so的入口函数" class="headerlink" title="so的入口函数"></a>so的入口函数</h2><p><code>JNI_OnLoad()</code>与<code>JNI_OnUnload()</code></p>
+<p>当VM(Virtual Machine)执行到System.loadLibrary()函数时，首先会去执行C组件里的JNI_OnLoad()函数。</p>
+<ul>
+<li>告诉VM此C组件使用那一个JNI版本。如果你的*.so档没有提供JNI_OnLoad()函数，VM会默认该*.so档是使用最老的JNI 1.1版本。由于新版的JNI做了许多扩充，如果需要使用JNI的新版功能，例如JNI 1.4的java.nio.ByteBuffer,就必须藉由JNI_OnLoad()函数来告知VM。</li>
+<li>由于VM执行到System.loadLibrary()函数时，就会立即先呼叫JNI_OnLoad()，所以C组件的开发者可以藉由JNI_OnLoad()来进行C组件内的初期值之设定(Initialization) 。</li>
+</ul>
+<h2 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h2><h4 id="返回字符串"><a href="#返回字符串" class="headerlink" title="返回字符串"></a>返回字符串</h4><figure class="highlight livescript"><table><tr><td class="code"><pre><code class="hljs livescript">public <span class="hljs-keyword">native</span> <span class="hljs-built_in">String</span> <span class="hljs-built_in">print</span>();<br><br><br>jstring res = env-&gt;NewStringUTF(<span class="hljs-string">&quot;hello&quot;</span>);<br><span class="hljs-keyword">return</span> res;<br></code></pre></td></tr></table></figure>
+<h4 id="返回数组"><a href="#返回数组" class="headerlink" title="返回数组"></a>返回数组</h4><figure class="highlight reasonml"><table><tr><td class="code"><pre><code class="hljs reasonml">public native List&lt;String&gt; add<span class="hljs-constructor">List()</span>;<br><br>jobjectArray pArray = env-&gt;<span class="hljs-constructor">NewObjectArray(4, <span class="hljs-params">env</span>-&gt;FindClass(<span class="hljs-string">&quot;java/lang/String&quot;</span>)</span>, <span class="hljs-number">0</span>);<br><span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">4</span>; ++i) &#123;<br>    jstring s = env-&gt;<span class="hljs-constructor">NewStringUTF(<span class="hljs-string">&quot;A&quot;</span>)</span>;<br>    env-&gt;<span class="hljs-constructor">SetObjectArrayElement(<span class="hljs-params">pArray</span>, <span class="hljs-params">i</span>, <span class="hljs-params">s</span>)</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="返回自定义对象"><a href="#返回自定义对象" class="headerlink" title="返回自定义对象"></a>返回自定义对象</h4><figure class="highlight reasonml"><table><tr><td class="code"><pre><code class="hljs reasonml">public native TestInfo create<span class="hljs-constructor">Test(<span class="hljs-params">int</span> <span class="hljs-params">data1</span>, String <span class="hljs-params">data2</span>)</span>;<br><br><span class="hljs-comment">// 构建TestInfo对象</span><br>jclass pJclass = env-&gt;<span class="hljs-constructor">FindClass(<span class="hljs-string">&quot;org/xx/xxxx/test/entity/TestInfo&quot;</span>)</span>;<br>jmethodID method_init = env-&gt;<span class="hljs-constructor">GetMethodID(<span class="hljs-params">pJclass</span>, <span class="hljs-string">&quot;&lt;init&gt;&quot;</span>, <span class="hljs-string">&quot;()V&quot;</span>)</span>;<br>jfieldID nameField = env-&gt;<span class="hljs-constructor">GetFieldID(<span class="hljs-params">pJclass</span>, <span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;Ljava/lang/String;&quot;</span>)</span>;<br>jfieldID dataField = env-&gt;<span class="hljs-constructor">GetFieldID(<span class="hljs-params">pJclass</span>, <span class="hljs-string">&quot;data&quot;</span>, <span class="hljs-string">&quot;Ljava/lang/Integer;&quot;</span>)</span>;<br>jobject obj = env-&gt;<span class="hljs-constructor">NewObject(<span class="hljs-params">pJclass</span>, <span class="hljs-params">method_init</span>)</span>;<br><br><span class="hljs-comment">// 构建Integer对象及其字段</span><br>jclass integerClass = env-&gt;<span class="hljs-constructor">FindClass(<span class="hljs-string">&quot;java/lang/Integer&quot;</span>)</span>;<br>jmethodID integerMethod = env-&gt;<span class="hljs-constructor">GetMethodID(<span class="hljs-params">integerClass</span>, <span class="hljs-string">&quot;&lt;init&gt;&quot;</span>, <span class="hljs-string">&quot;(I)V&quot;</span>)</span>;<br>jobject integerObj = env-&gt;<span class="hljs-constructor">NewObject(<span class="hljs-params">integerClass</span>, <span class="hljs-params">integerMethod</span>, <span class="hljs-params">d1</span>)</span>;<br>env-&gt;<span class="hljs-constructor">SetObjectField(<span class="hljs-params">obj</span>, <span class="hljs-params">dataField</span>, <span class="hljs-params">integerObj</span>)</span>;<br><br><span class="hljs-comment">// 构建String字段</span><br>env-&gt;<span class="hljs-constructor">SetObjectField(<span class="hljs-params">obj</span>, <span class="hljs-params">nameField</span>, <span class="hljs-params">env</span>-&gt;NewStringUTF(<span class="hljs-string">&quot;Data&quot;</span>)</span>);<br>return obj;<br></code></pre></td></tr></table></figure>
+<h4 id="返回自定义对象的数组"><a href="#返回自定义对象的数组" class="headerlink" title="返回自定义对象的数组"></a>返回自定义对象的数组</h4><figure class="highlight reasonml"><table><tr><td class="code"><pre><code class="hljs reasonml">public native List&lt;TestInfo&gt; add<span class="hljs-constructor">List(<span class="hljs-params">int</span> <span class="hljs-params">data1</span>, String <span class="hljs-params">data2</span>)</span>;<br><br>jclass arrClass = env-&gt;<span class="hljs-constructor">FindClass(<span class="hljs-string">&quot;Ljava/util/ArrayList;&quot;</span>)</span>;<br>jmethodID arrMethod = env-&gt;<span class="hljs-constructor">GetMethodID(<span class="hljs-params">arrClass</span>, <span class="hljs-string">&quot;&lt;init&gt;&quot;</span>, <span class="hljs-string">&quot;()V&quot;</span>)</span>;<br>jobject arrObj = env-&gt;<span class="hljs-constructor">NewObject(<span class="hljs-params">arrClass</span>, <span class="hljs-params">arrMethod</span>)</span>;<br><br>jmethodID addMethod = env-&gt;<span class="hljs-constructor">GetMethodID(<span class="hljs-params">arrClass</span>, <span class="hljs-string">&quot;add&quot;</span>, <span class="hljs-string">&quot;(Ljava/lang/Object;)Z&quot;</span>)</span>;<br><span class="hljs-keyword">for</span> (<span class="hljs-built_in">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">3</span>; ++i) &#123;<br>    jobject item = create<span class="hljs-constructor">Item(<span class="hljs-params">env</span>, <span class="hljs-params">d1</span>, <span class="hljs-params">d2</span>)</span>;<br>    env-&gt;<span class="hljs-constructor">CallBooleanMethod(<span class="hljs-params">arrObj</span>, <span class="hljs-params">addMethod</span>, <span class="hljs-params">item</span>)</span>;<br>&#125;<br><br>return arrObj;<br></code></pre></td></tr></table></figure>
+<p>这里的<code>createItem</code>是对返回自定义对象功能的一个封装函数:<br><figure class="highlight reasonml"><table><tr><td class="code"><pre><code class="hljs reasonml">jobject create<span class="hljs-constructor">Item(JNIEnv <span class="hljs-operator">*</span><span class="hljs-params">env</span>, <span class="hljs-params">jint</span> <span class="hljs-params">d1</span>, <span class="hljs-params">jstring</span> <span class="hljs-params">d2</span>)</span> &#123;<br>    jclass pJclass = env-&gt;<span class="hljs-constructor">FindClass(<span class="hljs-string">&quot;org/hy/modules/test/entity/TestInfo&quot;</span>)</span>;<br>    jmethodID method_init = env-&gt;<span class="hljs-constructor">GetMethodID(<span class="hljs-params">pJclass</span>, <span class="hljs-string">&quot;&lt;init&gt;&quot;</span>, <span class="hljs-string">&quot;()V&quot;</span>)</span>;<br>    jfieldID nameField = env-&gt;<span class="hljs-constructor">GetFieldID(<span class="hljs-params">pJclass</span>, <span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;Ljava/lang/String;&quot;</span>)</span>;<br>    jfieldID dataField = env-&gt;<span class="hljs-constructor">GetFieldID(<span class="hljs-params">pJclass</span>, <span class="hljs-string">&quot;data&quot;</span>, <span class="hljs-string">&quot;Ljava/lang/Integer;&quot;</span>)</span>;<br><br>    jobject obj = env-&gt;<span class="hljs-constructor">NewObject(<span class="hljs-params">pJclass</span>, <span class="hljs-params">method_init</span>)</span>;<br>    env-&gt;<span class="hljs-constructor">SetObjectField(<span class="hljs-params">obj</span>, <span class="hljs-params">nameField</span>, <span class="hljs-params">env</span>-&gt;NewStringUTF(<span class="hljs-string">&quot;Data&quot;</span>)</span>);<br><br>    jclass integerClass = env-&gt;<span class="hljs-constructor">FindClass(<span class="hljs-string">&quot;java/lang/Integer&quot;</span>)</span>;<br>    jmethodID integerMethod = env-&gt;<span class="hljs-constructor">GetMethodID(<span class="hljs-params">integerClass</span>, <span class="hljs-string">&quot;&lt;init&gt;&quot;</span>, <span class="hljs-string">&quot;(I)V&quot;</span>)</span>;<br>    jobject integerObj = env-&gt;<span class="hljs-constructor">NewObject(<span class="hljs-params">integerClass</span>, <span class="hljs-params">integerMethod</span>, <span class="hljs-params">d1</span>)</span>;<br>    env-&gt;<span class="hljs-constructor">SetObjectField(<span class="hljs-params">obj</span>, <span class="hljs-params">dataField</span>, <span class="hljs-params">integerObj</span>)</span>;<br>    return obj;<br>&#125;<br></code></pre></td></tr></table></figure></p>
+<h4 id="操作Java层的类"><a href="#操作Java层的类" class="headerlink" title="操作Java层的类"></a>操作Java层的类</h4><figure class="highlight reasonml"><table><tr><td class="code"><pre><code class="hljs reasonml">public native void test<span class="hljs-constructor">ThisObjField(TestInfo <span class="hljs-params">info</span>)</span>;<br><br>jclass pJclass = env-&gt;<span class="hljs-constructor">GetObjectClass(<span class="hljs-params">obj</span>)</span>;<br>jfieldID fieldId = env-&gt;<span class="hljs-constructor">GetFieldID(<span class="hljs-params">pJclass</span>, <span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;Ljava/lang/String;&quot;</span>)</span>;<br><br><span class="hljs-comment">// 获得该属性的值</span><br>jstring data = (jstring)env-&gt;<span class="hljs-constructor">GetObjectField(<span class="hljs-params">obj</span>, <span class="hljs-params">fieldId</span>)</span>;<br>const <span class="hljs-built_in">char</span> *datas = env-&gt;<span class="hljs-constructor">GetStringUTFChars(<span class="hljs-params">data</span>, NULL)</span>;<br><span class="hljs-comment">// 释放局部引</span><br>env-&gt;<span class="hljs-constructor">ReleaseStringUTFChars(<span class="hljs-params">data</span>, <span class="hljs-params">datas</span>)</span>;<br><br><span class="hljs-built_in">char</span><span class="hljs-operator"> * </span>new_data = <span class="hljs-string">&quot;aaabbb&quot;</span>;<br>jstring pJstring = env-&gt;<span class="hljs-constructor">NewStringUTF(<span class="hljs-params">new_data</span>)</span>;<br>env-&gt;<span class="hljs-constructor">SetObjectField(<span class="hljs-params">obj</span>, <span class="hljs-params">fieldId</span>, <span class="hljs-params">pJstring</span>)</span>;<br></code></pre></td></tr></table></figure>
+<h4 id="回调Java层方法"><a href="#回调Java层方法" class="headerlink" title="回调Java层方法"></a>回调Java层方法</h4><p>这里分为两种</p>
+<ol>
+<li>在jni中找到类，创建对象，调用该对象函数</li>
+<li>将接口为参数给jni函数，jni调用该接口中的函数，完成接口回调功能</li>
+</ol>
+<p>首先是第一个：<br><figure class="highlight reasonml"><table><tr><td class="code"><pre><code class="hljs reasonml">public native void test<span class="hljs-constructor">CallBackToMethod()</span>;<br><br>jclass pJclass = env-&gt;<span class="hljs-constructor">FindClass(<span class="hljs-string">&quot;org/hy/modules/jni/PrintNative&quot;</span>)</span>;<br>jmethodID pJmethodId = env-&gt;<span class="hljs-constructor">GetMethodID(<span class="hljs-params">pJclass</span>, <span class="hljs-string">&quot;&lt;init&gt;&quot;</span>, <span class="hljs-string">&quot;()V&quot;</span>)</span>;<br>jobject pJobject = env-&gt;<span class="hljs-constructor">NewObject(<span class="hljs-params">pJclass</span>, <span class="hljs-params">pJmethodId</span>)</span>;<br><br>jmethodID testMethodId = env-&gt;<span class="hljs-constructor">GetMethodID(<span class="hljs-params">pJclass</span>, <span class="hljs-string">&quot;test&quot;</span>, <span class="hljs-string">&quot;(I)I&quot;</span>)</span>;<br>jint i = env-&gt;<span class="hljs-constructor">CallIntMethod(<span class="hljs-params">pJobject</span>, <span class="hljs-params">testMethodId</span>, 2)</span>;<br>printf(<span class="hljs-string">&quot;%d&quot;</span>, i);<br></code></pre></td></tr></table></figure><br>这里只是简单调用了对象中的函数</p>
+<p>下面就是接口回调函数<br><figure class="highlight reasonml"><table><tr><td class="code"><pre><code class="hljs reasonml">public native void test<span class="hljs-constructor">CallBack(CallBack <span class="hljs-params">callBack</span>)</span>;<br><br>jclass callback_cls = env-&gt;<span class="hljs-constructor">GetObjectClass(<span class="hljs-params">callback</span>)</span>;<br>jmethodID callback_mth = env-&gt;<span class="hljs-constructor">GetMethodID(<span class="hljs-params">callback_cls</span>, <span class="hljs-string">&quot;callback&quot;</span>, <span class="hljs-string">&quot;(Ljava/lang/String;)V&quot;</span>)</span>;<br>env-&gt;<span class="hljs-constructor">CallVoidMethod(<span class="hljs-params">callback</span>, <span class="hljs-params">callback_mth</span>, <span class="hljs-params">env</span>-&gt;NewStringUTF(<span class="hljs-string">&quot;aabbcc&quot;</span>)</span>);<br></code></pre></td></tr></table></figure><br>可以看到她不需要找类，创建新的对象，直接找到需要调用的函数名称并调用即可。</p>
+<blockquote>
+<p>注意，上面是在主进程中使用，如果在jni中的线程中单独使用，则需要特殊处理</p>
+</blockquote>
+<figure class="highlight reasonml"><table><tr><td class="code"><pre><code class="hljs reasonml">JavaVM *g_VM;<br>env-&gt;<span class="hljs-constructor">GetJavaVM(&amp;<span class="hljs-params">g_VM</span>)</span>;<br><br>...<br><br>JNIEnv *env;<br><span class="hljs-comment">//获取当前native线程是否有没有被附加到jvm环境中</span><br><span class="hljs-built_in">int</span> getEnvStat = g_VM-&gt;<span class="hljs-constructor">GetEnv((<span class="hljs-params">void</span> <span class="hljs-operator">**</span>)</span> &amp;env,JNI_VERSION_1_6);<br><br><span class="hljs-keyword">if</span> (getEnvStat<span class="hljs-operator"> == </span>JNI_EDETACHED) &#123;<br>    <span class="hljs-comment">// 关联线程</span><br>    <span class="hljs-keyword">if</span> (g_VM-&gt;<span class="hljs-constructor">AttachCurrentThread(&amp;<span class="hljs-params">env</span>, NULL)</span> != <span class="hljs-number">0</span>) &#123;<br>        return;<br>    &#125;<br>    mNeedDetach = JNI_TRUE;<br>&#125;<br><span class="hljs-comment">//通过jcallback 获取到要回调的类</span><br>jclass javaClass = env-&gt;<span class="hljs-constructor">GetObjectClass(<span class="hljs-params">callback</span>)</span>;<br><br>g_VM-&gt;<span class="hljs-constructor">DetachCurrentThread()</span>;<br></code></pre></td></tr></table></figure>
+<h4 id="jbytearray转c-byte数组"><a href="#jbytearray转c-byte数组" class="headerlink" title="jbytearray转c++byte数组"></a>jbytearray转c++byte数组</h4><figure class="highlight haskell"><table><tr><td class="code"><pre><code class="hljs haskell"><span class="hljs-title">jbyte</span> * arrayBody = env-&gt;<span class="hljs-type">GetByteArrayElements</span>(<span class="hljs-class"><span class="hljs-keyword">data</span>,0);</span><br><span class="hljs-title">jsize</span> theArrayLengthJ = env-&gt;<span class="hljs-type">GetArrayLength</span>(<span class="hljs-class"><span class="hljs-keyword">data</span>);</span><br><span class="hljs-type">BYTE</span> * starter = (<span class="hljs-type">BYTE</span> *)arrayBody;<br></code></pre></td></tr></table></figure>
+<h4 id="jbyteArray-转-c-中的BYTE"><a href="#jbyteArray-转-c-中的BYTE" class="headerlink" title="jbyteArray 转 c++中的BYTE[]"></a>jbyteArray 转 c++中的BYTE[]</h4><figure class="highlight mipsasm"><table><tr><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-keyword">jbyte </span>* olddata = (<span class="hljs-keyword">jbyte*)env-&gt;GetByteArrayElements(strIn, </span><span class="hljs-number">0</span>);<br><span class="hljs-keyword">jsize </span> oldsize = env-&gt;GetArrayLength(strIn);<br><span class="hljs-keyword">BYTE* </span><span class="hljs-keyword">bytearr </span>= (<span class="hljs-keyword">BYTE*)olddata;</span><br><span class="hljs-keyword">int </span>len = (int)oldsize;<br></code></pre></td></tr></table></figure>
+<h4 id="C-中的BYTE-转jbyteArray"><a href="#C-中的BYTE-转jbyteArray" class="headerlink" title="C++中的BYTE[]转jbyteArray"></a>C++中的BYTE[]转jbyteArray</h4><figure class="highlight mipsasm"><table><tr><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-keyword">jbyte </span>*<span class="hljs-keyword">by </span>= (<span class="hljs-keyword">jbyte*)pData;</span><br><span class="hljs-keyword">jbyteArray </span><span class="hljs-keyword">jarray </span>= env-&gt;NewByteArray(nOutSize);<br>env-&gt;SetByteArrayRegin(<span class="hljs-keyword">jarray, </span><span class="hljs-number">0</span>, nOutSize, <span class="hljs-keyword">by);</span><br></code></pre></td></tr></table></figure>
+<h4 id="jbyteArray-转-char"><a href="#jbyteArray-转-char" class="headerlink" title="jbyteArray 转 char *"></a>jbyteArray 转 char *</h4><figure class="highlight haskell"><table><tr><td class="code"><pre><code class="hljs haskell"><span class="hljs-title">char</span>* <span class="hljs-class"><span class="hljs-keyword">data</span> = (<span class="hljs-title">char</span>*)env-&gt;<span class="hljs-type">GetByteArrayElements</span>(<span class="hljs-title">strIn</span>, 0);</span><br></code></pre></td></tr></table></figure>
+<h4 id="char-转jstring"><a href="#char-转jstring" class="headerlink" title="char* 转jstring"></a>char* 转jstring</h4><figure class="highlight ebnf"><table><tr><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">jstring str</span> = env-&gt;GetStringUTFChars(char_data, NULL);<br></code></pre></td></tr></table></figure>
+<h4 id="jstring-转char"><a href="#jstring-转char" class="headerlink" title="jstring 转char*"></a>jstring 转char*</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *char_data = env-&gt;<span class="hljs-built_in">GetStringUTFChars</span>(jstring_data, <span class="hljs-literal">NULL</span>);<br></code></pre></td></tr></table></figure>
+
+      
+       
+    </div>
+</article>
+
+
+
+
+
+    <div id="comments"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+
+<script type="text/javascript">
+    $.getScript('/js/gitalk.js', function () {
+        var gitalk = new Gitalk({
+            clientID: '07584e1e38d09c739a16',
+            clientSecret: '6a466750b46c76ed9cc8ee0fe0d78e0c33898937',
+            repo: 'yangandmore.github.io',
+            owner: 'Yangandmore',
+            admin: ['Yangandmore'],
+            id: decodeURI(location.pathname),
+            distractionFreeMode: 'true',
+            language: 'zh-CN',
+            perPage: parseInt('10',10)
+        })
+        gitalk.render('comments')
+    })
+</script>
+
+
+
+
+    
+
+
+
+
+    </div>
+    <div class="copyright">
+        <p class="footer-entry">
+    ©2016-2020 Yangandmore
+</p>
+<p class="footer-entry">Built with <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/yelog/hexo-theme-3-hexo" target="_blank">3-hexo</a> theme</p>
+
+    </div>
+    <div class="full-toc">
+        <button class="full" data-title="切换全屏 快捷键 s"><span class="min "></span></button>
+<a class="" id="rocket" ></a>
+
+    </div>
+</div>
+
+</body>
+<script src="/js/jquery.pjax.js?v=1.1.0" ></script>
+
+<script src="/js/script.js?v=1.1.0" ></script>
+<script>
+    var img_resize = 'default';
+    function initArticle() {
+        /*渲染对应的表格样式*/
+        
+            $("#post .pjax table").addClass("green_title");
+        
+
+        /*渲染打赏样式*/
+        
+
+        /*高亮代码块行号*/
+        
+
+        /*访问数量*/
+        
+        $.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+        
+
+        /*代码高亮，行号对齐*/
+        $('.pre-numbering').css('line-height',$('.has-numbering').css('line-height'));
+
+        
+        
+    }
+
+    /*打赏页面隐藏与展示*/
+    
+
+</script>
+
+<!--加入行号的高亮代码块样式-->
+
+<!--自定义样式设置-->
+<style>
+    
+    
+    .nav {
+        width: 542px;
+    }
+    .nav.fullscreen {
+        margin-left: -542px;
+    }
+    .nav-left {
+        width: 120px;
+    }
+    
+    
+    @media screen and (max-width: 1468px) {
+        .nav {
+            width: 492px;
+        }
+        .nav.fullscreen {
+            margin-left: -492px;
+        }
+        .nav-left {
+            width: 100px;
+        }
+    }
+    
+    
+    @media screen and (max-width: 1024px) {
+        .nav {
+            width: 492px;
+            margin-left: -492px
+        }
+        .nav.fullscreen {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 426px) {
+        .nav {
+            width: 100%;
+        }
+        .nav-left {
+            width: 100%;
+        }
+    }
+    
+    
+    .nav-right .title-list nav a .post-title, .nav-right .title-list #local-search-result a .post-title {
+        color: #383636;
+    }
+    
+    
+    .nav-right .title-list nav a .post-date, .nav-right .title-list #local-search-result a .post-date {
+        color: #5e5e5f;
+    }
+    
+    
+    .nav-right nav a.hover, #local-search-result a.hover{
+        background-color: #e2e0e0;
+    }
+    
+    
+
+    /*列表样式*/
+    
+
+    /* 背景图样式 */
+    
+    
+
+
+    /*引用块样式*/
+    
+
+    /*文章列表背景图*/
+    
+
+    
+</style>
+
+
+
+
+
+
+
+</html>
