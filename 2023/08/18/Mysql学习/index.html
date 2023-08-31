@@ -14,7 +14,7 @@
 <meta property="og:description" content="带锁的Map">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-08-18T20:31:00.000Z">
-<meta property="article:modified_time" content="2023-08-29T09:44:57.904Z">
+<meta property="article:modified_time" content="2023-08-30T13:33:39.849Z">
 <meta property="article:author" content="Yang">
 <meta property="article:tag" content="数据库">
 <meta name="twitter:card" content="summary">
@@ -1207,18 +1207,18 @@
         </a>
         
         <a  class="All 设计模式 "
-           href="/2023/02/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F18/"
-           data-tag="设计模式"
-           data-author="" >
-            <span class="post-title" title="设计模式-备忘录">设计模式-备忘录</span>
-            <span class="post-date" title="2023-02-14 10:50:00">2023/02/14</span>
-        </a>
-        
-        <a  class="All 设计模式 "
            href="/2023/02/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F17/"
            data-tag="设计模式"
            data-author="" >
             <span class="post-title" title="设计模式-中介者">设计模式-中介者</span>
+            <span class="post-date" title="2023-02-14 10:50:00">2023/02/14</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/14/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F18/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-备忘录">设计模式-备忘录</span>
             <span class="post-date" title="2023-02-14 10:50:00">2023/02/14</span>
         </a>
         
@@ -1255,18 +1255,18 @@
         </a>
         
         <a  class="All 设计模式 "
-           href="/2023/02/11/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F12/"
-           data-tag="设计模式"
-           data-author="" >
-            <span class="post-title" title="设计模式-代理">设计模式-代理</span>
-            <span class="post-date" title="2023-02-11 07:43:01">2023/02/11</span>
-        </a>
-        
-        <a  class="All 设计模式 "
            href="/2023/02/11/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F13/"
            data-tag="设计模式"
            data-author="" >
             <span class="post-title" title="设计模式-职责链">设计模式-职责链</span>
+            <span class="post-date" title="2023-02-11 07:43:01">2023/02/11</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/11/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F12/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-代理">设计模式-代理</span>
             <span class="post-date" title="2023-02-11 07:43:01">2023/02/11</span>
         </a>
         
@@ -1311,18 +1311,18 @@
         </a>
         
         <a  class="All 设计模式 "
-           href="/2023/02/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F4/"
-           data-tag="设计模式"
-           data-author="" >
-            <span class="post-title" title="设计模式-原型">设计模式-原型</span>
-            <span class="post-date" title="2023-02-02 18:00:35">2023/02/02</span>
-        </a>
-        
-        <a  class="All 设计模式 "
            href="/2023/02/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F5/"
            data-tag="设计模式"
            data-author="" >
             <span class="post-title" title="设计模式-单例">设计模式-单例</span>
+            <span class="post-date" title="2023-02-02 18:00:35">2023/02/02</span>
+        </a>
+        
+        <a  class="All 设计模式 "
+           href="/2023/02/02/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F4/"
+           data-tag="设计模式"
+           data-author="" >
+            <span class="post-title" title="设计模式-原型">设计模式-原型</span>
             <span class="post-date" title="2023-02-02 18:00:35">2023/02/02</span>
         </a>
         
@@ -2603,7 +2603,7 @@
     </div>
     <div class="article-meta">
         
-            Created At : <time class="date" title='Updated At: 2023-08-29 09:44:57'>2023-08-18 20:31</time>
+            Created At : <time class="date" title='Updated At: 2023-08-30 13:33:39'>2023-08-18 20:31</time>
         
     </div>
     <div class="article-meta">
@@ -2652,7 +2652,58 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>MySQL 8.0 版本以后，一条 SQL 的执行流程大致如下所示：</p>
+        <p>1、了解MySQL架构<br>关系型数据库，结构化查询语句。<br>关系型数据库基于表去维护的，格式是一致的，可以统一用sql语言去操作，没有kv结构灵活，性能也没有那么高。</p>
+<p>系统库<br>mysql，系统信息表。如权限、插件、主题、帮助。<br>information_schema，日志、innodb等数据、线程。<br>performance_schema,</p>
+<p>2、一条sql执行要需要什么？</p>
+<ol>
+<li>跟服务器建立连接<ol>
+<li>变量来管理连接<br> Threads_cached 缓存线程数<br> Threads_created 打开线程数(show full processlist , 删除链接kill xxxx)</li>
+<li>配置(set @@GLOBAL.max_connections=10;)<br> max_connections 服务最大的开启数（默认151）<br> wait_timeout 等待时间，超过则关闭（默认8小时）。</li>
+</ol>
+</li>
+<li>解析器：词法+语法解析器</li>
+<li>预处理：提供该功能，但可以控制是否使用<br> (prepare pre_product from ‘select * from product where name=?’;)<br> (set @name=’OR 1=1 —‘)<br> (execute pre_product using @name)<ol>
+<li>可以提升性能：预处理了sql语句，只需要配置参数即可</li>
+<li>防止sql注入：因为参数化执行，不是拼接参数</li>
+</ol>
+</li>
+<li>优化器：基于服务最快方式执行语句，基于内存、cpu消化等情况<ol>
+<li>可配置<code>--optimizer_switch</code><br>(select @@optimizer_switch)</li>
+</ol>
+</li>
+<li>执行器<br> 存储成：用来真正存执行、储数据，基于不同存储引擎来做不同的操作（相当于插件）。<br> (select @@datadir)</li>
+</ol>
+<p>3、innoDB储存引擎<br>会保存到磁盘，并且每个表都会有一个ibd文件。<br>表空间：数据如何存储到磁盘的。</p>
+<p>独立表空间：每个表都有一个独立的ibd数据文件（默认开启select @@innodb_file_per_table）<br>系统表空间：所有的表数据都在一个文件或多个指定文件，ibdata文件(innodb_data_file_path)<br>通用表空间：可以自己指定哪个表到哪个文件（create tablespace huihui_namespace datafile add ‘/path/path.ibd’ engine=innodb）</p>
+<p>文件如何保存的？<br>最底层、原子单位为行、row。不是通过row直接保存文件的。<br>page页，class结构，里面保存的是行数据，page是保存到文件里面的。页的大小数是可以设置的(innodb_page_size,默认16k)。一个page页能保存的行数据也是有大小的，行为4k，这一页保存4行数据<br>extent区 会有很多的page页，默认64个page页<br>segement段，分为数据段、索引段、目录段等</p>
+<p>bufferpool 内存区间，防止每次实时的跟磁盘进行交互。<br>假如：select where id=5的数据<br>之前，每次查询都需要与磁盘进行IO<br>之后，先判断bufferpool有木有这个数据，如果有直接返回，如果没有才需要到磁盘进行交互，并且保存到bufferpool。保存的数据所在的page页。</p>
+<p>bufferpool与磁盘的交互最小单位是整个page页，默认是128M。(innodb_bufferpool_size)</p>
+<p><strong>内存和磁盘的一致性问题</strong><br>改数据就会有先后顺序问题。</p>
+<ol>
+<li>只更改内存，然后异步的方式去同步到磁盘，改了内存的数据，如果还没有同步到磁盘，那么这个页叫做脏页（数据和磁盘不一致的页）。(刷脏 innodb_page_cleaners)<br> 刷脏逻辑：<ol>
+<li>自适应，根据脏页产生的频率来修改刷脏的频率，这里也有很多配置</li>
+<li>redolog自适应，如果快满了则会刷脏</li>
+<li>空闲的时候会去刷脏，每次刷脏的百分比</li>
+<li>服务正常关闭，肯定会保证脏页能够保存到磁盘</li>
+<li>如果内存没有同步到磁盘数据，则会根据redolog日志恢复，redolog只要去保存内存跟内存磁盘不一致的数据就可以了，redolog是同步的。redolog保证了数据修改。</li>
+<li>结构 type | spaceId | page number | 修改数据</li>
+<li>redolog只保存在磁盘中，(innodb_red_log_capacity文件大小)，拆分成不同文件保存不同的位置默认32个。如果过多则会覆盖。</li>
+<li>redolog数据为顺序io，因此速度较快。另外page页太大，因此数据交互量大</li>
+<li>根据redolog，提供redolog buffer，先保存到内存里面。提供了选择(select @@innodb_flush_log_at_trx_commit; 1必须刷新到磁盘才能成功 0每秒刷新一次 2交给操作系统刷新)</li>
+</ol>
+</li>
+</ol>
+<p>1、何为索引，解决了什么问题？<br>提升性能<br>能够根据特定的列（多个）来提高查询的性能</p>
+<p>查询索引<br>hash(k-v)：memory 根据单条去查询是不是非常快，但是不支持范围查询<br>B+：innodb，myisam</p>
+<p>索引原理<br>这个页的数据是排序好的，并且每行数据是一个单链链表，能够在某个页里面快速找到数据<br>二分法。 有序</p>
+<p>page，是内存和磁盘交互的最小单元，因此需要跟磁盘交互非常大的次数，导致磁盘io开销大，影响了性能。<br>索引的作用能够快速根据字段来查询，空间换时间。<br>遍历的页数，只跟这个数的层级有关，并且层级越低io次数越少，因此为什么不用二叉树，因为层数过高导致次数过多。<br>B+树 比较稳定，都需要较小的次数完成<br>B树 同样的层级，放的数据越少，同样的数据量我的树的层级越高<br>但是不一定比B+树慢，但是整体慢。</p>
+<p>B+树默认是需要排序的。因为主键id是一定有 序的，唯一的，因此都会基于主键id创建一个这样的索引书，主键、聚集、聚簇索引树，并且这个树下的叶子节点会有我们完整的数据。即使没有主键，也会默认的row_id来创建索引。<br>二级索引，<br>单列二级索引：除了主键索引都是二级索引，但是没有这行数据完整数据row，只包含主键id。可以重复<br>联合二级索引：先根据第一个字段排，相等则根据第二个排。</p>
+<p>索引失效<br>回表</p>
+<p>覆盖索引</p>
+<p>2、从设计者角度来理解索引为何用B+树</p>
+<p>3、二级索引、覆盖索引、主键索引、回表概念一网打尽</p>
+<p>4、通过面试题来举一反三</p>
+<p>MySQL 8.0 版本以后，一条 SQL 的执行流程大致如下所示：</p>
 <ol>
 <li>解析器（Parser）：该阶段将客户端发送的 SQL 查询文本进行解析，将其转换为内部数据结构。解析器会验证语法的正确性，并生成语法树或其他数据结构。</li>
 <li>预处理器（Preprocessor）：在这个阶段，MySQL 会进行一些前处理工作，如展开视图、执行宏替换等。这是为了准备查询进入优化器阶段。</li>
